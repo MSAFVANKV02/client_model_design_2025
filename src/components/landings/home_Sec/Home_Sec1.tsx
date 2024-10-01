@@ -1,10 +1,11 @@
-import { Button } from '@/components/ui/button';
-import { useWindowWidth } from '@react-hook/window-size';
-import React from 'react'
+import { Button } from "@/components/ui/button";
+import { useWindowWidth } from "@react-hook/window-size";
+import React from "react";
+import { Link } from "react-router-dom";
 
 function HomeSec1() {
-    const onlyWidth = useWindowWidth();
-    const mobileSize = onlyWidth < 768;
+  const onlyWidth = useWindowWidth();
+  const mobileSize = onlyWidth < 768;
   return (
     <div
       className="w-full relative 2xl:pl-24 xl:pl-20 md:pl-14 sm:pl-10 sm:px-0 px-5 mx-auto flex lg:flex-row flex-col gap-4"
@@ -30,11 +31,13 @@ function HomeSec1() {
           </p>
         </div>
         <div className="">
-          <Button variant="b2bStyle">Get Started</Button>
+          <Button variant="b2bStyle">
+            <Link to={`/register`}>Get Started</Link>
+          </Button>
         </div>
       </div>
       {/*  */}
-      <div className="lg:h-screen lg:w-[60%] w-full">
+      <div className="lg:h-screen relative lg:w-[60%] w-full">
         <img
           src={`${
             mobileSize
@@ -45,9 +48,27 @@ function HomeSec1() {
           draggable={false}
           className="lg:float-end lg:h-screen w-full "
         />
+        <div className="lg:absolute  lg:-translate-y-3/4 lg:top-[60%] 2xl:right-40 right-10 flex flex-col items-center lg:gap-10 gap-5">
+          <img
+            src="/src/assets/images/Background Images/Curvy_arrow_image.png"
+            alt=""
+            className="lg:w-auto w-28"
+          />
+          <Link to={`/register`} className="bg-textMain text-center rounded-md">
+            <Button variant="b2bStyle" className="lg:py-6 lg:px-5">
+              {" "}
+              Register Now
+            </Button>
+          </Link>
+          <img
+            src="/src/assets/images/Background Images/Curvy_arrow_image.png"
+            alt=""
+            className="g:w-auto w-28 rotate-180 "
+          />
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default HomeSec1
+export default HomeSec1;
