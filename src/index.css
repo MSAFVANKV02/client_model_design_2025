@@ -68,7 +68,7 @@
 }
 
 p {
-  font-size: clamp(0.6rem, 2.5vw, 1rem); /* Scales from 16px to 20px */
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem); /* Scales from 16px to 20px */
 }
 h1 {
   font-size: clamp(2rem, 5vw, 3rem); /* Scales from 32px to 56px */
@@ -81,6 +81,19 @@ h3 {
 }
 h4 {
   font-size: clamp(1.15rem, 2.5vw, 1.5rem); /* Scales from 20px to 32px */
+}
+
+html{
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+*{
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
 }
 
 @layer base {
