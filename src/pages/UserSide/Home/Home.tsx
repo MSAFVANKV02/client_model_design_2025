@@ -7,7 +7,7 @@ import HomeSec3 from "@/components/landings/home_Sec/Home_Sec3";
 import HomeSec4 from "@/components/landings/home_Sec/Home_Sec4";
 import HomeSec5 from "@/components/landings/home_Sec/Home_Sec5";
 
-function Home() {
+function HomePage() {
   // const onlyWidth = useWindowWidth();
   // const mobileSize = onlyWidth < 768;
   return (
@@ -28,4 +28,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;

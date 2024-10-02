@@ -50,7 +50,7 @@ function AboutSec4() {
         </div>
       </div>
       {/* ======= */}
-      <div className="h-fit py-3 bg-combined-gradients flex md:flex-row flex-col space-y-3 justify-between section_container items-center">
+      <div className="h-fit py-3 bg-combined-gradients flex md:flex-row flex-col space-y-3 justify-between 2xl:px-24 xl:px-20 md:px-14 sm:px-10 px-5 mx-auto items-center">
         <div className="flex flex-col gap-3">
           <h4 className="font-semibold capitalize">Download</h4>
           <h4 className="font-semibold capitalize">ODIO App Now!</h4>

@@ -32,7 +32,7 @@ interface FormData {
   mobile4OTP: string;
 }
 
-function Register() {
+function UserLogin() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -40,7 +40,7 @@ function Register() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       mobile: "",
-      mobile4OTP: "", 
+      mobile4OTP: "", // Initialize mobile4OTP to an empty string
     },
   });
 
@@ -48,26 +48,16 @@ function Register() {
   const onSubmit = async (data: FormData) => {
     try {
       setLoading(true);
-      const response = await axios.post(`/user/sendOtp`, {
-        mobile: data.mobile,
-        // mobile4OTP: data.mobile4OTP,
+      const response = await axios.post(`/user/sendOtpForLogin`, {
+        mobile4OTP: data.mobile4OTP,
       });
       if (response.status === 200) {
-        if (!response.data.checkExistence) {
-          makeToastError("Phone number already exists.");
-          navigate(`/register/user-details?auth=${data.mobile}`);
-        } else {
-          makeToast(`Otp Sended to ${data.mobile4OTP}`);
-          navigate(`/register/otp-verification?auth=${data.mobile}`);
-        }
+        makeToast(`Otp Sended to ${data.mobile4OTP}`);
+        navigate(`/login?page=otp-verification&auth=${data.mobile4OTP}`);
       }
     } catch (error: unknown) {
       setLoading(false);
       if (axios.isAxiosError(error)) {
-        // console.log(
-        //   "Error sending OTP:",
-        //   error.response?.data.message || error.message
-        // );
         if (error.response?.data.success === false) {
           makeToastError(error.response?.data.message);
         }
@@ -80,46 +70,57 @@ function Register() {
   };
 
   return (
-    <div className="h-screen w-screen flex relative">
+    <div className="h-screen w-screen flex items-center justify-center relative">
+      {/* Main Container */}
+      <img src="/src/assets/images/Background Images/Group 1109.svg" alt="" className="absolute w-full h-full object-cover"/>
+      <div className="flex flex-col lg:flex-row w-full max-w-5xl h-auto bg-white shadow-lg rounded-3xl overflow-hidden">
+        
+        {/* Image Section */}
+        <div className="hidden lg:block lg:w-3/4 relative">
+          <img
+            src="/src/assets/images/Hero Images/login_main.png"
+            alt="login"
+            className="w-full h-full object-cover"
+          />
+        </div>
 
-      <img
-        src="/src/assets/images/Background Images/Group 1109.svg"
-        alt=""
-        className="absolute object-cover top-0 left-0 bottom-0 right-0 w-full h-full"
-      />
-
-      <div className="bg-[#F5E9FF] max-w-[350px] h-fit backdrop-blur-2xl rounded-2xl p-5 flex flex-col gap-3 m-auto">
-
-        <ArrowLeft onClick={() => navigate("/")} className="cursor-pointer" />
-
-        <div className="flex flex-col w-full justify-center items-center space-y-5">
+        {/* Form Section */}
+        <div className="w-full lg:w-1/2 p-8 relative bg-[#F5E9FF] flex flex-col justify-center items-center">
+          <ArrowLeft
+            onClick={() => navigate("/")}
+            className="absolute top-4 left-4 cursor-pointer"
+          />
           <img
             src="/src/assets/images/Background Images/Group 1107.png"
-            alt="login page b2b"
-            className="w-32 h-32"
+            alt="logo"
+            className="w-28 h-28 mb-4"
           />
-          <p className="font-bold">Enter Mobile Number</p>
-          <p className="text-gray-400 text-center">
+          <p className="font-bold text-xl mb-2">Enter Mobile Number</p>
+          <p className="text-gray-500 text-center mb-6">
             Enter your 10-digit mobile number to receive the verification code.
           </p>
+          
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-full space-y-6"
+            >
               <FormField
                 control={form.control}
                 name="mobile"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex items-start my-2">
-                      Mobile Number
-                    </FormLabel>
+                    <FormLabel className="mb-2">Mobile Number</FormLabel>
                     <FormControl>
                       <PhoneInput
                         country={"in"}
                         preferredCountries={["in", "us", "sa", "ae"]}
                         enableSearch={true}
-                        placeholder="Valid mobile"
+                        placeholder="Valid mobile number"
                         value={field.value}
+                        inputStyle={{ width: "100%" }}
+                        // dropdownStyle={{backgroundColor:"transparent"}}
+                        buttonStyle={{backgroundColor:"transparent",border:"none"}}
                         onChange={(value, data: CountryData) => {
                           const dialCode = data?.dialCode || "";
                           let phoneNumber = value;
@@ -131,19 +132,19 @@ function Register() {
                           form.setValue("mobile", `${dialCode}-${phoneNumber}`);
                           form.setValue("mobile4OTP", phoneNumber);
                         }}
-                        inputClass="w-full p-3 mt-1 rounded-sm border border-gray-300"
+                        inputClass="w-full p-6 border border-gray-300  rounded"
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
+
               <Button
                 type="submit"
                 disabled={loading}
                 variant="b2bStyle"
                 className="w-full"
-                size="b2b"
               >
                 {loading ? (
                   <ClipLoader color="#ffff" size={20} />
@@ -154,10 +155,9 @@ function Register() {
             </form>
           </Form>
         </div>
-
       </div>
     </div>
   );
 }
 
-export default Register;
+export default UserLogin;

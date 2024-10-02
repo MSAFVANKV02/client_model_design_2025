@@ -40,7 +40,7 @@ type IFormData = {
 
 function UserDetails() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -56,7 +56,7 @@ function UserDetails() {
   // Handle form submission
   const onSubmit = async (data: IFormData) => {
     try {
-        setLoading(true);
+      setLoading(true);
       const response = await axios.post(`/user/sendOtp`, data);
       if (response.status === 200) {
         console.log("Data sent successfully");
@@ -72,7 +72,7 @@ function UserDetails() {
         console.log("Unexpected error:", error);
       }
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -91,7 +91,9 @@ function UserDetails() {
         <div className="flex flex-col w-full   space-y-5">
           <div className="">
             <h4 className="font-bold">Enter Account Information</h4>
-            <p className="text-gray-400 text-sm">Register your business on odio</p>
+            <p className="text-gray-400 text-sm">
+              Register your business on odio
+            </p>
           </div>
 
           <Form {...form}>
@@ -106,7 +108,9 @@ function UserDetails() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor="name" className="text-base">Your Name</FormLabel>
+                      <FormLabel htmlFor="name" className="text-base">
+                        Your Name
+                      </FormLabel>
                       <FormControl>
                         <input
                           placeholder="Enter your name"
@@ -125,7 +129,7 @@ function UserDetails() {
                   name="shopName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor="shopName"  className="text-base">
+                      <FormLabel htmlFor="shopName" className="text-base">
                         Business or Shop Name
                       </FormLabel>
                       <FormControl>
@@ -146,7 +150,9 @@ function UserDetails() {
                   name="pinCode"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor="pinCode"  className="text-base">PinCode</FormLabel>
+                      <FormLabel htmlFor="pinCode" className="text-base">
+                        PinCode
+                      </FormLabel>
                       <FormControl>
                         <input
                           placeholder="Enter your pin code"
@@ -216,18 +222,11 @@ function UserDetails() {
                   className="w-full  "
                   size={`b2b`}
                 >
-                    {
-                        loading? (
-                          <ClipLoader 
-                            color="#ffff"
-                            size={20}
-                          />
-                        ) : (
-                          "Continue"
-                        )
-  
-                    }
-                   
+                  {loading ? (
+                    <ClipLoader color="#ffff" size={20} />
+                  ) : (
+                    "Continue"
+                  )}
                 </Button>
               </form>
             </>

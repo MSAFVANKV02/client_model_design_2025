@@ -11,8 +11,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useNavigate } from "react-router-dom";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import { useEffect, useRef } from "react";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { makeToast, makeToastError } from "@/utils/toaster";
+import ClipLoader from "react-spinners/ClipLoader";
 // Define the Zod schema for OTP validation
 const formSchema = z.object({
   otp: z
@@ -27,11 +34,39 @@ interface FormData {
 
 function OtpVerificationPage() {
   const navigate = useNavigate();
-  const firstInputRef = useRef<HTMLInputElement | null>(null); 
+  const firstInputRef = useRef<HTMLInputElement | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [timer, setTimer] = useState(60); // 60 seconds countdown
+  const [isResendVisible, setIsResendVisible] = useState(false); // But
+
+  const queryParams = new URLSearchParams(window.location.search);
+  const auth = queryParams.get("auth");
+
   useEffect(() => {
     if (firstInputRef.current) {
-      firstInputRef.current.focus(); // Set focus to the first input field
+      firstInputRef.current.focus();
     }
+  }, []);
+
+  useEffect(() => {
+    if (!auth || auth.length !== 10) {
+      navigate("/register");
+    }
+  }, [navigate, auth]);
+
+  // useffect for timer
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer((prevTimer) => {
+        if (prevTimer === 1) {
+          clearInterval(interval);
+          setIsResendVisible(true); // Show the resend button after 60 seconds
+        }
+        return prevTimer - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval); // Clear the interval when the component unmounts
   }, []);
 
   const form = useForm<FormData>({
@@ -42,13 +77,74 @@ function OtpVerificationPage() {
   });
 
   // Handle form submission
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     console.log(`OTP entered: ${data.otp}`);
-    navigate("/register/user-details");
+
+    try {
+      const response = await axios.post(`/user/verifyOtp`, {
+        otp: data.otp,
+        mobile4OTP: auth,
+      });
+
+      if (response.status === 200) {
+        if(response.data.success){
+          makeToast("Otp Verified Successfully.");
+          // Navigate to the user details page
+          navigate(`/register/user-details?auth=${auth}`);
+        }
+      }
+    } catch (error: unknown) {
+      setLoading(false);
+      if (axios.isAxiosError(error)) {
+        // console.log(
+        //   "Error sending OTP:",
+        //   error.response?.data || error.message
+        // );
+        if (error.response?.status === 500) {
+          makeToastError('Enter Valid Mobile');
+        } else if (error.response?.data.success === false) {
+          makeToastError(error.response?.data.message);
+        }
+      } else {
+        // console.log("Unexpected error:", error);
+      }
+    }
 
     // Here, you can add your logic to send the OTP for verification
     // e.g., making an API call to verify the OTP
   };
+
+
+  // # ====  Resend the OTP =================
+  const handleResendOtp = async () =>{
+    try {
+     
+      setLoading(true);
+      const response = await axios.post(`/user/resendOtp`, {
+        mobile4OTP: auth,
+      });
+      if (response.status === 200) {
+        makeToast("OTP Resent Successfully");
+        setTimer(60); 
+        setIsResendVisible(false); 
+      }
+    } catch (error: unknown) {
+      setLoading(false);
+      if (axios.isAxiosError(error)) {
+        // console.log(
+        //   "Error sending OTP:",
+        //   error.response?.data.message || error.message
+        // );
+        if (error.response?.data.success === false) {
+          makeToastError(error.response?.data.message);
+        }
+      } else {
+        console.log("Unexpected error:", error);
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="h-screen w-screen flex relative">
@@ -58,10 +154,13 @@ function OtpVerificationPage() {
         className="absolute object-cover top-0 left-0 bottom-0 right-0 w-full h-full"
       />
       <div className="bg-[#F5E9FF] max-w-[350px] h-fit backdrop-blur-2xl rounded-2xl p-5 flex flex-col gap-3 m-auto">
-        <ArrowLeft onClick={() => navigate("/register")} className="cursor-pointer" />
+        <ArrowLeft
+          onClick={() => navigate("/register")}
+          className="cursor-pointer"
+        />
         <div className="flex flex-col w-full justify-center items-center space-y-5">
           <img
-            src="/src/assets/images/Background Images/Group 1107.png"
+            src="/src/assets/images/Background Images/Group 1117.png"
             alt="login page b2b"
             className="w-28 h-28"
           />
@@ -91,7 +190,7 @@ function OtpVerificationPage() {
                             <InputOTPSlot
                               key={index}
                               index={index}
-                              ref={firstInputRef }
+                              ref={firstInputRef}
                               className="border text-center text-xl rounded-md bg-white border-black"
                               onChange={(e) => {
                                 const target = e.target as HTMLInputElement; // Cast target to HTMLInputElement
@@ -107,8 +206,32 @@ function OtpVerificationPage() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" variant="b2bStyle" className="w-full" size="b2b">
-                Verify OTP
+
+              {/* Resend Otp Button */}
+              {isResendVisible ? (
+                <p
+                  className="text-center text-sm hover:underline cursor-pointer text-blue-400"
+                  onClick={handleResendOtp}
+                >
+                  Resend Otp
+                </p>
+              ) : (
+                <p className="text-center text-sm text-gray-500">
+                  Resend in {timer} seconds
+                </p>
+              )}
+
+              <Button
+                type="submit"
+                variant="b2bStyle"
+                className="w-full"
+                size="b2b"
+              >
+                {loading ? (
+                  <ClipLoader color="#ffff" size={20} />
+                ) : (
+                  " Verify OTP"
+                )}
               </Button>
             </form>
           </Form>

@@ -54,7 +54,7 @@ function HomeSec1() {
             alt=""
             className="lg:w-auto w-28"
           />
-          <Link to={`/register`} className="bg-textMain text-center rounded-md">
+          <Link to={`/register`} className="bg-textMain text-center rounded-md active:scale-75 duration-500 transition-all">
             <Button variant="b2bStyle" className="lg:py-6 lg:px-5">
               {" "}
               Register Now
@@ -63,7 +63,7 @@ function HomeSec1() {
           <img
             src="/src/assets/images/Background Images/Curvy_arrow_image.png"
             alt=""
-            className="g:w-auto w-28 rotate-180 "
+            className="lg:w-auto w-28 rotate-180 "
           />
         </div>
       </div>
