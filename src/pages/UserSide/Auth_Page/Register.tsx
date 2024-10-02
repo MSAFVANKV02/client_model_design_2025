@@ -1,12 +1,11 @@
 import { Button } from "@/components/ui/button";
-// import { Input } from "@/components/ui/input";
 import { ArrowLeft } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import PhoneInput, { CountryData } from "react-phone-input-2";
+import { makeToast, makeToastError } from "@/utils/toaster";
 import "react-phone-input-2/lib/style.css";
-
 import {
   Form,
   FormControl,
@@ -17,64 +16,77 @@ import {
 } from "@/components/ui/form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { log } from "console";
+import ClipLoader from "react-spinners/ClipLoader";
+import { useState } from "react";
 
 // Define the Zod schema for phone number validation
 const formSchema = z.object({
-  phone: z
+  mobile: z
     .string()
-    .min(10, { message: "Phone number must be exactly 10 digits." })
-    // .max(10, { message: "Phone number must not exceed 10 digits." })
-    // .regex(/^\d+$/, { message: "Phone number must only contain digits." }),
+    .min(10, { message: "Phone number must be exactly 10 digits." }),
+  mobile4OTP: z.string().min(1, { message: "Mobile number is required." }), // Add validation for mobile4OTP if necessary
 });
 
 interface FormData {
-  phone: string;
+  mobile: string;
+  mobile4OTP: string;
 }
 
 function Register() {
-  // const location = useLocation();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const form = useForm({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      phone: "",
+      mobile: "",
+      mobile4OTP: "", // Initialize mobile4OTP to an empty string
     },
   });
 
   // Handle form submission
   const onSubmit = async (data: FormData) => {
-    // console.log(`Phone number: ${data.phone}`);
+    console.log(`Phone number: ${data.mobile4OTP}`); // Should log the correct mobile number
     try {
-      const response = await axios.post(`/user/sendOtp`,{data})
-      if(response.status === 200) {
-        console.log("OTP sent successfully");
-        navigate('/register/otp-verification')
+      setLoading(true);
+      const response = await axios.post(`/user/sendOtp`, {
+        mobile: data.mobile,
+        mobile4OTP: data.mobile4OTP,
+      });
+      if (response.status === 200) {
+        // console.log("OTP sent successfully");
+        makeToast(`Otp Sended to ${data.mobile4OTP}`);
+        navigate(`/register/otp-verification?auth=${data.mobile4OTP}`);
       }
-    } catch (error:any) {
-      console.log(error);
-      
+    } catch (error: unknown) {
+
+      setLoading(false);
+      if (axios.isAxiosError(error)) {
+        console.log(
+          "Error sending OTP:",
+          error.response?.data.message || error.message
+        );
+        if(error.response?.data.success === false){
+          makeToastError(error.response?.data.message)
+        }
+      } else {
+        console.log("Unexpected error:", error);
+      }
+    } finally {
+      setLoading(false);
     }
-    navigate('/register/otp-verification')
   };
 
   return (
-    <div
-      className="h-screen w-screen flex  relative"
-      // style={{
-      //   backgroundImage:
-      //     "url(/src/assets/images/Background Images/Group 1109.svg)",
-      // }}
-    >
+    <div className="h-screen w-screen flex relative">
       <img
         src="/src/assets/images/Background Images/Group 1109.svg"
         alt=""
         className="absolute object-cover top-0 left-0 bottom-0 right-0 w-full h-full"
       />
-      <div className="bg-[#F5E9FF]  max-w-[350px] h-fit backdrop-blur-2xl rounded-2xl p-5 flex flex-col gap-3 m-auto">
+      <div className="bg-[#F5E9FF] max-w-[350px] h-fit backdrop-blur-2xl rounded-2xl p-5 flex flex-col gap-3 m-auto">
         <ArrowLeft onClick={() => navigate("/")} className="cursor-pointer" />
-        <div className="flex flex-col w-full justify-center items-center  space-y-5">
+        <div className="flex flex-col w-full justify-center items-center space-y-5">
           <img
             src="/src/assets/images/Background Images/Group 1107.png"
             alt="login page b2b"
@@ -86,17 +98,15 @@ function Register() {
           </p>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              {/* Phone Input Field */}
               <FormField
                 control={form.control}
-                name="phone"
+                name="mobile"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="flex items-start my-2">
                       Mobile Number
                     </FormLabel>
                     <FormControl>
-                      {/* <Input placeholder="Enter your phone number" {...field} /> */}
                       <PhoneInput
                         country={"in"}
                         preferredCountries={["in", "us", "sa", "ae"]}
@@ -107,31 +117,32 @@ function Register() {
                           const dialCode = data?.dialCode || "";
                           let phoneNumber = value;
 
-                          // Check if the dial code is already part of the phone number
                           if (phoneNumber.startsWith(dialCode)) {
-                            // Remove the dial code from the beginning of the phone number
-                            phoneNumber = phoneNumber.slice(
-                              dialCode.length
-                            );
+                            phoneNumber = phoneNumber.slice(dialCode.length);
                           }
 
-                          console.log(`Formatted Phone Number: ${dialCode}`);
-                          form.setValue("phone",  `${dialCode}-${phoneNumber}`);
-
-                          // field.onChange(phoneNumber); // Update the form state
+                          // Update form values
+                          form.setValue("mobile", `${dialCode}-${phoneNumber}`);
+                          form.setValue("mobile4OTP", phoneNumber); // Set the mobile4OTP
                         }}
                         inputClass="w-full p-3 mt-1 rounded-sm border border-gray-300"
                       />
                     </FormControl>
-                    {/* <FormDescription>
-                Enter your 10-digit mobile number to receive the verification code.
-              </FormDescription> */}
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit" variant="b2bStyle" className="w-full">
-                Get Verification Code
+              <Button
+                type="submit"
+                variant="b2bStyle"
+                className="w-full"
+                size="b2b"
+              >
+                {loading ? (
+                  <ClipLoader color="#ffff" size={20} />
+                ) : (
+                  " Get Verification Code"
+                )}
               </Button>
             </form>
           </Form>

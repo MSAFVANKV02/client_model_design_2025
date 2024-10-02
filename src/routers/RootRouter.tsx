@@ -1,9 +1,10 @@
 import App from "@/App";
-import About from "@/pages/UserSide/About";
-// import ProtectedRoute from "@/middlewares/ProtectedRoute";
-import Home from "@/pages/UserSide/Home";
-import OtpVerificationPage from "@/pages/UserSide/OtpVerificationPage";
-import Register from "@/pages/UserSide/Register";
+import About from "@/pages/UserSide/About/About";
+
+import OtpVerificationPage from "@/pages/UserSide/Auth_Page/OtpVerificationPage";
+import Register from "@/pages/UserSide/Auth_Page/Register";
+import UserDetails from "@/pages/UserSide/Auth_Page/UserDetails";
+import { Home } from "lucide-react";
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -33,6 +34,10 @@ const rootRouter = createBrowserRouter([
             {
                 path:"/register/otp-verification",
                 element: <OtpVerificationPage/>
+            },
+            {
+                path:"/register/user-details",
+                element: <UserDetails/>
             },
         ]
     }

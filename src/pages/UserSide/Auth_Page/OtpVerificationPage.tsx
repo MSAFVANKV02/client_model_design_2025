@@ -8,7 +8,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { useNavigate } from "react-router-dom";
@@ -45,6 +44,8 @@ function OtpVerificationPage() {
   // Handle form submission
   const onSubmit = (data: FormData) => {
     console.log(`OTP entered: ${data.otp}`);
+    navigate("/register/user-details");
+
     // Here, you can add your logic to send the OTP for verification
     // e.g., making an API call to verify the OTP
   };
@@ -76,9 +77,9 @@ function OtpVerificationPage() {
                 name="otp"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex items-start my-2">
+                    {/* <FormLabel className="flex items-start my-2">
                       Verify Your OTP
-                    </FormLabel>
+                    </FormLabel> */}
                     <FormControl>
                       <InputOTP
                         maxLength={6}
@@ -106,7 +107,7 @@ function OtpVerificationPage() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" variant="b2bStyle" className="w-full">
+              <Button type="submit" variant="b2bStyle" className="w-full" size="b2b">
                 Verify OTP
               </Button>
             </form>

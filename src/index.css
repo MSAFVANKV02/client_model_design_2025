@@ -83,6 +83,10 @@ h4 {
   font-size: clamp(1.15rem, 2.5vw, 1.5rem); /* Scales from 20px to 32px */
 }
 
+label{
+  margin: 0px 0px 0px 0px !important;
+}
+
 html{
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
