@@ -8,11 +8,11 @@ import UserDetails from "@/pages/UserSide/Auth_Page/UserDetails";
 import UserLogin from "@/pages/UserSide/Auth_Page/UserLoginPage/UserLogin";
 import HomePage from "@/pages/UserSide/Home/Home";
 import KycDetails from "@/pages/UserSide/UserKycPage/KycDetails/KycDetails";
-import KycHome from "@/pages/UserSide/UserKycPage/KycLandings/KycHome";
 import KycLayout from "@/KycLayout";
 
 
 import { createBrowserRouter } from "react-router-dom";
+import KycHome from "@/pages/UserSide/UserKycPage/KycHome";
 
 const rootRouter = createBrowserRouter([
   {

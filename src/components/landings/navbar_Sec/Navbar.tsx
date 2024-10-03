@@ -1,8 +1,8 @@
-
 import { Icon } from "@iconify/react";
 import { HomeIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
+import { Input } from "@/components/ui/input";
 
 function Navbar() {
   const location = useLocation();
@@ -35,10 +35,10 @@ function Navbar() {
     >
       <div className="flex justify-between w-full">
         <Link className="flex gap-2 group items-center select-none" to="/">
-          <div className="h-10 relative w-10  rounded-xl bg-textMain flex items-center justify-center overflow-hidden">
+          <div className="h-10 relative w-10  rounded-2xl bg-textMain flex items-center justify-center overflow-hidden">
             {/* Image slides to the left */}
             <img
-              src="/src/assets/images/logo/logoiconWhite.png"
+              src="/src/assets/images/logo/flower_ayaboo.png"
               alt="navbar logo"
               className="absolute w-[50%]  group-hover:w-0 group-hover:translate-x-[-150%] transition-all duration-300 ease-in"
             />
@@ -54,7 +54,24 @@ function Navbar() {
           <h4 className="font-bold">Ayaboo</h4>
         </Link>
 
-        
+        <div className="flex items-center gap-16">
+          {/* ==== Search Bar  starting------ */}
+
+          <div className="md:flex hidden items-center border rounded-lg h-fit overflow-hidden">
+            <Input type="text" placeholder="Search" className="border-none outline-none w-[300px] h-full" />
+            <Icon icon={`mynaui:search`} fontSize={25} className="text-gray-400"/>
+          </div>
+          {/* ==== Search Bar ending ------ */}
+
+          {/*  Icons Starting === */}
+          <div className="md:flex hidden items-center gap-6">
+          <Icon icon={`iconamoon:profile-circle-fill`} fontSize={25} className=""/>
+          <Icon icon={`ph:bell-light`} fontSize={25} className=""/>
+          <Icon icon={`mynaui:cart`} fontSize={25} className=""/>
+
+          </div>
+        </div>
+
         <div className="md:hidden block">
           <Sidebar navItems={navItems} />
         </div>

@@ -51,13 +51,7 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
     >
       {/* Hamburger Icon for opening the Drawer */}
       <DrawerTrigger asChild>
-        <Button
-          // onClick={() => setIsOpen(true)}
-          variant="outline"
-          className="border-none px-0 py-0 h-0"
-        >
-          <Icon icon={"quill:hamburger"} />
-        </Button>
+      <Icon icon={"quill:hamburger"} fontSize={30} className="text-textMain"/>
       </DrawerTrigger>
 
       {/* Drawer Content */}

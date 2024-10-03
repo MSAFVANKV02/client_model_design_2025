@@ -5,7 +5,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
@@ -36,9 +36,10 @@ type Props = {
 export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("")
   const [timer, setTimer] = useState<number>(() => {
     const savedTimer = localStorage.getItem("otp-timer");
-    return savedTimer ? Number(savedTimer) : 3; // Load timer from localStorage or start at 3
+    return savedTimer ? Number(savedTimer) : 60; // Load timer from localStorage or start at 3
   });
   const [isResendVisible, setIsResendVisible] = useState<boolean>(() => {
     const isFinished = localStorage.getItem("otp-finished") === "true";
@@ -95,16 +96,33 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
         otp: data.otp,
         mobile: auth,
       });
+console.log(response.data);
 
       if (response.status === 200 && response.data.success) {
+        if (response.data.user) {
+          // if(response.data.user.){
 
-        if(response.data.user.kycApproved){
-          makeToast("Otp Verified Successfully.");
-          navigate(`/dashboard/`);
-        }else{
-          makeToast("Your account has been Processing....");
+          // }
+          if (
+            response.data.user.kycApproved &&
+            response.data.user.kycApproved &&
+            response.data.user.isRegistered
+          ) {
+            makeToast("Otp Verified Successfully.");
+            navigate(`/dashboard`);
+          } else if (
+            response.data.user.isVerified &&
+            !response.data.user.isRegistered
+          ) {
+            makeToast("Your account is under Processing....");
+            navigate(`/register/user-details?auth=${auth}`);
+          } else {
+            makeToast("Your account is under Processing....");
+            setMessage("Your account is under Processing")
+            // navigate(`/register`);
+          }
         }
-      
+
         // You can navigate to the desired page here
       }
     } catch (error: unknown) {
@@ -128,9 +146,9 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
         makeToast("OTP Resent Successfully");
 
         // Reset the timer to 3 seconds
-        setTimer(3);
+        setTimer(60);
         setIsResendVisible(false);
-        localStorage.setItem("otp-timer", "3"); // Save new timer in localStorage
+        localStorage.setItem("otp-timer", "60"); // Save new timer in localStorage
         localStorage.removeItem("otp-finished"); // Remove finished state
       }
     } catch (error: unknown) {
@@ -150,6 +168,8 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
       <ArrowLeft
         onClick={() => {
           setShowOtpLogin(false);
+          localStorage.removeItem("otp-timer");
+          localStorage.removeItem("otp-finished");
           navigate("/login");
         }}
         className="absolute top-4 left-4 cursor-pointer text-textMain"
@@ -162,8 +182,12 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
       />
       <p className="font-extrabold text-2xl mb-2">Verify Mobile Number</p>
       <p className="text-gray-500 text-center sm:px-11 px-5 mb-6">
-        Enter 6 digit verification code sent to <b className="text-black">Mobile Number</b>
+        Enter 6 digit verification code sent to{" "}
+        <b className="text-black">Mobile Number</b>
       </p>
+      {
+        message && <p className="text-xs bg-green-100 p-2 rounded-md">{message} <Link to={`/`} className="text-blue-500 underline">Visit Our Home</Link></p>
+      }
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -219,7 +243,11 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
             size="b2b"
             className="w-full"
           >
-            {loading ? <ClipLoader color="#ffff" size={20} /> : "Get Verification Code"}
+            {loading ? (
+              <ClipLoader color="#ffff" size={20} />
+            ) : (
+              "Get Verification Code"
+            )}
           </Button>
         </form>
       </Form>

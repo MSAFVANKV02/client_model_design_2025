@@ -50,39 +50,40 @@ function Register() {
       setLoading(true);
       const response = await axios.post(`/user/sendOtp`, {
         mobile: data.mobile,
-        // mobile4OTP: data.mobile4OTP,
       });
+  
       console.log(response.data);
-      
+  
       if (response.status === 200) {
         const { user } = response.data; // Destructure user from response
         
-        if (user.isVerified && user.isRegistered) {
-          // If user is verified and registered
-          if (user.kycApproved) {
-            makeToast(`OTP sent to ${data.mobile4OTP}`);
-            navigate(`/login`);
+        if (user) { // Check if user exists
+          if (user.isVerified && user.isRegistered) {
+            // If user is verified and registered
+            if (user.kycApproved) {
+              makeToast(`OTP sent to ${data.mobile4OTP}`);
+              navigate(`/login`);
+            } else {
+              makeToast(`OTP sent to ${data.mobile4OTP}`);
+              navigate(`/kyc`);
+            }
+          } else if (user.isVerified) {
+            // If user is verified but not registered
+            makeToastError("Phone number already exists.");
+            navigate(`/register/user-details?auth=${data.mobile}`);
           } else {
+            // If user is not verified
             makeToast(`OTP sent to ${data.mobile4OTP}`);
-            navigate(`/kyc`);
+            navigate(`/register/otp-verification?auth=${data.mobile}`);
           }
-        } else if (user.isVerified) {
-          // If user is verified but not registered
-          makeToastError("Phone number already exists.");
-          navigate(`/register/user-details?auth=${data.mobile}`);
         } else {
-          // If user is not verified
-          makeToast(`OTP sent to ${data.mobile4OTP}`);
-          navigate(`/register/otp-verification?auth=${data.mobile}`);
+          // Handle case where user is not found or user object is not returned
+          makeToastError("Unexpected error occurred. Please try again.");
         }
       }
     } catch (error: unknown) {
       setLoading(false);
       if (axios.isAxiosError(error)) {
-        // console.log(
-        //   "Error sending OTP:",
-        //   error.response?.data.message || error.message
-        // );
         if (error.response?.data.success === false) {
           makeToastError(error.response?.data.message);
         }
@@ -93,6 +94,7 @@ function Register() {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="h-screen w-screen flex relative">
@@ -108,15 +110,21 @@ function Register() {
         <ArrowLeft onClick={() => navigate("/")} className="cursor-pointer" />
 
         <div className="flex flex-col w-full justify-center items-center space-y-5">
+
+
+          {/* image */}
           <img
             src="/src/assets/images/Background Images/Group 1107.png"
             alt="login page b2b"
             className="w-32 h-32"
           />
           <p className="font-bold">Enter Mobile Number</p>
+
           <p className="text-gray-400 text-center">
             Enter your 10-digit mobile number to receive the verification code.
           </p>
+
+          {/* === form starting ======== */}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 
@@ -135,6 +143,10 @@ function Register() {
                         enableSearch={true}
                         placeholder="Valid mobile"
                         value={field.value}
+                        buttonStyle={{
+                          backgroundColor: "transparent",
+                          border: "none",
+                        }}
                         onChange={(value, data: CountryData) => {
                           const dialCode = data?.dialCode || "";
                           let phoneNumber = value;
@@ -146,7 +158,7 @@ function Register() {
                           form.setValue("mobile", `${dialCode}-${phoneNumber}`);
                           form.setValue("mobile4OTP", phoneNumber);
                         }}
-                        inputClass="w-full p-3 mt-1 rounded-sm border border-gray-300"
+                        inputClass="w-full p-5 mt-1 rounded-xl border border-gray-300"
                       />
                     </FormControl>
                     <FormMessage />
