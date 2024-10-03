@@ -36,8 +36,14 @@ function OtpVerificationPage() {
   const navigate = useNavigate();
   const firstInputRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState(false);
-  const [timer, setTimer] = useState(60); // 60 seconds countdown
-  const [isResendVisible, setIsResendVisible] = useState(false); // But
+  const [timer, setTimer] = useState<number>(() => {
+    const savedTimer = localStorage.getItem("otp-timer");
+    return savedTimer ? Number(savedTimer) : 60; // Load timer from localStorage or start at 3
+  });
+  const [isResendVisible, setIsResendVisible] = useState<boolean>(() => {
+    const isFinished = localStorage.getItem("otp-finished") === "true";
+    return isFinished; // Show "Resend OTP" if finished
+  });
 
   const queryParams = new URLSearchParams(window.location.search);
   const auth = queryParams.get("auth");
@@ -48,26 +54,44 @@ function OtpVerificationPage() {
     }
   }, []);
 
-  useEffect(() => {
-    if (!auth || auth.length !== 10) {
-      navigate("/register");
-    }
-  }, [navigate, auth]);
+  // useEffect(() => {
+  //   if (!auth) {
+  //     navigate("/register");
+  //   }
+  // }, [ auth]);
 
   // useffect for timer
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimer((prevTimer) => {
-        if (prevTimer === 1) {
-          clearInterval(interval);
-          setIsResendVisible(true); // Show the resend button after 60 seconds
-        }
-        return prevTimer - 1;
-      });
-    }, 1000);
+    // If the timer has finished, do not start the interval again
+    if (timer > 0 && !isResendVisible) {
+      const interval = setInterval(() => {
+        setTimer((prevTimer) => {
+          if (prevTimer > 0) {
+            const newTimer = prevTimer - 1;
+            localStorage.setItem("otp-timer", newTimer.toString()); // Save timer to localStorage
+            return newTimer;
+          } else {
+            clearInterval(interval); // Stop timer
+            setIsResendVisible(true); // Show resend button
+            localStorage.removeItem("otp-timer"); // Remove timer from localStorage
+            localStorage.setItem("otp-finished", "true"); // Set finished state in localStorage
+            return 0;
+          }
+        });
+      }, 1000);
 
-    return () => clearInterval(interval); // Clear the interval when the component unmounts
-  }, []);
+      // Clear the interval when the component unmounts
+      return () => clearInterval(interval);
+    }
+  }, [timer, isResendVisible]);
+
+  useEffect(() => {
+    // Check if the timer has reached 0 and handle visibility of resend button
+    if (timer === 0) {
+      setIsResendVisible(true);
+      localStorage.setItem("otp-finished", "true"); // Ensure finished state is set
+    }
+  }, [timer]);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -83,7 +107,7 @@ function OtpVerificationPage() {
     try {
       const response = await axios.post(`/user/verifyOtp`, {
         otp: data.otp,
-        mobile4OTP: auth,
+        mobile: auth,
       });
 
       if (response.status === 200) {
@@ -121,12 +145,14 @@ function OtpVerificationPage() {
      
       setLoading(true);
       const response = await axios.post(`/user/resendOtp`, {
-        mobile4OTP: auth,
+        mobile: auth,
       });
       if (response.status === 200) {
         makeToast("OTP Resent Successfully");
-        setTimer(60); 
-        setIsResendVisible(false); 
+        setTimer(60);
+        setIsResendVisible(false);
+        localStorage.setItem("otp-timer", "60"); // Save new timer in localStorage
+        localStorage.removeItem("otp-finished"); // Remove finished state
       }
     } catch (error: unknown) {
       setLoading(false);
@@ -155,7 +181,10 @@ function OtpVerificationPage() {
       />
       <div className="bg-[#F5E9FF] max-w-[350px] h-fit backdrop-blur-2xl rounded-2xl p-5 flex flex-col gap-3 m-auto">
         <ArrowLeft
-          onClick={() => navigate("/register")}
+          onClick={() =>{
+            localStorage.removeItem("otp-timer");
+            localStorage.removeItem("otp-finished");      
+            navigate("/register")}}
           className="cursor-pointer"
         />
         <div className="flex flex-col w-full justify-center items-center space-y-5">

@@ -1,10 +1,10 @@
-
+import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import { HomeIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 
-function Navbar() {
+function StaticNavbar() {
   const location = useLocation();
   const navItems = [
     {
@@ -54,7 +54,40 @@ function Navbar() {
           <h4 className="font-bold">Ayaboo</h4>
         </Link>
 
-        
+        <div className="md:flex hidden items-center gap-10">
+          <ul className="flex justify-around">
+            {navItems.map((item, index) => (
+              <li key={index} className="">
+                <Link
+                  to={item.href}
+                  draggable={false}
+                  className={`p-2 flex items-center gap-3 ${
+                    item.href === location.pathname
+                      ? "text-textMain underline underline-offset-4"
+                      : ""
+                  }`}
+                >
+                  {item.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="">
+            <Button
+              variant="outline"
+              className="flex gap-2 items-center text-textMain uppercase "
+            >
+              <Icon icon={"material-symbols:download"} /> Download App
+            </Button>
+          </div>
+          <div className="">
+            <Link to={"login"} className="">
+              <Button variant="white" className="text-textMain">
+                login
+              </Button>
+            </Link>
+          </div>
+        </div>
         <div className="md:hidden block">
           <Sidebar navItems={navItems} />
         </div>
@@ -63,4 +96,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default StaticNavbar;

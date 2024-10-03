@@ -52,12 +52,27 @@ function Register() {
         mobile: data.mobile,
         // mobile4OTP: data.mobile4OTP,
       });
+      console.log(response.data);
+      
       if (response.status === 200) {
-        if (!response.data.checkExistence) {
+        const { user } = response.data; // Destructure user from response
+        
+        if (user.isVerified && user.isRegistered) {
+          // If user is verified and registered
+          if (user.kycApproved) {
+            makeToast(`OTP sent to ${data.mobile4OTP}`);
+            navigate(`/login`);
+          } else {
+            makeToast(`OTP sent to ${data.mobile4OTP}`);
+            navigate(`/kyc`);
+          }
+        } else if (user.isVerified) {
+          // If user is verified but not registered
           makeToastError("Phone number already exists.");
           navigate(`/register/user-details?auth=${data.mobile}`);
         } else {
-          makeToast(`Otp Sended to ${data.mobile4OTP}`);
+          // If user is not verified
+          makeToast(`OTP sent to ${data.mobile4OTP}`);
           navigate(`/register/otp-verification?auth=${data.mobile}`);
         }
       }

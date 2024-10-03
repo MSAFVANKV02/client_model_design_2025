@@ -18,6 +18,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import { makeToast } from "@/utils/toaster";
 
 // Define the Zod schema for form validation
 const formSchema = z.object({
@@ -42,6 +43,9 @@ function UserDetails() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
+  const queryParams = new URLSearchParams(window.location.search)
+  const auth = queryParams.get("auth");
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -57,10 +61,11 @@ function UserDetails() {
   const onSubmit = async (data: IFormData) => {
     try {
       setLoading(true);
-      const response = await axios.post(`/user/sendOtp`, data);
+      const response = await axios.post(`/user/registerUser`,{ ...data,mobile:auth});
       if (response.status === 200) {
-        console.log("Data sent successfully");
-        navigate("/register/user-details");
+        // console.log("Data sent successfully");
+        makeToast(`${response.data.message}`)
+        navigate("/kyc");
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
