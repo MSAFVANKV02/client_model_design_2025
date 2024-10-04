@@ -10,14 +10,18 @@ import HomePage from "@/pages/UserSide/Home/Home";
 import KycDetails from "@/pages/UserSide/UserKycPage/KycDetails/KycDetails";
 import KycLayout from "@/KycLayout";
 
-
 import { createBrowserRouter } from "react-router-dom";
 import KycHome from "@/pages/UserSide/UserKycPage/KycHome";
+import { ScrollProvider } from "@/providers/context/ScrollContext";
 
 const rootRouter = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <ScrollProvider>
+        <App />
+      </ScrollProvider>
+    ),
     children: [
       {
         index: true,
@@ -48,14 +52,18 @@ const rootRouter = createBrowserRouter([
         path: "/register/user-details",
         element: <UserDetails />,
       },
-
     ],
   },
 
-//   ===== KYC Sections =================================
+  //   ===== KYC Sections =================================
   {
     path: "/kyc",
-    element: <KycLayout />,
+
+    element: (
+      <ScrollProvider>
+        <KycLayout />
+      </ScrollProvider>
+    ),
     children: [
       {
         index: true,
@@ -63,7 +71,7 @@ const rootRouter = createBrowserRouter([
         element: <KycHome />,
       },
       {
-        path: "/kyc/details",
+        path: "details",
         element: <KycDetails />,
       },
     ],

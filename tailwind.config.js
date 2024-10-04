@@ -27,6 +27,8 @@ const config = {
         foreground: "hsl(var(--foreground))",
         textMain:"var(--mainText)",
         textSec:"var(--secColor)",
+        textSoft:"var(--colorSoft)",
+
 
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -75,6 +77,8 @@ const config = {
       backgroundColor:{
         bg: "var(--mainColor)",
         softBg:"var(--softColor)",
+        bgSoft:"var(--colorSoft)",
+
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
