@@ -15,7 +15,7 @@ export default function KycBanner() {
     },
     {
       id: 3,
-      src: "/src/assets/images/banners/kyc_curosal3.webp",
+      src: "/src/assets/images/banners/kyc_curosal2.webp",
     },
   ];
 
