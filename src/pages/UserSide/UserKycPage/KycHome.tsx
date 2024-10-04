@@ -59,7 +59,7 @@ export default function KycHome() {
   // }, [location]);
 
   return (
-    <div className=" md:space-y-10  select-none pb-10">
+    <div className=" md:space-y-10 space-y-5  select-none pb-10">
       {/*-------- Section 1 ====== */}
 
       <div className="w-full relative">
@@ -92,7 +92,7 @@ export default function KycHome() {
           src="/src/assets/images/kyc/banner1.webp"
           draggable={false}
           alt=""
-          className="w-full mb-4"
+          className="w-full "
         />
         {/* =====  Button Image =======  */}
         <img
@@ -137,28 +137,52 @@ export default function KycHome() {
 
       {/*-------- Section 4 ====== */}
 
-      <div className="section_container_dash flex justify-center gap-7 relative items-center flex-col border-b-2 border-[#5F08B1] py-10">
-        <h4>To see wholesale prices & buy products </h4>
-        <h3>COMPLETE SHOP'S KYC</h3>
-        <h5>
-          KYC is needed so that only shop owners like you can see wholesale
-          prices and not your shop's customers
-        </h5>
-        <span>Upload ANY ONE of the following documents</span>
-        <span>
-          Udyam Aadhar | GST | Cancelled current account cheque | Shop &
-          Establishment Licence
-        </span>
+      <div className="section_container_dash text-center flex justify-center relative items-center border-b-2 border-[#5F08B1] pb-5">
+        <div className=" xl:w-[60%] sm:w-[80%]  space-y-3">
+          <div className="">
+            <h4>To see wholesale prices & buy products </h4>
+            <h3 className="text-textMain font-bold">COMPLETE SHOP'S KYC</h3>
+          </div>
+          {/* ========== */}
 
-        <button className="px-10 py-3  absolute left-1/2 bottom-0 translate-y-1/2 border border-[#5F08B1] active:scale-95 duration-300 transition-all cursor-pointer bg-white rounded-3xl act -translate-x-1/2">
+          <h3 className="">
+            KYC is needed so that only shop owners like you can see wholesale
+            prices and not your shop's customers
+          </h3>
+          {/* ========== */}
+
+          <div className="flex flex-col">
+            <span className="underline text-textMain">
+              Upload ANY ONE of the following documents
+            </span>
+            <span>
+              Udyam Aadhar | GST | Cancelled current account cheque | Shop &
+              Establishment Licence
+            </span>
+          </div>
+        </div>
+
+        <button
+          onClick={handleKycDetailsClick}
+          type="button"
+          className="md:px-10 md:py-3 px-4 py-1  absolute left-1/2 bottom-0 translate-y-1/2 
+        border border-[#5F08B1] active:scale-95 duration-300 transition-all 
+        cursor-pointer bg-white rounded-3xl act -translate-x-1/2"
+        >
           Upload Kyc
         </button>
       </div>
 
+      <div className="w-full text-center px-8 ">
+        <p className=" text-gray-400 ">
+          Government mandates all businesses to get their Shop KYC done
+        </p>
+      </div>
+
       {/*-------- Section 5 ====== */}
 
-      <div className="p-10 section_container_dash bg-gray-100 w-3/4 rounded-3xl my-3 text-center">
-        <h2>TOP CATEGORIES FROM TOP BRANDS</h2>
+      <div className="sm:p-6 p-2 leading-6 section_container_dash bg-gray-100 w-3/4 rounded-3xl  text-center">
+        <span className=" sm:text-2xl text-sm">TOP CATEGORIES FROM TOP BRANDS</span>
       </div>
 
       {/*-------- Section 6 ====== */}
@@ -174,12 +198,12 @@ export default function KycHome() {
 
       {/*-------- Section 7 ====== */}
 
-      <div className="grid mb xl:grid-cols-5 sm:grid-cols-3 gap-3 grid-cols-2 section_container_dash">
+      <div className="grid mb xl:grid-cols-5  sm:gap-3 grid-cols-3 section_container_dash">
         {
           kycCards.map((card) => (
             <div
               key={card.id}
-              className=" shadow-md rounded-3xl bg-bgSoft text-center hover:scale-105 scale-95 cursor-pointer duration-300 transform transition-all"
+              className=" shadow-md rounded-xl bg-bgSoft text-center hover:scale-105 scale-95 cursor-pointer duration-300 transform transition-all"
             >
               <img src={card.src} alt={card.title} className="w-full" />
               <h4 className="font-bold text-gray-600 py-5 text-textMain">

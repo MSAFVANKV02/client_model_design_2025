@@ -7,7 +7,7 @@ function Footer() {
   // const navigate = useNavigate();
 
   return (
-    <footer className="h-fit w-full bg-black">
+    <footer className="h-fit w-full bg-black ">
      
       {/* ======= */}
       <div

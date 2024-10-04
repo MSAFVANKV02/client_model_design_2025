@@ -4,10 +4,10 @@ import tailwindcssAnimate from "tailwindcss-animate";
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,jsx,tsx,ts}',
-    './components/**/*.{js,jsx,tsx,ts}',
-    './app/**/*.{js,jsx,tsx,ts}',
-    './src/**/*.{js,jsx,tsx,ts}',
+    "./pages/**/*.{js,jsx,tsx,ts}",
+    "./components/**/*.{js,jsx,tsx,ts}",
+    "./app/**/*.{js,jsx,tsx,ts}",
+    "./src/**/*.{js,jsx,tsx,ts}",
   ],
   prefix: "",
   theme: {
@@ -25,10 +25,9 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        textMain:"var(--mainText)",
-        textSec:"var(--secColor)",
-        textSoft:"var(--colorSoft)",
-
+        textMain: "var(--mainText)",
+        textSec: "var(--secColor)",
+        textSoft: "var(--colorSoft)",
 
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -74,22 +73,27 @@ const config = {
           to: { height: "0" },
         },
       },
-      backgroundColor:{
+      backgroundColor: {
         bg: "var(--mainColor)",
-        softBg:"var(--softColor)",
-        bgSoft:"var(--colorSoft)",
-
+        softBg: "var(--softColor)",
+        bgSoft: "var(--colorSoft)",
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       backgroundImage: {
-        'custom-gradient': 'linear-gradient(220.66deg, #F0DFFF -11.2%, #FFFFFF 100.09%)',
+        "custom-gradient":
+          "linear-gradient(220.66deg, #F0DFFF -11.2%, #FFFFFF 100.09%)",
       },
     },
   },
-  plugins: [tailwindcssAnimate,require('tailwindcss-debug-screens')],
-}
+  plugins: [
+    tailwindcssAnimate,
+    require("tailwindcss-debug-screens"),
+    require("tailwindcss-no-scrollbar"),
+    require("tailwind-scrollbar"),
+  ],
+};
 
 export default config;
