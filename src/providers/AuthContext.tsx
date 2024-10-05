@@ -22,7 +22,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const handleLogout = (navigator:string) => {
     localStorage.removeItem("userProfile");
     window.location.pathname=(navigator)
-    Cookies.remove("us_b2b_tkn");
+    Cookies.remove("us_b2b_kyc");
     setIsAuthenticated(false);
   };
 

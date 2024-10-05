@@ -14,6 +14,9 @@ import { createBrowserRouter } from "react-router-dom";
 import KycHome from "@/pages/UserSide/UserKycPage/KycHome";
 import { ScrollProvider } from "@/providers/context/ScrollContext";
 import ProtectedRoute from "@/middlewares/ProtectedRoute";
+import { isAuthenticated } from "@/middlewares/IsAuthenticated";
+import MainHome from "@/pages/UserSide/Home/MainHome";
+
 // import withAuth from "@/middlewares/WithAuth";
 
 // const ProtectedHomePage = withAuth(HomePage);
@@ -22,6 +25,9 @@ import ProtectedRoute from "@/middlewares/ProtectedRoute";
 // const NonProtectedAbout = withAuth(About); // Assuming About is non-protected
 // const NonProtectedOtpVerification = withAuth(OtpVerificationPage);
 // const NonProtectedUserDetails = withAuth(UserDetails);
+
+const isLogged = isAuthenticated();
+
 
 const rootRouter = createBrowserRouter([
   {
@@ -36,8 +42,8 @@ const rootRouter = createBrowserRouter([
         index: true,
         path: "/",
         element: (
-          <ProtectedRoute isProtected={true}>
-            <HomePage />
+          <ProtectedRoute isProtected={true} isHomeLogin={true}>
+             {isLogged ? <MainHome /> : <HomePage />}
           </ProtectedRoute>
         ),
       },

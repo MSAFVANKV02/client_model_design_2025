@@ -1,29 +1,52 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { isAuthenticated_4_Kyc } from './IsAuthenticated';
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { isAuthenticated, isAuthenticated_4_Kyc } from "./IsAuthenticated";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
   isProtected?: boolean;
+  isHomeLogin?: boolean;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, isProtected }) => {
-  const isLoggedIn = isAuthenticated_4_Kyc();
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  children,
+  isProtected,
+}) => {
+  const isLoggedInKyc = isAuthenticated_4_Kyc();
+  const isLogged = isAuthenticated();
 
-  // If logged in and on a protected page that is not "/kyc", redirect to "/kyc"
-// If logged in and trying to access a protected route that's not KYC, redirect to KYC
-if (isLoggedIn && isProtected && (window.location.pathname !== "/kyc" && !window.location.pathname.startsWith("/kyc/"))) {
+  // If logged in and trying to access a protected route that's not KYC, redirect to KYC
+  if (
+    isLoggedInKyc &&
+    isProtected &&
+    window.location.pathname !== "/kyc" &&
+    !window.location.pathname.startsWith("/kyc/")
+  ) {
     return <Navigate to="/kyc" replace />;
-}
+  }
 
-// If not logged in and trying to access "/kyc", redirect to home
-if (!isLoggedIn && (window.location.pathname === "/kyc" || window.location.pathname.startsWith("/kyc/"))) {
+  // If not logged in KYC and trying to access "/kyc", redirect to home
+  if (
+    !isLoggedInKyc &&
+    (window.location.pathname === "/kyc" ||
+      window.location.pathname.startsWith("/kyc/"))
+  ) {
     return <Navigate to="/" replace />;
-}
+  }
 
+  if (
+    isLogged &&
+    (window.location.pathname === "/about" ||
+      window.location.pathname === "/register" ||
+      window.location.pathname === "/login" ||
+      window.location.pathname === "/register/user-details" ||
+      window.location.pathname.startsWith("/register/otp-verification"))
+  ) {
+    return <Navigate to="/" replace />;
+  }
 
-  // If not authenticated and on login route, allow access
-  if (!isLoggedIn && !isProtected) {
+  // If not authenticated and on a non-protected route, allow access
+  if (!isLoggedInKyc && !isProtected) {
     return <>{children}</>;
   }
 

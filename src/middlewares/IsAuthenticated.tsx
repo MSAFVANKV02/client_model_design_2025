@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 
 export const isAuthenticated_4_Kyc = () => {
-  const token = Cookies.get('us_b2b_tkn');
+  const token = Cookies.get('us_b2b_kyc');
 //   console.log('Token from cookies:', token);
 //   console.log(document.cookie);
 

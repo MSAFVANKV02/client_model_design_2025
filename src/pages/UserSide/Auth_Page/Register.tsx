@@ -40,7 +40,7 @@ function Register() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       mobile: "",
-      mobile4OTP: "", 
+      mobile4OTP: "",
     },
   });
 
@@ -51,19 +51,23 @@ function Register() {
       const response = await axios.post(`/user/sendOtp`, {
         mobile: data.mobile,
       });
-  
-      console.log(response.data);
-  
+
+      // console.log(response.data);
+
       if (response.status === 200) {
         const { user } = response.data; // Destructure user from response
-        
-        if (user) { // Check if user exists
+
+        if (user) {
+          // Check if user exists
           if (user.isVerified && user.isRegistered) {
             // If user is verified and registered
             if (user.kycApproved) {
               makeToast(`OTP sent to ${data.mobile4OTP}`);
               navigate(`/login`);
-            } else {
+            } else if (!user.isKycCompleted) {
+              makeToast(`OTP sent to ${data.mobile4OTP}`);
+              navigate(`/kyc`);
+            }else {
               makeToast(`OTP sent to ${data.mobile4OTP}`);
               navigate(`/kyc`);
             }
@@ -94,11 +98,9 @@ function Register() {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className="h-screen w-screen flex relative">
-
       <img
         src="/src/assets/images/Background Images/Group 1109.svg"
         alt=""
@@ -106,12 +108,9 @@ function Register() {
       />
 
       <div className="bg-[#F5E9FF] max-w-[350px] h-fit backdrop-blur-2xl rounded-2xl p-5 flex flex-col gap-3 m-auto">
-
         <ArrowLeft onClick={() => navigate("/")} className="cursor-pointer" />
 
         <div className="flex flex-col w-full justify-center items-center space-y-5">
-
-
           {/* image */}
           <img
             src="/src/assets/images/Background Images/Group 1107.png"
@@ -127,7 +126,6 @@ function Register() {
           {/* === form starting ======== */}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-
               <FormField
                 control={form.control}
                 name="mobile"
@@ -181,7 +179,6 @@ function Register() {
             </form>
           </Form>
         </div>
-
       </div>
     </div>
   );
