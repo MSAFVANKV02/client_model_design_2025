@@ -36,7 +36,7 @@ type Props = {
 export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
   const [timer, setTimer] = useState<number>(() => {
     const savedTimer = localStorage.getItem("otp-timer");
     return savedTimer ? Number(savedTimer) : 60; // Load timer from localStorage or start at 3
@@ -96,7 +96,7 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
         otp: data.otp,
         mobile: auth,
       });
-console.log(response.data);
+      // console.log(response.data);
 
       if (response.status === 200 && response.data.success) {
         if (response.data.user) {
@@ -104,12 +104,20 @@ console.log(response.data);
 
           // }
           if (
-            response.data.user.kycApproved &&
-            response.data.user.kycApproved &&
-            response.data.user.isRegistered
+            response.data.user.isVerified &&
+            response.data.user.isRegistered &&
+            response.data.user.isKycCompleted &&
+            response.data.user.kycApproved
           ) {
             makeToast("Otp Verified Successfully.");
             navigate(`/dashboard`);
+          } else if (
+            response.data.user.isVerified &&
+            response.data.user.isRegistered && 
+            !response.data.user.isKycCompleted 
+          ) {
+            makeToast("Complete Kyc registration..");
+            navigate(`/kyc`);
           } else if (
             response.data.user.isVerified &&
             !response.data.user.isRegistered
@@ -118,7 +126,7 @@ console.log(response.data);
             navigate(`/register/user-details?auth=${auth}`);
           } else {
             makeToast("Your account is under Processing....");
-            setMessage("Your account is under Processing")
+            setMessage("Your account is under Processing");
             // navigate(`/register`);
           }
         }
@@ -185,9 +193,14 @@ console.log(response.data);
         Enter 6 digit verification code sent to{" "}
         <b className="text-black">Mobile Number</b>
       </p>
-      {
-        message && <p className="text-xs bg-green-100 p-2 rounded-md">{message} <Link to={`/`} className="text-blue-500 underline">Visit Our Home</Link></p>
-      }
+      {message && (
+        <p className="text-xs bg-green-100 p-2 rounded-md">
+          {message}{" "}
+          <Link to={`/`} className="text-blue-500 underline">
+            Visit Our Home
+          </Link>
+        </p>
+      )}
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

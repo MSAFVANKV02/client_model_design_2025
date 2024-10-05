@@ -63,7 +63,8 @@ function UserDetails() {
       setLoading(true);
       const response = await axios.post(`/user/registerUser`,{ ...data,mobile:auth});
       if (response.status === 200) {
-        // console.log("Data sent successfully");
+        console.log("Data sent successfully",response.data);
+        localStorage.setItem("userProfile", JSON.stringify(response.data.user));
         makeToast(`${response.data.message}`)
         navigate("/kyc");
       }

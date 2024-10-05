@@ -10,6 +10,8 @@ interface KycDetails {
   pinCode: string;
   state: string;
   country: string;
+  proofType?: string; // Optional
+  uploadedFile?: File; // Store only the file metadata
 }
 
 // Define the initial state of the KYC details with default values
@@ -22,6 +24,8 @@ const initialState: KycDetails = {
   pinCode: '',
   state: '',
   country: '',
+  proofType: '', 
+  uploadedFile: undefined,
 };
 
 const kycSlice = createSlice({
@@ -29,16 +33,28 @@ const kycSlice = createSlice({
   initialState,
   reducers: {
     saveKycDetails(state, action: PayloadAction<KycDetails>) {
-      return action.payload; // Save the KYC details to the state
+      return action.payload;
     },
-    clearKycDetails(state) {
-      return initialState; // Reset state to initial values
+    clearKycDetails() {
+      return initialState;
     },
+    setProofType(state, action: PayloadAction<string>) {
+      state.proofType = action.payload;
+    },
+    // uploadFile(state, action: PayloadAction<{ name: string; size: number }>) {
+    //   state.uploadedFile = action.payload; // Save file metadata, not the file itself
+    // },
+    uploadFile(state, action: PayloadAction<File>) {
+      state.uploadedFile = action.payload; // Store the entire file object
+    },
+    restProofType(state) {
+      state.proofType = '';
+    }
   },
 });
 
 // Export the actions
-export const { saveKycDetails, clearKycDetails } = kycSlice.actions;
+export const { saveKycDetails, clearKycDetails, setProofType, uploadFile, restProofType } = kycSlice.actions;
 
 // Export the reducer
 export default kycSlice.reducer;

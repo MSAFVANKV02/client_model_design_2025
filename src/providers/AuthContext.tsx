@@ -1,52 +1,42 @@
-// import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-// import axios from 'axios';
+import Cookies from 'js-cookie';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-// interface AuthContextType {
-//   isAuthenticated: boolean;
-//   isLoading: boolean; // Add loading state
-//   setIsAuthenticated?:any
-// }
 
-// const AuthContext = createContext<AuthContextType | undefined>(undefined);
+interface AuthContextType {
+  isAuthenticated: boolean;
+  setIsAuthenticated: (value: boolean) => void;
+  handleLogout: (value:string) => void; // Logout function to remove user data and navigate to the login route.
+}
 
-// interface AuthProviderProps {
-//   children: ReactNode;
-// }
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-//   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-//   const [isLoading, setIsLoading] = useState<boolean>(true); // Initialize loading state
+interface AuthProviderProps {
+  children: ReactNode;
+}
 
-//   useEffect(() => {
-//     const checkAuth = async () => {
-//       setIsLoading(true); // Start loading
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+//   const navigate = useNavigate();
 
-//       try {
-//         const response = await axios.get<{ isAuthenticated: boolean }>('/user/check', { withCredentials: true });
-//         console.log('Auth check response:', response.data);
-//         setIsAuthenticated(response.data.isAuthenticated);
-//       } catch (error) {
-//         console.error("Error checking auth:", error);
-//         setIsAuthenticated(false); // Set to false on error
-//       } finally {
-//         setIsLoading(false); // Set loading to false once check is done
-//       }
-//     };
 
-//     checkAuth();
-//   }, []);
+  const handleLogout = (navigator:string) => {
+    localStorage.removeItem("userProfile");
+    window.location.pathname=(navigator)
+    Cookies.remove("us_b2b_tkn");
+    setIsAuthenticated(false);
+  };
 
-//   return (
-//     <AuthContext.Provider value={{ isAuthenticated, isLoading,setIsAuthenticated }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
+  return (
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, handleLogout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
-// export const useAuth = (): AuthContextType => {
-//   const context = useContext(AuthContext);
-//   if (!context) {
-//     throw new Error('useAuth must be used within an AuthProvider');
-//   }
-//   return context;
-// };
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};

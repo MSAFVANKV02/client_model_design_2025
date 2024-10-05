@@ -81,7 +81,7 @@ export default function KycBanner() {
 
       {/* Left Button */}
       <button
-        className={`absolute left-4 top-1/2 transform -translate-y-1/2 bg-white  text-black p-2 rounded-md h-10 w-10 ${
+        className={`absolute left-4 top-1/2 transform -translate-y-1/2 bg-white  text-black p-2 rounded-md md:h-10 h-6 md:w-10 w-6 flex justify-center items-center ${
           activeIndex === 0 ? "cursor-not-allowed opacity-50" : ""
         }`}
         onClick={scrollLeft}
@@ -92,7 +92,7 @@ export default function KycBanner() {
 
       {/* Right Button */}
       <button
-        className={`absolute right-4 top-1/2 transform -translate-y-1/2 bg-white  text-black p-2 rounded-md h-10 w-10 ${
+        className={`absolute right-4 top-1/2 transform -translate-y-1/2 bg-white  text-black p-2 rounded-md md:h-10 h-6 md:w-10 w-6 flex justify-center items-center ${
           activeIndex === banners.length - 1 ? "cursor-not-allowed opacity-50" : ""
         }`}
         onClick={scrollRight}
@@ -102,12 +102,12 @@ export default function KycBanner() {
       </button>
 
       {/* Bottom Indicator */}
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-1">
         {banners.map((_, index) => (
           <div
             key={index}
             className={` rounded-full cursor-pointer transition-all duration-300 ${
-              activeIndex === index ? "bg-white w-6 h-2" : "bg-gray-300 w-2 h-2"
+              activeIndex === index ? "bg-white w-5 h-2" : "bg-gray-300 w-2 h-2"
             }`}
             onClick={() => scrollToIndex(index)} // Added onClick to scroll to the corresponding banner
           />

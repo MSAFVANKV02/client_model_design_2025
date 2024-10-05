@@ -13,6 +13,15 @@ import KycLayout from "@/KycLayout";
 import { createBrowserRouter } from "react-router-dom";
 import KycHome from "@/pages/UserSide/UserKycPage/KycHome";
 import { ScrollProvider } from "@/providers/context/ScrollContext";
+import ProtectedRoute from "@/middlewares/ProtectedRoute";
+// import withAuth from "@/middlewares/WithAuth";
+
+// const ProtectedHomePage = withAuth(HomePage);
+// const ProtectedRegister = withAuth(Register);
+// const ProtectedUserLogin = withAuth(UserLogin);
+// const NonProtectedAbout = withAuth(About); // Assuming About is non-protected
+// const NonProtectedOtpVerification = withAuth(OtpVerificationPage);
+// const NonProtectedUserDetails = withAuth(UserDetails);
 
 const rootRouter = createBrowserRouter([
   {
@@ -27,30 +36,52 @@ const rootRouter = createBrowserRouter([
         index: true,
         path: "/",
         element: (
-          // <ProtectedRoute>
-          <HomePage />
-          // </ProtectedRoute>
+          <ProtectedRoute isProtected={true}>
+            <HomePage />
+          </ProtectedRoute>
         ),
       },
       {
         path: "/register",
-        element: <Register />,
+        element: (
+          <ProtectedRoute isProtected={true}>
+            <Register />{" "}
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/login",
-        element: <UserLogin />,
+        element: (
+          <ProtectedRoute isProtected={false}>
+            <UserLogin />{" "}
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/about",
-        element: <About />,
+        element: (
+          <ProtectedRoute  isProtected={true}>
+            {" "}
+            <About />{" "}
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/register/otp-verification",
-        element: <OtpVerificationPage />,
+        element: (
+          <ProtectedRoute  isProtected={true}>
+            <OtpVerificationPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/register/user-details",
-        element: <UserDetails />,
+        element: (
+          <ProtectedRoute  isProtected={true}>
+            {" "}
+            <UserDetails />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
@@ -61,7 +92,9 @@ const rootRouter = createBrowserRouter([
 
     element: (
       <ScrollProvider>
+        <ProtectedRoute>
         <KycLayout />
+        </ProtectedRoute>
       </ScrollProvider>
     ),
     children: [

@@ -1,24 +1,34 @@
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { isAuthenticated_4_Kyc } from './IsAuthenticated';
 
-// import { useAuth } from '@/providers/AuthContext';
-// import React from 'react';
-// import { Navigate } from 'react-router-dom';
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+  isProtected?: boolean;
+}
 
-// interface ProtectedRouteProps {
-//   children: React.ReactNode;
-// }
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, isProtected }) => {
+  const isLoggedIn = isAuthenticated_4_Kyc();
 
-// const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-//   const { isAuthenticated, isLoading } = useAuth();
+  // If logged in and on a protected page that is not "/kyc", redirect to "/kyc"
+// If logged in and trying to access a protected route that's not KYC, redirect to KYC
+if (isLoggedIn && isProtected && (window.location.pathname !== "/kyc" && !window.location.pathname.startsWith("/kyc/"))) {
+    return <Navigate to="/kyc" replace />;
+}
 
-//   if (isLoading) {
-//     return <div>Loading...</div>; // Display a loading state
-//   }
+// If not logged in and trying to access "/kyc", redirect to home
+if (!isLoggedIn && (window.location.pathname === "/kyc" || window.location.pathname.startsWith("/kyc/"))) {
+    return <Navigate to="/" replace />;
+}
 
-//   if (!isAuthenticated) {
-//     return <Navigate to="/login" replace />;
-//   }
 
-//   return <>{children}</>;
-// };
+  // If not authenticated and on login route, allow access
+  if (!isLoggedIn && !isProtected) {
+    return <>{children}</>;
+  }
 
-// export default ProtectedRoute;
+  // Allow authenticated users to access protected routes
+  return <>{children}</>;
+};
+
+export default ProtectedRoute;

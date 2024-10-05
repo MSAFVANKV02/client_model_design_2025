@@ -44,19 +44,20 @@ interface KycFormData {
 export default function KycDetails() {
   const dispatch = useAppDispatch();
   const kycDetails = useAppSelector((state) => state.kyc);
-  console.log(kycDetails);
+
+  // console.log(kycDetails);
 
   const form = useForm<KycFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      businessName: "dfsdf",
-      emailId: "safva@g.com",
-      buildingName: "sfsdfsd",
-      street: "sdfsd",
-      post: "sdfsdf",
-      pinCode: "123456",
-      state: "sdfsd",
-      country: "dfsdfsd",
+      businessName: "",
+      emailId: "",
+      buildingName: "",
+      street: "",
+      post: "",
+      pinCode: "",
+      state: "",
+      country: "",
     },
   });
 
@@ -95,10 +96,10 @@ export default function KycDetails() {
 
       {proofs ? (
         <>
-          <div className="sm:text-xl text-lg">
+          {/* <div className="sm:text-xl text-lg">
             <span>Upload</span>{" "}
             <span className="text-textMain">Any Document</span>
-          </div>
+          </div> */}
 
           <KycProofs />
         </>
