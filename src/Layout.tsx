@@ -30,7 +30,7 @@ function AppLayout() {
         })}
       >
         <Navbar />
-        <div className="w-full bg-gray-200">
+        <div className="w-full bg-gray-50 border-b">
              <NavigationMenuBar/>
         </div>
        
