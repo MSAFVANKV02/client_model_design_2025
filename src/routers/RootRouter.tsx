@@ -16,6 +16,7 @@ import { ScrollProvider } from "@/providers/context/ScrollContext";
 import ProtectedRoute from "@/middlewares/ProtectedRoute";
 import { isAuthenticated } from "@/middlewares/IsAuthenticated";
 import MainHome from "@/pages/UserSide/Home/MainHome";
+import AppLayout from "@/Layout";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -28,22 +29,17 @@ import MainHome from "@/pages/UserSide/Home/MainHome";
 
 const isLogged = isAuthenticated();
 
-
 const rootRouter = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <ScrollProvider>
-        <App />
-      </ScrollProvider>
-    ),
+    element: <ScrollProvider>{isLogged ? <AppLayout /> : <App />}</ScrollProvider>,
     children: [
       {
         index: true,
         path: "/",
         element: (
           <ProtectedRoute isProtected={true} isHomeLogin={true}>
-             {isLogged ? <MainHome /> : <HomePage />}
+            {isLogged ? <MainHome /> : <HomePage />}
           </ProtectedRoute>
         ),
       },
@@ -66,7 +62,7 @@ const rootRouter = createBrowserRouter([
       {
         path: "/about",
         element: (
-          <ProtectedRoute  isProtected={true}>
+          <ProtectedRoute isProtected={true}>
             {" "}
             <About />{" "}
           </ProtectedRoute>
@@ -75,7 +71,7 @@ const rootRouter = createBrowserRouter([
       {
         path: "/register/otp-verification",
         element: (
-          <ProtectedRoute  isProtected={true}>
+          <ProtectedRoute isProtected={true}>
             <OtpVerificationPage />
           </ProtectedRoute>
         ),
@@ -83,7 +79,7 @@ const rootRouter = createBrowserRouter([
       {
         path: "/register/user-details",
         element: (
-          <ProtectedRoute  isProtected={true}>
+          <ProtectedRoute isProtected={true}>
             {" "}
             <UserDetails />
           </ProtectedRoute>
@@ -99,7 +95,7 @@ const rootRouter = createBrowserRouter([
     element: (
       <ScrollProvider>
         <ProtectedRoute>
-        <KycLayout />
+          <KycLayout />
         </ProtectedRoute>
       </ScrollProvider>
     ),

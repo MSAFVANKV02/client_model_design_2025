@@ -4,6 +4,6 @@ type Props = {}
 
 export default function MainHome({}: Props) {
   return (
-    <div>MainHome</div>
+    <div className='min-h-screen'>MainHome</div>
   )
 }
