@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+html{
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+*{
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
 
 @layer base {
   :root {
@@ -68,6 +81,16 @@
   --colorSoft:#F8E5FF;
 }
 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
 p {
   font-size: clamp(0.9rem, 2.5vw, 1.1rem); /* Scales from 16px to 20px */
 }
@@ -88,27 +111,26 @@ label{
   margin: 0px 0px 0px 0px !important;
 }
 
-html{
-  font-family: "Nunito", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-}
-*{
-  font-family: "Nunito", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-}
+/* ********   **********  **************/
+/* ****     Slick Css Starts    **** */
+/* ********   **********  **************/
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+.slick-prev,
+.slick-next {
+  display: none !important;
 }
+/* ********   **********  **************/
+/* ****     Slick Css Ends    **** */
+/* ********   **********  **************/
+
+
+
+/* ********   **********  **************/
+/* ****     Basic Css Starts    **** */
+/* ********   **********  **************/
 
 .section_container_dash{
   @apply  2xl:px-24 xl:px-20 md:px-14 sm:px-10 px-5 mx-auto;
@@ -130,4 +152,56 @@ html{
 .bg-combined-gradients3 {
   background: rgb(95,8,177);
 background: linear-gradient(90deg, rgba(95,8,177,1) 0%, rgba(96,136,190,1) 83%, rgba(96,154,192,1) 100%, rgba(96,198,196,1) 100%);
+}
+
+
+
+
+
+/* admin */
+.radio-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* .radio-button:hover {
+    transform: translateY(-2px);
+  } */
+
+.radio-button input[type="radio"] {
+  display: none;
+}
+
+
+.radio-checkmark {
+  display: inline-block;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  border: 2px solid #4e4e4e;
+  border-radius: 50%;
+}
+
+.radio-checkmark:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #e46e61;
+  transition: all 0.2s ease-in-out;
+}
+
+.radio-button input[type="radio"]:checked ~ .radio-checkmark:before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.radio-label {
+  font-weight: 600;
 }

@@ -7,15 +7,15 @@ export default function CategoryCard() {
   const [showAll, setShowAll] = useState(false);
 
   const categoryCard = [
-    { name: "Electronics", image: "/src/assets/images/cards/image 102.png" },
-    { name: "Clothing", image: "/src/assets/images/cards/image 102.png" },
-    { name: "Home & Garden", image: "/src/assets/images/cards/image 102.png" },
-    { name: "Electronics", image: "/src/assets/images/cards/image 102.png" },
-    { name: "Clothing", image: "/src/assets/images/cards/image 102.png" },
-    { name: "Home & Garden", image: "/src/assets/images/cards/image 102.png" },
-    { name: "Electronics", image: "/src/assets/images/cards/image 102.png" },
-    { name: "Clothing", image: "/src/assets/images/cards/image 102.png" },
-    { name: "Home & Garden", image: "/src/assets/images/cards/image 102.png" },
+    { name: "Shirts", image: "/src/assets/images/cards/image 102.png" },
+    { name: "Pants", image: "/src/assets/images/cards/image 103.png" },
+    { name: "Lingaries", image: "/src/assets/images/cards/image 104.png" },
+    { name: "Toys", image: "/src/assets/images/cards/image 105.png" },
+    { name: "Jeans", image: "/src/assets/images/cards/image 103.png" },
+    { name: "Leggings", image: "/src/assets/images/cards/image 102.png" },
+    { name: "Jeggings", image: "/src/assets/images/cards/image 105.png" },
+    { name: "Featured", image: "/src/assets/images/cards/image 102.png" },
+    { name: "Shorts", image: "/src/assets/images/cards/image 102.png" },
     // Add more categories as needed...
   ];
 

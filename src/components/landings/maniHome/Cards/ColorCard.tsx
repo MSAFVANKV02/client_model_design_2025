@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box,  Typography } from '@mui/material';
-import Grid from '@mui/material/Grid'; // Correct import
+import Grid from '@mui/material/Grid2'; // Correct import
 
 interface ColorItem {
   colorCode: string;
@@ -38,7 +38,7 @@ export default function ColorGrid() {
   return (
     <Grid container spacing={1} justifyContent="start" className=''>
       {colors.map((color, index) => (
-        <Grid item key={index} className='cursor-pointer'>
+        <Grid  key={index} className='cursor-pointer'>
           <Box
             sx={{
               width: 64,

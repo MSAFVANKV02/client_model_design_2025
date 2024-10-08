@@ -17,6 +17,8 @@ import ProtectedRoute from "@/middlewares/ProtectedRoute";
 import { isAuthenticated } from "@/middlewares/IsAuthenticated";
 import MainHome from "@/pages/UserSide/Home/MainHome";
 import AppLayout from "@/Layout";
+import AdmLayout from "@/AdmLayout";
+import DashboardLayoutBasic from "@/pages/adminSide/Dashboard";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -32,7 +34,9 @@ const isLogged = isAuthenticated();
 const rootRouter = createBrowserRouter([
   {
     path: "/",
-    element: <ScrollProvider>{isLogged ? <AppLayout /> : <App />}</ScrollProvider>,
+    element: (
+      <ScrollProvider>{isLogged ? <AppLayout /> : <App />}</ScrollProvider>
+    ),
     children: [
       {
         index: true,
@@ -108,6 +112,27 @@ const rootRouter = createBrowserRouter([
       {
         path: "details",
         element: <KycDetails />,
+      },
+    ],
+  },
+  //   ===== Admin Sections =================================
+  {
+    path: "/admin",
+
+    element: <AdmLayout />,
+    children: [
+      {
+        index: true,
+        path: "/admin",
+        element: <DashboardLayoutBasic />,
+      },
+      {
+        path: "dashboard",
+        element: <DashboardLayoutBasic />, // Loads at "/admin/dashboard"
+      },
+      {
+        path: "orders",
+        element: <UserDetails />, // Loads at "/admin/dashboard"
       },
     ],
   },

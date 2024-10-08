@@ -10,6 +10,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import StarIcon from '@mui/icons-material/Star';
 import { Box } from '@mui/material';
 import { Button } from '@/components/ui/button';
+import { useWindowSize } from '@react-hook/window-size';
 
 interface ProdCardProps {
   title: string;
@@ -27,14 +28,15 @@ export default function ProdCard({
   sold,
 }: ProdCardProps) {
   const [favorite, setFavorite] = React.useState(isFavorite);
+  const [width] = useWindowSize()
 
   return (
-    <Card sx={{ maxWidth: 330 }}>
+    <Card sx={{ maxWidth: 330 }} >
       <Box sx={{ position: 'relative' }}>
         <CardMedia
           component="img"
           sx={{
-            height: 360, // Fixed height
+            height: width > 768 ? 350 : 200, // Fixed height
             width: '100%', // Full width
             objectFit: 'cover', // Maintain aspect ratio
             borderTopLeftRadius: 8, // Optional: Add rounded corners
@@ -65,7 +67,7 @@ export default function ProdCard({
         </IconButton>
       </Box>
       <CardContent>
-        <Typography variant="body1" component="div">
+        <Typography variant="body2" component="div"  className='truncate'>
           {title}
         </Typography>
         <Typography variant="h6" color="text.primary">

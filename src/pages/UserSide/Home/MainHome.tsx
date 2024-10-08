@@ -129,7 +129,7 @@ export default function MainHome() {
 
 
       {/* ======= Section 04 :  Products ========= starting */}
-      <div className="grid gap-2 xl:grid-cols-5 sm:grid-cols-4 w-full section_container_dash">
+      <div className="grid gap-2 xl:grid-cols-5 sm:grid-cols-4  grid-cols-2 w-full section_container_dash">
           {products.map((product) => (
             <ProdCard
               key={product.id}
@@ -143,19 +143,28 @@ export default function MainHome() {
         </div>
 
          {/* ======= Section 05 : Color Variants ========= starting */}
-      {/* <div className="grid gap-2 xl:grid-cols-5 sm:grid-cols-4 w-full section_container_dash">
-          {products.map((product) => (
-            <ColorCard
-              key={product.id}
-             colorCode="#ccccc"
-             colorName="black"
-            />
-          ))}
-        </div> */}
+     
         <div className="section_container_dash space-y-1">
           <h4>Shop By Colors</h4>
           <ColorGrid />
         </div>
+
+           {/* ======= Section 05 : Color Variants ========= ENDS */}
+
+           {/* ======= Section 06 : Testimonials ========= starting */}
+
+           <BannerWrapper isActive={true} className="w-full section_container_dash overflow-hidden" nextBtnClass="" btnClass="sm:left-28 sm:right-28">
+          {BannerDetails.map((banner) => (
+            <Banner
+              className="w-full md:h-auto md:min-h-[370px] md:max-h-[450px] sm:h-[200px] h-[110px] rounded-md overflow-hidden" // Consistent height
+              _id={banner.id}
+              name={banner.name}
+              link={banner.link}
+              image={banner.image}
+              key={banner.id}
+            />
+          ))}
+        </BannerWrapper>
           
     </div>
   );
