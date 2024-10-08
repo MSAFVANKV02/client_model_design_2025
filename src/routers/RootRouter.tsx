@@ -131,7 +131,11 @@ const rootRouter = createBrowserRouter([
         element: <DashboardLayoutBasic />, // Loads at "/admin/dashboard"
       },
       {
-        path: "orders",
+        path: "orders/pending",
+        element: <UserDetails />, // Loads at "/admin/dashboard"
+      },
+      {
+        path: "orders/completed",
         element: <UserDetails />, // Loads at "/admin/dashboard"
       },
     ],
