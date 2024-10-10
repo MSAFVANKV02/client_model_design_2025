@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { makeToast } from "@/utils/toaster";
+import { SubmitUserRegisterDetails } from "@/utils/urlPath";
 
 // Define the Zod schema for form validation
 const formSchema = z.object({
@@ -61,7 +62,7 @@ function UserDetails() {
   const onSubmit = async (data: IFormData) => {
     try {
       setLoading(true);
-      const response = await axios.post(`/user/registerUser`,{ ...data,mobile:auth});
+      const response = await axios.post(SubmitUserRegisterDetails,{ ...data,mobile:auth});
       if (response.status === 200) {
         console.log("Data sent successfully",response.data);
         localStorage.setItem("userProfile", JSON.stringify(response.data.user));

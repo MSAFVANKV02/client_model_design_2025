@@ -40,7 +40,7 @@ export default function CategoryCard() {
     };
   };
 
-  const visibleCards = showAll ? categoryCard : categoryCard.slice(0, 6);
+  const visibleCards = showAll ? categoryCard : categoryCard.slice(0, 8);
 
   return (
     <div className="space-y- section_container_dash">
@@ -56,13 +56,13 @@ export default function CategoryCard() {
 
       {/* Cards section */}
       <motion.div
-        className="overflow-x-auto"
+        className="overflow-x-auto  scrollbar-none"
         initial={{ height: 0 }}
         animate={{ height: showAll  ? "auto" : "" }} // Adjust height for 6 cards
         transition={{ duration: 0.1, ease: "easeInOut" }}
         viewport={{ once: false, amount: 0.7 }}
       >
-        <ul className="flex md:grid md:grid-cols-6 px-2 pt-3 sm:grid-cols-4 grid-cols-3 gap-2 md:gap-4 snap-x snap-mandatory">
+        <ul className="flex md:grid xl:grid-cols-8 px-2 pt-3 sm:grid-cols-4 grid-cols-3 gap-2 md:gap-4 snap-x snap-mandatory">
           {visibleCards.map((item, index) => (
             <Link
               to={`/category/${item.name.toLowerCase()}`}

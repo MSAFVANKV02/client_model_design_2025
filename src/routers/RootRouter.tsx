@@ -19,6 +19,7 @@ import MainHome from "@/pages/UserSide/Home/MainHome";
 import AppLayout from "@/Layout";
 import AdmLayout from "@/AdmLayout";
 import DashboardLayoutBasic from "@/pages/adminSide/Dashboard";
+import CategoryProductsPage from "@/pages/UserSide/Prod_pages/Category_wise/CategoryProductsPage";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -46,6 +47,7 @@ const rootRouter = createBrowserRouter([
             {isLogged ? <MainHome /> : <HomePage />}
           </ProtectedRoute>
         ),
+        errorElement:<ErrorPage />
       },
       {
         path: "/register",
@@ -86,6 +88,15 @@ const rootRouter = createBrowserRouter([
           <ProtectedRoute isProtected={true}>
             {" "}
             <UserDetails />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/category/:slug",
+        element: (
+          <ProtectedRoute isProtected={true}>
+            {" "}
+            <CategoryProductsPage />
           </ProtectedRoute>
         ),
       },

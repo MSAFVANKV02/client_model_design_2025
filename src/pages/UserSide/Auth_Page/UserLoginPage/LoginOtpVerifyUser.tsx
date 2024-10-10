@@ -20,6 +20,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { OtpVerifyLoginUser } from "@/utils/urlPath";
 
 const formSchema = z.object({
   otp: z.string().min(6, { message: "OTP is required." }),
@@ -92,7 +93,7 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
     console.log(`OTP entered: ${data.otp}`);
 
     try {
-      const response = await axios.post(`/user/verifyOtpForLogin`, {
+      const response = await axios.post(OtpVerifyLoginUser, {
         otp: data.otp,
         mobile: auth,
       });

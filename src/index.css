@@ -2,19 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-html{
+html {
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
 }
-*{
+* {
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
 }
-
 
 @layer base {
   :root {
@@ -42,7 +41,7 @@ html{
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --radius: 0.5rem;
   }
   .dark {
     --background: 222.2 84% 4.9%;
@@ -68,17 +67,16 @@ html{
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    --chart-5: 340 75% 55%;
   }
 }
 
-
-:root{
-  --mainColor:#5F08B1;
-  --mainText:#5F08B1;
-  --softColor:#7741a9;
-  --secColor:#60C6C4;
-  --colorSoft:#F8E5FF;
+:root {
+  --mainColor: #5f08b1;
+  --mainText: #5f08b1;
+  --softColor: #7741a9;
+  --secColor: #60c6c4;
+  --colorSoft: #f8e5ff;
 }
 
 @layer base {
@@ -89,7 +87,6 @@ html{
     @apply bg-background text-foreground;
   }
 }
-
 
 p {
   font-size: clamp(0.9rem, 2.5vw, 1.1rem); /* Scales from 16px to 20px */
@@ -107,21 +104,13 @@ h4 {
   font-size: clamp(1.15rem, 2.5vw, 1.5rem); /* Scales from 20px to 32px */
 }
 
-label{
+label {
   margin: 0px 0px 0px 0px !important;
 }
 
 /* ********   **********  **************/
 /* ****     Slick Css Starts    **** */
 /* ********   **********  **************/
-
-@import "~slick-carousel/slick/slick.css";
-@import "~slick-carousel/slick/slick-theme.css";
-
-.slick-prev,
-.slick-next {
-  display: none !important;
-}
 /* ********   **********  **************/
 /* ****     Slick Css Ends    **** */
 /* ********   **********  **************/
@@ -129,34 +118,61 @@ label{
 
 
 /* ********   **********  **************/
+/* ****     Material ui Slider Css Starts    **** */
+/* ********   **********  **************/
+
+.slick-prev,
+.slick-next {
+  display: none !important;
+  /* ********   **********  **************/
+/* ****     Material ui Slider Css Ends    **** */
+/* ********   **********  **************/
+}
+
+
+.css-hayzob-JoySlider-thumb::before {
+  border: none !important;
+}
+
+/* ********   **********  **************/
 /* ****     Basic Css Starts    **** */
 /* ********   **********  **************/
 
-.section_container_dash{
-  @apply  2xl:px-24 xl:px-20 md:px-14 sm:px-10 px-5 mx-auto;
+.section_container_dash {
+  @apply 2xl:px-24 xl:px-20 md:px-14 sm:px-10 px-5 mx-auto;
 }
 
-.section_container{
+.section_container_cards {
+  @apply 2xl:px-24 xl:px-20 md:px-14 sm:px-10 mx-auto;
+}
+
+.section_container {
   @apply max-w-screen-2xl 2xl:px-24 xl:px-20 md:px-14 sm:px-10 px-5 mx-auto;
 }
 
 .bg-combined-gradients {
-  background: linear-gradient(220.66deg, #F0DFFF -11.2%, #FFFFFF 100.09%),
-              linear-gradient(219.36deg, #F5D9FF 16.58%, #FFFFFF 100.08%);
+  background: linear-gradient(220.66deg, #f0dfff -11.2%, #ffffff 100.09%),
+    linear-gradient(219.36deg, #f5d9ff 16.58%, #ffffff 100.08%);
 }
 .bg-combined-gradients2 {
-  background: rgb(171,94,239);
-  background: linear-gradient(90deg, rgba(171,94,239,1) 0%, rgba(241,225,255,1) 96%);
+  background: rgb(171, 94, 239);
+  background: linear-gradient(
+    90deg,
+    rgba(171, 94, 239, 1) 0%,
+    rgba(241, 225, 255, 1) 96%
+  );
 }
 
 .bg-combined-gradients3 {
-  background: rgb(95,8,177);
-background: linear-gradient(90deg, rgba(95,8,177,1) 0%, rgba(96,136,190,1) 83%, rgba(96,154,192,1) 100%, rgba(96,198,196,1) 100%);
+  background: rgb(95, 8, 177);
+  background: linear-gradient(
+    90deg,
+    rgba(95, 8, 177, 1) 0%,
+    rgba(96, 136, 190, 1) 83%,
+    rgba(96, 154, 192, 1) 100%,
+    rgba(96, 198, 196, 1) 100%
+  );
 }
-
-
-
-
 
 /* admin */
 .radio-button {
@@ -173,7 +189,6 @@ background: linear-gradient(90deg, rgba(95,8,177,1) 0%, rgba(96,136,190,1) 83%, 
 .radio-button input[type="radio"] {
   display: none;
 }
-
 
 .radio-checkmark {
   display: inline-block;
@@ -194,7 +209,7 @@ background: linear-gradient(90deg, rgba(95,8,177,1) 0%, rgba(96,136,190,1) 83%, 
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #AF61CC;
+  background-color: #af61cc;
   transition: all 0.2s ease-in-out;
 }
 

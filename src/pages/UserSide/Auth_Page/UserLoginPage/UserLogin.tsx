@@ -19,6 +19,7 @@ import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useEffect, useState } from "react";
 import LoginOtpVerifyUser from "./LoginOtpVerifyUser";
+import { SendOtpLoginUser } from "@/utils/urlPath";
 
 // Define the Zod schema for phone number validation
 const formSchema = z.object({
@@ -62,7 +63,7 @@ function UserLogin() {
   const onSubmit = async (data: FormData) => {
     try {
       setLoading(true);
-      const response = await axios.post(`/user/sendOtpForLogin`, {
+      const response = await axios.post(SendOtpLoginUser, {
         mobile: data.mobile,
       });
       if (response.status === 200) {

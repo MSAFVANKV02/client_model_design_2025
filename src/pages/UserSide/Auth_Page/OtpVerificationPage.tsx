@@ -20,6 +20,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { makeToast, makeToastError } from "@/utils/toaster";
 import ClipLoader from "react-spinners/ClipLoader";
+import { VerifyOtpRegisterUser } from "@/utils/urlPath";
 // Define the Zod schema for OTP validation
 const formSchema = z.object({
   otp: z
@@ -105,7 +106,7 @@ function OtpVerificationPage() {
     console.log(`OTP entered: ${data.otp}`);
 
     try {
-      const response = await axios.post(`/user/verifyOtp`, {
+      const response = await axios.post(VerifyOtpRegisterUser, {
         otp: data.otp,
         mobile: auth,
       });

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { makeToast, makeToastError } from "@/utils/toaster";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useAuth } from "@/providers/AuthContext";
+import { UploadUserKycDetails } from "@/utils/urlPath";
 
 // pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 //   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -102,7 +103,7 @@ export default function KycUpload() {
       formData.append("proofType", proofType || ""); // Append proofType, ensure it's a string
       formData.append("proof", uploadedFile); // Append the uploaded file
 
-      const response = await axios.post("/user/submitKyc", formData, {
+      const response = await axios.post(UploadUserKycDetails, formData, {
         withCredentials: true,
       }); // Specify the correct endpoint
 

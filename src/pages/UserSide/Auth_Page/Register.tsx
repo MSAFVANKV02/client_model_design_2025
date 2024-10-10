@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState } from "react";
+import { sendOtpRegisterUser } from "@/utils/urlPath";
 
 // Define the Zod schema for phone number validation
 const formSchema = z.object({
@@ -48,7 +49,7 @@ function Register() {
   const onSubmit = async (data: FormData) => {
     try {
       setLoading(true);
-      const response = await axios.post(`/user/sendOtp`, {
+      const response = await axios.post(sendOtpRegisterUser, {
         mobile: data.mobile,
       });
 

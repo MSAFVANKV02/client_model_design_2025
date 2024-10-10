@@ -1,0 +1,5 @@
+
+
+1. useQuery 
+ - useQuery used for get search params in url 
+ - in src/utils/QueryParams.ts

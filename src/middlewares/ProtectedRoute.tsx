@@ -16,6 +16,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const isLogged = isAuthenticated();
 
   // If logged in and trying to access a protected route that's not KYC, redirect to KYC
+
+  const protectedRoutes = [
+    "/products",
+    "/category",
+  ];
+
   if (
     isLoggedInKyc &&
     isProtected &&
@@ -41,6 +47,14 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
       window.location.pathname === "/login" ||
       window.location.pathname === "/register/user-details" ||
       window.location.pathname.startsWith("/register/otp-verification"))
+  ) {
+    return <Navigate to="/" replace />;
+  }
+
+  if (
+    !isLogged &&
+    protectedRoutes.some((path) => window.location.pathname.startsWith(path)) 
+    
   ) {
     return <Navigate to="/" replace />;
   }
