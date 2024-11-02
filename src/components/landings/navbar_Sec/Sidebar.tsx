@@ -10,6 +10,7 @@ import {
   DrawerClose,
 } from "@/components/ui/drawer";
 import { Link, useLocation } from "react-router-dom";
+import { INavbarItems } from "./Navbar";
 
 type NavItem = {
   href: string;
@@ -23,7 +24,7 @@ type NavItem = {
 
 type IPropsNavbar = {
   // logo?: string;
-  navItems?: NavItem[]; // Array of NavItem type
+  navItems?: INavbarItems[]; // Array of NavItem type
   // footerLinks?: FooterLink[]; // Array of FooterLink type
 };
 

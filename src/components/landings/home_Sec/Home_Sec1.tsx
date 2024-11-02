@@ -17,7 +17,7 @@ function HomeSec1() {
       // }}
     >
       <div className="flex lg:w-[40%]  w-full space-y-6 lg:-translate-y-5  lg:mt-0 sm:mt-24 mt-20 flex-col lg:justify-end justify-center lg:items-start items-center lg:h-screen h-1/2 z-20 text-container font-bold  uppercase">
-        <div className="lg:text-start text-center ">
+        <div className="lg:text-start text-center font-semibold ">
           <h2>Offers a platform</h2>
           <h2>for trade,</h2>
           <h2>focusing on </h2>

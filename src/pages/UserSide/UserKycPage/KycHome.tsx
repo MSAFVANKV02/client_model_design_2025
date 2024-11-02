@@ -67,15 +67,20 @@ export default function KycHome() {
           src="/img/kyc/banner.webp"
           draggable={false}
           alt=""
-          className="w-full"
+          className="w-full md:block hidden"
         />
-
+        <img
+          src="/img/kyc/krc_responsive_banner01.svg"
+          draggable={false}
+          alt=""
+          className="w-full md:hidden block"
+        />
         {/* =====  Button Image =======  */}
         <img
           onClick={handleKycDetailsClick}
           src="/img/kyc/button complete kyc.webp"
           draggable={false}
-          className="absolute  top-1/2 md:w-[10%] w-[15%] -translate-y-1/2 left-1/2 md:-translate-x-[72%] -translate-x-[45%] active:scale-95 duration-300 transition-all cursor-pointer"
+          className="absolute  md:top-1/2 top-[45%] md:w-[10%] w-[20%] -translate-y-1/2 left-1/2 md:-translate-x-[72%] -translate-x-[35%] active:scale-95 duration-300 transition-all cursor-pointer"
           alt=""
         />
         {/* =====  Button Image =======  */}
@@ -92,14 +97,20 @@ export default function KycHome() {
           src="/img/kyc/banner1.webp"
           draggable={false}
           alt=""
-          className="w-full "
-        />
+          className="w-full md:block hidden"
+          />
+          <img
+            src="/img/kyc/krc_responsive_banner02.svg"
+            draggable={false}
+            alt=""
+            className="w-full md:hidden block"
+          />
         {/* =====  Button Image =======  */}
         <img
           onClick={handleKycDetailsClick}
           src="/img/kyc/button complete kyc.webp"
           draggable={false}
-          className="absolute sm:rounded-2xl rounded-lsm lg:bottom-10 sm:bottom-5 bottom-2 w-[15%] xl:translate-x-16 md:translate-x-10 sm:translate-x-6 translate-x-3
+          className="absolute md:block hidden sm:rounded-2xl rounded-lsm lg:bottom-10 sm:bottom-5 bottom-2 w-[15%] xl:translate-x-16 md:translate-x-10 sm:translate-x-6 translate-x-3
            active:scale-95 duration-300 transition-all cursor-pointer"
           alt=""
         />
@@ -113,14 +124,20 @@ export default function KycHome() {
           src="/img/kyc/banner2.webp"
           draggable={false}
           alt=""
-          className="w-full object-fill"
-        />
+          className="w-full md:block hidden"
+          />
+          <img
+            src="/img/kyc/krc_responsive_banner03.svg"
+            draggable={false}
+            alt=""
+            className="w-full md:hidden block"
+          />
         {/* =====  Button Image =======  */}
         <img
           onClick={handleKycDetailsClick}
           src="/img/kyc/button complete kyc.webp"
           draggable={false}
-          className="absolute  top-3/4 rounded-2xl md:w-[13%] w-[15%]  left-1/2 md:-translate-x-[55%] -translate-x-[45%] active:scale-95 duration-300 transition-all cursor-pointer"
+          className="absolute  md:top-3/4 top-[50%] rounded-2xl md:w-[13%] w-[40%]  left-1/2 md:-translate-x-[55%] -translate-x-[10%] active:scale-95 duration-300 transition-all cursor-pointer"
           alt=""
         />
         {/* =====  Button Image =======  */}
@@ -129,7 +146,7 @@ export default function KycHome() {
           onClick={handleKycDetailsClick}
           src="/img/kyc/button upload kyc.webp"
           draggable={false}
-          className="absolute  top-1/2 rounded-2xl md:w-[13%] w-[15%]  right-10 md:-translate-x-[55%] -translate-y-1/2  active:scale-95 duration-300 transition-all cursor-pointer"
+          className="absolute  md:top-1/2 top-[80%] rounded-2xl md:w-[13%] w-[40%]  right-10 md:-translate-x-[55%] -translate-x-[10%] -translate-y-1/2  active:scale-95 duration-300 transition-all cursor-pointer"
           alt=""
         />
         {/* =====  Button Image 2 =======  */}
@@ -182,7 +199,9 @@ export default function KycHome() {
       {/*-------- Section 5 ====== */}
 
       <div className="sm:p-6 p-2 leading-6 section_container_dash bg-gray-100 w-3/4 rounded-3xl  text-center">
-        <span className=" sm:text-2xl text-sm">TOP CATEGORIES FROM TOP BRANDS</span>
+        <span className=" sm:text-2xl text-sm">
+          TOP CATEGORIES FROM TOP BRANDS
+        </span>
       </div>
 
       {/*-------- Section 6 ====== */}
@@ -192,13 +211,19 @@ export default function KycHome() {
           src="/img/banners/Banner5.png"
           draggable={false}
           alt=""
-          className="w-full object-fill"
+          className="w-full md:block hidden"
+        />
+        <img
+          src="/img/kyc/krc_responsive_banner04.svg"
+          draggable={false}
+          alt=""
+          className="w-full md:hidden block"
         />
       </div>
 
       {/*-------- Section 7 ====== */}
 
-      <div className="grid mb xl:grid-cols-5  sm:gap-3 grid-cols-3 section_container_dash">
+      <div className="grid mb xl:grid-cols-5 sm:grid-cols-3  sm:gap-3 grid-cols-2 section_container_dash">
         {
           kycCards.map((card) => (
             <div

@@ -1,5 +1,4 @@
 import { Icon } from "@iconify/react";
-import { HomeIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { Input } from "@/components/ui/input";
@@ -8,28 +7,18 @@ import { isAuthenticated_4_Kyc } from "@/middlewares/IsAuthenticated";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/providers/AuthContext";
 
-const navItems = [
-  {
-    title: "Home",
-    href: "/",
-    icon: <HomeIcon />,
-    current: true,
-  },
-  {
-    title: "About",
-    href: "/about",
-    icon: <HomeIcon />,
-    current: true,
-  },
-  // {
-  //   title: "Services",
-  //   href: "/services",
-  //   icon: <HomeIcon />,
-  //   current: true,
-  // }
-];
+export type INavbarItems = {
+  href: string;
+  title: string;
+  icon: JSX.Element;
+  current:boolean
+  // subItems?: INavbarItems[];
+}
+type NavbarProps = {
+  navItems: INavbarItems[];
+};
 
-function Navbar() {
+function Navbar({ navItems }: NavbarProps)  {
   const location = useLocation();
   // const navigate = useNavigate();
   const isLoggedIn = isAuthenticated_4_Kyc();
