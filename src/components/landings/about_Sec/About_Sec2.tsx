@@ -8,7 +8,7 @@ function AboutSec2() {
   const {handleClick} = useNavigateClicks()
   return (
     <div className="space-y-6">
-      <img src="/src/assets/images/Background Images/AboutMain.png" alt="" />
+      <img src="/img/Background Images/AboutMain.png" alt="" />
       <div className="text-center flex flex-col justify-center items-center">
         <div className=" sm:w-3/4 ">
           <h5>What We Have</h5>

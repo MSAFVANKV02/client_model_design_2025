@@ -32,7 +32,7 @@ function HomeSec1() {
         </div>
         <div className="">
           <Button variant="b2bStyle">
-            <Link to={`/register`}>Get Started</Link>
+            <Link to={`/login`}>Get Started</Link>
           </Button>
         </div>
       </div>

@@ -9,9 +9,10 @@ interface CardContainerProps {
   description: string;
   isTrue: boolean;
   index: number;
+  slug:string;
 }
 
-export function CardContainer({ className, title, image, description, isTrue,index }: CardContainerProps) {
+export function CardContainer({ className, title, image, description, isTrue,index, slug }: CardContainerProps) {
     const isLastCard = index === 4;
   return (
     <CardContent className={className}>
@@ -39,7 +40,7 @@ export function CardContainer({ className, title, image, description, isTrue,ind
 
         {/* Arrow */}
         <button className="w-7 h-7 2xl:px-10 px-8  bg-bg text-white rounded-full flex items-center justify-center group">
-          <Link to='/' className='group-hover:-rotate-45 duration-500 transition-all'>&#8594;</Link>
+          <Link to={slug} className='group-hover:-rotate-45 duration-500 transition-all'>&#8594;</Link>
         </button>
         </div>
        

@@ -7,30 +7,35 @@ function HomeSec2() {
       id: 1,
       title: "Women",
       image: "/src/assets/images/Hero Images/women.png",
+      slug:'/register',
       description: "Dresses, Tops, Bottoms,  Outerwear, Active wear, Footwear, Accessories, Beauty, etc.",
     },
     {
       id: 2,
       title: "Girl",
       image: "/src/assets/images/Hero Images/girl.png",
+      slug:'/register',
       description: "T-Shirts, Blouses, Sweaters, Jeans, Skirts, Leggings, Casual Dresses, Party Dresses, Formal Dresses, etc.",
     },
     {
       id: 3,
       title: "Boy",
       image: "/src/assets/images/Hero Images/boy.png",
+      slug:'/register',
       description: "T-Shirts, Polo Shirts, Hoodies & Sweatshirts, Jeans, Shorts, Trousers, Casual Shirts, Suits, etc.",
     },
     {
       id: 4,
       title: "Men",
       image: "/src/assets/images/Hero Images/men.png",
+      slug:'/register',
       description: "T-Shirts, Polo Shirts, Dress Shirts, Sweaters & Hoodies, Jeans, Chinos, Trousers, Shorts, etc.",
     },
     {
       id: 5,
       title: "Infant",
       image: "/src/assets/images/Hero Images/infant.png",
+      slug:'/register',
       description: "Bodysuits, T-Shirts, Onesies, Sweatshirts, Pants, Shorts, Leggings, Overalls, Booties, Casual Dresses, etc.",
     },
   ];
@@ -48,6 +53,7 @@ function HomeSec2() {
         {cardContentList.map((item, index) => (
           <CardContainer
             key={item.id}
+            slug={item.slug}
             title={item.title}
             image={item.image}
             description={item.description}
