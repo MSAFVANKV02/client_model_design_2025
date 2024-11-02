@@ -32,7 +32,7 @@ const kycSlice = createSlice({
   name: "kyc",
   initialState,
   reducers: {
-    saveKycDetails(state, action: PayloadAction<KycDetails>) {
+    saveKycDetails(_, action: PayloadAction<KycDetails>) {
       return action.payload;
     },
     clearKycDetails() {

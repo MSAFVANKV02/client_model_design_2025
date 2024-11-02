@@ -1,5 +1,5 @@
 // CustomAppBar.tsx
-import React from 'react';
+
 import { AppBar, Toolbar, Typography } from '@mui/material';
 import MyLogo from '@/assets/images/logo/flower_ayaboo.png'; // Import your logo
 

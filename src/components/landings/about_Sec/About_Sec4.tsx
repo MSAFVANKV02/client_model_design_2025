@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import React from "react";
+
 import { useNavigate } from "react-router-dom";
 
 function AboutSec4() {

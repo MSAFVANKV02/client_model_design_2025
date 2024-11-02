@@ -1,8 +1,17 @@
 import { cn } from '@/lib/utils';
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 
-export function CardContainer({ className, title, image, description, isTrue,index }) {
+interface CardContainerProps {
+  className?: string;
+  title: string;
+  image: string;
+  description: string;
+  isTrue: boolean;
+  index: number;
+}
+
+export function CardContainer({ className, title, image, description, isTrue,index }: CardContainerProps) {
     const isLastCard = index === 4;
   return (
     <CardContent className={className}>
@@ -39,13 +48,15 @@ export function CardContainer({ className, title, image, description, isTrue,ind
   );
 }
 
-export function CardContent(props) {
+type CardContentProps = React.HTMLAttributes<HTMLDivElement>;
+
+export function CardContent({ className, ...props }: CardContentProps) {
   return (
     <div
       {...props}
       className={cn(
         "flex flex-col items-center justify-center w-full h-full p-3 rounded-xl shadow-lg bg-[#FAEEFF]/85 backdrop-blur-md filter",
-        props.className
+        className
       )}
     />
   );

@@ -1,5 +1,5 @@
 import { CheckCheck } from "lucide-react";
-import React from "react";
+
 
 function HomeSec4() {
   const cardContentList = [
