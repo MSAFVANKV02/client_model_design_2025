@@ -14,7 +14,7 @@ function AboutSec4() {
       <div
         className=" w-full py-10 "
         style={{
-          backgroundImage: `url('/src/assets/images/Background Images/DoodleBG_image.png')`,
+          backgroundImage: `url('img/Background Images/DoodleBG_image.png')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -33,8 +33,8 @@ function AboutSec4() {
             </div>
             {/* ===== */}
             <div className="mt-auto h-full flex flex-col text-white">
-              <a href="tel:974488444" className="flex items-center gap-3"><img src="/src/assets/images/icons/Phone_icon.svg" alt="" /> 974488444</a>
-              <a href="tel:974488444" className="flex items-center gap-3"><img src="/src/assets/images/icons/logos_whatsapp-icon.svg" alt="" /> 974488444</a>
+              <a href="tel:974488444" className="flex items-center gap-3"><img src="img/icons/Phone_icon.svg" alt="" /> 974488444</a>
+              <a href="tel:974488444" className="flex items-center gap-3"><img src="img/icons/logos_whatsapp-icon.svg" alt="" /> 974488444</a>
             </div>
           </div>
           {/* second half */}
@@ -56,12 +56,12 @@ function AboutSec4() {
           <h4 className="font-semibold capitalize">ODIO App Now!</h4>
           <div className="flex gap-3">
             <img
-              src="/src/assets/images/icons/Appstore.png"
+              src="img/icons/Appstore.png"
               alt="appStore | Odio"
               className="w-28"
             />
             <img
-              src="/src/assets/images/icons/PlayStore.png"
+              src="img/icons/PlayStore.png"
               alt="playStore | Odio"
               className="w-28"
             />
