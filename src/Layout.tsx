@@ -7,9 +7,10 @@ import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import Navbar from "./components/landings/navbar_Sec/Navbar";
 import { NavigationMenuBar } from "./components/landings/navbar_Sec/NavigationMenuBar";
+import useNavbarItems from "./components/landings/navbar_Sec/navbarItems";
 function AppLayout() {
   // const location = useLocation();
-
+  const {navItems} = useNavbarItems()
   // const homePath = location.pathname === "/";
   const queryParams = new URLSearchParams(window.location.search);
   const auth = queryParams.get("auth");
@@ -29,7 +30,7 @@ function AppLayout() {
           "debug-screens": import.meta.env.MODE === "development",
         })}
       >
-        <Navbar />
+        <Navbar navItems={navItems}/>
         <div className="w-full bg-gray-50 border-b">
              <NavigationMenuBar/>
         </div>
