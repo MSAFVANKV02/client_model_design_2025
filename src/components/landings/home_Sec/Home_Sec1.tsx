@@ -10,7 +10,7 @@ function HomeSec1() {
     <div
       className="w-full relative 2xl:pl-24 xl:pl-20 md:pl-14 sm:pl-10 sm:px-0 px-5 mx-auto flex lg:flex-row flex-col gap-4"
       // style={{
-      //   background: `url("/src/assets/images/Background Images/Main_image.png")`,
+      //   background: `url("img/Background Images/Main_image.png")`,
       //   backgroundSize: "fill",
       //   backgroundPosition: "right",
       //   backgroundRepeat: "no-repeat",
@@ -41,8 +41,8 @@ function HomeSec1() {
         <img
           src={`${
             mobileSize
-              ? "/src/assets/images/Background Images/Mobile_Main_image.png"
-              : "/src/assets/images/Background Images/Main_image.png"
+              ? "img/Background Images/Mobile_Main_image.png"
+              : "img/Background Images/Main_image.png"
           }`}
           alt="home|B2b"
           draggable={false}
@@ -50,7 +50,7 @@ function HomeSec1() {
         />
         <div className="lg:absolute  lg:-translate-y-3/4 lg:top-[60%] 2xl:right-40 right-10 flex flex-col items-center lg:gap-10 gap-5">
           <img
-            src="/src/assets/images/Background Images/Curvy_arrow_image.png"
+            src="img/Background Images/Curvy_arrow_image.png"
             alt=""
             className="lg:w-auto w-28"
           />
@@ -61,7 +61,7 @@ function HomeSec1() {
             </Button>
           </Link>
           <img
-            src="/src/assets/images/Background Images/Curvy_arrow_image.png"
+            src="img/Background Images/Curvy_arrow_image.png"
             alt=""
             className="lg:w-auto w-28 rotate-180 "
           />

@@ -89,7 +89,7 @@ function UserLogin() {
     <div className="h-screen w-screen flex items-center justify-center relative">
       {/* Main Container */}
       <img
-        src="/src/assets/images/Background Images/Group 1109.svg"
+        src="/img/Background Images/Group 1109.svg"
         alt=""
         className="absolute w-full h-full object-cover"
       />
@@ -97,7 +97,7 @@ function UserLogin() {
         {/* Image Section */}
         <div className="hidden lg:block lg:w-3/4 relative">
           <img
-            src="/src/assets/images/Hero Images/login_main.png"
+            src="/img/Hero Images/login_main.png"
             alt="login"
             className="w-full h-full object-cover"
           />
@@ -115,7 +115,7 @@ function UserLogin() {
               className="absolute top-4 left-4 cursor-pointer"
             />
             <img
-              src="/src/assets/images/Background Images/Group 1107.png"
+              src="/img/Background Images/Group 1107.png"
               alt="logo"
               className="w-28 h-28 mb-4"
             />

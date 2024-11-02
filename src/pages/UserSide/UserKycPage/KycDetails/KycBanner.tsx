@@ -7,15 +7,15 @@ export default function KycBanner() {
   const banners = [
     {
       id: 1,
-      src: "/src/assets/images/banners/kyc_curosal1.webp",
+      src: "/img/banners/kyc_curosal1.webp",
     },
     {
       id: 2,
-      src: "/src/assets/images/banners/kyc_curosal2.webp",
+      src: "/img/banners/kyc_curosal2.webp",
     },
     {
       id: 3,
-      src: "/src/assets/images/banners/kyc_curosal2.webp",
+      src: "/img/banners/kyc_curosal2.webp",
     },
   ];
 

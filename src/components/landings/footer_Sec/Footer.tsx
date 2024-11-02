@@ -13,14 +13,14 @@ function Footer() {
       <div
         className="min-h-[300px] h-fit w-full flex flex-col section_container py-14"
         style={{
-          backgroundImage: `url('/src/assets/images/Background Images/DoodleBG_image.png')`,
+          backgroundImage: `url('img/Background Images/DoodleBG_image.png')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
       >
         <div className="">
-          <img src="/src/assets/images/logo/Logo_white.svg" alt="" />
+          <img src="/img/logo/Logo_white.svg" alt="" />
         </div>
         <div className="flex md:flex-row flex-col h-full mt-auto justify-between">
           <div className="grid md:grid-cols-3 sm:text-sm text-xs md:py-0 py-6 grid-cols-1 text-white gap-2">

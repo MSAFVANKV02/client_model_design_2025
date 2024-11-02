@@ -400,7 +400,7 @@ export default function MiniDrawer() {
                 <div className="h-10 relative w-10  rounded-2xl bg-textMain flex items-center justify-center overflow-hidden">
                   {/* Image slides to the left */}
                   <img
-                    src="/src/assets/images/logo/flower_ayaboo.png"
+                    src="img/logo/flower_ayaboo.png"
                     alt="navbar logo"
                     className="absolute w-[50%]  group-hover:w-0 group-hover:translate-x-[-150%] transition-all duration-300 ease-in"
                   />

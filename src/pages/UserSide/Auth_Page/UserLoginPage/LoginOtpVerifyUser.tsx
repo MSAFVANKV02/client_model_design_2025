@@ -185,7 +185,7 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
         fontSize={20}
       />
       <img
-        src="/src/assets/images/Background Images/Group 1117.png"
+        src="/img/Background Images/Group 1117.png"
         alt="logo"
         className="w-36 mb-4"
       />

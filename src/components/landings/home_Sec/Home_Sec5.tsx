@@ -14,7 +14,7 @@ function HomeSec5() {
          <div
         className="min-h-[300px] w-full flex justify-center items-center flex-col space-y-6"
         style={{
-          backgroundImage: `url('/src/assets/images/Background Images/DoodleBG_image.png')`,
+          backgroundImage: `url('img/Background Images/DoodleBG_image.png')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -48,12 +48,12 @@ function HomeSec5() {
           <h4 className="font-semibold capitalize">ODIO App Now!</h4>
           <div className="flex gap-3">
             <img
-              src="/src/assets/images/icons/Appstore.png"
+              src="img/icons/Appstore.png"
               alt="appStore | Odio"
               className="w-28"
             />
             <img
-              src="/src/assets/images/icons/PlayStore.png"
+              src="img/icons/PlayStore.png"
               alt="playStore | Odio"
               className="w-28"
             />

@@ -10,27 +10,27 @@ export default function KycHome() {
     {
       id: 1,
       title: "WOMEN",
-      src: "/src/assets/images/kyc/Rectangle 587.png",
+      src: "/img/kyc/Rectangle 587.png",
     },
     {
       id: 2,
       title: "MEN",
-      src: "/src/assets/images/kyc/Rectangle 588.png",
+      src: "/img/kyc/Rectangle 588.png",
     },
     {
       id: 3,
       title: "BOY",
-      src: "/src/assets/images/kyc/Rectangle 588.png",
+      src: "/img/kyc/Rectangle 588.png",
     },
     {
       id: 4,
       title: "Girls",
-      src: "/src/assets/images/kyc/Rectangle 591.png",
+      src: "/img/kyc/Rectangle 591.png",
     },
     {
       id: 5,
       title: "Infant",
-      src: "/src/assets/images/kyc/Rectangle 594.png",
+      src: "/img/kyc/Rectangle 594.png",
     },
   ];
 
@@ -64,7 +64,7 @@ export default function KycHome() {
 
       <div className="w-full relative">
         <img
-          src="/src/assets/images/kyc/banner.webp"
+          src="/img/kyc/banner.webp"
           draggable={false}
           alt=""
           className="w-full"
@@ -73,7 +73,7 @@ export default function KycHome() {
         {/* =====  Button Image =======  */}
         <img
           onClick={handleKycDetailsClick}
-          src="/src/assets/images/kyc/button complete kyc.webp"
+          src="/img/kyc/button complete kyc.webp"
           draggable={false}
           className="absolute  top-1/2 md:w-[10%] w-[15%] -translate-y-1/2 left-1/2 md:-translate-x-[72%] -translate-x-[45%] active:scale-95 duration-300 transition-all cursor-pointer"
           alt=""
@@ -89,7 +89,7 @@ export default function KycHome() {
 
       <div className="section_container_dash relative">
         <img
-          src="/src/assets/images/kyc/banner1.webp"
+          src="/img/kyc/banner1.webp"
           draggable={false}
           alt=""
           className="w-full "
@@ -97,7 +97,7 @@ export default function KycHome() {
         {/* =====  Button Image =======  */}
         <img
           onClick={handleKycDetailsClick}
-          src="/src/assets/images/kyc/button complete kyc.webp"
+          src="/img/kyc/button complete kyc.webp"
           draggable={false}
           className="absolute sm:rounded-2xl rounded-lsm lg:bottom-10 sm:bottom-5 bottom-2 w-[15%] xl:translate-x-16 md:translate-x-10 sm:translate-x-6 translate-x-3
            active:scale-95 duration-300 transition-all cursor-pointer"
@@ -110,7 +110,7 @@ export default function KycHome() {
 
       <div className="w-full relative">
         <img
-          src="/src/assets/images/kyc/banner2.webp"
+          src="/img/kyc/banner2.webp"
           draggable={false}
           alt=""
           className="w-full object-fill"
@@ -118,7 +118,7 @@ export default function KycHome() {
         {/* =====  Button Image =======  */}
         <img
           onClick={handleKycDetailsClick}
-          src="/src/assets/images/kyc/button complete kyc.webp"
+          src="/img/kyc/button complete kyc.webp"
           draggable={false}
           className="absolute  top-3/4 rounded-2xl md:w-[13%] w-[15%]  left-1/2 md:-translate-x-[55%] -translate-x-[45%] active:scale-95 duration-300 transition-all cursor-pointer"
           alt=""
@@ -127,7 +127,7 @@ export default function KycHome() {
         {/* =====  Button Image 2 =======  */}
         <img
           onClick={handleKycDetailsClick}
-          src="/src/assets/images/kyc/button upload kyc.webp"
+          src="/img/kyc/button upload kyc.webp"
           draggable={false}
           className="absolute  top-1/2 rounded-2xl md:w-[13%] w-[15%]  right-10 md:-translate-x-[55%] -translate-y-1/2  active:scale-95 duration-300 transition-all cursor-pointer"
           alt=""
@@ -189,7 +189,7 @@ export default function KycHome() {
 
       <div className="section_container_dash">
         <img
-          src="/src/assets/images/banners/Banner5.png"
+          src="/img/banners/Banner5.png"
           draggable={false}
           alt=""
           className="w-full object-fill"

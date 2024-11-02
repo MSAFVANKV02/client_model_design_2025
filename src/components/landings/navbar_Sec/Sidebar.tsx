@@ -58,7 +58,7 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
       <DrawerContent className="bg-black text-white w-full border-none">
         <DrawerHeader className="p-4">
           <img
-            src="/src/assets/images/logo/Logo_white.svg"
+            src="img/logo/Logo_white.svg"
             alt="Logo"
             className="h-10"
           />
@@ -108,7 +108,7 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
         <DrawerFooter
           className="p-4"
           style={{
-            backgroundImage: `url('/src/assets/images/Background Images/DoodleBG_image.png')`,
+            backgroundImage: `url('img/Background Images/DoodleBG_image.png')`,
             backgroundSize: "contain",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",

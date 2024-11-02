@@ -176,7 +176,7 @@ function OtpVerificationPage() {
   return (
     <div className="h-screen w-screen flex relative">
       <img
-        src="/src/assets/images/Background Images/Group 1109.svg"
+        src="/img/Background Images/Group 1109.svg"
         alt=""
         className="absolute object-cover top-0 left-0 bottom-0 right-0 w-full h-full"
       />
@@ -190,7 +190,7 @@ function OtpVerificationPage() {
         />
         <div className="flex flex-col w-full justify-center items-center space-y-5">
           <img
-            src="/src/assets/images/Background Images/Group 1117.png"
+            src="/img/Background Images/Group 1117.png"
             alt="login page b2b"
             className="w-28 h-28"
           />

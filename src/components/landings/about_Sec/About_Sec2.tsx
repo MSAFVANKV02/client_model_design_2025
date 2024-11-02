@@ -33,7 +33,7 @@ function AboutSec2() {
           <div className=" bg-combined-gradients2 rounded-2xl ">
             <div className="border border-white m-1 p-3 rounded-xl  relative hide-cnt">
               <img
-                src="/src/assets/images/Background Images/Layer 1 1.png"
+                src="img/Background Images/Layer 1 1.png"
                 alt=""
                 className="ml-auto  w-24 h-24"
               />
@@ -53,7 +53,7 @@ function AboutSec2() {
                 <p>Trusted Customers</p>
               </div>
               <img
-                src="/src/assets/images/Background Images/Layer 2 1.png"
+                src="img/Background Images/Layer 2 1.png"
                 alt=""
                 className="ml-auto  w-24 h-24 z-40"
               />
@@ -68,7 +68,7 @@ function AboutSec2() {
                 <p>DYears of Experience</p>
               </div>
               <img
-                src="/src/assets/images/Background Images/Layer 5 2.png"
+                src="img/Background Images/Layer 5 2.png"
                 alt=""
                 className="ml-auto  w-24 h-24 z-40"
               />
@@ -78,7 +78,7 @@ function AboutSec2() {
           <div className=" bg-combined-gradients2 rounded-2xl ">
             <div className="border border-white m-1 p-3 rounded-xl  ">
               <img
-                src="/src/assets/images/Background Images/Layer 6 1.png"
+                src="img/Background Images/Layer 6 1.png"
                 alt=""
                 className="ml-auto  w-24 h-24"
               />
@@ -140,7 +140,7 @@ function AboutSec2() {
       {/* ----------  #The Ayaboo Team ---------------- */}
 
       <div className="bg-black rounded-xl p-5 flex md:flex-row flex-col gap-6">
-        <img src="/src/assets/images/Background Images/AyabooTeam.png" alt="" />
+        <img src="img/Background Images/AyabooTeam.png" alt="" />
         <div className="flex flex-col items-start gap-4">
           <h3 className="text-white font-semibold">The Ayaboo Team</h3>
           <small className="text-gray-400">

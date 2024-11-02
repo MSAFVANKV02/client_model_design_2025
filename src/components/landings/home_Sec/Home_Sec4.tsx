@@ -28,7 +28,7 @@ function HomeSec4() {
     <div className="section_container h-full pb-32">
       <div className="flex gap-14 md:flex-row flex-col">
         <div className="flex-shrink flex justify-center items-center">
-          <img src="/src/assets/images/Hero Images/Seamless.png" alt="" className="2xl:w-80 2xl:h-80 w-[17rem] h-[17rem] "/>
+          <img src="img/Hero Images/Seamless.png" alt="" className="2xl:w-80 2xl:h-80 w-[17rem] h-[17rem] "/>
         </div>
         <div className="flex-grow flex flex-col justify-between">
           <div className="">

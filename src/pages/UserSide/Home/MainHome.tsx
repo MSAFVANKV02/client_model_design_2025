@@ -14,31 +14,31 @@ export default function MainHome() {
       id: 1,
       name: "Home Banner 1",
       link: "#",
-      image: "/src/assets/images/banners/image 92.png",
+      image: "/img/banners/image 92.png",
     },
     {
       id: 2,
       name: "Home Banner 2",
       link: "#",
-      image: "/src/assets/images/banners/Banner2.png",
+      image: "/img/banners/Banner2.png",
     },
     {
       id: 3,
       name: "Home Banner 3",
       link: "#",
-      image: "/src/assets/images/banners/Banner3.png",
+      image: "/img/banners/Banner3.png",
     },
     {
       id: 4,
       name: "Home Banner 3",
       link: "#",
-      image: "/src/assets/images/banners/Banner6.png",
+      image: "/img/banners/Banner6.png",
     },
     {
       id: 5,
       name: "Home Banner 3",
       link: "#",
-      image: "/src/assets/images/banners/Banner5.png",
+      image: "/img/banners/Banner5.png",
     },
     // Add more banners as needed...
   ];
@@ -53,7 +53,7 @@ export default function MainHome() {
       <div
         className="flex m-auto justify-between section_container_dash sm:gap-5 gap-2 sm:py-5 py-3 bg-center bg-cover bg-no-repeat"
         style={{
-          backgroundImage: "url(/src/assets/images/banners/bgimage1.png)",
+          backgroundImage: "url(/img/banners/bgimage1.png)",
         }}
       >
         <BannerWrapper isActive={true} className="w-[80%]" nextBtnClass="">
@@ -73,7 +73,7 @@ export default function MainHome() {
         <div className="flex-grow rounded-md md:h-[360px] sm:h-[200px] w-[100px] h-[110px]">
           {/* <AdvertiseBanner /> */}
           <img
-            src="/src/assets/images/advertise/adv1.png"
+            src="/img/advertise/adv1.png"
             alt=""
             className="h-full object-cover rounded-xl"
           />

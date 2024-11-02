@@ -38,7 +38,7 @@ function StaticNavbar() {
           <div className="h-10 relative w-10  rounded-xl bg-textMain flex items-center justify-center overflow-hidden">
             {/* Image slides to the left */}
             <img
-              src="/src/assets/images/logo/logoiconWhite.png"
+              src="img/logo/logoiconWhite.png"
               alt="navbar logo"
               className="absolute w-[50%]  group-hover:w-0 group-hover:translate-x-[-150%] transition-all duration-300 ease-in"
             />

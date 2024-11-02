@@ -9,21 +9,21 @@ function HomeSec3() {
     {
       id: 1,
       title: "Create an account",
-      image: "/src/assets/images/Hero Images/CreateAccount.png",
+      image: "img/Hero Images/CreateAccount.png",
       description:
         "Register using your mobile number. Enter your Name, Shop name and Pincode.",
     },
     {
       id: 2,
       title: "Complete shop KYC",
-      image: "/src/assets/images/Hero Images/CompleteShopKYC.png",
+      image: "img/Hero Images/CompleteShopKYC.png",
       description:
         "Upload any one of shop's KYC documents like GSTIN, Shop & Establishment Licence",
     },
     {
       id: 3,
       title: "Start Ordering",
-      image: "/src/assets/images/Hero Images/StratOrdering.png",
+      image: "img/Hero Images/StratOrdering.png",
       description:
         "Browse and order products for your shop from top sellers & brands",
     },
