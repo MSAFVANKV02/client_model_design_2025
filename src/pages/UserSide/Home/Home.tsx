@@ -6,8 +6,10 @@ import HomeSec2 from "@/components/landings/home_Sec/Home_Sec2";
 import HomeSec3 from "@/components/landings/home_Sec/Home_Sec3";
 import HomeSec4 from "@/components/landings/home_Sec/Home_Sec4";
 import HomeSec5 from "@/components/landings/home_Sec/Home_Sec5";
+import usePageTitle from "@/hooks/usePageTitle";
 
 function HomePage() {
+  usePageTitle('Ayaboo | Home')
   // const onlyWidth = useWindowWidth();
   // const mobileSize = onlyWidth < 768;
   return (

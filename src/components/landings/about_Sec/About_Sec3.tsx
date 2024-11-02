@@ -53,7 +53,7 @@ function AboutSec3() {
           </div>
           {/* --- */}
           <div className="">
-            <p className="">Vission</p>
+            <p className="">Vision</p>
             <small className="text-xs">
               Our vision at Ayaboo is to be the leading B2B e-commerce platform,
               renowned for connecting businesses with top-tier branded products

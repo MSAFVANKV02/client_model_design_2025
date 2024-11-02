@@ -1,13 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import useNavigateClicks from "@/hooks/useClicks.ts"
+
 
 
 function AboutSec2() {
+  const {handleClick} = useNavigateClicks()
   return (
     <div className="space-y-6">
       <img src="/src/assets/images/Background Images/AboutMain.png" alt="" />
       <div className="text-center flex flex-col justify-center items-center">
-        <div className=" w-3/4 ">
+        <div className=" sm:w-3/4 ">
           <h5>What We Have</h5>
           <small className="text-gray-400">
             Ayaboo, proudly operated by Haash India Exports Pvt. Ltd., is a
@@ -90,11 +93,11 @@ function AboutSec2() {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1400 250"
-          className="absolute bottom-0  opacity-40 left-0 right-0 rounded-xl"
+          className="absolute bottom-0 md:block hidden  opacity-40 left-0 right-0 rounded-xl"
         >
           <path
             fill="#8F29E9"
-            fill-opacity="0.35"
+            fillOpacity="0.35"
             className="filter backdrop-blur-md"
             d="M0,64L40,101.3C80,139,160,213,240,240C320,267,400,245,480,213.3C560,181,640,139,720,138.7C800,139,880,181,960,218.7C1040,256,1120,288,1200,266.7C1280,245,1360,171,1400,133.3L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"
           ></path>
@@ -107,7 +110,7 @@ function AboutSec2() {
         >
           <path
             fill="#8F29E9"
-            fill-opacity="1"
+            fillOpacity="1"
             className="filter backdrop-blur-md"
             d="M0,96L48,122.7C96,149,192,203,288,192C384,181,480,107,576,96C672,85,768,139,864,154.7C960,171,1056,149,1152,165.3C1248,181,1344,235,1392,261.3L1440,288L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
           ></path>
@@ -115,7 +118,7 @@ function AboutSec2() {
       </div>
       {/* -------------------------- */}
       <div className="text-center flex flex-col justify-center items-center ">
-        <div className=" w-3/4 ">
+        <div className=" sm:w-3/4 ">
           <h5>Why choose Ayaboo?</h5>
           <small className="text-gray-400">
             As the B2B e-commerce platform operated by Haash India Exports Pvt.
@@ -173,7 +176,11 @@ function AboutSec2() {
           </div>
           {/* button */}
           <div className="md:mx-0 mx-auto">
-               <Button variant="b2bStyle" >
+               <Button variant="b2bStyle" 
+               onClick={()=>{
+                handleClick("/register")
+               }}
+               >
             Register now <ArrowRight />
           </Button>
           </div>

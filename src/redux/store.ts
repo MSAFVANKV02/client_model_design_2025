@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import kycReducer from "@/redux/userSide/KycSlice"
+import authReducer from "@/redux/userSide/UserAuthSlice"
 import storage from 'redux-persist/lib/storage';
 import {  persistReducer } from "redux-persist";
 import {combineReducers} from '@reduxjs/toolkit'
@@ -14,6 +15,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   // user: userReducer,
   kyc: kycReducer, // Include your KYC slice
+  auth: authReducer, //
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

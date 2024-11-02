@@ -160,7 +160,7 @@ export default function MainHome() {
         <div className="grid sm:gap-2  xl:grid-cols-5 sm:grid-cols-4  grid-cols-2">
           {visibleProducts.map((product, index) => (
             <ProdCard
-            link="/category/new-jean"
+            link=""
               key={product.id}
               title={product.title}
               priceRange={product.priceRange}

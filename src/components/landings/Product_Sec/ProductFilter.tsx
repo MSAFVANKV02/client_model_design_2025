@@ -49,7 +49,10 @@ export const ProductFilter: React.FC<CategoryFilterSheetProps> = ({
 
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  // const [selectedPrice, setSelectedPrice] = useState<string[]>([]);
+
   const [index, setIndex] = useState<number | null>(0);
+  
 
   // const handlePriceChange = (event: Event, newValue: number | number[]) => {
   //   setPriceRange(newValue as number[]);
@@ -67,6 +70,8 @@ export const ProductFilter: React.FC<CategoryFilterSheetProps> = ({
 
   const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const color = event.target.name;
+    console.log(color);
+    
     setSelectedColors((prev) =>
       prev.includes(color) ? prev.filter((c) => c !== color) : [...prev, color]
     );
@@ -78,6 +83,39 @@ export const ProductFilter: React.FC<CategoryFilterSheetProps> = ({
       prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]
     );
   };
+
+  // const handlePriceChange2 = (price: number) =>{
+  //   setSelectedPrice((prev) =>
+  //     prev.includes(price.toString())? prev.filter((p) => p!== price.toString()) : [...prev, price.toString()]
+  //   );
+  // }
+
+  const handleApplyFilter = () => {
+    setFilter((prev) => ({
+     ...prev,
+      color: selectedColors,
+      size: selectedSizes,
+    }));
+    setOpen(false);
+  }
+
+  const handleClearFilter = () => {
+    setFilter({
+      color: [],
+      size: [],
+      sort: "none",
+      price: { isCustom: false, range: DEFAULT_CUSTOM_PRICE },
+    });
+
+    // setFilter((prev) => ({
+    //   ...prev,
+    //    color: [],
+    //    size: [],
+    //  }));
+    setSelectedColors([]);
+    setSelectedSizes([]);
+    setOpen(false);
+  }
 
   return (
     <React.Fragment>
@@ -368,10 +406,12 @@ export const ProductFilter: React.FC<CategoryFilterSheetProps> = ({
             spacing={1}
             sx={{ justifyContent: "space-between" }}
           >
-            <Button variant="outlined" color="neutral" type="button">
+            <Button variant="outlined" color="neutral" type="button"
+             onClick={() =>  handleClearFilter()}
+            >
               Clear
             </Button>
-            <Button onClick={() => setOpen(false)}>Apply</Button>
+            <Button onClick={() =>  handleApplyFilter()}>Apply</Button>
           </Stack>
         </Sheet>
       </Drawer>

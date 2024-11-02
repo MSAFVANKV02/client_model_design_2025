@@ -6,6 +6,7 @@ import { useQuery } from "@/utils/QueryParams";
 import { ProductState } from "@/utils/Validator/product-validator";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import '@/assets/css/products.css'
 
 const DEFAULT_CUSTOM_PRICE = [0, 10000] as [number, number];
 
@@ -41,7 +42,7 @@ function CategoryProductsPage() {
   };
   const [filter, setFilter] = useState<ProductState>(getInitialFilterState);
 
-  console.log(filter,'filter');
+  // console.log(filter,'filter');
   // const updateUrl = () => {
   //   const params = new URLSearchParams();
   //   if (filter.color.length > 0) params.set("color", filter.color.join(","));
@@ -92,11 +93,11 @@ function CategoryProductsPage() {
 
       {/* Product Grid Layout */}
       <Box sx={{ mt: 3 }}>
-        <div className="mt-6 grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 grid-cols-2 sm:gap-2">
+        <div className="product-container">
           {ProductsDetail.map((product, index) => (
             <div key={index}>
               <ProdCard
-                link="/products/new-jean"
+                link={`/products/${product.id}`}
                 title={product.title}
                 priceRange={product.priceRange}
                 image={product.image}

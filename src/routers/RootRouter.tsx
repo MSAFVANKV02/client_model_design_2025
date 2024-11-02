@@ -20,6 +20,8 @@ import AppLayout from "@/Layout";
 import AdmLayout from "@/AdmLayout";
 import DashboardLayoutBasic from "@/pages/adminSide/Dashboard";
 import CategoryProductsPage from "@/pages/UserSide/Prod_pages/Category_wise/CategoryProductsPage";
+import FolderStructure from "@/pages/folder-structure/FolderStructure";
+import ProductDetail from "@/pages/UserSide/Prod_pages/ProductDetails/ProductDetail";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -75,6 +77,15 @@ const rootRouter = createBrowserRouter([
         ),
       },
       {
+        path: "/folder",
+        element: (
+          <ProtectedRoute isProtected={true}>
+            {" "}
+            <FolderStructure />{" "}
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: "/register/otp-verification",
         element: (
           <ProtectedRoute isProtected={true}>
@@ -97,6 +108,15 @@ const rootRouter = createBrowserRouter([
           <ProtectedRoute isProtected={true}>
             {" "}
             <CategoryProductsPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/products/:slug",
+        element: (
+          <ProtectedRoute isProtected={true}>
+            {" "}
+            <ProductDetail />
           </ProtectedRoute>
         ),
       },

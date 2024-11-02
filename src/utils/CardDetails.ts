@@ -4,7 +4,7 @@ export  const ProductsDetail = [
       title: "Leggings bottom",
       priceRange: "₹469 - ₹568",
       image: "/src/assets/images/cards/prod1.png",
-      isFavorite: true,
+      isFavorite: false,
       sold: 34454,
     },
     {

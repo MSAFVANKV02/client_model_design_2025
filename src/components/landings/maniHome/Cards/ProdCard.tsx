@@ -140,6 +140,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import StarIcon from "@mui/icons-material/Star";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { IconButton } from "@mui/material";
 
 interface ProdCardProps {
   title: string;
@@ -162,7 +163,7 @@ export default function ProductNav({
   const [favorite, setFavorite] = React.useState(isFavorite);
 
   return (
-    <div  className="max-w-xs sm:border-none border-white border bg-white  shadow-md sm:rounded-lg overflow-hidden transition-transform duration-300 sm:hover:scale-105 cursor-pointer">
+    <div  className="max-w-xs sm:border-none border-white border bg-white  shadow-md sm:rounded-lg overflow-hidden transition-transform duration-300 lg:hover:scale-105 cursor-pointer">
       <Link to={link}>
        <div className="relative">
         {/* Image */}
@@ -179,7 +180,7 @@ export default function ProductNav({
         </div>
 
         {/* Favorite Icon */}
-        <button
+        {/* <button
           className="absolute top-2 right-2"
           onClick={() => setFavorite(!favorite)}
         >
@@ -188,7 +189,13 @@ export default function ProductNav({
           ) : (
             <FavoriteBorderIcon className="text-white" />
           )}
-        </button>
+        </button> */}
+        <IconButton
+            sx={{ position: "absolute", top: 10, right: 10 }}
+            onClick={() => setFavorite(!favorite)}
+          >
+            {favorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
+          </IconButton>
       </div>
 
       {/* Card Content */}
