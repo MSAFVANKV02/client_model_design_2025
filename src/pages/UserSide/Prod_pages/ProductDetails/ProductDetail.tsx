@@ -2,9 +2,12 @@ import { Button } from "@/components/ui/button";
 import { IProducts } from "@/types/productTypes";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import ProductDrawer from "./ProductDrawer";
+import React from "react";
 
 function ProductDetail({ product }: { product: IProducts }) {
   const { sizeVariant } = product.variants[0];
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
+
   // const {  size } = sizeVariant[0];
 
   // const sizeVariants = product.variants.flatMap((variant) =>
@@ -67,15 +70,12 @@ function ProductDetail({ product }: { product: IProducts }) {
 
         {/* Color images */}
         <div className="flex gap-3 overflow-auto">
-          {product.galleryImages.map((image, index) => (
-            <ProductDrawer
-            key={index}
-              src={image}
-              alt={product.product_name}
-              product={product}
-            />
-          
-          ))}
+          <ProductDrawer
+            open={drawerOpen}
+            setBuyOpen={setDrawerOpen}
+            product={product}
+            buyNow={false}
+          />
         </div>
 
         {/* Size section ========= */}
@@ -102,7 +102,7 @@ function ProductDetail({ product }: { product: IProducts }) {
       </div>
 
       {/* Buy and Chat Buttons */}
-      <div className="flex gap-4 mt-auto w-full">
+      <div className="flex gap-4 lg:mt-auto w-full mt-5">
         <Button
           className="border px-4 py-2 w-full rounded-xl h-11 border-black"
           variant={"outline"}
@@ -110,9 +110,13 @@ function ProductDetail({ product }: { product: IProducts }) {
           <Icon icon={"mage:message-dots"} fontSize={20} className="mr-3" />
           Chat with Us
         </Button>
-        <Button className="w-full rounded-xl h-11" variant="b2bStyle">
-          Buy Now
-        </Button>
+
+        <ProductDrawer
+          buyNow={true}
+          setBuyOpen={setDrawerOpen}
+          open={drawerOpen}
+          product={product}
+        />
       </div>
     </div>
   );
