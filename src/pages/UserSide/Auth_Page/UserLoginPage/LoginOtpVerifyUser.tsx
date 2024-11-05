@@ -111,7 +111,8 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
             response.data.user.kycApproved
           ) {
             makeToast("Otp Verified Successfully.");
-            navigate(`/dashboard`);
+            navigate(`/`);
+            window.location.reload();
           } else if (
             response.data.user.isVerified &&
             response.data.user.isRegistered && 

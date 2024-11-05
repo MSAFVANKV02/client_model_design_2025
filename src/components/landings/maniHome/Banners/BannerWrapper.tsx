@@ -120,7 +120,7 @@ const BannerWrapper: React.FC<IBannerWrapperProps> = ({
     {isActive && (
       <div
         className={cn(
-          `absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between mx-4`,
+          `absolute flex justify-between mx-4`,
           btnClass
         )}
       >

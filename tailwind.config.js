@@ -28,6 +28,7 @@ const config = {
         textMain: "var(--mainText)",
         textSec: "var(--secColor)",
         textSoft: "var(--colorSoft)",
+        textGray: "var(--gray)",
 
         primary: {
           DEFAULT: "hsl(var(--primary))",

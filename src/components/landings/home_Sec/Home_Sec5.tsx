@@ -1,14 +1,12 @@
 import { Button } from '@/components/ui/button'
+import useNavigateClicks from '@/hooks/useClicks';
 import { ArrowRight } from 'lucide-react'
 
-import { useNavigate } from 'react-router-dom';
 
 function HomeSec5() {
-  const navigate = useNavigate();
+  const {handleClick} = useNavigateClicks()
 
-    const handleRegisterClick = () => {
-        navigate("/login"); // Navigate to the login route
-      };
+
   return (
     <div className='w-full bg-black'>
          <div
@@ -37,7 +35,7 @@ function HomeSec5() {
             <p className="text-white text-sm">of Customers</p>
           </div>
         </div>
-        <Button variant="b2bStyle" onClick={handleRegisterClick}>
+        <Button variant="b2bStyle" onClick={()=> handleClick("/register")}>
           Register now <ArrowRight />
         </Button>
       </div>
@@ -60,7 +58,7 @@ function HomeSec5() {
           </div>
         </div>
         <div className="md:block hidden">
-          <Button variant="b2bStyle" onClick={handleRegisterClick}>
+          <Button variant="b2bStyle" onClick={()=> handleClick("/register")}>
             Register now <ArrowRight />
           </Button>
         </div>

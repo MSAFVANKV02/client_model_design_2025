@@ -6,13 +6,13 @@ import { useQuery } from "@/utils/QueryParams";
 import { ProductState } from "@/utils/Validator/product-validator";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import '@/assets/css/products.css'
+import "@/assets/css/products.css";
 
 const DEFAULT_CUSTOM_PRICE = [0, 10000] as [number, number];
 
 function CategoryProductsPage() {
   const query = useQuery();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const getInitialFilterState = (): ProductState => {
     const color = query.get("color")?.split(",") || [];
@@ -28,9 +28,9 @@ function CategoryProductsPage() {
     //   DEFAULT_CUSTOM_PRICE;
     const priceRangeParam = query.get("price");
     const priceRange = priceRangeParam
-      ? priceRangeParam.split("+").map(Number) as [number, number]
+      ? (priceRangeParam.split("+").map(Number) as [number, number])
       : DEFAULT_CUSTOM_PRICE;
-    
+
     const isCustom = query.get("isCustom") === "true";
 
     return {
@@ -65,25 +65,23 @@ function CategoryProductsPage() {
     if (filter.sort !== "none") params.set("sort", filter.sort);
 
     if (filter.price.isCustom || filter.price.range !== DEFAULT_CUSTOM_PRICE) {
-        const [minPrice, maxPrice] = filter.price.range;
-        
-        // Safeguard against undefined values
-        const safeMinPrice = isNaN(minPrice) ? 0 : minPrice;
-        const safeMaxPrice = isNaN(maxPrice) ? 10000 : maxPrice;
+      const [minPrice, maxPrice] = filter.price.range;
 
-        params.set("price", `${safeMinPrice}+${safeMaxPrice}`);
-        params.set("isCustom", filter.price.isCustom.toString());
+      // Safeguard against undefined values
+      const safeMinPrice = isNaN(minPrice) ? 0 : minPrice;
+      const safeMaxPrice = isNaN(maxPrice) ? 10000 : maxPrice;
+
+      params.set("price", `${safeMinPrice}+${safeMaxPrice}`);
+      params.set("isCustom", filter.price.isCustom.toString());
     } else {
-        params.delete("price");
-        params.delete("isCustom");
+      params.delete("price");
+      params.delete("isCustom");
     }
     navigate(`?${params}`);
-};
-
+  };
 
   useEffect(() => {
     updateUrl();
-
   }, [filter]);
 
   return (

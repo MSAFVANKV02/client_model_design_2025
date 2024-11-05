@@ -173,6 +173,10 @@ function OtpVerificationPage() {
     }
   }
 
+  useEffect(()=>{
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  },[])
+
   return (
     <div className="h-screen w-screen flex relative">
       <img

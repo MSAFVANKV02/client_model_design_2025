@@ -6,9 +6,8 @@ import CategoryCard from "@/components/landings/maniHome/Shop_By_Cat/CategoryCar
 import { ProductsDetail } from "@/utils/CardDetails";
 import { useWindowSize } from "@react-hook/window-size";
 
-
 export default function MainHome() {
-  const [width] = useWindowSize()
+  const [width] = useWindowSize();
   const BannerDetails = [
     {
       id: 1,
@@ -42,24 +41,30 @@ export default function MainHome() {
     },
     // Add more banners as needed...
   ];
-  
-  const visibleProducts = width > 1280 ? ProductsDetail.slice(0, 5) : ProductsDetail.slice(0, 4);
 
+  const visibleProducts =
+    width > 1280 ? ProductsDetail.slice(0, 5) : ProductsDetail.slice(0, 4);
 
   return (
     <div className="min-h-screen space-y-8 py-3">
       {/* ======= Section 01 Banner and Advertise ======= staring */}
 
       <div
-        className="flex m-auto justify-between section_container_dash sm:gap-5 gap-2 sm:py-5 py-3 bg-center bg-cover bg-no-repeat"
+        className="flex m-auto justify-between relative section_container_dash sm:gap-5 gap-2 sm:py-5 py-3 bg-center bg-cover bg-no-repeat"
         style={{
           backgroundImage: "url(/img/banners/bgimage1.png)",
         }}
       >
-        <BannerWrapper isActive={true} className="w-[80%]" nextBtnClass="">
+        <BannerWrapper
+          isActive={true}
+          className="w-[80%]"
+          nextBtnClass="shadow-md active:scale-90 duration-300 transition-all"
+          prevBtnClass="shadow-md active:scale-90 duration-300 transition-all"
+          btnClass="justify-end  gap-3  right-0 bottom-10 "
+        >
           {BannerDetails.map((banner) => (
             <Banner
-              className="w-full md:h-[360px] sm:h-[200px] h-[110px] rounded-md overflow-hidden" // Consistent height
+              className="w-full md:h-[360px] sm:h-[200px] h-[110px] rounded-md overflow-hidden " // Consistent height
               _id={banner.id}
               name={banner.name}
               link={banner.link}
@@ -93,8 +98,9 @@ export default function MainHome() {
       <BannerWrapper
         isActive={true}
         className="w-full section_container_dash"
-        nextBtnClass=""
-        btnClass="sm:left-28 sm:right-28"
+         nextBtnClass="shadow-md active:scale-90 duration-300 transition-all"
+        prevBtnClass="shadow-md active:scale-90 duration-300 transition-all"
+        btnClass="sm:left-28 sm:right-28 top-1/2 -translate-y-1/2 left-0  right-0"
       >
         {BannerDetails.map((banner) => (
           <Banner
@@ -138,8 +144,9 @@ export default function MainHome() {
       <BannerWrapper
         isActive={true}
         className="w-full section_container_dash overflow-hidden"
-        nextBtnClass=""
-        btnClass="sm:left-28 sm:right-28"
+        nextBtnClass="shadow-md active:scale-90 duration-300 transition-all"
+        prevBtnClass="shadow-md active:scale-90 duration-300 transition-all"
+        btnClass="sm:left-28 sm:right-28 top-1/2 -translate-y-1/2 left-0  right-0"
       >
         {BannerDetails.map((banner) => (
           <Banner
@@ -160,7 +167,7 @@ export default function MainHome() {
         <div className="grid sm:gap-2  xl:grid-cols-5 sm:grid-cols-4  grid-cols-2">
           {visibleProducts.map((product, index) => (
             <ProdCard
-            link=""
+              link=""
               key={product.id}
               title={product.title}
               priceRange={product.priceRange}
@@ -175,19 +182,24 @@ export default function MainHome() {
 
       {/* ======= Section 07 : Product Card 2 ========= Ending */}
 
-         {/* ======= Section 08 : Banner4 ========= starting */}
-         <BannerWrapper isActive={true} className="w-full section_container_dash" nextBtnClass="" btnClass="sm:left-28 sm:right-28">
-          {BannerDetails.map((banner) => (
-            <Banner
-              className="w-full md:h-auto md:min-h-[370px] md:max-h-[450px] sm:h-[200px] h-[110px] rounded-md overflow-hidden" // Consistent height
-              _id={banner.id}
-              name={banner.name}
-              link={banner.link}
-              image={banner.image}
-              key={banner.id}
-            />
-          ))}
-        </BannerWrapper>
+      {/* ======= Section 08 : Banner4 ========= starting */}
+      <BannerWrapper
+        isActive={true}
+        className="w-full section_container_dash"
+        nextBtnClass=""
+        btnClass="sm:left-28 sm:right-28"
+      >
+        {BannerDetails.map((banner) => (
+          <Banner
+            className="w-full md:h-auto md:min-h-[370px] md:max-h-[450px] sm:h-[200px] h-[110px] rounded-md overflow-hidden" // Consistent height
+            _id={banner.id}
+            name={banner.name}
+            link={banner.link}
+            image={banner.image}
+            key={banner.id}
+          />
+        ))}
+      </BannerWrapper>
       {/* --------------------- Section 08 : Banner4 ---------------------== ending */}
     </div>
   );

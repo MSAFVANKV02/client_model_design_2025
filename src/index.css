@@ -77,6 +77,7 @@ html {
   --softColor: #7741a9;
   --secColor: #60c6c4;
   --colorSoft: #f8e5ff;
+  --gray:#898989
 }
 
 @layer base {
@@ -89,7 +90,7 @@ html {
 }
 
 p {
-  font-size: clamp(0.9rem, 2.5vw, 1.1rem); /* Scales from 16px to 20px */
+  font-size: clamp(0.9rem, 2.5vw, 1rem); /* Scales from 16px to 20px */
 }
 h1 {
   font-size: clamp(2rem, 5vw, 3rem); /* Scales from 32px to 56px */

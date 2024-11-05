@@ -51,6 +51,10 @@ function UserLogin() {
     }
   }, [auth,page]);
 
+  useEffect(()=>{
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  },[])
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {

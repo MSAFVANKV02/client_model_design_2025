@@ -17,7 +17,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sendOtpRegisterUser } from "@/utils/urlPath";
 
 // Define the Zod schema for phone number validation
@@ -99,6 +99,9 @@ function Register() {
       setLoading(false);
     }
   };
+  useEffect(()=>{
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  },[])
 
   return (
     <div className="h-screen w-screen flex relative">

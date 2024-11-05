@@ -21,7 +21,7 @@ import AdmLayout from "@/AdmLayout";
 import DashboardLayoutBasic from "@/pages/adminSide/Dashboard";
 import CategoryProductsPage from "@/pages/UserSide/Prod_pages/Category_wise/CategoryProductsPage";
 import FolderStructure from "@/pages/folder-structure/FolderStructure";
-import ProductDetail from "@/pages/UserSide/Prod_pages/ProductDetails/ProductDetail";
+import Products from "@/pages/UserSide/Prod_pages/ProductDetails/Products";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -116,7 +116,7 @@ const rootRouter = createBrowserRouter([
         element: (
           <ProtectedRoute isProtected={true}>
             {" "}
-            <ProductDetail />
+            <Products />
           </ProtectedRoute>
         ),
       },

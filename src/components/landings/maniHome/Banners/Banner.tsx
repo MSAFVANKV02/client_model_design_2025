@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 interface IBanner {
     _id?: string | number;
@@ -11,9 +12,9 @@ interface IBanner {
 function Banner({name, link, image, className }: IBanner) {
     return (
         <div className={cn("h-full w-full rounded-md overflow-hidden", className)}>
-            <a href={link}>
+            <Link to={link}>
                 <img src={image} alt={name} className="w-full h-full object-cover" />
-            </a>
+            </Link>
             {/* <h3 className="text-sm text-textMain font-semibold text-center">{name}</h3> */}
         </div>
     );
