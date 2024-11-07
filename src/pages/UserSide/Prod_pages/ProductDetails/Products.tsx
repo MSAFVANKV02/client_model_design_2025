@@ -6,6 +6,7 @@ import CustomizeSamplePurchase from "./Customize_SamplePurchase";
 import ProductTabs from "./ProductTabs";
 import ProdCard from "@/components/landings/maniHome/Cards/ProdCard";
 import "@/assets/css/products.css";
+// import NavbarCheck from "@/components/checkings/page";
 
 export default function ProductsPage() {
   const product: IProducts = dummyProduct;
@@ -18,6 +19,7 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen flex flex-col section_container_dash space-y-10 my-10">
+         {/* <NavbarCheck/> */}
       <div className="flex flex-col lg:flex-row gap-6 w-full   h-full">
         {/* Product Image Section */}
         <div className="lg:w-[45%] lg:sticky lg:top-0 rounded-lg border min-h-[50vh] lg:h-[80vh] bg-white/10 filter backdrop-blur-lg">
@@ -74,6 +76,8 @@ export default function ProductsPage() {
           ))}
         </div>
       </div>
+      {/* ========= */}
+   
     </div>
   );
 }
