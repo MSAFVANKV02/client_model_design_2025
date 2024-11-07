@@ -85,6 +85,8 @@ interface IBannerWrapperProps {
   nextBtnClass?: string;
   btnClass?: string;
   isActive?: boolean;
+  isAutoFlow?: boolean;
+  iconSize?: number;
 }
 
 const BannerWrapper: React.FC<IBannerWrapperProps> = ({
@@ -94,13 +96,15 @@ const BannerWrapper: React.FC<IBannerWrapperProps> = ({
   nextBtnClass,
   btnClass,
   isActive,
+  isAutoFlow,
+  iconSize = 20
 }) => {
   const slider = React.useRef<Slider>(null);
 
   const settings = {
     dots: false,
     infinite: true,
-    autoplay: true,
+    autoplay: isAutoFlow? true : false,
     autoplaySpeed: 3000,
     speed: 500,
     slidesToShow: 1,
@@ -131,7 +135,7 @@ const BannerWrapper: React.FC<IBannerWrapperProps> = ({
             prevBtnClass
           )}
         >
-          <Icon icon="material-symbols-light:keyboard-arrow-left" />
+          <Icon fontSize={iconSize} icon="material-symbols-light:keyboard-arrow-left" />
         </button>
         <button
           onClick={() => slider?.current?.slickNext()}
@@ -140,7 +144,7 @@ const BannerWrapper: React.FC<IBannerWrapperProps> = ({
             nextBtnClass
           )}
         >
-          <Icon icon="material-symbols-light:keyboard-arrow-right" />
+          <Icon fontSize={iconSize} icon="material-symbols-light:keyboard-arrow-right" />
         </button>
       </div>
     )}

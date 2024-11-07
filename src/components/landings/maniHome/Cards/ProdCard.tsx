@@ -139,12 +139,13 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import StarIcon from "@mui/icons-material/Star";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
+import useNavigateClicks from "@/hooks/useClicks";
 
 interface ProdCardProps {
   title: string;
-  priceRange: string;
+  priceRange: string | number;
   image: string;
   isFavorite: boolean;
   sold: number;
@@ -162,9 +163,13 @@ export default function ProductNav({
 }: ProdCardProps) {
   const [favorite, setFavorite] = React.useState(isFavorite);
 
+  const {handleClick} = useNavigateClicks();
+
+
+
   return (
     <div  className="max-w-xs sm:border-none border-white border bg-white  shadow-md sm:rounded-lg overflow-hidden transition-transform duration-300 lg:hover:scale-105 cursor-pointer">
-      <Link to={link}>
+      {/* <Link to={link}> */}
        <div className="relative">
         {/* Image */}
         <img
@@ -211,11 +216,11 @@ export default function ProductNav({
 
       {/* Action Button */}
       <div className="p-2">
-        <Button variant={`b2bStyle`} size="b2b" className="w-full  rounded-md text-sm">
+        <Button variant={`b2bStyle`} size="b2b" className="w-full  rounded-md text-sm" onClick={()=>handleClick(link)}>
           Make order
         </Button>
       </div>
-      </Link>
+      {/* </Link> */}
      
     </div>
   );

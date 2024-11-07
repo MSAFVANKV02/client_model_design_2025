@@ -102,7 +102,8 @@ function ProductDetail({ product }: { product: IProducts }) {
       </div>
 
       {/* Buy and Chat Buttons */}
-      <div className="flex gap-4 lg:mt-auto w-full mt-5">
+      {/* lg:mt-auto */}
+      <div className="flex gap-4  w-full mt-5">
         <Button
           className="border px-4 py-2 w-full rounded-xl h-11 border-black"
           variant={"outline"}

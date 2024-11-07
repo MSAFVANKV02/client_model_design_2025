@@ -78,6 +78,9 @@ const config = {
         bg: "var(--mainColor)",
         softBg: "var(--softColor)",
         bgSoft: "var(--colorSoft)",
+        bgGray: "var(--gray)",
+        bgGraySoft: "var(--graySoft)",
+
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",

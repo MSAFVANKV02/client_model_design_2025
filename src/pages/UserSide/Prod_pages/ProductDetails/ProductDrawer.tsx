@@ -10,13 +10,15 @@ import {
   Sheet,
 } from "@mui/joy";
 // import { Close as CloseIcon } from "@mui/icons-material";
-import Slider from "react-slick";
+// import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { IProducts } from "@/types/productTypes";
 import { useWindowWidth } from "@react-hook/window-size";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@/components/ui/button";
+import BannerWrapper from "@/components/landings/maniHome/Banners/BannerWrapper";
+import Banner from "@/components/landings/maniHome/Banners/Banner";
 
 type IDrawerTypes = {
   product?: IProducts;
@@ -38,14 +40,14 @@ export default function ProductDrawer({
   //   const xlScreen = onlyWidth < 1440;
   const mobileWidth = onlyWidth < 768;
 
-  const sliderSettings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: true,
-  };
+  // const sliderSettings = {
+  //   dots: false,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  //   arrows: true,
+  // };
 
   return (
     <React.Fragment>
@@ -87,7 +89,7 @@ export default function ProductDrawer({
 
               boxShadow: "none",
 
-              width: "80%",
+              width: mobileWidth ? "100%" :"80%",
             },
           },
         }}
@@ -102,7 +104,7 @@ export default function ProductDrawer({
           <Box
             width={!mobileWidth ? "40%" : "100%"}
             sx={{ bgcolor: "transparent" }}
-            onClick={() => setOpen(false)}
+            // onClick={() => setOpen(false)}
           >
             <div className="flex justify-center h-full flex-col relative ">
               <div
@@ -112,7 +114,7 @@ export default function ProductDrawer({
                 <Icon icon={"material-symbols-light:close"} fontSize={30} />
               </div>
 
-              <Slider
+              {/* <Slider
                 {...sliderSettings}
                 className=" border-none active:outline-none"
               >
@@ -135,14 +137,42 @@ export default function ProductDrawer({
                     </div>
                   </Box>
                 ))}
-              </Slider>
+              </Slider> */}
+           <Box
+                height={!mobileWidth ? 600 : 250}
+                sx={{ width: "100%" }}
+                onClick={(e) => e.preventDefault()}
+                bgcolor={"white"}
+                borderRadius={!mobileWidth ? "12px" : ""}
+              >
+                <BannerWrapper
+                  isAutoFlow={false}
+                  isActive={true}
+                  iconSize={29}
+                  className="h-full "
+                  nextBtnClass=" active:scale-90 duration-300 transition-all bg-transparent "
+                  prevBtnClass=" active:scale-90 duration-300 transition-all bg-transparent "
+                  btnClass="sm:left-0 sm:right-0 top-1/2 -translate-y-1/2 left-0  right-0"
+                >
+                  {product?.galleryImages.map((img, index) => (
+                    <Banner
+                      className="lg:h-[600px] h-[250px]  flex items-center justify-center "
+                      isLink={false}
+                      image={img}
+                      key={index}
+                      imgClass="object-cover cursor-pointer z-50 lg:w-[70%] lg:h-[70%] w-[50%] h-[80%]"
+                    />
+                  ))}
+                </BannerWrapper>
+              </Box>
             </div>
           </Box>
 
           {/* Drawer Content on the Right */}
           <Sheet
             sx={{
-              p: 2,
+              py: 2,
+              px: !mobileWidth ? 4 : 1,
               display: "flex",
               flexDirection: "column",
               height: "100%",
@@ -161,13 +191,13 @@ export default function ProductDrawer({
               <Typography level="h4">Select variations and quantity</Typography>
             </Box>
 
-            {/* Price Tiers =========== */}
+            {/* #Price Tiers =========== */}
             <Box>
               <Typography level="body-sm" fontWeight="bold" marginTop={"10px"}>
                 Price before shipping
               </Typography>
 
-              <Box width="60%">
+              <Box width={mobileWidth? "100%":"60%"}>
                 <Stack
                   direction="row"
                   justifyContent="space-between"
@@ -210,19 +240,25 @@ export default function ProductDrawer({
 
             <Divider sx={{ my: 2 }} />
 
-            {/* Color Options */}
+            {/* #Color Options */}
             <Typography level="body-sm" fontWeight="bold">
               1. Color (4): Red
             </Typography>
             <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
               {product?.galleryImages.map((image, index) => (
-                <img
-                  key={index}
+                <div className="relative"
+                   key={index}
+                >
+                  <img
+               
                   src={image}
                   alt={"drawer images"}
                   onClick={() => setOpen(true)}
                   className="w-14 h-14 object-cover cursor-pointer rounded-sm border border-red-400"
-                />
+                />  
+                <span className="h-6 w-fit bg-bg absolute rounded-full flex justify-center items-center text-white p-1 -top-2 -right-2 text-sm z-50">X1</span>
+                </div>
+              
               ))}
             </Stack>
 
@@ -237,49 +273,66 @@ export default function ProductDrawer({
                 <ListItem
                   key={size}
                   sx={{
-                    // display: "flex",
-                    // justifyContent: "space-between",
-                    // alignItems: "center",
-                    display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', placeItems:"flex-start"
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 2, // Adds space between columns
                   }}
-                  className=""
                 >
-                   
-                  <Typography>{size}</Typography>
-                  <Typography textAlign="center" sx={{ gridColumn: 'span 2', textAlign: '' }}>₹287.12</Typography>
-                  
+                  <Typography sx={{ flex: "1 1 0" }}>{size}</Typography>
+                  <Typography sx={{ flex: "1 1 0", textAlign: "left" }}>
+                    ₹287.12
+                  </Typography>
                   <Stack
                     direction="row"
                     spacing={1}
                     alignItems="center"
-                    border="1px solid #d0c7c7"
-                    padding="2px"
-                    borderRadius="10px"
-                    justifyContent="end"
+                    sx={{
+                      // flex: "1 1 0",
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      border: "1px solid #d0c7c7",
+                      padding: "3px",
+                      borderRadius: "5px",
+                    }}
                   >
-                    <Button variant="secondary">-</Button>
+                    <Button variant="secondary" className="rounded-sm">
+                      -
+                    </Button>
                     <Typography>0</Typography>
-                    <Button variant="outline" className="border-gray-200 text-textMain">+</Button>
+                    <Button
+                      variant="outline"
+                      className="border-gray-200 text-textMain rounded-sm"
+                    >
+                      +
+                    </Button>
                   </Stack>
                 </ListItem>
               ))}
             </List>
 
-            <Divider sx={{ my: 2 }} />
+            {/* <Divider sx={{ my: 2 }} /> */}
 
             {/* Subtotal and Actions */}
-            <Box sx={{ mt: "auto" }}>
+            <Box
+              sx={{
+                mt: "auto",
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+                borderRadius: "8px",
+                padding: "16px",
+              }}
+              className=""
+            >
               <Stack direction="row" justifyContent="space-between">
-                <Typography>Item subtotal (0 items)</Typography>
-                <Typography>₹0.00</Typography>
+                <Typography level="body-sm">Item subtotal (0 items)</Typography>
+                <Typography level="body-sm">₹0.00</Typography>
               </Stack>
               <Stack
                 direction="row"
                 justifyContent="space-between"
                 sx={{ my: 1 }}
               >
-                <Typography>Shipping total</Typography>
-                <Typography>₹0.00</Typography>
+                <Typography level="body-sm">Shipping total</Typography>
+                <Typography level="body-sm">₹0.00</Typography>
               </Stack>
               <Stack
                 direction="row"
@@ -291,10 +344,12 @@ export default function ProductDrawer({
               </Stack>
 
               <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-                <Button variant="outline" color="neutral">
+                <Button variant="outline" color="neutral" className="w-full">
                   Add to cart
                 </Button>
-                <Button>Continue to order</Button>
+                <Button variant="b2bStyle" className="w-full">
+                  Continue to order
+                </Button>
               </Stack>
             </Box>
           </Sheet>
