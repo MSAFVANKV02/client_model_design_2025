@@ -185,9 +185,11 @@ export default function MainHome() {
       {/* ======= Section 08 : Banner4 ========= starting */}
       <BannerWrapper
         isActive={true}
-        className="w-full section_container_dash"
-        nextBtnClass=""
-        btnClass="sm:left-28 sm:right-28"
+        className="w-full section_container_dash overflow-hidden"
+        nextBtnClass="shadow-md active:scale-90 duration-300 transition-all"
+        prevBtnClass="shadow-md active:scale-90 duration-300 transition-all"
+        isAutoFlow={false}
+        btnClass="sm:left-28 sm:right-28 top-1/2 -translate-y-1/2 left-0  right-0"
       >
         {BannerDetails.map((banner) => (
           <Banner

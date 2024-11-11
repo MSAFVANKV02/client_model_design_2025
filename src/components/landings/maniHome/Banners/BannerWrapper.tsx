@@ -96,7 +96,7 @@ const BannerWrapper: React.FC<IBannerWrapperProps> = ({
   nextBtnClass,
   btnClass,
   isActive,
-  isAutoFlow,
+  isAutoFlow = true,
   iconSize = 20
 }) => {
   const slider = React.useRef<Slider>(null);

@@ -39,6 +39,18 @@ export default function ProductDrawer({
   //   const tabletsWidth = onlyWidth < 900;
   //   const xlScreen = onlyWidth < 1440;
   const mobileWidth = onlyWidth < 768;
+  const [clicked, setClicked] = React.useState(false);
+
+  const handleClick = () => {
+    // Add the clicked state to trigger animations
+    setClicked(true);
+
+    // Reset the state after 3 seconds (3000 ms)
+    setTimeout(() => {
+      setClicked(false);
+    }, 3000);
+  };
+
 
   // const sliderSettings = {
   //   dots: false,
@@ -89,7 +101,7 @@ export default function ProductDrawer({
 
               boxShadow: "none",
 
-              width: mobileWidth ? "100%" :"80%",
+              width: mobileWidth ? "100%" : "80%",
             },
           },
         }}
@@ -138,7 +150,7 @@ export default function ProductDrawer({
                   </Box>
                 ))}
               </Slider> */}
-           <Box
+              <Box
                 height={!mobileWidth ? 600 : 250}
                 sx={{ width: "100%" }}
                 onClick={(e) => e.preventDefault()}
@@ -197,7 +209,7 @@ export default function ProductDrawer({
                 Price before shipping
               </Typography>
 
-              <Box width={mobileWidth? "100%":"60%"}>
+              <Box width={mobileWidth ? "100%" : "60%"}>
                 <Stack
                   direction="row"
                   justifyContent="space-between"
@@ -246,19 +258,17 @@ export default function ProductDrawer({
             </Typography>
             <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
               {product?.galleryImages.map((image, index) => (
-                <div className="relative"
-                   key={index}
-                >
+                <div className="relative" key={index}>
                   <img
-               
-                  src={image}
-                  alt={"drawer images"}
-                  onClick={() => setOpen(true)}
-                  className="w-14 h-14 object-cover cursor-pointer rounded-sm border border-red-400"
-                />  
-                <span className="h-6 w-fit bg-bg absolute rounded-full flex justify-center items-center text-white p-1 -top-2 -right-2 text-sm z-50">X1</span>
+                    src={image}
+                    alt={"drawer images"}
+                    onClick={() => setOpen(true)}
+                    className="w-14 h-14 object-cover cursor-pointer rounded-sm border border-red-400"
+                  />
+                  <span className="h-6 w-fit bg-bg absolute rounded-full flex justify-center items-center text-white p-1 -top-2 -right-2 text-sm z-50">
+                    X1
+                  </span>
                 </div>
-              
               ))}
             </Stack>
 
@@ -344,8 +354,18 @@ export default function ProductDrawer({
               </Stack>
 
               <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-                <Button variant="outline" color="neutral" className="w-full">
+                {/* <Button variant="outline" color="neutral" className="w-full">
                   Add to cart
+                </Button> */}
+                <Button
+                variant="outline"
+                  className={`cart-button ${clicked ? "clicked" : ""} w-full border border-black `}
+                  onClick={handleClick}
+                >
+                  <span className="add-to-cart">Add to cart</span>
+                  <span className="added">Added</span>
+                  <i className="fas fa-shopping-cart"></i>
+                  <i className="fas fa-box"></i>
                 </Button>
                 <Button variant="b2bStyle" className="w-full">
                   Continue to order

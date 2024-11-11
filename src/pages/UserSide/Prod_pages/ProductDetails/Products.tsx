@@ -6,6 +6,8 @@ import CustomizeSamplePurchase from "./Customize_SamplePurchase";
 import ProductTabs from "./ProductTabs";
 import ProdCard from "@/components/landings/maniHome/Cards/ProdCard";
 import "@/assets/css/products.css";
+import ProductReviews from "../../Review/ProductReviews";
+
 // import NavbarCheck from "@/components/checkings/page";
 
 export default function ProductsPage() {
@@ -77,6 +79,11 @@ export default function ProductsPage() {
         </div>
       </div>
       {/* ========= */}
+
+      {/* Reviews and Rating starts ========== */}
+      <div className="">
+        <ProductReviews/>
+      </div>
    
     </div>
   );

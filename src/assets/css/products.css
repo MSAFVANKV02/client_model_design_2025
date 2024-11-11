@@ -52,3 +52,11 @@
   .custom-tablist .MuiTabs-indicator {
     background-color: transparent !important; /* Remove indicator line */
   }
+
+/* CSS to round the stars */
+.rounded-stars svg {
+  clip-path: inset(5%); /* Adjust the percentage for desired roundness */
+  border-radius: 40px;   /* Controls the corner radius */
+  background-color: black;
+    overflow: hidden;
+}
