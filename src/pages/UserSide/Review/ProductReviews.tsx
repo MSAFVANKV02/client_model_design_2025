@@ -12,7 +12,7 @@ export default function ProductReviews() {
     {
       rating: 4.2,
       text: "Elementum faucibus mi sed non 👍👍.",
-      user: "Kumari S",
+      user: "Nisar",
       date: "1 month ago",
       likes: 1010,
       images: [
@@ -24,9 +24,12 @@ export default function ProductReviews() {
     {
       rating: 3.5,
       text: "Elementum mi sed.",
-      user: "Kumari S",
+      user: "Fayiz",
       date: "1 month ago",
       likes: 1010,
+      videos: [
+        "/video/invideo-ai-1080 Adorable Baby in Orange Outfit Crawling! 2024-09-07.mp4",
+      ],
       images: [
         "https://media.istockphoto.com/id/1009480924/photo/photo-portrait-of-attractive-pretty-cute-lovable-fascinating-delicate-alluring-gorgeous-nice.webp?s=1024x1024&w=is&k=20&c=Sc4UDG1CH-jPocbDQYLL5sl0s6G3egvU7NwbB8IbYhA=",
       ],
@@ -34,9 +37,10 @@ export default function ProductReviews() {
     {
       rating: 1.0,
       text: "Sed.",
-      user: "Kumari S",
+      user: "Safvan",
       date: "1 month ago",
       likes: 1010,
+      videos: [],
       images: [
         "https://plus.unsplash.com/premium_photo-1682097591321-6cfe09c0e485?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?q=80&w=2788&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -54,26 +58,31 @@ export default function ProductReviews() {
     rating: number;
     text: string;
     images: string[];
-    videos?: string[];
+    videos: string[];
   } | null>(null);
+  // const [currentMediaItems, setCurrentMediaItems] = useState<string[]>([]);
 
-  const allCustomerImages = ratings.flatMap((review) => review.images);
-  const first11Images = allCustomerImages.slice(0, 3);
+  // const allCustomerImages = ratings.flatMap((review) => review.images);
+  // const first11Images = allCustomerImages.slice(0, 3);
 
-  //   const handleCustomerImageClick = () => {
-  //     const allImages = ratings.flatMap((review) => review.images);
-  //     setModalImages(allImages);
-  //     setIsModalOpen(true);
-  //   };
+  const allCustomerMediaItems = ratings.flatMap((review) => [
+    ...review.images,
+    ...(review.videos ?? []),
+  ]);
+  const allMediaItems = allCustomerMediaItems.slice(0, 7);
+
   const handleCustomerImageClick = () => {
     setModalReviews(ratings); // Set all review data in modalReviews
     setIsModalOpen(true);
   };
 
   const handleUserImageClick = (review: (typeof ratings)[0]) => {
+    // console.log(review, "review");
+
     setModalUserDetails(review);
     setIsUserModalOpen(true);
   };
+  // console.log(modalUserDetails,'modalUserDetails');
 
   return (
     <div className="w-full sm:p-4 space-y-7">
@@ -92,17 +101,15 @@ export default function ProductReviews() {
           />
         </div>
 
-       <div className="flex items-center gap-4 flex-wrap my-3">
-       <span
-          className={`text-white text-sm px-2 py-1 rounded-2xl bg-green-500`}
-        >
-          4.2 ★
-        </span>
+        <div className="flex items-center gap-4 flex-wrap my-3">
+          <span
+            className={`text-white text-sm px-2 py-1 rounded-2xl bg-green-500`}
+          >
+            4.2 ★
+          </span>
 
-        <h5 className="text-gray-400">
-          45,223 ratings and 2,221 reviews
-        </h5>
-       </div>
+          <h5 className="text-gray-400">45,223 ratings and 2,221 reviews</h5>
+        </div>
       </div>
 
       {/* Customer Images */}
@@ -128,22 +135,31 @@ export default function ProductReviews() {
           >
             +221
           </div> */}
-          {first11Images.map((img, i) => (
-            <img
-              key={i}
-              src={img}
-              alt="Customer uploaded"
-              className="w-full h-20 object-cover rounded-md cursor-pointer"
-              onClick={handleCustomerImageClick}
-            />
-          ))}
+          {allMediaItems.map((item, i) =>
+            (item as string).endsWith(".mp4") ? (
+              <video
+                src={item}
+                muted
+                className="w-full h-20 object-cover rounded-md cursor-pointer"
+                onClick={handleCustomerImageClick}
+              />
+            ) : (
+              <img
+                key={i}
+                src={item}
+                alt="Customer uploaded"
+                className="w-full h-20 object-cover rounded-md cursor-pointer"
+                onClick={handleCustomerImageClick}
+              />
+            )
+          )}
           {/* Display '+221' if there are more than 11 images */}
-          {allCustomerImages.length > 3 && (
+          {allMediaItems.length > 7 && (
             <div
               className="w-full h-20 bg-gray-200 flex items-center justify-center rounded-md text-gray-600 cursor-pointer"
               onClick={handleCustomerImageClick}
             >
-              +{allCustomerImages.length - 3}
+              +{allMediaItems.length - 7}
             </div>
           )}
         </div>
@@ -179,7 +195,14 @@ export default function ProductReviews() {
                       src={image}
                       alt="review"
                       className="w-16 h-16 object-cover rounded-md cursor-pointer"
-                      onClick={() => handleUserImageClick(review)}
+                      onClick={() => {
+                        handleUserImageClick(review);
+
+                        // setCurrentMediaItems([
+                        //   ...(review.images ?? []), // Use empty array if review.images is undefined
+                        //   ...(review.videos ?? []), // Use empty array if review.videos is undefined
+                        // ]);
+                      }}
                     />
                   ))}
                 </div>
@@ -218,40 +241,37 @@ export default function ProductReviews() {
         onRequestClose={() => setIsModalOpen(false)}
         className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
       >
-        <div className="bg-white rounded-lg p-4 max-w-3xl w-full overflow-y-auto">
+        <div className="bg-white rounded-lg p-4 max-w-3xl md:max-h-[70vh] h-full w-full overflow-y-auto">
           <h3 className="text-lg font-semibold mb-4">Customer Images</h3>
-          {/* <div className="grid grid-cols-3 gap-2">
-            {modalReviews.map((modal, i) => (
-              <img
-                key={i}
-                src={img}
-                alt={`Customer Image ${i + 1}`}
-                className="w-full h-32 object-cover rounded-md cursor-pointer"
-                onClick={() => handleUserImageClick(ratings[Math.floor(i / 5)])} // Show user details modal on click
-              />
-            ))}
-          </div> */}
-          <div className="grid grid-cols-3 gap-2">
-            {/* {modalReviews.flatMap((review) => review.images).map((img, i) => (
-              <img
-                key={i}
-                src={img}
-                alt={`Customer Image ${i + 1}`}
-                className="w-full h-32 object-cover rounded-md cursor-pointer"
-              />
-            ))} */}
-            {modalReviews.map((review) =>
-              review.images.map((img, i) => (
-                <img
-                  key={i}
-                  src={img}
-                  alt={`Customer Image ${i + 1}`}
-                  className="w-full h-32 object-cover rounded-md cursor-pointer"
-                  onClick={() => handleUserImageClick(review)} // Open single user's review
-                />
-              ))
-            )}
+
+          <div className="w-full">
+            <div className="flex flex-wrap gap-2 justify-start">
+              {modalReviews.map((review, reviewIndex) => (
+                <div key={reviewIndex} className="flex flex-wrap gap-2">
+                  {/* Loop through images */}
+                  {review.images.map((img, imgIndex) => (
+                    <img
+                      key={imgIndex}
+                      src={img}
+                      alt={`Customer Image ${imgIndex + 1}`}
+                      className="w-32 h-32 object-cover rounded-md cursor-pointer flex-grow-0"
+                      onClick={() => handleUserImageClick(review)}
+                    />
+                  ))}
+                  {/* Loop through videos */}
+                  {review.videos?.map((video, videoIndex) => (
+                    <video
+                      key={videoIndex}
+                      className="w-32 h-32 object-cover rounded-md cursor-pointer flex-grow-0"
+                      src={video}
+                      onClick={() => handleUserImageClick(review)}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
+
           <button
             className="mt-4 text-blue-600"
             onClick={() => setIsModalOpen(false)}
@@ -260,14 +280,12 @@ export default function ProductReviews() {
           </button>
         </div>
       </Modal>
-
-      {/* Modal for Single User's Images and Details */}
       <Modal
         isOpen={isUserModalOpen}
         onRequestClose={() => setIsUserModalOpen(false)}
         className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
       >
-        <div className="bg-white rounded-lg p-4 max-w-xl w-full overflow-y-auto">
+        <div className="bg-white rounded-lg p-4 max-w-xl w-full overflow-y-auto max-h-[90vh]">
           {modalUserDetails && (
             <>
               <h3 className="text-lg font-semibold mb-4">
@@ -286,38 +304,40 @@ export default function ProductReviews() {
               />
               <p className="my-2">{modalUserDetails.text}</p>
               <div className="grid grid-cols-1 gap-2 mt-4">
-                <BannerWrapper
-                  isAutoFlow={false}
-                  isActive={true}
-                  iconSize={29}
-                  className="h-full "
-                  nextBtnClass=" active:scale-90 duration-300 transition-all bg-transparent "
-                  prevBtnClass=" active:scale-90 duration-300 transition-all bg-transparent "
-                  btnClass="sm:left-0 sm:right-0 top-1/2 -translate-y-1/2 left-0  right-0"
-                >
-                  {/* Render images */}
-                  {modalUserDetails?.images?.map((img, index) => (
-                    <Banner
-                      key={index}
-                      className="lg:h-[500px] h-[250px] flex items-center justify-center"
-                      isLink={false}
-                      image={img}
-                      imgClass="object-cover cursor-pointer z-50  lg:h-[70%] w-full h-[80%]"
-                    />
-                  ))}
-
-                  {/* Render videos */}
-                  {modalUserDetails?.videos &&
-                    modalUserDetails?.videos?.map((video, i) => (
+                {modalUserDetails.images?.length > 0 ||
+                modalUserDetails.videos?.length > 0 ? (
+                  <BannerWrapper
+                    isAutoFlow={false}
+                    isActive={true}
+                    iconSize={29}
+                    className="hl"
+                    nextBtnClass="active:scale-90 duration-300 transition-all bg-transparent"
+                    prevBtnClass="active:scale-90 duration-300 transition-all bg-transparent"
+                    btnClass="sm:left-0 sm:right-0 top-1/2 -translate-y-1/2 left-0 right-0"
+                  >
+                    {/* Render images and videos */}
+                    {modalUserDetails.images?.map((img, index) => (
                       <Banner
-                        key={i}
-                        className="lg:h-[500px] h-[250px] flex items-center justify-center"
+                        key={`img-${index}`}
+                        className="h-[600px] flex items-center justify-center aspect-square"
                         isLink={false}
-                        video={video}
-                        imgClass="object-contain cursor-pointer z-50  lg:h-[70%] w-full h-[80%]"
+                        image={img}
+                        imgClass="object-cover cursor-pointer z-50 aspect-auto h-[100%] w-full"
                       />
                     ))}
-                </BannerWrapper>
+                    {modalUserDetails.videos?.map((video, i) => (
+                      <Banner
+                        key={`video-${i}`}
+                        className="h-[600px] flex items-center justify-center"
+                        isLink={false}
+                        video={video}
+                        imgClass="object-contain cursor-pointer z-50 h-[100%] w-full"
+                      />
+                    ))}
+                  </BannerWrapper>
+                ) : (
+                  <p>No images or videos available.</p>
+                )}
               </div>
               <button
                 className="mt-4 text-blue-600"
@@ -329,6 +349,105 @@ export default function ProductReviews() {
           )}
         </div>
       </Modal>
+
+      {/* Modal for Single User's Images and Details */}
     </div>
   );
 }
+// <Modal
+//       isOpen={isUserModalOpen}
+//       onRequestClose={() => setIsUserModalOpen(false)}
+//       className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 "
+//     >
+//       <div className="bg-white rounded-lg p-4 max-w-xl w-full overflow-y-auto max-h-[90vh]">
+//         {modalUserDetails && (
+//           <>
+//             <h3 className="text-lg font-semibold mb-4">
+//               {modalUserDetails.user}'s Review
+//             </h3>
+//             <p className="text-sm text-gray-500 mb-2">
+//               {modalUserDetails.date}
+//             </p>
+//             <StarRatings
+//               rating={modalUserDetails.rating}
+//               starRatedColor="#7C3AED"
+//               numberOfStars={5}
+//               starDimension="20px"
+//               starSpacing="2px"
+//               name="user-rating"
+//             />
+//             <p className="my-2">{modalUserDetails.text}</p>
+//             <div className="grid grid-cols-1 gap-2 mt-4">
+//               {modalUserDetails?.images?.length > 0 ||
+//               (modalUserDetails?.videos ?? []).length > 0 ? (
+//                 <BannerWrapper
+//                   isAutoFlow={false}
+//                   isActive={true}
+//                   iconSize={29}
+//                   className="hl "
+//                   nextBtnClass=" active:scale-90 duration-300 transition-all bg-transparent "
+//                   prevBtnClass=" active:scale-90 duration-300 transition-all bg-transparent "
+//                   btnClass="sm:left-0 sm:right-0 top-1/2 -translate-y-1/2 left-0  right-0"
+//                 >
+//                   {/* Render images */}
+//                   {currentMediaItems.map((item, i) =>
+//                     (item as string).endsWith(".mp4") ? (
+//                       <Banner
+//                         key={i}
+//                         className="h-[600px] flex items-center justify-center"
+//                         isLink={false}
+//                         video={item}
+//                         isVideoControll={false}
+//                         imgClass="object-contain cursor-pointer z-50  h-[100%] w-full"
+//                       />
+//                     ) : (
+//                       <Banner
+//                         key={i}
+//                         className="h-[600px] flex items-center justify-center aspect-square"
+//                         isLink={false}
+//                         image={item}
+//                         imgClass="object-cover cursor-pointer z-50 aspect-auto h-[100%] w-full "
+//                       />
+//                     )
+//                   )}
+//                   {/* {modalUserDetails?.images?.length > 0  && modalUserDetails?.images?.map((img, index) => (
+
+//                              <Banner
+//                       key={index}
+//                       className="h-[600px] flex items-center justify-center aspect-square"
+//                       isLink={false}
+//                       image={img}
+//                       imgClass="object-cover cursor-pointer z-50 aspect-auto h-[100%] w-full "
+//                     />
+
+//                   ))} */}
+
+//                   {/* Render videos */}
+//                   {/* { (modalUserDetails?.videos ?? [])?.length > 0 &&
+//                     modalUserDetails?.videos?.map((video, i) => (
+//                       <>
+//                        <Banner
+//                         key={i}
+//                         className="h-[600px] flex items-center justify-center"
+//                         isLink={false}
+//                         video={video}
+//                         imgClass="object-contain cursor-pointer z-50  h-[100%] w-full"
+//                       />
+//                       </>
+
+//                     ))} */}
+//                 </BannerWrapper>
+//               ) : (
+//                 <p>No images or videos available.</p>
+//               )}
+//             </div>
+//             <button
+//               className="mt-4 text-blue-600"
+//               onClick={() => setIsUserModalOpen(false)}
+//             >
+//               Close
+//             </button>
+//           </>
+//         )}
+//       </div>
+//     </Modal>

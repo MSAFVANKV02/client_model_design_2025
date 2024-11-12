@@ -1,5 +1,6 @@
-/* cart btn animation
- */
+/* 000000000000000000
+======= ======= == == cart btn animation starts   ======    ==== ====== ===============================================
+ 00000000000*/
 
 .cart-button {
 	position: relative;
@@ -27,7 +28,7 @@
 	position: absolute;
 	z-index: 2;
 	top: 50%;
-	left: -10%;
+	left: -20%;
 	font-size: 2em;
 	transform: translate(-50%,-50%);
 }
@@ -74,13 +75,13 @@
 }
 @keyframes cart {
 	0% {
-		left: -10%;
+		left: -20%;
 	}
 	40%, 60% {
 		left: 50%;
 	}
 	100% {
-		left: 110%;
+		left: 120%;
 	}
 }
 @keyframes box {
@@ -113,3 +114,6 @@
 	}
 }
 
+/* 000000000000000000
+======= ======= == == cart btn animation ends   ======    ==== ====== ===============================================
+ 00000000000*/

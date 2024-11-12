@@ -25,6 +25,7 @@ export default function ShareSocial({ toggleShareOptions, data }: Props) {
 
         setTimeout(() => {
             setIsCopied(false);
+            toggleShareOptions();
           }, 3000);
         // setShowShareOptions(false);
       },
@@ -57,7 +58,7 @@ export default function ShareSocial({ toggleShareOptions, data }: Props) {
         </div>
       </div>
       <div className="flex justify-center mt-4">
-        <button onClick={handleCopyUrl} className="w-full">
+        <button onClick={handleCopyUrl} disabled={isCopied} className="w-full">
             {
                 isCopied ? "Copied!" :" Copy URL"
             }

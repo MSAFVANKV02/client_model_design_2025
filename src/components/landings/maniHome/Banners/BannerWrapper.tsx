@@ -88,6 +88,7 @@ interface IBannerWrapperProps {
   isAutoFlow?: boolean;
   iconSize?: number;
   initialSlide?: number;
+  setCurrentImageIndex?: (index: number) => void;
 }
 
 const BannerWrapper: React.FC<IBannerWrapperProps> = ({
@@ -99,7 +100,8 @@ const BannerWrapper: React.FC<IBannerWrapperProps> = ({
   isActive,
   isAutoFlow = true,
   iconSize = 20,
-  initialSlide = 0
+  initialSlide = 0,
+  setCurrentImageIndex
 }) => {
   const slider = React.useRef<Slider>(null);
 
@@ -114,6 +116,12 @@ const BannerWrapper: React.FC<IBannerWrapperProps> = ({
     initialSlide: initialSlide,
     nextArrow: undefined, 
     prevArrow: undefined, 
+    afterChange: (index: number) => {
+      if (setCurrentImageIndex) {
+        setCurrentImageIndex(index);
+      }
+      pauseAllVideos();
+    }
   };
 
   useEffect(() => {
@@ -121,6 +129,11 @@ const BannerWrapper: React.FC<IBannerWrapperProps> = ({
       slider.current.slickGoTo(initialSlide); // Update the slide if initialSlide changes
     }
   }, [initialSlide]);
+    // Function to pause all video elements within the slider
+    const pauseAllVideos = () => {
+      const videos = document.querySelectorAll('video');
+      videos.forEach((video) => video.pause());
+    };
 
   return (
     <div className={cn(`relative`, className)}>

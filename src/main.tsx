@@ -1,5 +1,6 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
+import "@/assets/css/anime.css"
 import "@/assets/css/components.css"
 import axios from "axios";
 import { Provider } from "react-redux";

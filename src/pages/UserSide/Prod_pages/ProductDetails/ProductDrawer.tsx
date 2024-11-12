@@ -97,16 +97,17 @@ export default function ProductDrawer({
       {!buyNow ? (
         <>
           {product?.galleryImages.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={"drawer images"}
-              onClick={() => {
-                setCurrentImageIndex(index);
-                setOpen(true);
-              }}
-              className={`${currentImageIndex === index ? "border-x-blue-400" : "border-gray-200"} w-14 h-14 object-cover cursor-pointer rounded-sm  `}
-            />
+            <div className={`${currentImageIndex === index ? "border-2 border-blue-400" : "border-gray-200"} w-14 h-14 rounded-sm  overflow-hidden`} key={index}>
+              <img
+                src={image}
+                alt={"drawer images"}
+                onClick={() => {
+                  setCurrentImageIndex(index);
+                  setOpen(true);
+                }}
+                className={` object-cover w-full h-full cursor-pointer `}
+              />
+            </div>
           ))}
         </>
       ) : (
@@ -200,6 +201,7 @@ export default function ProductDrawer({
                   prevBtnClass=" active:scale-90 duration-300 transition-all bg-transparent "
                   btnClass="sm:left-0 sm:right-0 top-1/2 -translate-y-1/2 left-0  right-0"
                   initialSlide={currentImageIndex}
+                  setCurrentImageIndex={setCurrentImageIndex}
                 >
                   {product?.galleryImages.map((img, index) => (
                     <Banner
