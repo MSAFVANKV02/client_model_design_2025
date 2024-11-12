@@ -216,7 +216,7 @@ export default function ProductNav({
 
       {/* Action Button */}
       <div className="p-2">
-        <Button variant={`b2bStyle`} size="b2b" className="w-full  rounded-md text-sm" onClick={()=>handleClick(link)}>
+        <Button variant={`b2bStyle`} size="b2b" className="w-full rounded-md text-sm" onClick={()=>handleClick(link)}>
           Make order
         </Button>
       </div>

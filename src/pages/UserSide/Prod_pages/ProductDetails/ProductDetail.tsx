@@ -2,11 +2,19 @@ import { Button } from "@/components/ui/button";
 import { IProducts } from "@/types/productTypes";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import ProductDrawer from "./ProductDrawer";
-import React from "react";
+import { useState } from "react";
+import { IconButton } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import ShareSocial from "@/components/ui/share-social";
+import { Divider } from "@mui/joy";
 
 function ProductDetail({ product }: { product: IProducts }) {
   const { sizeVariant } = product.variants[0];
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [favorite, setFavorite] = useState(false);
+  const [showShareOptions, setShowShareOptions] = useState(false);
 
   // const {  size } = sizeVariant[0];
 
@@ -19,21 +27,53 @@ function ProductDetail({ product }: { product: IProducts }) {
   //   }))
   // );
 
+  const toggleShareOptions = () => {
+    setShowShareOptions((prev) => !prev);
+  };
+
   const colors = [
     ...new Set(product.variants.flatMap((variant) => variant.colors)),
   ];
 
   return (
-    <div className="sm:px-4 sm:p-0 p-4 h-full flex flex-col">
-      <div className=" space-y-3">
-        <h1 className="text-2xl font-bold ">{product.product_name}</h1>
+    <div className="sm:px-4  h-full flex flex-col">
+      <div className=" space-y-5">
+        <div className="relative">
+          <div className=" md:w-3/4 w-[80%]">
+             <span className="md:text-[20px] font-bold">
+            {product.product_name}
+          </span>
+          </div>
+         
+          <div className="flex flex-col absolute top-0 right-0">
+            <IconButton onClick={() => setFavorite(!favorite)}>
+              {favorite ? (
+                <FavoriteIcon color="error" />
+              ) : (
+                <FavoriteBorderIcon />
+              )}
+            </IconButton>
+            <div className="">
+              {!showShareOptions ? (
+                <IconButton onClick={toggleShareOptions}>
+                  <ShareOutlinedIcon />
+                </IconButton>
+              ) : (
+                <div className="absolute top-12 right-0">
+                  <ShareSocial toggleShareOptions={toggleShareOptions} data={product.product_name} />
+                </div>
+              )}
+            </div>
+          </div>
+          {/* <Icon */}
+        </div>
 
         {/* Price Variants */}
-        <div className="grid grid-cols-2 gap-3 border-b pb-3">
+        <div className="grid grid-cols-2 sm:w-1/2 w-full gap-3 pb-3">
           {product.variants[0].sizeVariant[0].price_per_Pieces.map(
             (variant) => (
               <div key={variant._id}>
-                <p className="text-textGray">
+                <p className="text-textGray text-sm">
                   {variant.max_purchase_qty !== Infinity ? (
                     <>
                       {variant.min_purchase_qty && variant.min_purchase_qty} -{" "}
@@ -47,29 +87,30 @@ function ProductDetail({ product }: { product: IProducts }) {
                   )}
                   &nbsp; pieces
                 </p>
-                <span>₹{variant.price}</span>
+                <span className="text-lg">₹{variant.price}</span>
               </div>
             )
           )}
         </div>
+        <Divider sx={{ }} />
 
         {/* Variations */}
-        <h2 className="text-lg font-semibold">Variations</h2>
+        <h2 className="text-lg ">Variations</h2>
 
-        <div className="flex gap-2">
-          <p>Colors: {colors.length}</p>
+        <div className="flex gap-2 ">
+          <span className="text-[16px]">Colors: {colors.length}</span>
 
-          {/* <p>Colors: {colors.join(", ")}</p> */}
-          <p>Size: {sizeVariant.length}</p>
+          {/* <span className="text-[16px]">Colors: {colors.join(", ")}</span> */}
+          <span className="text-[16px]">Size: {sizeVariant.length}</span>
         </div>
 
         {/* Color Variations */}
-        <div className="">
+        {/* <div className="mt-2">
           <p>1. Colors: ({colors.length}): Red</p>
-        </div>
+        </div> */}
 
         {/* Color images */}
-        <div className="flex gap-3 overflow-auto">
+        <div className="flex gap-3 flex-wrap">
           <ProductDrawer
             open={drawerOpen}
             setBuyOpen={setDrawerOpen}
@@ -80,15 +121,15 @@ function ProductDetail({ product }: { product: IProducts }) {
 
         {/* Size section ========= */}
 
-        <div className="">
+        {/* <div className="">
           <p>2. Size: ({sizeVariant.length})</p>
-        </div>
+        </div> */}
         <div className="flex gap-3  flex-wrap justify-between items-center">
           <div className="flex gap-3  flex-wrap">
             {["SM", "XL", "L", "XXL"].map((size) => (
               <div
                 key={size}
-                className="border border-black text-sm min-w-10 h-10 rounded cursor-pointer w-fit flex justify-center items-center"
+                className="border border-gray-200 text-sm min-w-10 h-10 rounded cursor-pointer w-fit flex justify-center items-center"
               >
                 {size}
               </div>
@@ -103,7 +144,7 @@ function ProductDetail({ product }: { product: IProducts }) {
 
       {/* Buy and Chat Buttons */}
       {/* lg:mt-auto */}
-      <div className="flex gap-4  w-full mt-5">
+      <div className="flex sm:gap-4 gap-1  w-full lg:mt-auto">
         <Button
           className="border px-4 py-2 w-full rounded-xl h-11 border-black"
           variant={"outline"}

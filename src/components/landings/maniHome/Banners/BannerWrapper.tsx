@@ -71,7 +71,7 @@
 // export default BannerWrapper;
 
 // ==================================================
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 import { cn } from "@/lib/utils";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -87,6 +87,7 @@ interface IBannerWrapperProps {
   isActive?: boolean;
   isAutoFlow?: boolean;
   iconSize?: number;
+  initialSlide?: number;
 }
 
 const BannerWrapper: React.FC<IBannerWrapperProps> = ({
@@ -97,7 +98,8 @@ const BannerWrapper: React.FC<IBannerWrapperProps> = ({
   btnClass,
   isActive,
   isAutoFlow = true,
-  iconSize = 20
+  iconSize = 20,
+  initialSlide = 0
 }) => {
   const slider = React.useRef<Slider>(null);
 
@@ -109,9 +111,16 @@ const BannerWrapper: React.FC<IBannerWrapperProps> = ({
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    initialSlide: initialSlide,
     nextArrow: undefined, 
     prevArrow: undefined, 
   };
+
+  useEffect(() => {
+    if (slider.current) {
+      slider.current.slickGoTo(initialSlide); // Update the slide if initialSlide changes
+    }
+  }, [initialSlide]);
 
   return (
     <div className={cn(`relative`, className)}>

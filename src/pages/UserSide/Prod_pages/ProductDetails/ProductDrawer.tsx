@@ -19,6 +19,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@/components/ui/button";
 import BannerWrapper from "@/components/landings/maniHome/Banners/BannerWrapper";
 import Banner from "@/components/landings/maniHome/Banners/Banner";
+import { Input } from "@/components/ui/input";
 
 type IDrawerTypes = {
   product?: IProducts;
@@ -40,6 +41,12 @@ export default function ProductDrawer({
   //   const xlScreen = onlyWidth < 1440;
   const mobileWidth = onlyWidth < 768;
   const [clicked, setClicked] = React.useState(false);
+  const [quantities, setQuantities] = React.useState<{ [key: string]: number }>(
+    { S: 1, M: 1, L: 1, XL: 1, XXL: 1 }
+  );
+  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+
+  // makeToastWarning(`${currentImageIndex}`)
 
   const handleClick = () => {
     // Add the clicked state to trigger animations
@@ -51,6 +58,30 @@ export default function ProductDrawer({
     }, 3000);
   };
 
+  const handleIncrease = (size: string) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [size]: prev[size] + 1,
+    }));
+  };
+
+  const handleDecrease = (size: string) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [size]: Math.max(prev[size] - 1, 1),
+    }));
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    size: string
+  ) => {
+    const value = Math.max(parseInt(e.target.value, 10) || 1, 1);
+    setQuantities((prev) => ({
+      ...prev,
+      [size]: value,
+    }));
+  };
 
   // const sliderSettings = {
   //   dots: false,
@@ -70,8 +101,11 @@ export default function ProductDrawer({
               key={index}
               src={image}
               alt={"drawer images"}
-              onClick={() => setOpen(true)}
-              className="w-14 h-14 object-cover cursor-pointer rounded-sm border border-red-400"
+              onClick={() => {
+                setCurrentImageIndex(index);
+                setOpen(true);
+              }}
+              className={`${currentImageIndex === index ? "border-x-blue-400" : "border-gray-200"} w-14 h-14 object-cover cursor-pointer rounded-sm  `}
             />
           ))}
         </>
@@ -165,6 +199,7 @@ export default function ProductDrawer({
                   nextBtnClass=" active:scale-90 duration-300 transition-all bg-transparent "
                   prevBtnClass=" active:scale-90 duration-300 transition-all bg-transparent "
                   btnClass="sm:left-0 sm:right-0 top-1/2 -translate-y-1/2 left-0  right-0"
+                  initialSlide={currentImageIndex}
                 >
                   {product?.galleryImages.map((img, index) => (
                     <Banner
@@ -292,12 +327,13 @@ export default function ProductDrawer({
                   <Typography sx={{ flex: "1 1 0", textAlign: "left" }}>
                     ₹287.12
                   </Typography>
+
+                  {/* Qty buttons */}
                   <Stack
                     direction="row"
                     spacing={1}
                     alignItems="center"
                     sx={{
-                      // flex: "1 1 0",
                       display: "flex",
                       justifyContent: "flex-end",
                       border: "1px solid #d0c7c7",
@@ -305,13 +341,23 @@ export default function ProductDrawer({
                       borderRadius: "5px",
                     }}
                   >
-                    <Button variant="secondary" className="rounded-sm">
+                    <Button
+                      variant="secondary"
+                      className="rounded-sm"
+                      onClick={() => handleDecrease(size)}
+                    >
                       -
                     </Button>
-                    <Typography>0</Typography>
+                    <Input
+                      type="number"
+                      className="custom-input   text-center text-black border-b"
+                      value={quantities[size]}
+                      onChange={(e) => handleInputChange(e, size)}
+                    />
                     <Button
                       variant="outline"
                       className="border-gray-200 text-textMain rounded-sm"
+                      onClick={() => handleIncrease(size)}
                     >
                       +
                     </Button>
@@ -358,7 +404,7 @@ export default function ProductDrawer({
                   Add to cart
                 </Button> */}
                 <Button
-                variant="outline"
+                  variant="outline"
                   className={`cart-button ${clicked ? "clicked" : ""} w-full border border-black `}
                   onClick={handleClick}
                 >

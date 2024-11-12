@@ -44,7 +44,7 @@ const CustomizeSamplePurchase = () => {
 
         <div className="mb-4">
           <p className="text-sm font-semibold">Select color</p>
-          <div className="flex space-x-2 mt-2">
+          <div className="flex gap-3 mt-2 justify-start flex-wrap">
             {colors.map((color, index) => (
               <div
                 key={index}
@@ -62,7 +62,7 @@ const CustomizeSamplePurchase = () => {
 
         <div className="mb-4">
           <p className="text-sm font-semibold">Select size</p>
-          <div className="flex space-x-2 mt-2">
+          <div className="flex gap-3 mt-2 justify-start flex-wrap">
             {sizes.map((size, index) => (
               <button
                 key={index}

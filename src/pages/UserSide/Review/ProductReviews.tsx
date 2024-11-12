@@ -76,23 +76,33 @@ export default function ProductReviews() {
   };
 
   return (
-    <div className="w-full p-4 space-y-7">
+    <div className="w-full sm:p-4 space-y-7">
       <h3>Ratings & Reviews</h3>
       {/* Overall Rating */}
       <div className="flex flex-col items-start mb-4">
-        <h3 className="text-xl font-semibold mb-2">Rate This Product</h3>
-        <StarRatings
-          rating={4.2}
-          starRatedColor="#7C3AED"
-          numberOfStars={5}
-          starDimension="24px"
-          starSpacing="2px"
-          name="rating"
-        />
-        <p className="text-green-600 text-lg mt-2">
-          <span className="font-semibold">4.2</span> ★ | 45,223 ratings and
-          2,221 reviews
-        </p>
+        <div className="flex flex-wrap items-center gap-10">
+          <h3 className="text-xl font-semibold ">Rate This Product</h3>
+          <StarRatings
+            rating={4.2}
+            starRatedColor="#7C3AED"
+            numberOfStars={5}
+            starDimension="29px"
+            starSpacing="6px"
+            name="rating"
+          />
+        </div>
+
+       <div className="flex items-center gap-4 flex-wrap my-3">
+       <span
+          className={`text-white text-sm px-2 py-1 rounded-2xl bg-green-500`}
+        >
+          4.2 ★
+        </span>
+
+        <h5 className="text-gray-400">
+          45,223 ratings and 2,221 reviews
+        </h5>
+       </div>
       </div>
 
       {/* Customer Images */}
@@ -139,7 +149,7 @@ export default function ProductReviews() {
         </div>
       </div>
 
-      {/* Reviews */}
+      {/*all Reviews */}
       <div className="space-y-6">
         {ratings.map((review, index) => (
           <div
@@ -147,7 +157,7 @@ export default function ProductReviews() {
             className="border-b border-gray-200 pb-4 mb-4 flex justify-between "
           >
             <div className="">
-              <div className="flex items-center space-x-2 mb-2">
+              <div className="flex items-center gap-3 mb-2">
                 <span
                   className={`text-white text-sm px-2 py-1 rounded-2xl ${
                     review.rating >= 4

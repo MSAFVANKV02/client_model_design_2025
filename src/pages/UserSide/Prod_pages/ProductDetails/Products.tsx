@@ -47,7 +47,7 @@ export default function ProductsPage() {
 
       <div className="">
         <h5>Similar Products</h5>
-        <div className="grid sm:gap-2 xl:grid-cols-5 sm:grid-cols-4  grid-cols-2 w-full mt-3">
+        <div className="grid sm:gap-2 xl:grid-cols-5 sm:grid-cols-4  grid-cols-1 w-full mt-3">
           {similarProduct.map((similarProduct) => (
             <ProdCard
               key={product._id}
@@ -64,7 +64,7 @@ export default function ProductsPage() {
       {/* Recent Viewed Products */}
       <div className="">
         <h5>Recent viewed</h5>
-        <div className="grid sm:gap-2 xl:grid-cols-5 sm:grid-cols-4  grid-cols-2 w-full mt-3">
+        <div className="grid sm:gap-2 xl:grid-cols-5 sm:grid-cols-4  grid-cols-1 w-full mt-3">
           {similarProduct.map((similarProduct) => (
             <ProdCard
               key={product._id}
