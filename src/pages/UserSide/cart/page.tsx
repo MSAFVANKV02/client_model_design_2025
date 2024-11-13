@@ -1,20 +1,24 @@
 import {
   Checkbox,
   IconButton,
-  Button,
-//   TextField,
+
+  //   TextField,
   Collapse,
 } from "@mui/material";
-import { Button as ButtonDcn } from "@/components/ui/button";
+// import { Button as ButtonDcn } from "@/components/ui/button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-// import RemoveIcon from "@mui/icons-material/Remove";
+import RemoveIcon from "@mui/icons-material/Remove";
 import { useState } from "react";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import { useWindowWidth } from "@react-hook/window-size";
 import { Stack } from "@mui/joy";
-import { Input } from "@/components/ui/input";
+
+import { useTheme } from "@mui/material/styles";
+import OrderSummary from "@/components/checkout/OrderSummary";
+import useNavigateClicks from "@/hooks/useClicks";
+
 const details = [
   {
     size: "S",
@@ -41,22 +45,23 @@ const details = [
 
 const ShoppingCart = () => {
   const onlyWidth = useWindowWidth();
-
+  const { handleClick } = useNavigateClicks();
+  const theme = useTheme();
   // Initialize all items as not collapsed initially (showing all items by default)
   const [isCollapsed, setIsCollapsed] = useState<boolean[]>(
     new Array(details.length).fill(false) // All items are expanded by default
   );
-  const [checkedVariants, setCheckedVariants] = useState<boolean[]>(
-    new Array(details.length).fill(false) // Initialize checkedVariants to false
-  );
+  //   const [checkedVariants, setCheckedVariants] = useState<boolean[]>(
+  //     new Array(details.length).fill(false) // Initialize checkedVariants to false
+  //   );
 
   const mobileWidth = onlyWidth <= 768;
   // Handle checkbox change for product variants
-  const handleVariantChange = (index: number) => {
-    setCheckedVariants((prevState) =>
-      prevState.map((checked, i) => (i === index ? !checked : checked))
-    );
-  };
+  //   const handleVariantChange = (index: number) => {
+  //     setCheckedVariants((prevState) =>
+  //       prevState.map((checked, i) => (i === index ? !checked : checked))
+  //     );
+  //   };
 
   // Handle collapse/expand of product variants
   const toggleCollapse = () => {
@@ -64,12 +69,22 @@ const ShoppingCart = () => {
     setIsCollapsed((prevState) => prevState.map((collapsed) => !collapsed));
   };
 
+  const handleAddClick = () => {
+    // Trigger a prompt to ask for input
+    const userInput = prompt("Enter the quantity to add:");
+
+    if (userInput !== null) {
+      // If the user provides a value, show it in an alert
+      alert(`You have added ${userInput} items.`);
+    }
+  };
+
   return (
-    <div className="flex md:flex-row flex-col md:p-8 md:space-x-8 min-h-screen my-14">
+    <div className="flex md:flex-row flex-col md:p-8 md:space-x-8 min-h-screen md:my-3 my-14">
       {/* Shopping Cart Section */}
       <div className="md:w-3/4 w-full">
         <h1 className="text-2xl font-semibold mb-4">Shopping cart</h1>
-        <div className="flex items-center mb-4">
+        {/* <div className="flex items-center mb-4">
           <Checkbox
             color="default"
             sx={{
@@ -79,7 +94,7 @@ const ShoppingCart = () => {
             }}
           />
           <span className="text-gray-600">Select all items</span>
-        </div>
+        </div> */}
 
         {/* Product Section */}
         <div className=" ">
@@ -114,7 +129,7 @@ const ShoppingCart = () => {
             </IconButton>
           </div>
 
-          {/* Product Variants */}
+          {/* Product Variants ======== = == = ====== ======= = === */}
           <div className="">
             {/* Collapse/Expand Button */}
             <div className="flex items-center justify-end mb-4">
@@ -133,9 +148,10 @@ const ShoppingCart = () => {
             {details.map((variant, index) => (
               <div className="" key={index}>
                 <Collapse in={!isCollapsed[index]} timeout="auto" unmountOnExit>
-                  <div className="flex items-center justify-between md:p-4 md:border rounded-lg mb-3 md:ml-7">
-                    <div className="flex items-center md:space-x-4">
-                      <Checkbox
+                  <div className="flex items-center justify-between gap- md:p-4 p-1 md:border rounded-lg mb-3 md:ml-7">
+                    <div className="flex items-center md:space-x-4 sm:w-[200px] w-[100px] bg0">
+                      <div className="flex items-center">
+                        {/* <Checkbox
                         color="default"
                         checked={checkedVariants[index]} // Check state based on array value
                         onChange={() => handleVariantChange(index)}
@@ -144,55 +160,93 @@ const ShoppingCart = () => {
                             color: "#5F08B1", // Custom color when checked
                           },
                         }}
-                      />
-                      <img
-                        src={variant.image}
-                        alt="Variant"
-                        className="w-12 h-12"
-                      />
+                      /> */}
+                        <img
+                          src={variant.image}
+                          alt="Variant"
+                          className="sm:w-12 sm:h-12 w-9 h-9"
+                        />
+                      </div>
                       <div>
-                        <p className="text-sm font-medium">
+                        <p className="sm:text-sm text-xs font-medium">
                           Size: {variant.size}; Color: {variant.color}
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="sm:text-sm text-xs text-gray-600">
                           {variant.price} / piece
                         </p>
                       </div>
                     </div>
 
-                    {/* Quantity Control */}
+                    {/* Quantity Control ======== = == = ====== ======= = ===*/}
                     <Stack
                       direction="row"
                       spacing={1}
                       alignItems="center"
                       sx={{
-                        display: "flex",
-                        justifyContent: "flex-end",
                         border: "1px solid #d0c7c7",
-                        padding: mobileWidth ? "" :"3px",
                         borderRadius: "5px",
+                        width: "auto",
+                        padding: "3px", // general padding
+                        display: "flex",
+                        flexWrap: "nowrap", // ensures items are in one row by default
+                        [theme.breakpoints.down("sm")]: {
+                          // Use theme.breakpoints correctly
+                          width: "auto",
+                          padding: "1px", // Adjust padding for mobile
+                        },
                       }}
                     >
-                      <ButtonDcn
-                        variant="noStyle"
-                        className="rounded-sm"
-                        //   onClick={() => handleDecrease(size)}
+                      <IconButton
+                        size="small"
+                        style={{
+                          margin: !mobileWidth ? 0 : 0,
+                          border: "1px solid #F0F0F0",
+                          borderRadius: "5px",
+                          cursor: "pointer",
+                          padding: 5,
+                        }}
                       >
-                        -
-                      </ButtonDcn>
-                      <Input
-                        type="number"
-                        className="custom-input   text-center text-black border-b"
-                        //   value={quantities[size]}
-                        //   onChange={(e) => handleInputChange(e, size)}
-                      />
-                      <ButtonDcn
-                        variant="noStyle"
-                        className="border-gray-200 text-textMain rounded-sm"
-                        //   onClick={() => handleIncrease(size)}
+                        <RemoveIcon
+                          sx={{
+                            [theme.breakpoints.down("sm")]: {
+                              fontSize: "small",
+                              padding: "0",
+                            },
+                            color: "#5F08B1",
+                          }}
+                        />
+                      </IconButton>
+                      <span
+                        onClick={handleAddClick}
+                        style={{
+                          margin: !mobileWidth ? "0px 0px 0px 8px" : 0,
+                        }}
+                        className="sm:text-sm text-xs cursor-pointer"
                       >
-                        +
-                      </ButtonDcn>
+                        1
+                      </span>
+                      <IconButton
+                        size="small"
+                        color="primary"
+                        style={{
+                          margin: !mobileWidth ? "0px 0px 0px 8px" : 0,
+                          border: "1px solid #F0F0F0",
+                          borderRadius: "5px",
+                          cursor: "pointer",
+                          padding: 5,
+                          marginLeft: !mobileWidth ? "8px" : 0,
+                        }}
+                      >
+                        <AddIcon
+                          sx={{
+                            [theme.breakpoints.down("sm")]: {
+                              fontSize: "small",
+                              padding: "0",
+                            },
+                            color: "#5F08B1",
+                          }}
+                        />
+                      </IconButton>
                     </Stack>
 
                     {/* <div className="flex items-center p-1 border">
@@ -226,8 +280,9 @@ const ShoppingCart = () => {
                       </IconButton>
                     </div> */}
 
-                    {/* Price and Delete */}
+                    {/* Price and Delete ======== = == = ====== ======= = ===*/}
                     <p className="text-gray-800 font-semibold">$4.69</p>
+
                     <IconButton>
                       <DeleteIcon />
                     </IconButton>
@@ -239,35 +294,18 @@ const ShoppingCart = () => {
         </div>
       </div>
 
-      {/* Order Summary Section */}
-      <div
-        className="md:w-1/4 w-full bg-white p-6 rounded-lg sticky md:top-7 bottom-0 h-fit"
-        style={{
-          boxShadow: "4px 2px 15px rgba(0, 0, 0, 0.13)", // Custom shadow effect
-        }}
-      >
-        <h2 className="text-lg font-semibold mb-4">Order summary (3 items)</h2>
-        <div className="flex justify-between text-gray-600">
-          <span>Item subtotal</span>
-          <span>$0.00</span>
-        </div>
-        <div className="flex justify-between text-gray-600 mt-2 mb-4">
-          <span>Subtotal excl. tax</span>
-          <span>$0.00</span>
-        </div>
-        <Button
-          variant="contained"
-          fullWidth
-          sx={{
-            backgroundColor: "#6A0DAD",
-            "&:hover": { backgroundColor: "#5A0CAD" },
-            borderRadius: "8px",
-          }}
-          startIcon={<AddIcon />}
-        >
-          Check out
-        </Button>
-      </div>
+      {/* Order Summary Section ======== = == = ====== ======= = ===*/}
+      <OrderSummary
+        gst={18}
+        discount={20}
+        cess={2}
+        itemSubTotal={500}
+        shippingCharge={20}
+        subTotal={550}
+        totalPrice={600}
+        totalItems={3}
+        handleClick={() => handleClick("/cart/checkout")}
+      />
     </div>
   );
 };

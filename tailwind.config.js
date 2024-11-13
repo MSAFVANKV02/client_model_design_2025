@@ -80,6 +80,8 @@ const config = {
         bgSoft: "var(--colorSoft)",
         bgGray: "var(--gray)",
         bgGraySoft: "var(--graySoft)",
+        primaryVariant: "var(--primaryVariant)",
+
 
       },
       animation: {
