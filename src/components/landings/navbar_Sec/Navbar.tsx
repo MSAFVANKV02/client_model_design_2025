@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { isAuthenticated_4_Kyc } from "@/middlewares/IsAuthenticated";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/providers/AuthContext";
+import AccountMenu from "./AccountMenu";
 
 export type INavbarItems = {
   href: string;
@@ -101,16 +102,17 @@ function Navbar({ navItems }: NavbarProps)  {
               </>
             ) : (
               <>
-                <Icon
+                {/* <Icon
                   icon={`iconamoon:profile-circle-fill`}
                   fontSize={25}
                   className=""
-                />
+                /> */}
+                <AccountMenu/>
               </>
             )}
 
-            <Icon icon={`ph:bell-light`} fontSize={25} className="" />
-            <Icon icon={`mynaui:cart`} fontSize={25} className="" />
+            {/* <Icon icon={`ph:bell-light`} fontSize={25} className="" /> */}
+            {/* <Icon icon={`mynaui:cart`} fontSize={25} className="" /> */}
           </div>
         </div>
 

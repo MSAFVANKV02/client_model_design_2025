@@ -20,6 +20,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const protectedRoutes = [
     "/products",
     "/category",
+    "/cart"
   ];
 
   if (

@@ -22,6 +22,7 @@ import DashboardLayoutBasic from "@/pages/adminSide/Dashboard";
 import CategoryProductsPage from "@/pages/UserSide/Prod_pages/Category_wise/CategoryProductsPage";
 import FolderStructure from "@/pages/folder-structure/FolderStructure";
 import Products from "@/pages/UserSide/Prod_pages/ProductDetails/Products";
+import ShoppingCart from "@/pages/UserSide/cart/page";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -117,6 +118,15 @@ const rootRouter = createBrowserRouter([
           <ProtectedRoute isProtected={true}>
             {" "}
             <Products />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/cart",
+        element: (
+          <ProtectedRoute isProtected={true}>
+            {" "}
+            <ShoppingCart />
           </ProtectedRoute>
         ),
       },
