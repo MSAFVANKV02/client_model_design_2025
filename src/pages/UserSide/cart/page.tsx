@@ -3,6 +3,7 @@ import OrderSummary from "@/components/checkout/OrderSummary";
 import useNavigateClicks from "@/hooks/useClicks";
 import CartDetails from "@/components/cart/CartDetails";
 import { cartDetailsData } from "@/data/dummyData/carData";
+import CartLayout from "./layout";
 
 
 
@@ -13,7 +14,7 @@ const ShoppingCart = () => {
  
 
   return (
-    <div className="flex md:flex-row flex-col md:p-8 md:space-x-8  md:my-3 my-5">
+    <CartLayout >
       {/* Shopping Cart Section */}
       <div className="md:w-3/4 w-full">
         <h1 className="text-2xl font-semibold mb-4">Shopping cart</h1>
@@ -33,6 +34,8 @@ const ShoppingCart = () => {
           <CartDetails
           details={cartDetailsData}
           title={'items'}
+          isCollapsible
+          isAllSelect
           />
       </div>
 
@@ -49,7 +52,7 @@ const ShoppingCart = () => {
        btnLabel="Checkout"
         handleClick={() => handleClick("/cart/checkout")}
       />
-    </div>
+    </CartLayout>
   );
 };
 

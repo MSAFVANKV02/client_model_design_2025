@@ -1,6 +1,5 @@
 import { Button, IconButton, Checkbox } from "@mui/material";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Divider } from "@mui/joy";
 import { useState } from "react";
 import CreateIcon from "@mui/icons-material/Create";
@@ -69,7 +68,7 @@ export default function AddressList({ setIsModalOpen, setAddAddress }: Props) {
   return (
     <div className="h-full flex flex-col justify-between ">
       <div className="">
-        <div className="w-full h">
+        {/* <div className="w-full h">
           <IconButton
             className="float-right"
             sx={{ color: "black" }}
@@ -77,7 +76,7 @@ export default function AddressList({ setIsModalOpen, setAddAddress }: Props) {
           >
             <CloseOutlinedIcon />
           </IconButton>
-        </div>
+        </div> */}
         <div className="md:w-3/4 w-full p-3 space-y-3">
           <h4>Select shipping address</h4>
           <Button
