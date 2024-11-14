@@ -29,6 +29,7 @@ const config = {
         textSec: "var(--secColor)",
         textSoft: "var(--colorSoft)",
         textGray: "var(--gray)",
+        textHardSoft: "var( --hardSoftColor)",
 
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -81,7 +82,7 @@ const config = {
         bgGray: "var(--gray)",
         bgGraySoft: "var(--graySoft)",
         primaryVariant: "var(--primaryVariant)",
-
+        bgHardSoft: "var( --hardSoftColor)",
 
       },
       animation: {

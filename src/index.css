@@ -87,7 +87,8 @@ input[type="number"] {
   --mainColor: #5f08b1;
   --mainText: #5f08b1;
   --softColor: #7741a9;
-  --primaryVariant:##8817EC;
+  --hardSoftColor: #FDF7FF;
+  --primaryVariant:#8817EC;
   --secColor: #60c6c4;
   --colorSoft: #f8e5ff;
   --gray:#898989;
@@ -165,6 +166,9 @@ label {
 .section_container {
   @apply max-w-screen-2xl 2xl:px-24 xl:px-20 md:px-14 sm:px-10 px-5 mx-auto;
 }
+.section_container2 {
+  @apply  2xl:px-24 xl:px-20 md:px-14 sm:px-10 px-2 mx-auto;
+}
 
 .bg-combined-gradients {
   background: linear-gradient(220.66deg, #f0dfff -11.2%, #ffffff 100.09%),
@@ -235,4 +239,10 @@ label {
 
 .radio-label {
   font-weight: 600;
+}
+
+
+/* ============   ordersummary accordion =========== */
+.css-15v22id-MuiAccordionDetails-root {
+  padding: 0;
 }

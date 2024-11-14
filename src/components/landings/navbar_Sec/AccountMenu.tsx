@@ -108,7 +108,7 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "center", vertical: "top" }}
         anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
       >
-        <MenuItem disabled sx={{ fontWeight: "bold", color: "#6A0DAD", mb: 1 }}>
+        <MenuItem disabled sx={{ fontWeight: "bold", color: "#5F08B1", mb: 1 }}>
           Hi, Name
         </MenuItem>
         {/* <Divider sx={{ my: 1 }} /> */}

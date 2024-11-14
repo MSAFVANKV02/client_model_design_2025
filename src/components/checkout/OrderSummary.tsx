@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { Input } from "../ui/input";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useWindowWidth } from "@react-hook/window-size";
 
 type Props = {
   handleClick?: () => void;
@@ -21,6 +22,7 @@ type Props = {
   isCoupon?: boolean;
   discount?: number;
   subTotal?: number;
+  btnLabel:string;
 };
 
 export default function OrderSummary({
@@ -35,17 +37,19 @@ export default function OrderSummary({
   isCoupon = false,
   discount = 0,
   subTotal = 0,
+  btnLabel
 }: Props) {
+  const onlyWidth = useWindowWidth();
+  const mobileWidth = onlyWidth <= 768;
+
   return (
     <div
-      className="md:w-1/4 w-full bg-white p-6 rounded-lg sticky md:top-7 bottom-0 h-fit"
+      className="md:w-1/4 w-full bg-white md:p-6 p-1 rounded-lg sticky md:top-7 bottom-0 h-fit"
       style={{
         boxShadow: "4px 2px 15px rgba(0, 0, 0, 0.13)", // Custom shadow effect
       }}
     >
-      <h2 className="text-lg font-semibold mb-4">
-        Order summary ({totalItems} item{totalItems > 1 ? "s" : ""} )
-      </h2>
+   
       {/* Item subtotal .1*/}
       <div>
         <Accordion
@@ -54,19 +58,30 @@ export default function OrderSummary({
           elevation={0} // Remove shadow
           square // Remove border-radius
           sx={{
-            "&:before": { display: "none" }, // Remove top border
+            "&:before": { display: "none" }, 
+            padding:0// Remove top border
           }}
-          defaultExpanded
+          defaultExpanded={mobileWidth ? false : true}
         >
-          {/* <AccordionSummary
+          <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1-content"
             id="panel1-header"
+            sx={{
+              "&:before": { display: "none" }, 
+              padding:0// Remove top border
+            }}
           >
-           
-          </AccordionSummary> */}
+              <h2 className="text-lg font-semibold ">
+        Order summary ({totalItems} item{totalItems > 1 ? "s" : ""} )
+      </h2>
+          </AccordionSummary>
           <AccordionDetails 
           className="space-y-2"
+          sx={{
+            "&:before": { display: "none" }, 
+            padding:0// Remove top border
+          }}
           >
           {itemSubTotal >= 0 && (
               <div className="flex justify-between text-gray-600 sm:text-sm text-xs">
@@ -134,7 +149,7 @@ export default function OrderSummary({
 
       {/* =========================== */}
 
-      <div className="mt-16 space-y-5">
+      <div className="md:mt-16 space-y-5">
         {/* coupon Code Section starts ==== */}
         {isCoupon && (
           <div className="w-full   h-11 flex gap-2 i">
@@ -159,8 +174,8 @@ export default function OrderSummary({
             </Button>
           </div>
         )}
-
-        <Button
+  <div className="w-full h-full flex items-center justify-center">
+     <Button
           variant="contained"
           fullWidth
           className="bg-pv"
@@ -170,12 +185,15 @@ export default function OrderSummary({
             borderRadius: "8px",
             padding: "10px",
             textTransform: "capitalize",
+           width: mobileWidth? "90%" : "100%",
           }}
           startIcon={<VerifiedUserOutlinedIcon />}
           onClick={handleClick}
         >
-          Check out
+          {btnLabel}
         </Button>
+  </div>
+       
       </div>
     </div>
   );

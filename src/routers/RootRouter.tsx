@@ -23,6 +23,7 @@ import CategoryProductsPage from "@/pages/UserSide/Prod_pages/Category_wise/Cate
 import FolderStructure from "@/pages/folder-structure/FolderStructure";
 import Products from "@/pages/UserSide/Prod_pages/ProductDetails/Products";
 import ShoppingCart from "@/pages/UserSide/cart/page";
+import CheckoutPage from "@/pages/UserSide/cart/checkout/page";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -127,6 +128,15 @@ const rootRouter = createBrowserRouter([
           <ProtectedRoute isProtected={true}>
             {" "}
             <ShoppingCart />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/cart/checkout",
+        element: (
+          <ProtectedRoute isProtected={true}>
+            {" "}
+            <CheckoutPage />
           </ProtectedRoute>
         ),
       },
