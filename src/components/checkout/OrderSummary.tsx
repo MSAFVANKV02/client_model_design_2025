@@ -44,7 +44,7 @@ export default function OrderSummary({
 
   return (
     <div
-      className="md:w-1/4 w-full bg-white md:p-6 p-1 rounded-lg sticky md:top-7 bottom-0 h-fit"
+      className="lg:w-1/4 w-full bg-white lg:p-6 p-1 rounded-lg sticky lg:top-7 bottom-0 h-fit"
       style={{
         boxShadow: "4px 2px 15px rgba(0, 0, 0, 0.13)", // Custom shadow effect
       }}
@@ -149,7 +149,7 @@ export default function OrderSummary({
 
       {/* =========================== */}
 
-      <div className="md:mt-16 space-y-5">
+      <div className="lg:mt-16 space-y-5">
         {/* coupon Code Section starts ==== */}
         {isCoupon && (
           <div className="w-full   h-11 flex gap-2 i">
@@ -185,7 +185,7 @@ export default function OrderSummary({
             borderRadius: "8px",
             padding: "10px",
             textTransform: "capitalize",
-           width: mobileWidth? "90%" : "100%",
+           width: mobileWidth? "100%" : "100%",
           }}
           startIcon={<VerifiedUserOutlinedIcon />}
           onClick={handleClick}

@@ -31,7 +31,7 @@ type AddressType = {
   country: string;
 };
 
-type ParcelOptionsType = {
+export type ParcelOptionsType = {
   id: number;
   logo: string;
   serviceName: string;
@@ -45,14 +45,14 @@ type ParcelOptionsType = {
 
 
 export type FormDataType = {
-  address: AddressType;
+  address: AddressType | null;
   shippingMethod: string;
-  parcelOptions: ParcelOptionsType;
+  parcelOptions: ParcelOptionsType | null;
   parcelMethod: string;
 };
 
 // Use more specific types instead of 'any'
-export type FormDataValue = string | AddressType | ParcelOptionsType;
+export type FormDataValue = string | AddressType | ParcelOptionsType | null;
 
 export default function CheckoutPage() {
   // const { handleClick } = useNavigateClicks();
@@ -60,27 +60,14 @@ export default function CheckoutPage() {
   const [addAddress, setAddAddress] = useState(false);
   const [openShipModal, setOpenShipModal] = useState(false);
   const [formData, setFormData] = useState<FormDataType>({
-    address: {
-      street: "",
-      city: "",
-      state: "",
-      postalCode: "",
-      country: "",
-    },
+    address: null,
     shippingMethod: "",
-    parcelOptions: {
-      id: 0,
-      logo: "",  // Provide a default logo path if needed
-      serviceName: "",
-      pricePerKg: 0,
-      orderDetails: {
-        weight: 0,
-        parcelPrice: 0,
-        boxQty: 0,
-      },
-    },
+    parcelOptions: null,
     parcelMethod: "toPay",
   });
+
+  console.log(formData);
+  
 
   // Track a single selected address ID
 
@@ -111,7 +98,26 @@ export default function CheckoutPage() {
   const handleSelectShippingMethod = (ship:IShipMethod) => {
  
     handleFormDataChange("shippingMethod", ship.label);
-    if(ship.label === "Pickup from Parcel office" || ship.label === "Door delivery"){
+    // if(ship.label === "Pickup from Parcel office" || ship.label === "Door delivery"){
+    //   setOpenShipModal(true);
+    // }
+    if (ship.label === "Store pickup") {
+      // handleFormDataChange("parcelOptions", {
+      //   id: 0,
+      //   logo: "",
+      //   serviceName: "",
+      //   pricePerKg: 0,
+      //   orderDetails: {
+      //     weight: 0,
+      //     parcelPrice: 0,
+      //     boxQty: 0,
+      //   },
+      // });
+      handleFormDataChange("parcelOptions", null);
+      // handleFormDataChange("parcelMethod", "");
+      setOpenShipModal(false); // Ensure modal stays closed for Store pickup
+    } else {
+      // Open shipping modal for other options
       setOpenShipModal(true);
     }
   }
@@ -136,14 +142,14 @@ export default function CheckoutPage() {
   }
 
   useEffect(()=>{
-    if(!openShipModal){
+    if(!openShipModal && !formData.parcelMethod && formData?.parcelOptions?.id === 0 ){
       handleFormDataChange("shippingMethod", "");
     }
   },[openShipModal]);
 
   return (
     <CartLayout>
-      <div className="md:w-3/4 w-full space-y-3">
+      <div className="lg:w-3/4 w-full space-y-3">
         <div className="space-y-1 mb-2">
           <p className="font-bold ">
             {" "}
@@ -161,7 +167,7 @@ export default function CheckoutPage() {
         {/*================= ----------------------   ================ */}
         {/*================= starting Address   ================ */}
         {/*================= ----------------------   ================ */}
-        <div className="md:ml-6">
+        <div className="lg:ml-6">
           {orderExist ? (
             <div className="flex  flex-col gap-1 ">
               <span className="flex gap-1 items-center">
@@ -206,7 +212,7 @@ export default function CheckoutPage() {
             isOpen={isModalOpen || openShipModal}
             onRequestClose={handleCloseModal}
             shouldCloseOnOverlayClick={true}
-            overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[10000]"
+            overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]"
             className="bg-white rounded-lg p-4 max-w-3xl md:max-h-[80vh] h-full w-full overflow-y-auto relative z-[10001]"
           >
              <IconButton
@@ -225,12 +231,13 @@ export default function CheckoutPage() {
                 </div>
               </div>
             ) : openShipModal ? (
-              <div className="">
+            
                 <ShippingModal
                 handleFormDataChange={handleFormDataChange}
                 formData={formData}
+                setOpenShipModal={setOpenShipModal}
                 />
-              </div>
+          
             ): (
               <AddressList
                 setIsModalOpen={setIsModalOpen}
