@@ -97,11 +97,11 @@ export default function AddressList({ setIsModalOpen, setAddAddress }: Props) {
         <Divider sx={{ my: 2 }} />
         {/* ==================  starting listing address =============== */}
 
-        <div className="md:w-3/4 w-full p-3 space-y-3 overflow-y-auto h-full  max-h-[420px]">
+        <div className="md:w-3/4 w-full p-3 space-y-3 overflow-y-auto h-full  max-h-[550px]">
           {addresses.map((address) => (
             <div
               key={address.id}
-              className={`flex items-start p-3 border rounded-lg ${
+              className={`flex items-start sm:p-3 border rounded-lg ${
                 selectedAddress?.id === address.id
                   ? "border-purple-600"
                   : "border-gray-300"

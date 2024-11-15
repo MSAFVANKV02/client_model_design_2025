@@ -113,7 +113,7 @@ export default function CartDetails({
           <div className="" key={index}>
             <Collapse in={!isCollapsed[index]} timeout="auto" unmountOnExit>
               <div className={`flex items-center justify-between gap- md:p-4 p-1 md:border rounded-lg mb-3 ${window.location.pathname !== "/cart/checkout" && "md:ml-7"} `}>
-                <div className="flex items-center md:space-x-4 sm:w-[200px] w-[100px] bg0">
+                <div className="flex items-center md:space-x-4  bg0">
                   <div className="flex items-center">
                     {/* <Checkbox
                   color="default"
@@ -131,7 +131,7 @@ export default function CartDetails({
                       className="sm:w-12 sm:h-12 w-9 h-9 object-cover"
                     />
                   </div>
-                  <div>
+                  <div className="ml-1">
                     <p className="sm:text-sm text-xs font-medium">
                       Size: {variant.size}; Color: {variant.color}
                     </p>
