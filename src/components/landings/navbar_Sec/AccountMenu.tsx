@@ -113,7 +113,7 @@ export default function AccountMenu() {
         </MenuItem>
         {/* <Divider sx={{ my: 1 }} /> */}
         <MenuItem
-          onClick={() => handleCloseAndNavigate("/account")}
+          onClick={() => handleCloseAndNavigate("/my-account")}
           sx={{
             display: "flex",
             justifyContent: "space-between",

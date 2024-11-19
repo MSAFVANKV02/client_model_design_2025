@@ -24,6 +24,8 @@ import FolderStructure from "@/pages/folder-structure/FolderStructure";
 import Products from "@/pages/UserSide/Prod_pages/ProductDetails/Products";
 import ShoppingCart from "@/pages/UserSide/cart/page";
 import CheckoutPage from "@/pages/UserSide/cart/checkout/page";
+import ConfirmOrder from "@/pages/UserSide/cart/checkout/Confirm-Order";
+import SettingsProfilePage from "@/pages/UserSide/my-account/my-profile-page";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -137,6 +139,24 @@ const rootRouter = createBrowserRouter([
           <ProtectedRoute isProtected={true}>
             {" "}
             <CheckoutPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/cart/checkout/order-confirmation",
+        element: (
+          <ProtectedRoute isProtected={true}>
+            {" "}
+            <ConfirmOrder />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/my-account",
+        element: (
+          <ProtectedRoute isProtected={true}>
+            {" "}
+            <SettingsProfilePage />
           </ProtectedRoute>
         ),
       },

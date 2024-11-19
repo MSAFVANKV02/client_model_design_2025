@@ -112,13 +112,13 @@ export default function ShippingModal({
       <div className="">
         <ol>
           {formData.parcelMethod === "pay" ? (
-            <li>
+            <li className="sm:text-sm text-xs sm:my-1 my-3">
               We will collect the shipping charge. The shipping charge will be
               included with the bill, so there's no need to pay when you receive
               the goods.
             </li>
           ) : (
-            <li>
+            <li className="sm:text-sm text-xs sm:my-1 my-3">
               The shipping charge will be paid to the shipping partner when you
               receive your parcel. Shipping charge does not include with bill
             </li>

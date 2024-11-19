@@ -21,7 +21,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     "/products",
     "/category",
     "/cart",
-    "/checkout"
+    "/checkout",
+    "/my-account",
   ];
 
   if (

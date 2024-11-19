@@ -1,6 +1,5 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Checkbox } from "@mui/material";
-import { QRCodeSVG } from "qrcode.react";
 import React, { useRef } from "react";
 
 // icons
@@ -19,7 +18,7 @@ type Props = {
 };
 
 export default function BankTransfer({
-  upiPaymentUrl,
+  
   setUserUpiId,
   setReferralDoc,
   referralDoc,
@@ -46,14 +45,16 @@ export default function BankTransfer({
 
   return (
     <div className="px-5">
-      {/* QR Code Section */}
-      <div className="flex justify-around items-center my-7 relative">
-      
+      {/* Bank Details  Section */}
+      <div className="flex flex-col  my-7 relative text-sm gap-2">
+        <span>Name:</span>
+        <span>Account Number:</span>
+        <span>IFCE code:</span>
+        <span>Swift code:</span>
+        <span>Bank name:</span>
       </div>
 
       {/* ======= */}
-
-   
 
       {/* UPI ID Input */}
       <input

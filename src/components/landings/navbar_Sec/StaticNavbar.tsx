@@ -55,7 +55,7 @@ function StaticNavbar() {
         </Link>
 
         <div className="md:flex hidden items-center gap-10">
-          <ul className="flex justify-around">
+          <ul className="flex justify-around list-none">
             {navItems.map((item, index) => (
               <li key={index} className="">
                 <Link

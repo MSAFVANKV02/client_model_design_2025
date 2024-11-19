@@ -111,13 +111,21 @@ export default function OfflinePay({
           </>
         )}
         {/* Buttons */}
-        <div className="flex justify-end gap-4 px-4 py-6 text-sm">
-          <button className="px-4 py-2 border rounded-lg text-gray-600">
+        <div className="flex justify-end gap-4 px-4 py-6 text-sm mt-a">
+          <button className="px-4 py-2 border rounded-lg text-gray-600"
+          onClick={()=>{
+            // handleFormDataChange("transactionType", "upi");
+            setUserUpiId("");
+            setReferralDoc(null);
+            setComment("");
+            setTermsAccepted(false);
+          }}
+          >
             Cancel
           </button>
           <button
             onClick={handleSubmit}
-            className={`px-4 py-2 rounded-lg text-white ${termsAccepted && userUpiId ? "bg-primaryVariant" : "bg-gray-400 cursor-not-allowed"}`}
+            className={`px-4 py-2 rounded-lg text-white ${termsAccepted && userUpiId ? "bg-bgPrimaryVariant" : "bg-gray-400 cursor-not-allowed"}`}
             disabled={!termsAccepted || !userUpiId}
           >
             Verify & Pay

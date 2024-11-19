@@ -260,7 +260,7 @@ function AddressForm({ addAddress }: Props) {
                       className=" border border-gray-300 rounded-lg bg-gray-50"
                     />
                   </FormControl>
-                  <FormLabel>Set as default shipping address</FormLabel>
+                  <FormLabel className="sm:text-sm text-xs">Set as default shipping address</FormLabel>
 
                   <FormMessage />
                 </FormItem>

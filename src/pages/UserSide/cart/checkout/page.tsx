@@ -16,6 +16,7 @@ import { makeToast, makeToastError } from "@/utils/toaster";
 import ShippingModal from "./ShippingModal";
 import { RazorPay } from "@/components/paymentCell/RazorPay";
 import OfflinePay from "@/components/paymentCell/OfflinePay";
+import { useNavigate } from "react-router-dom";
 
 Modal.setAppElement("#root"); // Add this line to avoid screen-reader issues with modal
 
@@ -26,12 +27,14 @@ type IShipMethod = {
   icon: string;
 };
 
-type AddressType = {
+export type AddressType = {
+  id?: number;
   street: string;
   city: string;
   state: string;
   postalCode: string;
   country: string;
+  isDefault: boolean;
 };
 
 export type ParcelOptionsType = {
@@ -82,6 +85,9 @@ export default function CheckoutPage() {
   const [addAddress, setAddAddress] = useState(false);
   const [openShipModal, setOpenShipModal] = useState(false);
   const [openOfflinePayModal, setOpenOfflinePayModal] = useState(false);
+  // const [orderConfirmed, setOrderConfirmed] = useState(false);
+  const navigate = useNavigate()
+
 
   const [formData, setFormData] = useState<FormDataType>({
     address: null,
@@ -93,7 +99,7 @@ export default function CheckoutPage() {
     transactionDetails: null,
   });
 
-  console.log(formData);
+  // console.log(formData);
 
   // Track a single selected address ID
 
@@ -186,6 +192,8 @@ export default function CheckoutPage() {
     }
   };
 
+  // /////////   Close Modal Function ///////////////////
+
   const handleCloseModal = () => {
     if (openShipModal) {
       setOpenShipModal(false);
@@ -201,6 +209,11 @@ export default function CheckoutPage() {
   const createOrder = async () => {
     if (!formData.shippingMethod) {
       makeToastError("Please select a shipping method");
+      return;
+    }
+
+    if (!formData.address) {
+      makeToastError("Please select a shipping Address");
       return;
     }
 
@@ -222,6 +235,10 @@ export default function CheckoutPage() {
     if (formData.paymentMethod === "offline") {
       setOpenOfflinePayModal(true);
     }
+    if (formData.paymentMethod === "cod") {
+    
+      navigate("/cart/checkout/order-confirmation");
+    }
   };
 
   useEffect(() => {
@@ -232,6 +249,7 @@ export default function CheckoutPage() {
     ) {
       handleFormDataChange("shippingMethod", "");
     }
+    
   }, [openShipModal]);
 
   return (
@@ -300,7 +318,7 @@ export default function CheckoutPage() {
             onRequestClose={handleCloseModal}
             shouldCloseOnOverlayClick={true}
             overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]"
-            className={`bg-white rounded-lg  ${openOfflinePayModal ? "max-w-lg h-auto min-h-[80vh]" : "max-w-3xl p-4 md:max-h-[80vh] h-full"}  w-full overflow-y-auto relative z-[10001]`}
+            className={`bg-white rounded-lg  ${openOfflinePayModal ? "max-w-lg md:h-auto h-[100vh] min-h-[80vh]" : "max-w-3xl p-4 md:max-h-[80vh] h-full"}  w-full overflow-y-auto relative z-[10001]`}
           >
             <IconButton
               sx={{ color: "black", position: "absolute", right: 5, top: 0 }}
@@ -332,8 +350,10 @@ export default function CheckoutPage() {
               />
             ) : (
               <AddressList
+              formData={formData}
                 setIsModalOpen={setIsModalOpen}
                 setAddAddress={setAddAddress}
+                handleFormDataChange={handleFormDataChange}
               />
             )}
           </Modal>

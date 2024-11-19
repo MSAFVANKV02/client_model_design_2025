@@ -30,6 +30,7 @@ const config = {
         textSoft: "var(--colorSoft)",
         textGray: "var(--gray)",
         textHardSoft: "var( --hardSoftColor)",
+        textGreen: "var( --green)",
 
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -81,9 +82,9 @@ const config = {
         bgSoft: "var(--colorSoft)",
         bgGray: "var(--gray)",
         bgGraySoft: "var(--graySoft)",
-        primaryVariant: "var(--primaryVariant)",
+        bgPrimaryVariant: "var(--primaryVariant)",
         bgHardSoft: "var( --hardSoftColor)",
-
+        bgGreen: "var( --green)",
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",

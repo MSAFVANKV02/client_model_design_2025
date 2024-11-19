@@ -4,51 +4,56 @@ import { Divider } from "@mui/joy";
 import { useState } from "react";
 import CreateIcon from "@mui/icons-material/Create";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { AddressType, FormDataType, FormDataValue } from "./page";
 
 type Props = {
   setIsModalOpen: (isOpen: boolean) => void;
   setAddAddress: (isAdd: boolean) => void;
+  formData: FormDataType;
+  handleFormDataChange: (
+    field: keyof FormDataType,
+    value: FormDataValue
+  ) => void;
 };
 
-type Address = {
-  id: number;
-  name: string;
-  details: string;
-  isDefault: boolean;
-};
+export default function AddressList({
+  setIsModalOpen,
+  setAddAddress,
+  handleFormDataChange,
+  formData,
+}: Props) {
+  const [selectedAddress, setSelectedAddress] = useState<AddressType | null>(
+    null
+  ); // Track a single selected address ID
 
-export default function AddressList({ setIsModalOpen, setAddAddress }: Props) {
-  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null); // Track a single selected address ID
-
-  const addresses: Address[] = [
+  const addresses: AddressType[] = [
     {
       id: 1,
-      name: "Safvan",
-      details:
-        "Mavoor, kozhikode, odio cradle, Kozhikode, Kerala, 673301, India(+91), 7043546463",
+      street: "Mavoor, Phed, Calicut",
+      city: "Kolkata",
+      country: "India",
+      postalCode: "700001",
       isDefault: true,
+      state: "Kerala",
     },
     {
       id: 2,
-      name: "Fayiz",
-      details:
-        "abcd, Malappuram, odio cradle, Kozhikode, Kerala, 673001, India(+91), 9895410700",
-      isDefault: false,
+      street: "Edavannapara, Malappuram",
+      city: "Kolkata",
+      country: "India",
+      postalCode: "700001",
+      isDefault: true,
+      state: "Kerala",
     },
     {
-        id: 3,
-        name: "Fayiz",
-        details:
-          "abcd, Malappuram, odio cradle, Kozhikode, Kerala, 673001, India(+91), 9895410700",
-        isDefault: false,
-      },
-      {
-        id: 4,
-        name: "Fayiz",
-        details:
-          "abcd, Malappuram, odio cradle, Kozhikode, Kerala, 673001, India(+91), 9895410700",
-        isDefault: false,
-      },
+      id: 3,
+      street: "Edavannapara, Malappuram",
+      city: "Kolkata",
+      country: "India",
+      postalCode: "700001",
+      isDefault: true,
+      state: "Kerala",
+    },
   ];
 
   // const handleAddressSelect = (id: number) => {
@@ -59,10 +64,11 @@ export default function AddressList({ setIsModalOpen, setAddAddress }: Props) {
   //     );
   // };
 
-  const handleAddressSelect = (address: Address) => {
+  const handleAddressSelect = (address: AddressType| null) => {
     console.log(address);
 
-    setSelectedAddress(address); // Only allow one selected address
+    handleFormDataChange("address", address); // Only allow one selected address
+    setIsModalOpen(false); //
   };
 
   return (
@@ -77,7 +83,7 @@ export default function AddressList({ setIsModalOpen, setAddAddress }: Props) {
             <CloseOutlinedIcon />
           </IconButton>
         </div> */}
-        <div className="md:w-3/4 w-full p-3 space-y-3">
+        <div className="md:w-3/4 w-full sm:p-3 space-y-3">
           <h4>Select shipping address</h4>
           <Button
             variant="outlined"
@@ -97,7 +103,7 @@ export default function AddressList({ setIsModalOpen, setAddAddress }: Props) {
         <Divider sx={{ my: 2 }} />
         {/* ==================  starting listing address =============== */}
 
-        <div className="md:w-3/4 w-full p-3 space-y-3 overflow-y-auto h-full  max-h-[550px]">
+        <div className="md:w-3/4 w-full sm:p-3 space-y-3 overflow-y-auto h-full  max-h-[550px]">
           {addresses.map((address) => (
             <div
               key={address.id}
@@ -109,23 +115,32 @@ export default function AddressList({ setIsModalOpen, setAddAddress }: Props) {
             >
               <Checkbox
                 checked={selectedAddress?.id === address.id}
-                onChange={() => handleAddressSelect(address)}
+                onChange={() => setSelectedAddress(address)}
                 sx={{
                   color: "purple",
                   "&.Mui-checked": { color: "purple" },
                   marginRight: "8px",
                 }}
               />
-              <div className="flex-1">
-                <h5 className="font-semibold">{address.name}</h5>
-                <p>{address.details}</p>
+              <div className="flex-1 text-sm">
+                <div className="flex flex-col">
+                  <span>{address.street}</span>
+                  <span>{address.postalCode}</span>
+                 
+                 <div className="flex gap-1">
+                 <span>{address.city},</span>
+                 <span>{address.state},</span>
+                 <span>{address.country}</span>
+                 </div>
+                </div>
+
                 {address.isDefault ? (
                   <span className="text-purple-600 text-sm">
                     Default shipping address
                   </span>
                 ) : (
                   <button
-                    onClick={() => handleAddressSelect(address)}
+                   
                     className="text-gray-500 text-sm underline hover:text-gray-700"
                   >
                     Set as default shipping address
@@ -187,7 +202,7 @@ export default function AddressList({ setIsModalOpen, setAddAddress }: Props) {
               textTransform: "capitalize",
               borderRadius: "10px",
             }}
-            onClick={() => setIsModalOpen(false)}
+            onClick={() => handleAddressSelect(selectedAddress)}
           >
             Ship to this address
           </Button>
