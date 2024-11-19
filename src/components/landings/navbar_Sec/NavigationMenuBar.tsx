@@ -55,7 +55,7 @@ export function NavigationMenuBar() {
     <NavigationMenu className="w-full">
     {/* Make the list of categories scrollable */}
     <div className="w-full overflow-x-auto whitespace-nowrap">
-      <NavigationMenuList className="flex justify-center space-x-6 px-4 sm:mx-5 mr-4">
+      <NavigationMenuList className="flex justify-center space-x-6 section_container_dash">
         {categories.map((category, index) => (
           <NavigationMenuItem key={index}>
             <NavigationMenuTrigger

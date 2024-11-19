@@ -8,12 +8,13 @@ import { AddressType, FormDataType, FormDataValue } from "./page";
 
 type Props = {
   setIsModalOpen: (isOpen: boolean) => void;
-  setAddAddress: (isAdd: boolean) => void;
-  formData: FormDataType;
-  handleFormDataChange: (
+  setAddAddress?: (isAdd: boolean) => void;
+  formData?: FormDataType;
+  handleFormDataChange?: (
     field: keyof FormDataType,
     value: FormDataValue
   ) => void;
+  isRemoveThings?: boolean;
 };
 
 export default function AddressList({
@@ -21,6 +22,7 @@ export default function AddressList({
   setAddAddress,
   handleFormDataChange,
   formData,
+  isRemoveThings
 }: Props) {
   const [selectedAddress, setSelectedAddress] = useState<AddressType | null>(
     null
@@ -67,7 +69,9 @@ export default function AddressList({
   const handleAddressSelect = (address: AddressType| null) => {
     console.log(address);
 
-    handleFormDataChange("address", address); // Only allow one selected address
+    if (handleFormDataChange) {
+      handleFormDataChange("address", address); // Only allow one selected address
+    } // Only allow one selected address
     setIsModalOpen(false); //
   };
 
@@ -95,7 +99,11 @@ export default function AddressList({
               border: "1px dashed #5F08B1",
               textTransform: "capitalize",
             }}
-            onClick={() => setAddAddress(true)}
+            onClick={() => {
+              if (setAddAddress) {
+                setAddAddress(true);
+              }
+            }}
           >
             <AddOutlinedIcon /> Add An Address
           </Button>
@@ -177,7 +185,9 @@ export default function AddressList({
       </div>
 
       {/* button staring ======= */}
-      <div className="flex justify-end border-t pt-5 w-full">
+      {
+        !isRemoveThings && (
+            <div className="flex justify-end border-t pt-5 w-full">
         <div className="flex w-3/4 gap-4  justify-end">
           {/* <Button
             variant="outlined"
@@ -208,6 +218,9 @@ export default function AddressList({
           </Button>
         </div>
       </div>
+        )
+      }
+    
     </div>
   );
 }

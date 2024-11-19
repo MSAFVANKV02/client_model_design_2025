@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { cn } from "./lib/utils";
 import Footer from "./components/landings/footer_Sec/Footer";
 import { Toaster } from "react-hot-toast";
@@ -9,11 +9,15 @@ import Navbar from "./components/landings/navbar_Sec/Navbar";
 import { NavigationMenuBar } from "./components/landings/navbar_Sec/NavigationMenuBar";
 import useNavbarItems from "./components/landings/navbar_Sec/navbarItems";
 function AppLayout() {
-  // const location = useLocation();
+  const location = useLocation();
   const {navItems} = useNavbarItems()
   // const homePath = location.pathname === "/";
+  const accPath = location.pathname === "/my-account";
+
   const queryParams = new URLSearchParams(window.location.search);
   const auth = queryParams.get("auth");
+
+ 
 
   useEffect(()=>{
     if (!auth) {
@@ -31,9 +35,14 @@ function AppLayout() {
         })}
       >
         <Navbar navItems={navItems}/>
-        <div className="w-full bg-gray-50 border-b">
-             <NavigationMenuBar/>
-        </div>
+        {
+          !location.pathname.startsWith('/my-account') &&(
+            <div className="w-full bg-gray-50 border-b ">
+            <NavigationMenuBar/>
+       </div>
+          )
+        }
+    
        
 
         <Outlet />

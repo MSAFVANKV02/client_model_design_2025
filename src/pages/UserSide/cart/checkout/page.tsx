@@ -1,7 +1,6 @@
 import OrderSummary from "@/components/checkout/OrderSummary";
 import AddressForm from "./AddAddress";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import Modal from "react-modal";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 import { useEffect, useState } from "react";
@@ -18,6 +17,8 @@ import { RazorPay } from "@/components/paymentCell/RazorPay";
 import OfflinePay from "@/components/paymentCell/OfflinePay";
 import { useNavigate } from "react-router-dom";
 
+import Modal from "react-modal";
+import { useContextPage } from "@/providers/context/context";
 Modal.setAppElement("#root"); // Add this line to avoid screen-reader issues with modal
 
 type IShipMethod = {
@@ -81,8 +82,9 @@ export type FormDataValue =
 
 export default function CheckoutPage() {
   // const { handleClick } = useNavigateClicks();
+  const { addAddress,setAddAddress } = useContextPage();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [addAddress, setAddAddress] = useState(false);
   const [openShipModal, setOpenShipModal] = useState(false);
   const [openOfflinePayModal, setOpenOfflinePayModal] = useState(false);
   // const [orderConfirmed, setOrderConfirmed] = useState(false);

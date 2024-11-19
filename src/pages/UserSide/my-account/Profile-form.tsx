@@ -45,7 +45,7 @@ const PersonalInformationForm: React.FC = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 w-full max-w-md "
+        className="space-y-6 w-full md:max-w-md "
       >
         {/* <h2 className="text-lg font-medium">Personal information</h2> */}
 

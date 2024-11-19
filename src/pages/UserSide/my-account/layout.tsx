@@ -38,10 +38,10 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
   return (
     <>
       {/* onClick={() => navigate(-1)} */}
-      <div className=" space-y-6 md:py-5 max-w-screen-2xl mx-auto h-[90vh]">
+      <div className=" space-y-6 md:py-5 section_container_dash mx-auto lg:h-[90vh]">
 
-        <div className="flex flex-wrap flex-col space-y-4  h-[80%] lg:flex-row lg:space-x-12 lg:space-y-0">
-          <aside className="-mx-4 lg:w-[15%] bg-bgSoft top-10 sticky rounded-2xl sm:p-3">
+        <div className="flex flex-wrap flex-col space-y-4  lg:h-[95%] lg:flex-row lg:space-x-12 lg:space-y-0">
+          <aside className="xl:-mx-4 lg:w-[18%] bg-bgHardSoft top-10  rounded-2xl sm:p-3 md:mt-0 mt-4 mx-4">
             <SidebarNav items={sidebarNavItems} />
           </aside>
           <div className="flex-1 top-10 sticky overflow-y-auto">{children}</div>

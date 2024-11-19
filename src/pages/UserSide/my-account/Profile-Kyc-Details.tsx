@@ -9,13 +9,13 @@ export default function ProfileKycDetails() {
         details: "Malayamma, NIT Campus, +919846012078, support@ayaboo.in",
         phone: "+919846012078",
       },
-      pinCode: "",
-      contactNumber: "",
+      pinCode: "24372",
+      contactNumber: "+919846012078",
     },
   ];
 
   return (
-    <div className="bg-bgSoft h-full w-full rounded-lg p-3 space-y-3">
+    <div className="bg-bgHardSoft h-full w-full rounded-lg p-3 space-y-3">
       <div className="flex gap-2 items-center justify-center bg-bgGreen rounded-xl p-2">
         <Icon icon={"si:shield-verified-fill"} className="text-white text-lg" />
         <span className="text-white capitalize">Your account is verified</span>
