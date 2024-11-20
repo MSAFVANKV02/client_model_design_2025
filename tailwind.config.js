@@ -75,6 +75,11 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        wave: {
+          '0%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { opacity: '1' },
+          '100%': { transform: 'scale(2)', opacity: '0' },
+        },
       },
       backgroundColor: {
         bg: "var(--mainColor)",
@@ -89,6 +94,7 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        wave: 'wave 1.5s infinite ease-in-out',
       },
       backgroundImage: {
         "custom-gradient":

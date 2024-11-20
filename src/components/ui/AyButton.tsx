@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, SxProps, Theme } from "@mui/material";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 type Props = {
   onClick?: () => void; // Function to call when the button is clicked
@@ -7,6 +8,8 @@ type Props = {
   sx?: SxProps<Theme>; // Allow overriding styles
   variant?: "contained" | "outlined"; // Add variants
   outLineColor?:string
+  icon?:string; //
+  iconSize?: number; // Font size for the icon
 };
 
 export default function AyButton({
@@ -14,7 +17,9 @@ export default function AyButton({
   title,
   sx,
   variant = "contained", // Default variant is "contained"
-  outLineColor
+  outLineColor,
+  icon,
+  iconSize
 }: Props) {
   return (
     <Button
@@ -42,7 +47,7 @@ export default function AyButton({
         ...sx, // Allow overriding styles via `sx` prop
       }}
     >
-      {title}
+     <Icon icon={`${icon}`} fontSize={iconSize} /> {title}
     </Button>
   );
 }

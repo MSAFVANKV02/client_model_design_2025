@@ -132,6 +132,10 @@ h3 {
 h4 {
   font-size: clamp(1.15rem, 2.5vw, 1.5rem); /* Scales from 20px to 32px */
 }
+span{
+  font-size: 14px;
+  color: gray ;
+}
 
 label {
   margin: 0px 0px 0px 0px !important;
@@ -297,5 +301,4 @@ tr:last-child th:first-child {
 tr:last-child th:last-child {
   border-bottom-right-radius: 10px;
 }
-
 

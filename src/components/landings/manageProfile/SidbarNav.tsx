@@ -21,21 +21,30 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
       )}
       {...props}
     >
-      {items.map((item) => (
-        <Link
-          key={item.href}
-          to={item.href}
-          className={classNames(
-            "px-4 py-3 rounded-lg text-sm font-medium",
-            location.pathname === item.href
-              ? "bg-bg text-white hover:bg-muted"
-              : "hover:bg-transparent hover:underline",
-            "justify-start"
-          )}
-        >
-          {item.title}
-        </Link>
-      ))}
+      {items.map((item) => {
+        // const isActive =
+        // location.pathname === item.href || // Exact match
+        // (item.href.includes("/:") && location.pathname.startsWith(item.href.split("/:")[0]));
+        const isActive =
+          location.pathname === item.href || // Exact match
+          (item.href.includes("/my-orders") &&
+            location.pathname.startsWith(item.href));
+        return (
+          <Link
+            key={item.href}
+            to={item.href}
+            className={classNames(
+              "px-4 py-3 rounded-lg text-sm font-medium",
+              isActive
+                ? "bg-bgPrimaryVariant text-white hover:bg-bg"
+                : "hover:bg-transparent hover:underline",
+              "justify-start"
+            )}
+          >
+            {item.title}
+          </Link>
+        );
+      })}
     </nav>
   );
 }

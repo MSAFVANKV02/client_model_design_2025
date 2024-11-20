@@ -26,6 +26,8 @@ import ShoppingCart from "@/pages/UserSide/cart/page";
 import CheckoutPage from "@/pages/UserSide/cart/checkout/page";
 import ConfirmOrder from "@/pages/UserSide/cart/checkout/Confirm-Order";
 import SettingsProfilePage from "@/pages/UserSide/my-account/my-profile-page";
+import MyOrdersPage from "@/pages/UserSide/my-account/my-orders/My-Orders-Page";
+import SingleOrderPage from "@/pages/UserSide/my-account/my-orders/single-order/Single-Order-Page";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -157,6 +159,24 @@ const rootRouter = createBrowserRouter([
           <ProtectedRoute isProtected={true}>
             {" "}
             <SettingsProfilePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/my-account/my-orders",
+        element: (
+          <ProtectedRoute isProtected={true}>
+            {" "}
+            <MyOrdersPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/my-account/my-orders/:id",
+        element: (
+          <ProtectedRoute isProtected={true}>
+            {" "}
+            <SingleOrderPage />
           </ProtectedRoute>
         ),
       },

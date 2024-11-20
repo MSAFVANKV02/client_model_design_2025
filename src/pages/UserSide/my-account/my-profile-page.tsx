@@ -26,10 +26,10 @@ export default function SettingsProfilePage() {
         <div>
           <p className="text-sm text-muted-foreground">Personal Information.</p>
         </div>
-      <div className="space-y-5 flex flex-col justify-between  h-full lg:p-0 p-5 max-w-screen-xl">
+      <div className="space-y-5 flex flex-col justify-between   h-full lg:p-0 max-w-screen-xl">
       
         {/* <Separator /> */}
-        <div className="h-full w-full flex  lg:flex-row flex-col-reverse justify-between gap-4 ">
+        <div className="h- w-full flex  lg:flex-row flex-col-reverse justify-between gap-4 ">
           <div className="lg:w-1/2">
             <PersonalInformationForm />
           </div>
@@ -38,9 +38,10 @@ export default function SettingsProfilePage() {
           </div>
         </div>
         {/* ===   Address Details Starts here === */}
-        <Separator />
+     
         {/* =========== */}
         <div className="">
+             <Separator />
           <Modal
             isOpen={isOpenModal}
             onRequestClose={handleCloseModal}
@@ -65,7 +66,7 @@ export default function SettingsProfilePage() {
             )}
           </Modal>
 
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mb-5">
             <div className="flex flex-col jc">
               <h6>Default Shipping Address</h6>
               <span className="text-sm text-gray-600">Name</span>
