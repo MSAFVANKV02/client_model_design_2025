@@ -142,7 +142,7 @@
 //   );
 // };
 import React, { useState, useEffect } from "react";
-import {  animated } from '@react-spring/web';
+import { animated } from "@react-spring/web";
 import { FaFolder, FaFolderOpen, FaFile } from "react-icons/fa";
 
 export interface FolderNode {
@@ -152,160 +152,200 @@ export interface FolderNode {
 }
 
 const initialData: FolderNode = {
-    name: "src",
-    toggled: true,
-    children: [
-      { name: "AdminLayout.tsx" },
-      { name: "App.tsx" },
-      { name: "DrawerLayout.tsx" },
-      { name: "KycLayout.tsx" },
-      { name: "Layout.tsx" },
-      { name: "main.tsx" },
-      { name: ".env" },
-      {
-        name: "pages",
-        toggled: true,
-        children: [
-          {
-            name: "adminSide",
-            children: [{ name: "Dashboard.tsx" }],
-          },
-          {
-            name: "folderStructure",
-            children: [
-              { name: "FolderCollapsible.tsx" },
-              { name: "FolderStructure.tsx" },
-            ],
-          },
-          {
-            name: "userSide",
-            toggled: true,
-            children: [
-              {
-                name: "About",
-                children: [{ name: "About.tsx" }],
-              },
-              {
-                name: "Auth_Page",
-                children: [
-                  {
-                    name: "UserLoginPage",
-                    children: [
-                      { name: "LoginOtpVerifyUser.tsx" },
-                      { name: "UserLogin.tsx" },
-                    ],
-                  },
-                ],
-              },
-              { name: "OtpVerificationPage.tsx" },
-              { name: "Register.tsx" },
-              { name: "UserDetails.tsx" },
-              {
-                name: "Home",
-                children: [
-                  { name: "Home.tsx" },
-                  { name: "MainHome.tsx" },
-                ],
-              },
-              {
-                name: "Prod_Pages",
-                children: [
-                  {
-                    name: "Category_Wise",
-                    children: [{ name: "CategoryProductPage.tsx" }],
-                  },
-                  {
-                    name: "Color_Wise",
-                    children: [{ name: "ColorProduct.tsx" }],
-                  },
-                  {
-                    name: "ProductDetails",
-                    children: [{ name: "ProductDetail.tsx" }],
-                  },
-                ],
-              },
-              {
-                name: "UserKycPage",
-                children: [
-                  {
-                    name: "KycDetails",
-                    children: [
-                      { name: "KycBanner.tsx" },
-                      { name: "KycDetails.tsx" },
-                      { name: "KycProofs.tsx" },
-                      { name: "KycUpload.tsx" },
-                      { name: "PdfFile.tsx" },
-                    ],
-                  },
-                  {
-                    name: "KycHomeChild",
-                    children: [{ name: "KycHome_c1.tsx" }],
-                  },
-                  { name: "KycHome.tsx" },
-                ],
-              },
-              { name: "ErrorPage.tsx" },
-            ],
-          },
-        ],
-      },
-      {
-        name: "providers",
-        children: [
-          {
-            name: "context",
-            children: [{ name: "ScrollContext.tsx" }],
-          },
-          { name: "AuthContext.tsx" },
-        ],
-      },
-      {
-        name: "redux",
-        children: [
-          {
-            name: "adminSide",
-            children: [],
-          },
-          {
-            name: "userSide",
-            children: [
-              { name: "KycSlice.ts" },
-              { name: "UserAuthSlice.ts" },
-            ],
-          },
-          { name: "hook.ts" },
-          { name: "store.ts" },
-        ],
-      },
-      {
-        name: "routers",
-        children: [{ name: "RootRouter.tsx" }],
-      },
-      {
-        name: "types",
-        children: [
-          { name: "navTypes.ts" },
-          { name: "userTypes.ts" },
-          { name: "productTypes.ts" },
-          { name: "orderTypes.ts" },
-        ],
-      },
-      {
-        name: "utils",
-        children: [
-          {
-            name: "validator",
-            children: [{ name: "product-validator.ts" }],
-          },
-          { name: "cardDetails.ts" },
-          { name: "QueryParams.ts" },
-          { name: "toaster.ts" },
-          { name: "urlPath.ts" },
-        ],
-      },
-    ],
-  };
-  
+  name: "src",
+  toggled: true,
+  children: [
+    { name: "AdminLayout.tsx" },
+    { name: "App.tsx" },
+    { name: "DrawerLayout.tsx" },
+    { name: "KycLayout.tsx" },
+    { name: "Layout.tsx" },
+    { name: "main.tsx" },
+    { name: ".env" },
+    {
+      name: "pages",
+      toggled: true,
+      children: [
+        {
+          name: "adminSide",
+          children: [{ name: "Dashboard.tsx" }],
+        },
+        {
+          name: "folderStructure",
+          children: [
+            { name: "FolderCollapsible.tsx" },
+            { name: "FolderStructure.tsx" },
+          ],
+        },
+        {
+          name: "userSide",
+          toggled: true,
+          children: [
+            {
+              name: "About",
+              children: [{ name: "About.tsx" }],
+            },
+            {
+              name: "Auth_Page",
+              children: [
+                {
+                  name: "UserLoginPage",
+                  children: [
+                    { name: "LoginOtpVerifyUser.tsx" },
+                    { name: "UserLogin.tsx" },
+                  ],
+                },
+              ],
+            },
+            { name: "OtpVerificationPage.tsx" },
+            { name: "Register.tsx" },
+            { name: "UserDetails.tsx" },
+            {
+              name: "Home",
+              children: [{ name: "Home.tsx" }, { name: "MainHome.tsx" }],
+            },
+            {
+              name: "Prod_Pages",
+              children: [
+                {
+                  name: "Category_Wise",
+                  children: [{ name: "CategoryProductPage.tsx" }],
+                },
+                {
+                  name: "Color_Wise",
+                  children: [{ name: "ColorProduct.tsx" }],
+                },
+                {
+                  name: "ProductDetails",
+                  children: [{ name: "ProductDetail.tsx" }],
+                },
+              ],
+            },
+            {
+              name: "my-account",
+              children: [
+                {
+                  name: "chat",
+                  children: [
+                    { name: "Chat-Page.tsx" },
+                    { name: "ChatBot.tsx" },
+                  ],
+                },
+                {
+                  name: "my-orders",
+                  children: [
+                    {
+                      name: "single-order",
+                      children: [
+                        { name: "Single-Order-Page.tsx" },
+                        { name: "OrderStatus.tsx" },
+                       
+                      ],
+                    },
+                    { name: "My-Orders-Page.tsx" },
+                    { name: "OrderTab.tsx" },
+                    { name: "ReplaceTab.tsx" },
+                  ],
+                },
+                {
+                  name: "wishlist",
+                  children:[
+                    { name: "wishlist-page.tsx" },
+                    { name: "WishlistTab.tsx" },
+                  ]
+                },
+                {
+                  name: "layout.tsx",
+                },
+                {
+                  name: "my-profile-page.tsx",
+                },
+                {
+                  name: "Profile-form.tsx",
+                },
+                {
+                  name: "Profile-Kyc-Details",
+                },
+              ],
+            },
+            {
+              name: "UserKycPage",
+              children: [
+                {
+                  name: "KycDetails",
+                  children: [
+                    { name: "KycBanner.tsx" },
+                    { name: "KycDetails.tsx" },
+                    { name: "KycProofs.tsx" },
+                    { name: "KycUpload.tsx" },
+                    { name: "PdfFile.tsx" },
+                  ],
+                },
+                {
+                  name: "KycHomeChild",
+                  children: [{ name: "KycHome_c1.tsx" }],
+                },
+                { name: "KycHome.tsx" },
+              ],
+            },
+            { name: "ErrorPage.tsx" },
+          ],
+        },
+      ],
+    },
+    {
+      name: "providers",
+      children: [
+        {
+          name: "context",
+          children: [{ name: "ScrollContext.tsx" }],
+        },
+        { name: "AuthContext.tsx" },
+      ],
+    },
+    {
+      name: "redux",
+      children: [
+        {
+          name: "adminSide",
+          children: [],
+        },
+        {
+          name: "userSide",
+          children: [{ name: "KycSlice.ts" }, { name: "UserAuthSlice.ts" }],
+        },
+        { name: "hook.ts" },
+        { name: "store.ts" },
+      ],
+    },
+    {
+      name: "routers",
+      children: [{ name: "RootRouter.tsx" }],
+    },
+    {
+      name: "types",
+      children: [
+        { name: "navTypes.ts" },
+        { name: "userTypes.ts" },
+        { name: "productTypes.ts" },
+        { name: "orderTypes.ts" },
+      ],
+    },
+    {
+      name: "utils",
+      children: [
+        {
+          name: "validator",
+          children: [{ name: "product-validator.ts" }],
+        },
+        { name: "cardDetails.ts" },
+        { name: "QueryParams.ts" },
+        { name: "toaster.ts" },
+        { name: "urlPath.ts" },
+      ],
+    },
+  ],
+};
 
 interface FolderTreeProps {
   collapseAll: boolean;
@@ -337,7 +377,7 @@ const FolderTree: React.FC<FolderTreeProps> = ({ collapseAll }) => {
         >
           {node.children ? (
             node.toggled ? (
-              <FaFolderOpen className="mr-2 text-yellow-600" color=""/>
+              <FaFolderOpen className="mr-2 text-yellow-600" color="" />
             ) : (
               <FaFolder className="mr-2 text-orange-600" />
             )

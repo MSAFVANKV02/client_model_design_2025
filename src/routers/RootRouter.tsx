@@ -29,6 +29,7 @@ import SettingsProfilePage from "@/pages/UserSide/my-account/my-profile-page";
 import MyOrdersPage from "@/pages/UserSide/my-account/my-orders/My-Orders-Page";
 import SingleOrderPage from "@/pages/UserSide/my-account/my-orders/single-order/Single-Order-Page";
 import ChatPage from "@/pages/UserSide/my-account/chat/Chat-Page";
+import WishlistPage from "@/pages/UserSide/my-account/wishlist/wishlist-page";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -187,6 +188,15 @@ const rootRouter = createBrowserRouter([
           <ProtectedRoute isProtected={true}>
             {" "}
             <ChatPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/my-account/my-wishlist",
+        element: (
+          <ProtectedRoute isProtected={true}>
+            {" "}
+            <WishlistPage />
           </ProtectedRoute>
         ),
       },
