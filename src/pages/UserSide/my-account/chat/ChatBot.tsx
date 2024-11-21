@@ -1,32 +1,46 @@
-import  { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { MdSend } from "react-icons/md"; // For the send icon
 import { FaRegSmile } from "react-icons/fa"; // Emoji icon
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
-import TextField from "@mui/material/TextField";
-import { Box } from "@mui/material";
-import { useWindowWidth } from "@react-hook/window-size";
+import { InputBase } from "@mui/material";
+import { Icon } from "@iconify/react/dist/iconify.js";
+
+// import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
+// import "emoji-picker-element";
 
 // import "emoji-mart/css/emoji-mart.css";
 interface Emoji {
-    native: string;
-    // Add other properties from the emoji object if needed
-  }
+  native: string;
+  // Add other properties from the emoji object if needed
+}
 
 export default function ChatBot() {
   const [message, setMessage] = useState<string>("");
-  const onlyWidth = useWindowWidth();
+  // const onlyWidth = useWindowWidth();
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [chats, setChats] = useState<
     { type: "user" | "self"; content: string; time: string }[]
   >([]);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    chatContainerRef.current?.scrollTo({
+      top: chatContainerRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [chats]);
 
   const addEmoji = (emoji: Emoji) => {
     setMessage((prev) => prev + emoji.native);
-    // setShowEmojiPicker(false); // Close picker after selection
   };
+
+  // const handleEmojiSelect = (emoji: string) => {
+  //   setMessage((prev) => prev + emoji);
+  //   setShowEmojiPicker(false); // Close the picker after selection
+  // };
   const handleSendMessage = () => {
     if (message.trim()) {
       const currentTime = new Date().toLocaleTimeString([], {
@@ -38,11 +52,15 @@ export default function ChatBot() {
         ...prevChats,
         { type: "self", content: message, time: currentTime },
       ]);
+      setShowEmojiPicker(false);
       setMessage(""); // Clear input after sending
     }
   };
   return (
-    <div className="  h-[70vh]  overflow-y-auto   sm:px-4 justify-between flex flex-col gap-5">
+    <div
+      ref={chatContainerRef}
+      className="  h-[70vh]  overflow-y-auto   sm:px-4 justify-between flex flex-col gap-5"
+    >
       <div className="space-y-4 w-full flex flex-col">
         {/* message  Date */}
         <span className="mx-auto">24/11/2024</span>
@@ -127,18 +145,34 @@ export default function ChatBot() {
       </div>
 
       {/* Chat input */}
-      <div className="flex items-center justify-between  sticky bottom-0 bg-white">
+      <div className="flex items-center justify-between gap-5 sticky bottom-0 bg-white">
+        {/* Emoji picker starts ========= */}
         {showEmojiPicker && (
-          <div className="absolute bottom-20 left-4 z-10">
+          <div className="absolute bottom-20 left-4 z-10 ">
             <Picker data={data} onEmojiSelect={addEmoji} theme="light" />
             <button
-              className="-top-2 -right-2 absolute"
+              className="-top-2 -right-2 absolute h-5 w-5 bg-white rounded-full"
               onClick={() => setShowEmojiPicker(false)}
             >
-              X
+              <Icon
+                icon="solar:close-circle-bold"
+                className="m-auto cursor-pointer"
+              />
             </button>
           </div>
         )}
+        {/* <MyEmojiPicker  onSelect={handleEmojiSelect}/> */}
+         {/* {showEmojiPicker && (
+        <div
+          className="absolute bottom-10 left-0 z-50"
+          style={{
+            width: "100%", // Responsive width
+            maxWidth: "300px",
+          }}
+        >
+          <EmojiPicker onEmojiClick={addEmoji} />
+        </div>
+      )} */}
 
         <button
           className="text-gray-500 hover:text-gray-800"
@@ -146,7 +180,7 @@ export default function ChatBot() {
         >
           <FaRegSmile size={24} />
         </button>
-        <Box
+        {/* <Box
           component="form"
           sx={{
             "& .MuiTextField-root": {
@@ -185,7 +219,16 @@ export default function ChatBot() {
             onChange={(e) => setMessage(e.target.value)}
             className="w-full" // Ensure full width
           />
-        </Box>
+        </Box> */}
+
+        <InputBase
+          placeholder="Type Your Message"
+          multiline
+          fullWidth
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          className="border-b max-h-[60px] overflow-auto text-sm"
+        />
 
         <Button
           variant={"b2bStyle"}

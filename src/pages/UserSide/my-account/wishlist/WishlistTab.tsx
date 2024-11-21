@@ -1,4 +1,5 @@
 
+import { makeToastError } from "@/utils/toaster";
 import { useState } from "react";
 
 function WishlistTab() {
@@ -18,11 +19,11 @@ function WishlistTab() {
       );
       if (confirmDelete) {
         // Proceed with the deletion logic
-        console.log("Item deleted.");
+        // console.log("Item deleted.");
         setCheckedItems(null); // Reset selected item after deletion
       }
     } else {
-      alert("No item selected.");
+      makeToastError("No item selected.");
     }
   };
   return (
