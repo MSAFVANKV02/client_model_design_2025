@@ -49,6 +49,7 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
       direction="left"
       open={isOpen}
       onOpenChange={(open) => setIsOpen(open)}
+      
     >
       {/* Hamburger Icon for opening the Drawer */}
       <DrawerTrigger asChild>
@@ -56,7 +57,7 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
       </DrawerTrigger>
 
       {/* Drawer Content */}
-      <DrawerContent className="bg-black text-white w-full border-none">
+      <DrawerContent className="bg-black text-white w-full border-none z-[20001]">
         <DrawerHeader className="p-4">
           <img
             src="img/logo/Logo_white.svg"

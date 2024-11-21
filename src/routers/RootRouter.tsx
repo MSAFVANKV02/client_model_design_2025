@@ -28,6 +28,7 @@ import ConfirmOrder from "@/pages/UserSide/cart/checkout/Confirm-Order";
 import SettingsProfilePage from "@/pages/UserSide/my-account/my-profile-page";
 import MyOrdersPage from "@/pages/UserSide/my-account/my-orders/My-Orders-Page";
 import SingleOrderPage from "@/pages/UserSide/my-account/my-orders/single-order/Single-Order-Page";
+import ChatPage from "@/pages/UserSide/my-account/chat/Chat-Page";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -177,6 +178,15 @@ const rootRouter = createBrowserRouter([
           <ProtectedRoute isProtected={true}>
             {" "}
             <SingleOrderPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/my-account/chat",
+        element: (
+          <ProtectedRoute isProtected={true}>
+            {" "}
+            <ChatPage />
           </ProtectedRoute>
         ),
       },

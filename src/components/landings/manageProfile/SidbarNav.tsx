@@ -16,7 +16,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
   return (
     <nav
       className={classNames(
-        "flex flex-wrap lg:flex-col lg:space-x-0 lg:space-y-1 ",
+        "flex flex-wrap lg:flex-col gap-1 lg:space-x-0 lg:space-y-1 ",
         className
       )}
       {...props}
@@ -37,7 +37,7 @@ export function SidebarNav({ className, items, ...props }: SidebarNavProps) {
               "px-4 py-3 rounded-lg text-sm font-medium",
               isActive
                 ? "bg-bgPrimaryVariant text-white hover:bg-bg"
-                : "hover:bg-transparent hover:underline",
+                : "hover:bg-transparent hover:underline lg:border-none border",
               "justify-start"
             )}
           >

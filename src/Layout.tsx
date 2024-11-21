@@ -12,7 +12,7 @@ function AppLayout() {
   const location = useLocation();
   const {navItems} = useNavbarItems()
   // const homePath = location.pathname === "/";
-  const accPath = location.pathname === "/my-account";
+  // const accPath = location.pathname === "/my-account";
 
   const queryParams = new URLSearchParams(window.location.search);
   const auth = queryParams.get("auth");

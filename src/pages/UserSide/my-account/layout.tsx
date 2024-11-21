@@ -40,10 +40,10 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
       {/* onClick={() => navigate(-1)} */}
       <div className=" space-y-6 md:py-5 section_container_dash mx-auto lg:min-h-[90vh]">
         <div className="flex flex-wrap flex-col space-y-4   lg:flex-row lg:space-x-12 lg:space-y-0">
-          <aside className="xl:-mx-4 lg:w-[18%] lg:h-[70vh] bg-bgHardSoft sticky z-50 top-10  rounded-2xl sm:p-3 md:mt-0 mt-4 flex flex-col justify-between h-[80%]">
+          <aside className="xl:-mx-4 lg:w-[18%] lg:h-[70vh] bg-bgHardSoft sticky z-[10002] top-10  rounded-2xl sm:p-3 p-1 md:mt-0 mt-4 flex flex-col justify-between h-[80%]">
             <SidebarNav items={sidebarNavItems} />
 
-            <div className="">
+            <div className="mt-4">
               <AyButton
                 title="Sign Out"
                 outLineColor="black"
@@ -59,7 +59,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
               />
             </div>
           </aside>
-          <div className="flex-1  sticky overflow-y-auto ">{children}</div>
+          <div className="md:flex-1   overflow-y-aut ">{children}</div>
         </div>
       </div>
     </>

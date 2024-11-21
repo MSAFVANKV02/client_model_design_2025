@@ -41,7 +41,7 @@ export default function SettingsProfilePage() {
      
         {/* =========== */}
         <div className="">
-             <Separator />
+             <Separator className="my-5" />
           <Modal
             isOpen={isOpenModal}
             onRequestClose={handleCloseModal}
@@ -66,7 +66,7 @@ export default function SettingsProfilePage() {
             )}
           </Modal>
 
-          <div className="flex justify-between items-center mb-5">
+          <div className="flex justify-between items-center ">
             <div className="flex flex-col jc">
               <h6>Default Shipping Address</h6>
               <span className="text-sm text-gray-600">Name</span>

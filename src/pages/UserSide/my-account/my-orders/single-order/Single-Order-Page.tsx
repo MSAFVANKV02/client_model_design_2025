@@ -10,9 +10,11 @@ import "@/assets/css/remover.css";
 import { Input } from "@/components/ui/input";
 import PdfFile from "@/pages/UserSide/UserKycPage/KycDetails/PdfFile";
 import AyButton from "@/components/ui/AyButton";
+import { useWindowWidth } from "@react-hook/window-size";
 
 export default function SingleOrderPage() {
   const navigate = useNavigate();
+  const onlyWidth = useWindowWidth();
   const [showGstMode, setShowGstMode] = useState(false);
   const order: IOrder = {
     id: 1,
@@ -47,22 +49,22 @@ export default function SingleOrderPage() {
           </Tooltip>
 
           {/* order id ========= */}
-          <span className="">OD564756-4674676</span>
+          <span className="sm:text-sm text-xs">OD564756-4674676</span>
 
           {/* ===== Address Starts  */}
-          <div className="flex flex-col gap-3">
-            <p>Delivery Address</p>
+          <div className="flex flex-col sm:gap-3 gap-2">
+            <span className="sm:text-sm text-xs text-black">Delivery Address</span>
             <div className="flex flex-col">
-              <p>Name</p>
-              <span>Address</span>
-              <span>Email: </span>
-              <p>Phine Number: +91-12253464</p>
+              <span className="sm:text-sm text-xs text-black">Name</span>
+              <span className="sm:text-sm text-xs">Address</span>
+              <span className="sm:text-sm text-xs">Email: </span>
+              <span className="tsm:text-sm text-xs text-black">Phone Number: +91-12253464</span>
             </div>
           </div>
           {/* ===== Address Ends  */}
 
           <Separator />
-          <span>
+          <span className="sm:text-sm text-xs">
             No Refund Available <br />
             No Return Policy, Know More
           </span>
@@ -79,8 +81,8 @@ export default function SingleOrderPage() {
             <div className="">
               <p>{order.productName}</p>
               <div className="flex gap-1 items-center">
-                <span>Subtotel:</span>
-                <p>{order.subtotal}Rs</p>
+                <span className="sm:text-sm text-xs">Subtotel:</span>
+                <span className="sm:text-sm text-xs text-black">{order.subtotal}Rs</span>
               </div>
               {/* ------------- */}
             </div>
@@ -98,9 +100,9 @@ export default function SingleOrderPage() {
                     display: "inline-block",
                   }}
                 />
-                <span className="text-black">{item.size}</span> x
-                <span>{item.count}</span>
-                <span>times</span>
+                <span className="text-black sm:text-sm text-xs">{item.size} x</span>
+                <span className="sm:text-sm text-xs">{item.count}</span>
+                <span className="sm:text-sm text-xs">times</span>
               </div>
             ))}
           </div>
@@ -111,7 +113,7 @@ export default function SingleOrderPage() {
 
             <div className="w-[150px] mx-auto relative">
               <span
-                className="hover:underline cursor-pointer"
+                className="hover:underline cursor-pointer sm:text-sm text-xs"
                 onClick={() => {
                   setShowGstMode(!showGstMode);
                 }}
@@ -119,7 +121,7 @@ export default function SingleOrderPage() {
                 View TAX details
               </span>
               <div
-                className={`absolute top-7 left-0 right-0 shadow-xl rounded-xl ${showGstMode ? "h-auto p-3 border" : "h-0"}`}
+                className={`absolute bg-white top-7 left-0 right-0 shadow-xl rounded-xl ${showGstMode ? "h-auto p-3 border" : "h-0"}`}
               >
                 <div
                   className={`flex flex-col gap-2 ${showGstMode ? "opacity-100" : "opacity-0"}`}
@@ -136,31 +138,31 @@ export default function SingleOrderPage() {
 
           <div className="flex flex-col gap-4">
             {/* No:1 */}
-            <div className="flex gap-3 items-center justify-between">
+            <div className="flex md:flex-row flex-col gap-3 md:items-center justify-between">
               <span className="w-auto whitespace-nowrap">
                 Shipping Partner Name
               </span>
               <Input
                 type="text"
                 placeholder="Name"
-                className="bg-gray-100 w-3/4 rounded-xl"
+                className="bg-gray-100 md:w-3/4 w-full rounded-xl"
               />
             </div>
 
             {/* No:2 */}
-            <div className="flex gap-3 items-center justify-between">
+            <div className="flex md:flex-row flex-col gap-3 md:items-center justify-between">
               <span className="w-auto whitespace-nowrap">LR No.</span>
               <Input
                 type="text"
                 placeholder="Name"
-                className="bg-gray-100 w-3/4  rounded-xl"
+                className="bg-gray-100 md:w-3/4 w-full  rounded-xl"
               />
             </div>
             {/* No:3 */}
-            <div className="flex gap-3 items-center justify-between">
+            <div className="flex md:flex-row flex-col gap-3 md:items-center justify-between">
               <span className="w-auto whitespace-nowrap">LR Photo</span>
               {/* --- */}
-              <div className="w-3/4 flex items-start ">
+              <div className="md:w-3/4 w-full flex items-start ">
                 <a
                   href={"/public/Invoice_INV1482989614215502 (16).pdf"}
                   target="_blank"
@@ -181,9 +183,9 @@ export default function SingleOrderPage() {
               {/* --- */}
             </div>
             {/* No:4 */}
-            <div className="flex gap-3 items-center justify-between">
+            <div className="flex md:flex-row flex-col gap-3 md:items-center justify-between">
               <span className="w-auto whitespace-nowrap">Return bill pdf</span>
-              <div className="w-3/4 flex items-start ">
+              <div className="md:w-3/4 w-full flex items-start ">
                 <a
                   href={"/public/Invoice_INV1482989614215502 (16).pdf"}
                   target="_blank"
@@ -203,12 +205,12 @@ export default function SingleOrderPage() {
               </div>
             </div>
             {/* No:5 */}
-            <div className="flex gap-3 items-center justify-between">
+            <div className="flex md:flex-row flex-col gap-3 md:items-center justify-between">
               <span className="w-auto whitespace-nowrap">Date</span>
               <Input
                 type="text"
                 placeholder="Date"
-                className="bg-gray-100 w-3/4  rounded-xl"
+                className="bg-gray-100 md:w-3/4 w-full  rounded-xl"
               />
             </div>
           </div>
@@ -224,12 +226,16 @@ export default function SingleOrderPage() {
         </div>
       </div>
       <div className="mt-20">
+         
          <Separator />
-         <div className="flex justify-between my-5 flex-wrap">
+
+         {/* footer starts */}
+
+         <div className="flex justify-between my-5 gap-2 flex-wrap">
             <button type="button" className="text-sm text-gray-500 hover:underline">Create Order</button>
-            <div className="flex items-center gap-4">
+            <div className="flex sm:items-center sm:gap-4 gap-2 flex-wrap">
                 {/* == */}
-                <button>Chat with us</button>
+                <button className="underline underline-offset-4 text-sm">Chat with us</button>
                 {/* === */}
                 <AyButton title="Rate & review this product"
                 variant="outlined"
@@ -238,7 +244,7 @@ export default function SingleOrderPage() {
                     width:"fit-content",
                     px:"20px",
                     color:"#5B5B5B",
-                    ml:"2rem",
+                    ml: onlyWidth > 768 ? "2rem" : "",
                 }}/>
                 {/* == */}
                 <AyButton title="Invoice"
@@ -252,6 +258,8 @@ export default function SingleOrderPage() {
                 }}/>
             </div>
          </div>
+
+         {/* footer ends */}
          </div>
     </SettingsLayout>
   );

@@ -29,7 +29,7 @@ type Props = {
           <Link
           to={`/my-account/my-orders/${order.slug}`}
             key={order.id}
-            className="border p-4 rounded-lg shadow-sm flex justify-between"
+            className="border sm:p-4 p-1 rounded-lg shadow-sm flex md:flex-row flex-col justify-between"
           >
             {/* Product Details */}
             <div className="flex gap-4">
@@ -40,22 +40,22 @@ type Props = {
               />
               {/* ====== */}
               <div className="flex flex-col justify-between">
-                <div className="w-10/12">
-                <h3 className="font-bold text-lg">{order.productName}</h3>
-                <p className="text-gray-500 text-sm">Subtotal: ${order.subtotal}</p>
+                <div className="sm:w-10/12 w-fit">
+                <h3 className="font-bold sm:text-lg  text-sm">{order.productName}</h3>
+                <p className="text-gray-500 sm:text-sm text-xs">Subtotal: ${order.subtotal}</p>
                 </div>
               {/* ============= */}
-                <div className="flex gap-2 mt-2 ">
+                <div className="flex sm:gap-2 gap-1 flex-wrap mt-2 ">
                   {order.itemQuantity.map((item, index) => (
                     <div
                       key={index}
                       className="flex items-center text-gray-500 "
                     >
                       <span
-                        className="inline-block w-4 h-4 rounded-full "
+                        className="inline-block w-4 h-4 rounded-full  "
                         style={{ backgroundColor: item.color }}
                       ></span>
-                      <span className="ml-1 text-sm">
+                      <span className="ml-1 sm:text-sm text-xs">
                         {item.size} x {item.count} times
                       </span>
                     </div>
@@ -67,10 +67,10 @@ type Props = {
   
             {/* Order Info */}
             <div className="text-right">
-              <p className="text-gray-500">Ordered on {order.orderDate}</p>
-              <p className="text-green-600">Delivered on {order.deliveryDate}</p>
-              <p className="text-sm text-gray-500">{order.deliveryStatus}</p>
-              <button className="text-gray-500 mt-4">
+              <p className="text-gray-500 sm:text-sm text-xs">Ordered on {order.orderDate}</p>
+              <p className="text-green-600 sm:text-sm text-xs">Delivered on {order.deliveryDate}</p>
+              <p className=" text-gray-500 sm:text-sm text-xs">{order.deliveryStatus}</p>
+              <button className="text-gray-500 mt-4 sm:text-sm text-xs sm:no-underline underline">
                 Rate & review this product
               </button>
             </div>

@@ -116,7 +116,7 @@ function Navbar({ navItems }: NavbarProps)  {
           </div>
         </div>
 
-        <div className="md:hidden block">
+        <div className="md:hidden block  ">
           <Sidebar navItems={navItems} />
         </div>
       </div>
