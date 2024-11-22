@@ -30,6 +30,7 @@ import MyOrdersPage from "@/pages/UserSide/my-account/my-orders/My-Orders-Page";
 import SingleOrderPage from "@/pages/UserSide/my-account/my-orders/single-order/Single-Order-Page";
 import ChatPage from "@/pages/UserSide/my-account/chat/Chat-Page";
 import WishlistPage from "@/pages/UserSide/my-account/wishlist/wishlist-page";
+import UseReviewPage from "@/pages/UserSide/my-account/reviews/use-review-page";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -174,11 +175,20 @@ const rootRouter = createBrowserRouter([
         ),
       },
       {
-        path: "/my-account/my-orders/:id",
+        path: "/my-account/my-orders/:slug",
         element: (
           <ProtectedRoute isProtected={true}>
             {" "}
             <SingleOrderPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/my-account/my-orders/:slug/review/:orderId",
+        element: (
+          <ProtectedRoute isProtected={true}>
+            {" "}
+            <UseReviewPage />
           </ProtectedRoute>
         ),
       },
@@ -200,6 +210,7 @@ const rootRouter = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+     
     ],
   },
 

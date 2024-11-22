@@ -137,7 +137,7 @@ export default function AccountMenu() {
           <EastOutlinedIcon sx={{ fontSize: 16, color: "#6A0DAD" }} />
         </MenuItem>
         <MenuItem
-          onClick={() => handleCloseAndNavigate("/my-order")}
+          onClick={() => handleCloseAndNavigate("/my-account/my-orders")}
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -160,7 +160,7 @@ export default function AccountMenu() {
           <EastOutlinedIcon sx={{ fontSize: 16, color: "#6A0DAD" }} />
         </MenuItem>
         <MenuItem
-          onClick={() => handleCloseAndNavigate("/wishlist")}
+          onClick={() => handleCloseAndNavigate("/my-account/my-wishlist")}
           sx={{
             display: "flex",
             justifyContent: "space-between",

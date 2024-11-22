@@ -11,10 +11,12 @@ import { Input } from "@/components/ui/input";
 import PdfFile from "@/pages/UserSide/UserKycPage/KycDetails/PdfFile";
 import AyButton from "@/components/ui/AyButton";
 import { useWindowWidth } from "@react-hook/window-size";
+import useNavigateClicks from "@/hooks/useClicks";
 
 export default function SingleOrderPage() {
   const navigate = useNavigate();
   const onlyWidth = useWindowWidth();
+  const {handleClick} =  useNavigateClicks()
   const [showGstMode, setShowGstMode] = useState(false);
   const order: IOrder = {
     id: 1,
@@ -238,8 +240,10 @@ export default function SingleOrderPage() {
                 <button className="underline underline-offset-4 text-sm">Chat with us</button>
                 {/* === */}
                 <AyButton title="Rate & review this product"
+                onClick={()=>{handleClick(`${window.location.pathname}/review/4353453453453`)}}
                 variant="outlined"
                 outLineColor="#CACACA"
+
                 sx={{
                     width:"fit-content",
                     px:"20px",

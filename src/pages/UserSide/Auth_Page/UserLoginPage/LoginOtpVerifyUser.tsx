@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/form";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,6 +21,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { OtpVerifyLoginUser } from "@/utils/urlPath";
+import OtpTimer from "@/hooks/otp-timer";
 
 const formSchema = z.object({
   otp: z.string().min(6, { message: "OTP is required." }),
@@ -38,14 +39,14 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [timer, setTimer] = useState<number>(() => {
-    const savedTimer = localStorage.getItem("otp-timer");
-    return savedTimer ? Number(savedTimer) : 60; // Load timer from localStorage or start at 3
-  });
-  const [isResendVisible, setIsResendVisible] = useState<boolean>(() => {
-    const isFinished = localStorage.getItem("otp-finished") === "true";
-    return isFinished; // Show "Resend OTP" if finished
-  });
+  // const [timer, setTimer] = useState<number>(() => {
+  //   const savedTimer = localStorage.getItem("otp-timer");
+  //   return savedTimer ? Number(savedTimer) : 60; // Load timer from localStorage or start at 3
+  // });
+  // const [isResendVisible, setIsResendVisible] = useState<boolean>(() => {
+  //   const isFinished = localStorage.getItem("otp-finished") === "true";
+  //   return isFinished; // Show "Resend OTP" if finished
+  // });
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -57,37 +58,37 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
   const queryParams = new URLSearchParams(window.location.search);
   const auth = queryParams.get("auth");
 
-  useEffect(() => {
-    // If the timer has finished, do not start the interval again
-    if (timer > 0 && !isResendVisible) {
-      const interval = setInterval(() => {
-        setTimer((prevTimer) => {
-          if (prevTimer > 0) {
-            const newTimer = prevTimer - 1;
-            localStorage.setItem("otp-timer", newTimer.toString()); // Save timer to localStorage
-            return newTimer;
-          } else {
-            clearInterval(interval); // Stop timer
-            setIsResendVisible(true); // Show resend button
-            localStorage.removeItem("otp-timer"); // Remove timer from localStorage
-            localStorage.setItem("otp-finished", "true"); // Set finished state in localStorage
-            return 0;
-          }
-        });
-      }, 1000);
+  // useEffect(() => {
+  //   // If the timer has finished, do not start the interval again
+  //   if (timer > 0 && !isResendVisible) {
+  //     const interval = setInterval(() => {
+  //       setTimer((prevTimer) => {
+  //         if (prevTimer > 0) {
+  //           const newTimer = prevTimer - 1;
+  //           localStorage.setItem("otp-timer", newTimer.toString()); // Save timer to localStorage
+  //           return newTimer;
+  //         } else {
+  //           clearInterval(interval); // Stop timer
+  //           setIsResendVisible(true); // Show resend button
+  //           localStorage.removeItem("otp-timer"); // Remove timer from localStorage
+  //           localStorage.setItem("otp-finished", "true"); // Set finished state in localStorage
+  //           return 0;
+  //         }
+  //       });
+  //     }, 1000);
 
-      // Clear the interval when the component unmounts
-      return () => clearInterval(interval);
-    }
-  }, [timer, isResendVisible]);
+  //     // Clear the interval when the component unmounts
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [timer, isResendVisible]);
 
-  useEffect(() => {
-    // Check if the timer has reached 0 and handle visibility of resend button
-    if (timer === 0) {
-      setIsResendVisible(true);
-      localStorage.setItem("otp-finished", "true"); // Ensure finished state is set
-    }
-  }, [timer]);
+  // useEffect(() => {
+  //   // Check if the timer has reached 0 and handle visibility of resend button
+  //   if (timer === 0) {
+  //     setIsResendVisible(true);
+  //     localStorage.setItem("otp-finished", "true"); // Ensure finished state is set
+  //   }
+  // }, [timer]);
 
   const onSubmit = async (data: FormData) => {
     console.log(`OTP entered: ${data.otp}`);
@@ -156,10 +157,10 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
         makeToast("OTP Resent Successfully");
 
         // Reset the timer to 3 seconds
-        setTimer(60);
-        setIsResendVisible(false);
-        localStorage.setItem("otp-timer", "60"); // Save new timer in localStorage
-        localStorage.removeItem("otp-finished"); // Remove finished state
+        // setTimer(60);
+        // setIsResendVisible(false);
+        // localStorage.setItem("otp-timer", "60"); // Save new timer in localStorage
+        // localStorage.removeItem("otp-finished"); // Remove finished state
       }
     } catch (error: unknown) {
       setLoading(false);
@@ -238,7 +239,7 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
             )}
           />
 
-          {isResendVisible ? (
+          {/* {isResendVisible ? (
             <p
               className="text-center text-sm hover:underline cursor-pointer text-blue-400"
               onClick={handleResendOtp}
@@ -249,7 +250,14 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
             <p className="text-center text-sm text-gray-500">
               Resend in {timer} seconds
             </p>
-          )}
+          )} */}
+           <OtpTimer
+           resendOtp={handleResendOtp}
+          initialTime={60}
+          onTimerFinish={() => makeToast("You can resend OTP now.")}
+          
+        />
+       
 
           <Button
             type="submit"

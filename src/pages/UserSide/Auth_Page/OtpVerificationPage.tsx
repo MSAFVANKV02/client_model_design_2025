@@ -21,6 +21,7 @@ import axios from "axios";
 import { makeToast, makeToastError } from "@/utils/toaster";
 import ClipLoader from "react-spinners/ClipLoader";
 import { VerifyOtpRegisterUser } from "@/utils/urlPath";
+import OtpTimer from "@/hooks/otp-timer";
 // Define the Zod schema for OTP validation
 const formSchema = z.object({
   otp: z
@@ -37,14 +38,6 @@ function OtpVerificationPage() {
   const navigate = useNavigate();
   const firstInputRef = useRef<HTMLInputElement | null>(null);
   const [loading, setLoading] = useState(false);
-  const [timer, setTimer] = useState<number>(() => {
-    const savedTimer = localStorage.getItem("otp-timer");
-    return savedTimer ? Number(savedTimer) : 60; // Load timer from localStorage or start at 3
-  });
-  const [isResendVisible, setIsResendVisible] = useState<boolean>(() => {
-    const isFinished = localStorage.getItem("otp-finished") === "true";
-    return isFinished; // Show "Resend OTP" if finished
-  });
 
   const queryParams = new URLSearchParams(window.location.search);
   const auth = queryParams.get("auth");
@@ -60,39 +53,6 @@ function OtpVerificationPage() {
   //     navigate("/register");
   //   }
   // }, [ auth]);
-
-  // useffect for timer
-  useEffect(() => {
-    // If the timer has finished, do not start the interval again
-    if (timer > 0 && !isResendVisible) {
-      const interval = setInterval(() => {
-        setTimer((prevTimer) => {
-          if (prevTimer > 0) {
-            const newTimer = prevTimer - 1;
-            localStorage.setItem("otp-timer", newTimer.toString()); // Save timer to localStorage
-            return newTimer;
-          } else {
-            clearInterval(interval); // Stop timer
-            setIsResendVisible(true); // Show resend button
-            localStorage.removeItem("otp-timer"); // Remove timer from localStorage
-            localStorage.setItem("otp-finished", "true"); // Set finished state in localStorage
-            return 0;
-          }
-        });
-      }, 1000);
-
-      // Clear the interval when the component unmounts
-      return () => clearInterval(interval);
-    }
-  }, [timer, isResendVisible]);
-
-  useEffect(() => {
-    // Check if the timer has reached 0 and handle visibility of resend button
-    if (timer === 0) {
-      setIsResendVisible(true);
-      localStorage.setItem("otp-finished", "true"); // Ensure finished state is set
-    }
-  }, [timer]);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -112,7 +72,7 @@ function OtpVerificationPage() {
       });
 
       if (response.status === 200) {
-        if(response.data.success){
+        if (response.data.success) {
           makeToast("Otp Verified Successfully.");
           // Navigate to the user details page
           navigate(`/register/user-details?auth=${auth}`);
@@ -126,7 +86,7 @@ function OtpVerificationPage() {
         //   error.response?.data || error.message
         // );
         if (error.response?.status === 500) {
-          makeToastError('Enter Valid Mobile');
+          makeToastError("Enter Valid Mobile");
         } else if (error.response?.data.success === false) {
           makeToastError(error.response?.data.message);
         }
@@ -139,29 +99,19 @@ function OtpVerificationPage() {
     // e.g., making an API call to verify the OTP
   };
 
-
   // # ====  Resend the OTP =================
-  const handleResendOtp = async () =>{
+  const handleResendOtp = async () => {
     try {
-     
       setLoading(true);
       const response = await axios.post(`/user/resendOtp`, {
         mobile: auth,
       });
       if (response.status === 200) {
         makeToast("OTP Resent Successfully");
-        setTimer(60);
-        setIsResendVisible(false);
-        localStorage.setItem("otp-timer", "60"); // Save new timer in localStorage
-        localStorage.removeItem("otp-finished"); // Remove finished state
       }
     } catch (error: unknown) {
       setLoading(false);
       if (axios.isAxiosError(error)) {
-        // console.log(
-        //   "Error sending OTP:",
-        //   error.response?.data.message || error.message
-        // );
         if (error.response?.data.success === false) {
           makeToastError(error.response?.data.message);
         }
@@ -171,11 +121,11 @@ function OtpVerificationPage() {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
-  useEffect(()=>{
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  },[])
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <div className="h-screen w-screen flex relative">
@@ -186,10 +136,11 @@ function OtpVerificationPage() {
       />
       <div className="bg-[#F5E9FF] max-w-[350px] h-fit backdrop-blur-2xl rounded-2xl p-5 flex flex-col gap-3 m-auto">
         <ArrowLeft
-          onClick={() =>{
+          onClick={() => {
             localStorage.removeItem("otp-timer");
-            localStorage.removeItem("otp-finished");      
-            navigate("/register")}}
+            localStorage.removeItem("otp-finished");
+            navigate("/register");
+          }}
           className="cursor-pointer"
         />
         <div className="flex flex-col w-full justify-center items-center space-y-5">
@@ -241,19 +192,11 @@ function OtpVerificationPage() {
                 )}
               />
 
-              {/* Resend Otp Button */}
-              {isResendVisible ? (
-                <p
-                  className="text-center text-sm hover:underline cursor-pointer text-blue-400"
-                  onClick={handleResendOtp}
-                >
-                  Resend Otp
-                </p>
-              ) : (
-                <p className="text-center text-sm text-gray-500">
-                  Resend in {timer} seconds
-                </p>
-              )}
+              <OtpTimer
+                resendOtp={handleResendOtp}
+                initialTime={60}
+                onTimerFinish={() => makeToast("You can resend OTP now.")}
+              />
 
               <Button
                 type="submit"

@@ -19,7 +19,7 @@ import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useEffect, useState } from "react";
 import LoginOtpVerifyUser from "./LoginOtpVerifyUser";
-import { SendOtpLoginUser } from "@/utils/urlPath";
+import { userLoginSendOtp } from "@/services/admin_side_api/auth/use-login-api";
 
 // Define the Zod schema for phone number validation
 const formSchema = z.object({
@@ -43,17 +43,16 @@ function UserLogin() {
   const auth = queryParams.get("auth");
   const page = queryParams.get("page");
 
-
   useEffect(() => {
     if (page === "otp-log" && auth) {
       setShowOtpLogin(true);
       // navigate(`/login?page=otp-log&auth=${auth}`);
     }
-  }, [auth,page]);
+  }, [auth, page]);
 
-  useEffect(()=>{
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  },[])
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -67,9 +66,10 @@ function UserLogin() {
   const onSubmit = async (data: FormData) => {
     try {
       setLoading(true);
-      const response = await axios.post(SendOtpLoginUser, {
-        mobile: data.mobile,
-      });
+      const response = await userLoginSendOtp(data.mobile);
+      // response coming from userLoginSendOtp
+      // console.log(response,'responce in page');
+      
       if (response.status === 200) {
         makeToast(`Otp Sended to ${data.mobile}`);
         setShowOtpLogin(true);
@@ -82,7 +82,7 @@ function UserLogin() {
           makeToastError(error.response?.data.message);
         }
       } else {
-        console.log("Unexpected error:", error);
+        console.log("Unexpected error:",error);
       }
     } finally {
       setLoading(false);
@@ -109,9 +109,7 @@ function UserLogin() {
 
         {/* Form Section */}
         {showOtpLogin ? (
-          <LoginOtpVerifyUser
-          setShowOtpLogin={setShowOtpLogin}
-          />
+          <LoginOtpVerifyUser setShowOtpLogin={setShowOtpLogin} />
         ) : (
           <div className="w-full lg:w-1/2 p-8 relative bg-[#F5E9FF] flex flex-col justify-center items-center">
             <ArrowLeft
@@ -190,9 +188,10 @@ function UserLogin() {
                 </Button>
 
                 <div className="text-sm text-gray-500">
-                If you don't have an account, <Link to={`/register`} className="text-textMain">
-                register here
-                </Link> 
+                  If you don't have an account,{" "}
+                  <Link to={`/register`} className="text-textMain">
+                    register here
+                  </Link>
                 </div>
               </form>
             </Form>
