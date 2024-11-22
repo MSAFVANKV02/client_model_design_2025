@@ -31,6 +31,7 @@ import SingleOrderPage from "@/pages/UserSide/my-account/my-orders/single-order/
 import ChatPage from "@/pages/UserSide/my-account/chat/Chat-Page";
 import WishlistPage from "@/pages/UserSide/my-account/wishlist/wishlist-page";
 import UseReviewPage from "@/pages/UserSide/my-account/reviews/use-review-page";
+import UseReturnPage from "@/pages/UserSide/my-account/return_user/user-return-page";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -207,6 +208,15 @@ const rootRouter = createBrowserRouter([
           <ProtectedRoute isProtected={true}>
             {" "}
             <WishlistPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/my-account/return",
+        element: (
+          <ProtectedRoute isProtected={true}>
+            {" "}
+            <UseReturnPage />
           </ProtectedRoute>
         ),
       },

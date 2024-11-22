@@ -10,22 +10,19 @@ import { NavigationMenuBar } from "./components/landings/navbar_Sec/NavigationMe
 import useNavbarItems from "./components/landings/navbar_Sec/navbarItems";
 function AppLayout() {
   const location = useLocation();
-  const {navItems} = useNavbarItems()
+  const { navItems } = useNavbarItems();
   // const homePath = location.pathname === "/";
   // const accPath = location.pathname === "/my-account";
 
   const queryParams = new URLSearchParams(window.location.search);
   const auth = queryParams.get("auth");
 
- 
-
-  useEffect(()=>{
+  useEffect(() => {
     if (!auth) {
       localStorage.removeItem("otp-timer");
       localStorage.removeItem("otp-finished");
-
     }
-  },[auth]);
+  }, [auth]);
 
   return (
     <>
@@ -34,16 +31,12 @@ function AppLayout() {
           "debug-screens": import.meta.env.MODE === "development",
         })}
       >
-        <Navbar navItems={navItems}/>
-        {
-          !location.pathname.startsWith('/my-account') &&(
-            <div className="w-full bg-gray-50 border-b ">
-            <NavigationMenuBar/>
-       </div>
-          )
-        }
-    
-       
+        <Navbar navItems={navItems} />
+        {!location.pathname.startsWith("/my-account") && (
+          <div className="w-full bg-gray-50 border-b ">
+            <NavigationMenuBar />
+          </div>
+        )}
 
         <Outlet />
         <Footer />

@@ -265,12 +265,12 @@ label {
 
 /* table radius==== */
 
-table {
+.table-style table {
   border-collapse: separate;
   border-spacing: 0;
 }
 
-th {
+.table-style th {
   /* border: 1px solid black !important; */
   border-bottom: 1px solid #D9D9D9 !important;
   border-right: 1px solid #D9D9D9 !important;
@@ -281,24 +281,24 @@ font-size: 0.7rem;
 color: #5d5a5a;
 }
 
-tr:first-child th:first-child {
+.table-style tr:first-child th:first-child {
   border-top-left-radius: 10px;
   border-top: 1px solid #D9D9D9 !important;
   border-left: 1px solid #D9D9D9 !important;
 
 }
 
-tr:first-child th:last-child {
+.table-style tr:first-child th:last-child {
   border-top-right-radius: 10px;
   border-top: 1px solid #D9D9D9 !important;
 
 }
 
-tr:last-child th:first-child {
+.table-style tr:last-child th:first-child {
   border-bottom-left-radius: 10px;
 }
 
-tr:last-child th:last-child {
+.table-style tr:last-child th:last-child {
   border-bottom-right-radius: 10px;
 }
 

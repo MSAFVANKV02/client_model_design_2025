@@ -48,10 +48,10 @@ function Navbar({ navItems }: NavbarProps)  {
         {/* Navbar Logo */}
        <Logo/>
 
-        <div className="flex items-center gap-16">
+        <div className="lg:flex hidden items-center gap-16">
           {/* ==== Search Bar  starting------ */}
 
-          <div className="md:flex hidden items-center border rounded-lg h-fit overflow-hidden">
+          <div className="flex items-center border rounded-lg h-fit overflow-hidden">
             <Input
               type="text"
               placeholder="Search"
@@ -66,7 +66,7 @@ function Navbar({ navItems }: NavbarProps)  {
           {/* ==== Search Bar ending ------ */}
 
           {/*  Icons Starting === */}
-          <div className="md:flex hidden items-center gap-6">
+          <div className="flex items-center gap-6">
             {user ? (
               <>
                 <div className="bg-bg h-10 w-10 rounded-full cursor-pointer group  text-white flex justify-center items-center relative">
@@ -100,7 +100,7 @@ function Navbar({ navItems }: NavbarProps)  {
           </div>
         </div>
 
-        <div className="md:hidden block  ">
+        <div className="lg:hidden block  ">
           <Sidebar navItems={navItems} />
         </div>
       </div>

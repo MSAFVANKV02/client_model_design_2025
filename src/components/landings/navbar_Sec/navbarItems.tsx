@@ -19,17 +19,44 @@ export default function useNavbarItems() {
 
       const navItems = [
         {
-          title: "Home",
-          href: "/",
+          title: "Cart",
+          href: "/cart",
           icon: <HomeIcon />,
           current: true,
         },
         {
-          title: "About",
-          href: "/about",
+          title: "Orders",
+          href: "/my-account/my-orders",
           icon: <HomeIcon />,
           current: true,
         },
+        {
+          title: "Wishlist",
+          href: "/my-account/my-wishlist",
+          icon: <HomeIcon />,
+          current: true,
+        },
+        {
+          title: "Accounts",
+          href: "/my-account",
+          icon: <HomeIcon />,
+          current: true,
+        },
+      
+       
+        {
+          title: "Chat with us",
+          href: "/my-account/chat",
+          icon: <HomeIcon />,
+          current: true,
+        },
+        {
+          title: "Return or Replace",
+          href: "/my-account/return",
+          icon: <HomeIcon />,
+          current: true,
+        },
+      
       ];
   return {
     navItemsKyc,

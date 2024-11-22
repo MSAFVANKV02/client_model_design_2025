@@ -145,7 +145,7 @@ export default function ShippingModal({
               <small className="text-gray-400 text-center">
                 Price: {option.pricePerKg}/kg
               </small>
-              <table className="">
+              <table className="table-style">
                 <tr>
                   <th>Weight</th>
                   <th>{option.orderDetails.weight} kg</th>

@@ -8,46 +8,48 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 
 type IOrderTabs = "Order" | "Replace";
 
+export const orders: IOrder[] = [
+  {
+    id: 1,
+    slug: "order-1",
+    productName: "Oversized 100% Cotton 190GSM Plain White T-Shirt",
+    subtotal: 2003,
+    orderDate: "2024-01-01",
+    deliveryDate: "2024-01-10",
+    deliveryStatus: "Delivered",
+    OrderStatus: "Confirmed",
+    paymentStatus: "Confirmed",
+    itemQuantity: [
+      { size: "S", count: 1, color: "red" },
+      { size: "S", count: 1, color: "pink" },
+      { size: "S", count: 1, color: "beige" },
+    ],
+  },
+  {
+    id: 1,
+    slug: "order-2",
+    productName: "New Cloths",
+    subtotal: 2003,
+    orderDate: "2024-01-01",
+    deliveryDate: "2024-01-10",
+    deliveryStatus: "Pending",
+    OrderStatus: "Confirmed",
+    paymentStatus: "Confirmed",
+    itemQuantity: [
+      { size: "S", count: 1, color: "red" },
+      { size: "S", count: 1, color: "pink" },
+      { size: "S", count: 1, color: "beige" },
+    ],
+  },
+  // Add more orders here
+];
+
 export default function MyOrdersPage() {
   const [switchOrderTabs, setSwitchOrderTab] = useState<IOrderTabs>("Order");
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
 
-  const orders: IOrder[] = [
-    {
-      id: 1,
-      slug: "order-1",
-      productName: "Oversized 100% Cotton 190GSM Plain White T-Shirt",
-      subtotal: 2003,
-      orderDate: "2024-01-01",
-      deliveryDate: "2024-01-10",
-      deliveryStatus: "Delivered",
-      OrderStatus: "Confirmed",
-      paymentStatus: "Confirmed",
-      itemQuantity: [
-        { size: "S", count: 1, color: "red" },
-        { size: "S", count: 1, color: "pink" },
-        { size: "S", count: 1, color: "beige" },
-      ],
-    },
-    {
-      id: 1,
-      slug: "order-2",
-      productName: "New Cloths",
-      subtotal: 2003,
-      orderDate: "2024-01-01",
-      deliveryDate: "2024-01-10",
-      deliveryStatus: "Pending",
-      OrderStatus: "Confirmed",
-      paymentStatus: "Confirmed",
-      itemQuantity: [
-        { size: "S", count: 1, color: "red" },
-        { size: "S", count: 1, color: "pink" },
-        { size: "S", count: 1, color: "beige" },
-      ],
-    },
-    // Add more orders here
-  ];
+
 
   return (
     <SettingsLayout>

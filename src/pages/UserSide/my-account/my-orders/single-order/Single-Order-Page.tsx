@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import SettingsLayout from "../../layout";
-import { useNavigate } from "react-router-dom";
+
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { Tooltip } from "@mui/material";
 import { Separator } from "@/components/ui/separator";
 import { OrderStatusStepper } from "./OdrerStatus";
 import { IOrder } from "@/types/orderTypes";
@@ -12,11 +11,11 @@ import PdfFile from "@/pages/UserSide/UserKycPage/KycDetails/PdfFile";
 import AyButton from "@/components/ui/AyButton";
 import { useWindowWidth } from "@react-hook/window-size";
 import useNavigateClicks from "@/hooks/useClicks";
+import MyBackBtn from "@/components/ui/myBackBtn";
 
 export default function SingleOrderPage() {
-  const navigate = useNavigate();
   const onlyWidth = useWindowWidth();
-  const {handleClick} =  useNavigateClicks()
+  const { handleClick } = useNavigateClicks();
   const [showGstMode, setShowGstMode] = useState(false);
   const order: IOrder = {
     id: 1,
@@ -40,27 +39,25 @@ export default function SingleOrderPage() {
         {/* First row =============== */}
         <div className="flex flex-col gap-4 lg:w-[60%] w-full">
           {/* ======  back btn ======= */}
-          <Tooltip title="back" className="w-fit">
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="flex items-center gap-2 text-sm"
-            >
-              <Icon icon="bx:arrow-back" /> Back
-            </button>
-          </Tooltip>
+        
+            <MyBackBtn icon={"bx:arrow-back"} />
+         
 
           {/* order id ========= */}
           <span className="sm:text-sm text-xs">OD564756-4674676</span>
 
           {/* ===== Address Starts  */}
           <div className="flex flex-col sm:gap-3 gap-2">
-            <span className="sm:text-sm text-xs text-black">Delivery Address</span>
+            <span className="sm:text-sm text-xs text-black">
+              Delivery Address
+            </span>
             <div className="flex flex-col">
               <span className="sm:text-sm text-xs text-black">Name</span>
               <span className="sm:text-sm text-xs">Address</span>
               <span className="sm:text-sm text-xs">Email: </span>
-              <span className="tsm:text-sm text-xs text-black">Phone Number: +91-12253464</span>
+              <span className="tsm:text-sm text-xs text-black">
+                Phone Number: +91-12253464
+              </span>
             </div>
           </div>
           {/* ===== Address Ends  */}
@@ -84,7 +81,9 @@ export default function SingleOrderPage() {
               <p>{order.productName}</p>
               <div className="flex gap-1 items-center">
                 <span className="sm:text-sm text-xs">Subtotel:</span>
-                <span className="sm:text-sm text-xs text-black">{order.subtotal}Rs</span>
+                <span className="sm:text-sm text-xs text-black">
+                  {order.subtotal}Rs
+                </span>
               </div>
               {/* ------------- */}
             </div>
@@ -102,7 +101,9 @@ export default function SingleOrderPage() {
                     display: "inline-block",
                   }}
                 />
-                <span className="text-black sm:text-sm text-xs">{item.size} x</span>
+                <span className="text-black sm:text-sm text-xs">
+                  {item.size} x
+                </span>
                 <span className="sm:text-sm text-xs">{item.count}</span>
                 <span className="sm:text-sm text-xs">times</span>
               </div>
@@ -228,43 +229,54 @@ export default function SingleOrderPage() {
         </div>
       </div>
       <div className="mt-20">
-         
-         <Separator />
+        <Separator />
 
-         {/* footer starts */}
+        {/* footer starts */}
 
-         <div className="flex justify-between my-5 gap-2 flex-wrap">
-            <button type="button" className="text-sm text-gray-500 hover:underline">Create Order</button>
-            <div className="flex sm:items-center sm:gap-4 gap-2 flex-wrap">
-                {/* == */}
-                <button className="underline underline-offset-4 text-sm">Chat with us</button>
-                {/* === */}
-                <AyButton title="Rate & review this product"
-                onClick={()=>{handleClick(`${window.location.pathname}/review/4353453453453`)}}
-                variant="outlined"
-                outLineColor="#CACACA"
+        <div className="flex justify-between my-5 gap-2 flex-wrap">
+          <button
+            type="button"
+            className="text-sm text-gray-500 hover:underline"
+          >
+            Create Order
+          </button>
+          <div className="flex sm:items-center sm:gap-4 gap-2 flex-wrap">
+            {/* == */}
+            <button className="underline underline-offset-4 text-sm">
+              Chat with us
+            </button>
+            {/* === */}
+            <AyButton
+              title="Rate & review this product"
+              onClick={() => {
+                handleClick(`${window.location.pathname}/review/4353453453453`);
+              }}
+              variant="outlined"
+              outLineColor="#CACACA"
+              sx={{
+                width: "fit-content",
+                px: "20px",
+                color: "#5B5B5B",
+                ml: onlyWidth > 768 ? "2rem" : "",
+              }}
+            />
+            {/* == */}
+            <AyButton
+              title="Invoice"
+              variant="outlined"
+              outLineColor="gray"
+              icon="material-symbols-light:download"
+              iconSize={20}
+              sx={{
+                width: "fit-content",
+                px: "20px",
+              }}
+            />
+          </div>
+        </div>
 
-                sx={{
-                    width:"fit-content",
-                    px:"20px",
-                    color:"#5B5B5B",
-                    ml: onlyWidth > 768 ? "2rem" : "",
-                }}/>
-                {/* == */}
-                <AyButton title="Invoice"
-                variant="outlined"
-                outLineColor="gray"
-                icon="material-symbols-light:download"
-                iconSize={20}
-                sx={{
-                    width:"fit-content",
-                    px:"20px"
-                }}/>
-            </div>
-         </div>
-
-         {/* footer ends */}
-         </div>
+        {/* footer ends */}
+      </div>
     </SettingsLayout>
   );
 }

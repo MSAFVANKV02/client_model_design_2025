@@ -14,8 +14,7 @@ import { Link } from "react-router-dom"; // Use react-router's Link instead of N
 import { makeToastError, makeToastWarning } from "@/utils/toaster";
 import { encodeId } from "@/utils/Encoding";
 import { Input } from "@/components/ui/input";
-
-
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 interface InitialValues {
   rating: number;
@@ -24,8 +23,6 @@ interface InitialValues {
   files: (File | string)[];
   productSlug: string;
 }
-
-
 
 const starTitles = [
   "Very Bad",
@@ -44,7 +41,7 @@ const titleTextBasedOnRating = [
 ];
 
 export default function AddReviews() {
-    const { slug, orderId } = useParams(); 
+  const { slug, orderId } = useParams();
   const [reviewId, setReviewId] = useState<string | null>(null);
   const [product, setProduct] = useState(null);
   const [initialValues, setInitialValues] = useState({
@@ -138,10 +135,8 @@ export default function AddReviews() {
     values: any
   ) => {
     const files = Array.from(e.target.files || []);
-   
-    
-    const newErrors: string[] = [];
 
+    const newErrors: string[] = [];
 
     if (values.files.length + files.length > 10) {
       newErrors.push("You can only upload a maximum of 10 files.");
@@ -179,16 +174,13 @@ export default function AddReviews() {
 
       setFieldValue("files", [...values.files, ...filteredFiles]);
       console.log(values);
-    
-      console.log(files,'files');
+
+      console.log(files, "files");
     }
 
     setErrors(newErrors);
     e.target.value = "";
   };
-
- 
-  
 
   const handleSubmit = async (values: InitialValues) => {
     const formData = new FormData();
@@ -256,227 +248,217 @@ export default function AddReviews() {
   //   }, [slug]);
 
   return (
-    <div className="max-w-screen-2xl h-full section-container_my_order">
-      <div className="mx-auto p-6">
-        <h3 className="font-bold text-xl mb-4">Ratings & Reviews</h3>
-        <Formik
-          initialValues={
-            initialValues
-            //   {
-            //   rating: 0, // Default rating set to 1
-            //   review: "",
-            //   title: "",
-            //   // image: null,
-            //   files: [],
-            //   productSlug: slug,
-            // }
-          }
-          // validationSchema={Yup.object().shape({
-          //   rating: Yup.boolean().required("Add your rating"),
-          //   review: Yup.boolean().required(
-          //     "Show Your opinion about this product"
-          //   ),
-          // })}
-          enableReinitialize={true}
-          onSubmit={(values, { resetForm }) => {
-            console.log(values,'values onsubmit');
-            
-            handleSubmit(values);
-          }}
-        >
-          {({ setFieldValue, values }) => (
-            <Form>
-              <div className="mb-6">
-                <span className="font-bold block mb-2 text-sm">
-                  Rate this product :{" "}
-                  <Link to={`/products/${slug}`}>
-                    {" "}
-                    <span className="capitalize underline underline-offset-4">
-                      {product?.productName}
-                    </span>
-                  </Link>
-                </span>
-                <div className="flex">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Tooltip
-                      key={star}
-                      title={starTitles[star - 1]}
-                      placement="top"
-                    >
-                      <div
-                        className="cursor-pointer"
-                        onClick={() => {
-                          setFieldValue("rating", star);
-                          setFieldValue(
-                            "title",
-                            titleTextBasedOnRating[star - 1]
-                          );
-                        }}
+    <div className="w-full h-full section-container_my_order">
+      <div className="lg:max-w-screen-lg max-w-screen-sm xl:mx-0 mx-auto">
+        <div className=" p-6">
+          <h3 className="font-bold text-xl mb-4">Ratings & Reviews</h3>
+          <Formik
+            initialValues={initialValues}
+            enableReinitialize={true}
+            onSubmit={(values, { resetForm }) => {
+              console.log(values, "values onsubmit");
+
+              handleSubmit(values);
+            }}
+          >
+            {({ setFieldValue, values }) => (
+              <Form>
+                <div className="mb-6">
+                  <span className="font-bold block mb-2 text-sm">
+                    Rate this product :{" "}
+                    <Link to={`/products/${slug}`}>
+                      {" "}
+                      <span className="capitalize underline underline-offset-4">
+                        {product?.productName}
+                      </span>
+                    </Link>
+                  </span>
+                  <div className="flex">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Tooltip
+                        key={star}
+                        title={starTitles[star - 1]}
+                        placement="top"
                       >
-                        <StarRatings
-                          rating={star <= values.rating ? star : 0}
-                          starRatedColor="gold"
-                          numberOfStars={1}
-                          starDimension="30px"
-                          starSpacing="5px"
-                          name="rating"
-                        />
-                      </div>
-                    </Tooltip>
-                  ))}
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <label
-                  htmlFor="review"
-                  className="font-semibold block mb-2 text-sm"
-                >
-                  Review this product
-                </label>
-                <Field
-                  as={Textarea}
-                  name="review"
-                  id="review"
-                  className="w-full border bg-white focus:outline-none focus:border-blue-500"
-                  placeholder="Description"
-                  rows={4}
-                />
-              </div>
-
-              <div className="mb-6">
-                <label
-                  htmlFor="title"
-                  className="font-semibold block mb-2 text-sm"
-                >
-                  Title (Optional)
-                </label>
-                <Field
-                  name="title"
-                  id="title"
-                  className="w-full border focus:outline-none focus:border-blue-500 p-2 rounded pb-10 bg-white"
-                  placeholder="Review title"
-                />
-              </div>
-
-              <div className="mb-6">
-                <span className="font-semibold block mb-2">
-                  Add images or videos
-                </span>
-                <div className="flex flex-col items-start gap-3">
-                  {values.files.length < 5 && (
-                    <>
-                      <Button
-                        type="button"
-                        variant={"outline"}
-                        onClick={chooseFiles}
-                        className=""
-                      >
-                        <MdOutlineAttachment className="text-gray-600 text-2xl" />
-                      </Button>
-                      <input
-                        ref={inputRef}
-                        type="file"
-                        multiple
-                        name="files"
-                        className="hidden"
-                        onChange={(e) =>
-                          handleFilesChange(e, setFieldValue, values)
-                        }
-                      />
-                    </>
-                  )}
-             {/* show the files here video or image can come */}
-
-                  <div className="flex flex-wrap mt-4 gap-3">
-                    {values.files
-                      .filter((file): file is File => file instanceof File)
-                      .map((file: File, index: number) => (
-                        <div key={index} className="relative w-32 h-32">
-                          {file.type.startsWith("image/") ? (
-                            <img
-                              src={URL.createObjectURL(file)}
-                              alt={`Uploaded img ${index}`}
-                              className="object-cover w-24 h-24 rounded-lg"
-                            />
-                          ) : file.type.startsWith("video/") ? (
-                            <video
-                              src={URL.createObjectURL(file)}
-                              controls
-                              className="object-cover rounded-lg w-32 h-32"
-                            />
-                          ) : null}
-                          <button
-                            type="button"
-                            className="absolute top-0 right-0 bg-red-600/40 backdrop-blur-sm filter text-white rounded-full h-6 w-6 flex items-center justify-center"
-                            onClick={() => {
-                              setFieldValue(
-                                "files",
-                                values.files.filter((_, i) => i !== index)
-                              );
-                            }}
-                          >
-                            &times;
-                          </button>
+                        <div
+                          className="cursor-pointer"
+                          onClick={() => {
+                            setFieldValue("rating", star);
+                            setFieldValue(
+                              "title",
+                              titleTextBasedOnRating[star - 1]
+                            );
+                          }}
+                        >
+                          <StarRatings
+                            rating={star <= values.rating ? star : 0}
+                            starRatedColor="gold"
+                            numberOfStars={1}
+                            starDimension="30px"
+                            starSpacing="5px"
+                            name="rating"
+                          />
                         </div>
-                      ))}
-
-                    {/* Handle URLs */}
-                    {initialValues.files
-                      .filter(
-                        (file): file is string => typeof file === "string"
-                      )
-                      .map((url, index) => (
-                        <div key={index} className="relative w-32 h-32">
-                          {url.endsWith(".mp4") ? (
-                            <video
-                              width="128"
-                              height="128"
-                              controls
-                              muted
-                              controlsList="nodownload"
-                              className="w-32 h-32"
-                            >
-                              <source src={url} type="video/mp4" />
-                              <track
-                                src={url}
-                                kind="subtitles"
-                                srcLang="en"
-                                label="English"
-                              />
-                              Your browser does not support the video tag.
-                            </video>
-                          ) : (
-                            <img
-                              src={url}
-                              alt={`Fetched Image ${index}`}
-                              className="object-cover rounded-lg"
-                            />
-                          )}
-                        </div>
-                      ))}
+                      </Tooltip>
+                    ))}
                   </div>
-
-                  {errors.length > 0 && (
-                    <div className="text-red-600 mt-2">
-                      {errors.map((error, index) => (
-                        <div key={index}>{error}</div>
-                      ))}
-                    </div>
-                  )}
                 </div>
-              </div>
-              <Button
-                type="submit"
-                variant="default"
-                className="md:min-w-48 max-w-52 md:w-auto w-full py-3 bg-black text-white rounded-lg hover:bg-black/30"
-              >
-                <IoIosSend className="inline-block mr-2" />{" "}
-                {reviewId ? "Edit Review" : " Submit"}
-              </Button>
-            </Form>
-          )}
-        </Formik>
+
+                <div className="mb-6">
+                  <label
+                    htmlFor="review"
+                    className="font-semibold block mb-2 text-sm"
+                  >
+                    Review this product
+                  </label>
+                  <Field
+                    as={Textarea}
+                    name="review"
+                    id="review"
+                    className="w-full border focus:outline-none rounded-xl bg-gray-50 focus:border-gray-500 resize-none"
+                    placeholder="Description"
+                    rows={4}
+                  />
+                </div>
+
+                <div className="mb-6">
+                  <label
+                    htmlFor="title"
+                    className="font-semibold block mb-2 text-sm"
+                  >
+                    Title (Optional)
+                  </label>
+                  <Field
+                    name="title"
+                    id="title"
+                    className="w-full border focus:outline-none rounded-xl bg-gray-50 focus:border-gray-500 p-2"
+                    placeholder="Review title"
+                  />
+                </div>
+
+                <div className="mb-6">
+                  <span className="font-semibold block mb-2">
+                    Add images or videos
+                  </span>
+                  <div className="flex flex-col items-start gap-3">
+                    {values.files.length < 5 && (
+                      <>
+                        <Button
+                          type="button"
+                          variant={"outline"}
+                          onClick={chooseFiles}
+                          className="border-none bg-slate-50 shadow-lg"
+                        >
+                          <Icon
+                            icon="material-symbols-light:download"
+                            fontSize={25}
+                          />
+                          {/* <MdOutlineAttachment className="text-gray-600 text-2xl" /> */}
+                        </Button>
+                        <input
+                          ref={inputRef}
+                          type="file"
+                          multiple
+                          name="files"
+                          className="hidden"
+                          onChange={(e) =>
+                            handleFilesChange(e, setFieldValue, values)
+                          }
+                        />
+                      </>
+                    )}
+                    {/* show the files here video or image can come */}
+
+                    <div className="flex flex-wrap mt-4 gap-3">
+                      {values.files
+                        .filter((file): file is File => file instanceof File)
+                        .map((file: File, index: number) => (
+                          <div key={index} className="relative w-32 h-32">
+                            {file.type.startsWith("image/") ? (
+                              <img
+                                src={URL.createObjectURL(file)}
+                                alt={`Uploaded img ${index}`}
+                                className="object-cover w-24 h-24 rounded-lg"
+                              />
+                            ) : file.type.startsWith("video/") ? (
+                              <video
+                                src={URL.createObjectURL(file)}
+                                controls
+                                className="object-cover rounded-lg w-32 h-32"
+                              />
+                            ) : null}
+                            <button
+                              type="button"
+                              className="absolute top-0 right-0 bg-red-600/40 backdrop-blur-sm filter text-white rounded-full h-6 w-6 flex items-center justify-center"
+                              onClick={() => {
+                                setFieldValue(
+                                  "files",
+                                  values.files.filter((_, i) => i !== index)
+                                );
+                              }}
+                            >
+                              &times;
+                            </button>
+                          </div>
+                        ))}
+
+                      {/* Handle URLs */}
+                      {initialValues.files
+                        .filter(
+                          (file): file is string => typeof file === "string"
+                        )
+                        .map((url, index) => (
+                          <div key={index} className="relative w-32 h-32">
+                            {url.endsWith(".mp4") ? (
+                              <video
+                                width="128"
+                                height="128"
+                                controls
+                                muted
+                                controlsList="nodownload"
+                                className="w-32 h-32"
+                              >
+                                <source src={url} type="video/mp4" />
+                                <track
+                                  src={url}
+                                  kind="subtitles"
+                                  srcLang="en"
+                                  label="English"
+                                />
+                                Your browser does not support the video tag.
+                              </video>
+                            ) : (
+                              <img
+                                src={url}
+                                alt={`Fetched Image ${index}`}
+                                className="object-cover rounded-lg"
+                              />
+                            )}
+                          </div>
+                        ))}
+                    </div>
+
+                    {errors.length > 0 && (
+                      <div className="text-red-600 mt-2">
+                        {errors.map((error, index) => (
+                          <div key={index}>{error}</div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <Button
+                  type="submit"
+                  variant="default"
+                  className="md:min-w-48 max-w-52 md:w-auto w-full py-3 bg-black text-white rounded-lg hover:bg-black/30"
+                >
+                  <IoIosSend className="inline-block mr-2" />{" "}
+                  {reviewId ? "Edit Review" : " Submit"}
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </div>
       </div>
     </div>
   );
