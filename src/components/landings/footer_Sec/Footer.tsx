@@ -1,17 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
-
 import { Link } from "react-router-dom";
 
 function Footer() {
-  // const navigate = useNavigate();
-
   return (
-    <footer className="h-fit w-full bg-black mt-10">
-     
-      {/* ======= */}
+    <footer className="bg-black mt-10">
+      {/* Footer container */}
       <div
-        className="min-h-[300px] h-fit w-full flex flex-col section_container py-14"
+        className="min-h-[300px] w-full flex flex-col section_container py-14"
         style={{
           backgroundImage: `url('img/Background Images/DoodleBG_image.png')`,
           backgroundSize: "cover",
@@ -20,7 +16,7 @@ function Footer() {
         }}
       >
         <div className="">
-          <img src="/img/logo/Logo_white.svg" alt="" />
+          <img src="/img/logo/Logo_white.svg" alt="Logo" />
         </div>
         <div className="flex md:flex-row flex-col h-full mt-auto justify-between">
           <div className="grid md:grid-cols-3 sm:text-sm text-xs md:py-0 py-6 grid-cols-1 text-white gap-2">
@@ -57,14 +53,12 @@ function Footer() {
             <div className="flex flex-col mt-auto md:gap-0 gap-2">
               <Link to="/terms">Terms of Use</Link>
               <Link to="/privacy">Privacy Policy</Link>
-
             </div>
-       
           </div>
-          {/* ---- */}
+          {/* Contact Section */}
           <div className="flex flex-col gap-3">
             <h3 className="text-textSec">Get in touch!</h3>
-            <p className="text-white">We can help you, Send your queies.</p>
+            <p className="text-white">We can help you, Send your queries.</p>
             <div className="flex gap-2">
               <input
                 type="text"
@@ -78,7 +72,6 @@ function Footer() {
           </div>
         </div>
       </div>
-      {/* ======= */}
     </footer>
   );
 }

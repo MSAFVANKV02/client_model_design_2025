@@ -39,7 +39,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
     <>
       <div className=" space-y-6 md:py-5 section_container_dash mx-auto lg:min-h-[90vh]">
         <div className="flex flex-wrap flex-col space-y-4   lg:flex-row lg:space-x-12 lg:space-y-0">
-          <aside className="xl:-mx-4 lg:w-[18%] lg:h-[70vh] bg-bgHardSoft sticky z-[10002] top-10  rounded-2xl sm:p-3 p-1 md:mt-0 mt-4 lg:flex hidden flex-col justify-between h-[80%]">
+          <aside className="xl:-mx-4 lg:w-[18%] lg:h-[70vh] bg-bgHardSoft sticky z-[1000] top-10  rounded-2xl sm:p-3 p-1 md:mt-0 mt-4 lg:flex hidden flex-col justify-between h-[80%]">
             <SidebarNav items={sidebarNavItems} />
 
             <div className="mt-4">

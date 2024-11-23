@@ -27,11 +27,12 @@ function AppLayout() {
   return (
     <>
       <div
-        className={cn(``, {
+        className={cn(`min-h-screen flex flex-col justify-between`, {
           "debug-screens": import.meta.env.MODE === "development",
         })}
       >
-        <Navbar navItems={navItems} />
+       <div className="">
+       <Navbar navItems={navItems} />
         {!location.pathname.startsWith("/my-account") && (
           <div className="w-full bg-gray-50 border-b ">
             <NavigationMenuBar />
@@ -39,6 +40,7 @@ function AppLayout() {
         )}
 
         <Outlet />
+       </div>
         <Footer />
         <Toaster position="top-right" reverseOrder={false} />
       </div>

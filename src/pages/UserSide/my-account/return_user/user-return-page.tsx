@@ -1,4 +1,5 @@
 import SettingsLayout from "../layout";
+import RefundRequests from "./refund_requests";
 import ReturnDetails from "./return_details";
 import ReturnLists from "./return_lists";
 import ReturnTabs from "./return_tabs";
@@ -30,9 +31,9 @@ function UseReturnPage() {
       case "refund":
         return <ReturnLists />;
       case "requests":
-        return <div>Refund Requests Content</div>;
+        return <RefundRequests/>  ;
       case "replace":
-        return <div>Replace Requests Content</div>;
+        return <RefundRequests/>;
       case "send":
         return <div>Product Send Content</div>;
       default:

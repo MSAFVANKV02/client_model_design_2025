@@ -7,6 +7,7 @@ import ProductTabs from "./ProductTabs";
 import ProdCard from "@/components/landings/maniHome/Cards/ProdCard";
 import "@/assets/css/products.css";
 import ProductReviews from "../../Review/ProductReviews";
+import { useEffect } from "react";
 
 // import NavbarCheck from "@/components/checkings/page";
 
@@ -18,6 +19,9 @@ export default function ProductsPage() {
       return price.min_purchase_qty;
     });
   // console.log(similarProduct);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col section_container_dash space-y-10 my-10">

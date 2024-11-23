@@ -5,11 +5,12 @@ import ProfileKycDetails from "./Profile-Kyc-Details";
 import { useContextPage } from "@/providers/context/context";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
-import Modal from "react-modal";
 import AddressList from "../cart/checkout/AddressList";
 import AddressForm from "../cart/checkout/AddAddress";
 import {  IconButton } from "@mui/material";
 import AyButton from "@/components/myUi/AyButton";
+
+import Modal from "react-modal";
 Modal.setAppElement("#root");
 
 export default function SettingsProfilePage() {

@@ -10,6 +10,7 @@ type Props = {
   outLineColor?:string
   icon?:string; //
   iconSize?: number; // Font size for the icon
+  type?: "submit"|"reset"|"button"
   // onclickEvent?: (route:string)=>void; // Event handler for onClick event
 };
 
@@ -21,11 +22,12 @@ export default function AyButton({
   outLineColor,
   icon,
   iconSize,
+  type="button"
 }: Props) {
   return (
     <Button
     onClick={onClick}
-
+    type={type}
       sx={{
         ...(variant === "contained"
           ? {

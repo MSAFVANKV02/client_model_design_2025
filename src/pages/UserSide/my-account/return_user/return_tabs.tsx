@@ -8,9 +8,9 @@ type Props = {
 export default function ReturnTabs({ activeTab, setActiveTab }: Props) {
   const tabLists = [
     { slug: "refund", title: "Refund / Replace Allowed" },
-    { slug: "requests", title: "Refund Requests" },
+    { slug: "requests", title: "Refund / Replace Requests" },
     { slug: "replace", title: "Replace Requests" },
-    { slug: "send", title: "Product Send" },
+    { slug: "send", title: "Refund Request" },
   ];
 
   return (

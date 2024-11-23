@@ -1,3 +1,9 @@
 .css-18ltxn-MuiStepConnector-line{
     display: none !important;
 }
+
+/* modal behind scroll preventing */
+.no-scroll {
+    overflow: hidden;
+  }
+  
