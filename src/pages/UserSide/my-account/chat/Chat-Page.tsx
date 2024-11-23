@@ -19,7 +19,7 @@ export default function ChatPage() {
 
             <ChatBot/>       
             </div>
-           <img src="/public/chat/Frame 2899.png" alt="" className='xl:block hidden' />
+           <img src="/chat/Frame 2899.png" alt="" className='xl:block hidden' />
           </div>
        
         </div>

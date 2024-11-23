@@ -1,5 +1,6 @@
 import { SidebarNav } from "@/components/landings/manageProfile/SidbarNav";
-import AyButton from "@/components/ui/AyButton";
+import AyButton from "@/components/myUi/AyButton";
+
 import { useEffect } from "react";
 
 const sidebarNavItems = [

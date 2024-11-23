@@ -60,7 +60,7 @@ function WishlistTab() {
           >
             <div className="flex gap-3 cr">
               <img
-                src="/public/img/products/image 79.png"
+                src="/img/products/image 79.png"
                 alt="wishlist img"
                 className="text-xs w-14"
               />

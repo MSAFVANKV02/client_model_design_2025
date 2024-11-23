@@ -9,7 +9,7 @@ import Modal from "react-modal";
 import AddressList from "../cart/checkout/AddressList";
 import AddressForm from "../cart/checkout/AddAddress";
 import {  IconButton } from "@mui/material";
-import AyButton from "@/components/ui/AyButton";
+import AyButton from "@/components/myUi/AyButton";
 Modal.setAppElement("#root");
 
 export default function SettingsProfilePage() {

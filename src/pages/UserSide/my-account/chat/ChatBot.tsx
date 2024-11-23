@@ -73,7 +73,7 @@ export default function ChatBot() {
               Oversized 100% Cotton 190GSM 240GSM Plain White T Shirt Name
             </p>
             <img
-              src="/public/img/products/image 78.png"
+              src="/img/products/image 78.png"
               className="w-12 text-xs"
               alt="chat enquiry box"
             />

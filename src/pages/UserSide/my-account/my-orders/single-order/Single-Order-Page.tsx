@@ -1,4 +1,3 @@
-import  { useState } from "react";
 import SettingsLayout from "../../layout";
 
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -8,15 +7,16 @@ import { IOrder } from "@/types/orderTypes";
 import "@/assets/css/remover.css";
 import { Input } from "@/components/ui/input";
 import PdfFile from "@/pages/UserSide/UserKycPage/KycDetails/PdfFile";
-import AyButton from "@/components/ui/AyButton";
+
 import { useWindowWidth } from "@react-hook/window-size";
 import useNavigateClicks from "@/hooks/useClicks";
-import MyBackBtn from "@/components/ui/myBackBtn";
+import MyBackBtn from "@/components/myUi/myBackBtn";
+import AyButton from "@/components/myUi/AyButton";
+import GstDropDown from "@/components/myUi/GstDropDown";
 
 export default function SingleOrderPage() {
   const onlyWidth = useWindowWidth();
   const { handleClick } = useNavigateClicks();
-  const [showGstMode, setShowGstMode] = useState(false);
   const order: IOrder = {
     id: 1,
     slug: "order-12345",
@@ -72,7 +72,7 @@ export default function SingleOrderPage() {
           {/* Products Details ======= starts*/}
           <div className="flex gap-3">
             <img
-              src="/public/img/products/Group 710.jpg"
+              src="/img/products/Group 710.jpg"
               alt="Order Prod-img | ayaaboo"
               className="w-20 rounded-md shadow-md border "
             />
@@ -114,28 +114,7 @@ export default function SingleOrderPage() {
           <div className="flex w-full">
             <p>Total:</p>
 
-            <div className="w-[150px] mx-auto relative">
-              <span
-                className="hover:underline cursor-pointer sm:text-sm text-xs"
-                onClick={() => {
-                  setShowGstMode(!showGstMode);
-                }}
-              >
-                View TAX details
-              </span>
-              <div
-                className={`absolute bg-white top-7 left-0 right-0 shadow-xl rounded-xl ${showGstMode ? "h-auto p-3 border" : "h-0"}`}
-              >
-                <div
-                  className={`flex flex-col gap-2 ${showGstMode ? "opacity-100" : "opacity-0"}`}
-                >
-                  <span>IGST</span>
-                  <span>CGST</span>
-                  <span>SGST</span>
-                  <span>CESS</span>
-                </div>
-              </div>
-            </div>
+           <GstDropDown />
           </div>
           {/* ==== price and Gst List Ends ===== */}
 
@@ -167,7 +146,7 @@ export default function SingleOrderPage() {
               {/* --- */}
               <div className="md:w-3/4 w-full flex items-start ">
                 <a
-                  href={"/public/Invoice_INV1482989614215502 (16).pdf"}
+                  href={"/Invoice_INV1482989614215502 (16).pdf"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative"
@@ -175,7 +154,7 @@ export default function SingleOrderPage() {
                   {/* <p>Uploaded File: {uploadedFile.name}</p> */}
 
                   <PdfFile
-                    fileURL={"/public/Invoice_INV1482989614215502 (16).pdf"}
+                    fileURL={"/Invoice_INV1482989614215502 (16).pdf"}
                     className="h-16 w-16"
                   />
                   <div className="absolute h-16 w-16 bg-black/50 top-0 rounded-md flex items-center justify-center ">
@@ -190,7 +169,7 @@ export default function SingleOrderPage() {
               <span className="w-auto whitespace-nowrap">Return bill pdf</span>
               <div className="md:w-3/4 w-full flex items-start ">
                 <a
-                  href={"/public/Invoice_INV1482989614215502 (16).pdf"}
+                  href={"/Invoice_INV1482989614215502 (16).pdf"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative"
@@ -198,7 +177,7 @@ export default function SingleOrderPage() {
                   {/* <p>Uploaded File: {uploadedFile.name}</p> */}
 
                   <PdfFile
-                    fileURL={"/public/Invoice_INV1482989614215502 (16).pdf"}
+                    fileURL={"/Invoice_INV1482989614215502 (16).pdf"}
                     className="h-16 w-16"
                   />
                   <div className="absolute h-16 w-16 bg-black/50 top-0 rounded-md flex items-center justify-center ">
