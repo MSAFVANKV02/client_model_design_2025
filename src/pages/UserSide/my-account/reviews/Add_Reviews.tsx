@@ -1,28 +1,28 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import { Formik, Field, Form } from "formik";
 import { Button } from "@/components/ui/button";
 import { IoIosSend } from "react-icons/io";
-import { MdOutlineAttachment } from "react-icons/md";
+// import { MdOutlineAttachment } from "react-icons/md";
 import StarRatings from "react-star-ratings";
 import { Textarea } from "@/components/ui/textarea";
 import Tooltip from "@mui/material/Tooltip"; // Using MUI Tooltip
-import axios, { AxiosError } from "axios";
+// import axios, { AxiosError } from "axios";
 
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 
 import { Link } from "react-router-dom"; // Use react-router's Link instead of Next.js's Link
-import { makeToastError, makeToastWarning } from "@/utils/toaster";
-import { encodeId } from "@/utils/Encoding";
-import { Input } from "@/components/ui/input";
+// import { makeToastError, makeToastWarning } from "@/utils/toaster";
+// import { encodeId } from "@/utils/Encoding";
+// import { Input } from "@/components/ui/input";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
-interface InitialValues {
-  rating: number;
-  review: string;
-  title: string;
-  files: (File | string)[];
-  productSlug: string;
-}
+// interface InitialValues {
+//   rating: number;
+//   review: string;
+//   title: string;
+//   files: (File | string)[];
+//   productSlug: string;
+// }
 
 const starTitles = [
   "Very Bad",
@@ -42,9 +42,9 @@ const titleTextBasedOnRating = [
 
 export default function AddReviews() {
   const { slug, orderId } = useParams();
-  const [reviewId, setReviewId] = useState<string | null>(null);
-  const [product, setProduct] = useState(null);
-  const [initialValues, setInitialValues] = useState({
+  const [reviewId] = useState<string | null>(null);
+  // const [product, setProduct] = useState(null);
+  const [initialValues] = useState({
     rating: 3,
     review: "",
     title: "Good product",
@@ -54,9 +54,9 @@ export default function AddReviews() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
 
-  const navigate = useNavigate();
-  const location = useLocation();
-  const productId = new URLSearchParams(location.search).get("productId") || "";
+  // const navigate = useNavigate();
+  // const location = useLocation();
+  // const productId = new URLSearchParams(location.search).get("productId") || "";
   //   const {  orderId } = location.state;
   // Assuming slug and orderId are passed in location.state
 
@@ -108,26 +108,26 @@ export default function AddReviews() {
   //     getMyOrders();
   //   }, [slug, orderId]);
 
-  const getMyOrders = () => {
-    axios
-      .get(`/review/getMyReviews/${slug}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        if (res.data.reviews && res.data.reviews.length > 0) {
-          const review = res.data.reviews[0];
-          setReviewId(review._id);
-          setInitialValues({
-            rating: review.rating,
-            review: review.review,
-            title: review.title || "",
-            files: [...(review.images || []), ...(review.videos || [])],
-            productSlug: slug || "",
-          });
-        }
-      })
-      .catch((err) => console.log("err", err));
-  };
+  // const getMyOrders = () => {
+  //   axios
+  //     .get(`/review/getMyReviews/${slug}`, {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       if (res.data.reviews && res.data.reviews.length > 0) {
+  //         const review = res.data.reviews[0];
+  //         setReviewId(review._id);
+  //         setInitialValues({
+  //           rating: review.rating,
+  //           review: review.review,
+  //           title: review.title || "",
+  //           files: [...(review.images || []), ...(review.videos || [])],
+  //           productSlug: slug || "",
+  //         });
+  //       }
+  //     })
+  //     .catch((err) => console.log("err", err));
+  // };
 
   const handleFilesChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -182,61 +182,61 @@ export default function AddReviews() {
     e.target.value = "";
   };
 
-  const handleSubmit = async (values: InitialValues) => {
-    const formData = new FormData();
+  // const handleSubmit = async (values: InitialValues) => {
+  //   const formData = new FormData();
 
-    formData.append("rating", values.rating.toString());
-    formData.append("review", values.review);
-    formData.append("productSlug", values.productSlug);
-    formData.append("title", values.title || "");
+  //   formData.append("rating", values.rating.toString());
+  //   formData.append("review", values.review);
+  //   formData.append("productSlug", values.productSlug);
+  //   formData.append("title", values.title || "");
 
-    if (values.files) {
-      values.files.forEach((file) => {
-        formData.append("reviewFiles", file);
-      });
-    }
+  //   if (values.files) {
+  //     values.files.forEach((file) => {
+  //       formData.append("reviewFiles", file);
+  //     });
+  //   }
 
-    try {
-      const method = reviewId ? "put" : "post";
-      const url = reviewId
-        ? `/review/updateReview/${reviewId}`
-        : `/review/addReview`;
+  //   try {
+  //     const method = reviewId ? "put" : "post";
+  //     const url = reviewId
+  //       ? `/review/updateReview/${reviewId}`
+  //       : `/review/addReview`;
 
-      const res = await axios[method](url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      });
+  //     const res = await axios[method](url, formData, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //       withCredentials: true,
+  //     });
 
-      if (res.status === 200) {
-        makeToastWarning(
-          reviewId
-            ? "Review updated... Waiting For Approval..."
-            : "Review added... Waiting For Approval..."
-        );
-        getMyOrders();
-      } else {
-        makeToastError("Review Failed");
-      }
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        // Check if the error is an instance of AxiosError
-        if (error.response) {
-          const errorMessage =
-            error.response.data?.message || "Review submission failed";
-          makeToastError(errorMessage);
-        } else if (error.request) {
-          makeToastError("No response received from server");
-        } else {
-          makeToastError("An unexpected error occurred");
-        }
-      } else {
-        // If the error is not an AxiosError, handle it differently
-        makeToastError("An unexpected error occurred");
-      }
-    }
-  };
+  //     if (res.status === 200) {
+  //       makeToastWarning(
+  //         reviewId
+  //           ? "Review updated... Waiting For Approval..."
+  //           : "Review added... Waiting For Approval..."
+  //       );
+  //       getMyOrders();
+  //     } else {
+  //       makeToastError("Review Failed");
+  //     }
+  //   } catch (error) {
+  //     if (error instanceof AxiosError) {
+  //       // Check if the error is an instance of AxiosError
+  //       if (error.response) {
+  //         const errorMessage =
+  //           error.response.data?.message || "Review submission failed";
+  //         makeToastError(errorMessage);
+  //       } else if (error.request) {
+  //         makeToastError("No response received from server");
+  //       } else {
+  //         makeToastError("An unexpected error occurred");
+  //       }
+  //     } else {
+  //       // If the error is not an AxiosError, handle it differently
+  //       makeToastError("An unexpected error occurred");
+  //     }
+  //   }
+  // };
 
   //   useEffect(() => {
   //     axios
@@ -257,8 +257,8 @@ export default function AddReviews() {
             enableReinitialize={true}
             onSubmit={(values, { resetForm }) => {
               console.log(values, "values onsubmit");
-
-              handleSubmit(values);
+              resetForm()
+              // handleSubmit(values);
             }}
           >
             {({ setFieldValue, values }) => (
@@ -269,7 +269,7 @@ export default function AddReviews() {
                     <Link to={`/products/${slug}`}>
                       {" "}
                       <span className="capitalize underline underline-offset-4">
-                        {product?.productName}
+                        {/* {product?.productName} */}
                       </span>
                     </Link>
                   </span>

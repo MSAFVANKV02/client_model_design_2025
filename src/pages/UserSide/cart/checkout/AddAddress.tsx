@@ -10,7 +10,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Checkbox } from "@mui/material";
@@ -47,7 +46,7 @@ type Props = {
 };
 
 function AddressForm({ addAddress }: Props) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const form = useForm<FormData>({
@@ -67,6 +66,8 @@ function AddressForm({ addAddress }: Props) {
 
   const onSubmit = async (data: FormData) => {
     setLoading(true);
+    console.log(data);
+    
     // Perform form submission logic here
     setLoading(false);
   };

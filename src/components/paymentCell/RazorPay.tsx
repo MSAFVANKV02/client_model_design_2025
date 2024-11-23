@@ -39,7 +39,7 @@
 //     });
 // }
 import { makeToastError } from "@/utils/toaster";
-import axios from "axios";
+// import axios from "axios";
 
 type RazorPayResult = {
     success: boolean;
@@ -48,9 +48,9 @@ type RazorPayResult = {
 export const RazorPay = async ({
   totalAmount,
   orderIdRazorPay,
-  address,
+  // address,
 
-  email
+  // email
 }: any): Promise<RazorPayResult> => {
 
   
@@ -76,6 +76,8 @@ export const RazorPay = async ({
               razorpay_signature: response.razorpay_signature,
            
             };
+            console.log(verificationData);
+            
 
             // const verifyRes = await axios.post(
             //   `${BACKENTURL}/order/verifyOrder`,
@@ -91,7 +93,7 @@ export const RazorPay = async ({
             //   resolve({ success: false });
             // }
           } catch (error) {
-            console.error("Verification failed");
+            console.error("Verification failed", error);
             makeToastError(
               "Payment verification failed due to a server error."
             );

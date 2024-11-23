@@ -21,7 +21,7 @@ export default function AddressList({
   setIsModalOpen,
   setAddAddress,
   handleFormDataChange,
-  formData,
+  // formData,
   isRemoveThings
 }: Props) {
   const [selectedAddress, setSelectedAddress] = useState<AddressType | null>(
