@@ -77,12 +77,12 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
 
         {/* Menu Items */}
         <div className="my-auto">
-          <div className="flex flex-col items-center p-4 space-y-6">
+          <div className="flex flex-col items-center   space-y-6">
             {navItems.map((item:  NavItem, index: number) => (
               <DrawerClose asChild key={index}>
                 <Link
                   to={item.href}
-                  className={`text-lg ${
+                  className={`sm:text-lg text-sm text-start w-1/2 ${
                     item.href === location.pathname
                       ? "text-purple-500 underline underline-offset-4 font-semibold"
                       : "text-white"

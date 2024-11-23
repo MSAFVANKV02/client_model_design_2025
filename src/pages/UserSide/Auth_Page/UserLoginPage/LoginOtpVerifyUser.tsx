@@ -20,8 +20,9 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { OtpVerifyLoginUser } from "@/utils/urlPath";
+// import { OtpVerifyLoginUser } from "@/utils/urlPath";
 import OtpTimer from "@/hooks/otp-timer";
+import Cookies from "js-cookie";
 
 const formSchema = z.object({
   otp: z.string().min(6, { message: "OTP is required." }),
@@ -38,7 +39,9 @@ type Props = {
 export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
+  const [message] = useState("");
+
   // const [timer, setTimer] = useState<number>(() => {
   //   const savedTimer = localStorage.getItem("otp-timer");
   //   return savedTimer ? Number(savedTimer) : 60; // Load timer from localStorage or start at 3
@@ -90,63 +93,77 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
   //   }
   // }, [timer]);
 
-  const onSubmit = async (data: FormData) => {
-    console.log(`OTP entered: ${data.otp}`);
+  // ======== enable this after complete server
 
-    try {
-      const response = await axios.post(OtpVerifyLoginUser, {
-        otp: data.otp,
-        mobile: auth,
-      });
-      // console.log(response.data);
+  // const onSubmit = async (data: FormData) => {
+  //   console.log(`OTP entered: ${data.otp}`);
 
-      if (response.status === 200 && response.data.success) {
-        if (response.data.user) {
-          // if(response.data.user.){
+  //   try {
+  //     const response = await axios.post(OtpVerifyLoginUser, {
+  //       otp: data.otp,
+  //       mobile: auth,
+  //     });
+  //     // console.log(response.data);
 
-          // }
-          if (
-            response.data.user.isVerified &&
-            response.data.user.isRegistered &&
-            response.data.user.isKycCompleted &&
-            response.data.user.kycApproved
-          ) {
-            makeToast("Otp Verified Successfully.");
+  //     if (response.status === 200 && response.data.success) {
+  //       if (response.data.user) {
+  //         // if(response.data.user.){
+
+  //         // }
+  //         if (
+  //           response.data.user.isVerified &&
+  //           response.data.user.isRegistered &&
+  //           response.data.user.isKycCompleted &&
+  //           response.data.user.kycApproved
+  //         ) {
+  //           makeToast("Otp Verified Successfully.");
+  //           navigate(`/`);
+  //           window.location.reload();
+  //         } else if (
+  //           response.data.user.isVerified &&
+  //           response.data.user.isRegistered && 
+  //           !response.data.user.isKycCompleted 
+  //         ) {
+  //           makeToast("Complete Kyc registration..");
+  //           navigate(`/kyc`);
+  //         } else if (
+  //           response.data.user.isVerified &&
+  //           !response.data.user.isRegistered
+  //         ) {
+  //           makeToast("Your account is under Processing....");
+  //           navigate(`/register/user-details?auth=${auth}`);
+  //         } else {
+  //           makeToast("Your account is under Processing....");
+  //           setMessage("Your account is under Processing");
+  //           // navigate(`/register`);
+  //         }
+  //       }
+
+  //       // You can navigate to the desired page here
+  //     }
+  //   } catch (error: unknown) {
+  //     setLoading(false);
+  //     if (axios.isAxiosError(error)) {
+  //       if (error.response?.status === 500) {
+  //         makeToastError("Enter Valid Mobile");
+  //       } else if (error.response?.data.success === false) {
+  //         makeToastError(error.response?.data.message);
+  //       }
+  //     }
+  //   }
+  // };
+  const dummySubmit = () => {
+    Cookies.remove('us_b2b_kyc');
+
+    makeToast("Otp Verified Successfully.");
             navigate(`/`);
-            window.location.reload();
-          } else if (
-            response.data.user.isVerified &&
-            response.data.user.isRegistered && 
-            !response.data.user.isKycCompleted 
-          ) {
-            makeToast("Complete Kyc registration..");
-            navigate(`/kyc`);
-          } else if (
-            response.data.user.isVerified &&
-            !response.data.user.isRegistered
-          ) {
-            makeToast("Your account is under Processing....");
-            navigate(`/register/user-details?auth=${auth}`);
-          } else {
-            makeToast("Your account is under Processing....");
-            setMessage("Your account is under Processing");
-            // navigate(`/register`);
-          }
-        }
-
-        // You can navigate to the desired page here
-      }
-    } catch (error: unknown) {
-      setLoading(false);
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 500) {
-          makeToastError("Enter Valid Mobile");
-        } else if (error.response?.data.success === false) {
-          makeToastError(error.response?.data.message);
-        }
-      }
-    }
-  };
+            const token = "b2bdevtokenwithdummy00data"
+            Cookies.set('us_b2b_tkn', token, {
+              expires: 1, // 7 days
+              secure: true, // Use HTTPS
+              sameSite: 'strict', // Prevent cross-site CSRF
+            });
+  }
 
   const handleResendOtp = async () => {
     try {
@@ -206,7 +223,7 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
       )}
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(dummySubmit)} className="space-y-4">
           <FormField
             control={form.control}
             name="otp"

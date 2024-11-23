@@ -46,25 +46,25 @@ export default function MainHome() {
     width > 1280 ? ProductsDetail.slice(0, 5) : ProductsDetail.slice(0, 4);
 
   return (
-    <div className="min-h-screen space-y-8 py-3">
+    <div className="min-h-screen sm:space-y-8 space-y-2 py-3">
       {/* ======= Section 01 Banner and Advertise ======= staring */}
 
       <div
-        className="flex m-auto justify-between relative section_container_dash sm:gap-5 gap-2 sm:py-5 py-3 bg-center bg-cover bg-no-repeat"
+        className="flex m-auto justify-between relative xl:px-24 md:px-16 sm:px-5 px-2 md:gap-5 gap-2 sm:py-5 py-3 bg-center bg-cover bg-no-repeat"
         style={{
           backgroundImage: "url(/img/banners/bgimage1.png)",
         }}
       >
         <BannerWrapper
           isActive={true}
-          className="w-[80%]"
-          nextBtnClass="shadow-md active:scale-90 duration-300 transition-all"
-          prevBtnClass="shadow-md active:scale-90 duration-300 transition-all"
-          btnClass="justify-end  gap-3  right-0 bottom-10 "
+          className="sm:w-[80%] w-[70%]"
+          nextBtnClass="shadow-md active:scale-90 duration-300 transition-all sm:px-2 sm:py-2 px-1 py-[2px]"
+          prevBtnClass="shadow-md active:scale-90 duration-300 transition-all  sm:px-2 sm:py-2 px-1 py-[2px] text-xs"
+          btnClass="justify-end  gap-3  right-0 sm:bottom-10 bottom-4"
         >
           {BannerDetails.map((banner) => (
             <Banner
-              className="w-full md:h-[360px] sm:h-[200px] h-[110px] rounded-md overflow-hidden " // Consistent height
+              className="w-full md:h-[360px] sm:h-[200px] h-[100px] rounded-md overflow-hidden " // Consistent height
               _id={banner.id}
               name={banner.name}
               link={banner.link}
@@ -75,7 +75,7 @@ export default function MainHome() {
         </BannerWrapper>
 
         {/* Ensure same height for AdvertiseBanner */}
-        <div className="flex-grow rounded-md md:h-[360px] sm:h-[200px] w-[100px] h-[110px]">
+        <div className="flex-grow rounded-md md:h-[360px] sm:h-[200px] h-[100px] overflow-hidden w-[100px]">
           {/* <AdvertiseBanner /> */}
           <img
             src="/img/advertise/adv1.png"
@@ -97,7 +97,7 @@ export default function MainHome() {
       {/* ======= Section 03 : Banner2 ========= starting */}
       <BannerWrapper
         isActive={true}
-        className="w-full section_container_dash"
+        className="w-full section_spacing"
          nextBtnClass="shadow-md active:scale-90 duration-300 transition-all"
         prevBtnClass="shadow-md active:scale-90 duration-300 transition-all"
         btnClass="sm:left-28 sm:right-28 top-1/2 -translate-y-1/2 left-0  right-0"

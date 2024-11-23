@@ -33,9 +33,9 @@ export default function ShareSocial({ toggleShareOptions, data }: Props) {
     );
   };
   return (
-    <div className="md:p-4 p-1 bg-white md:w-[150px] rounded-md w-fit border relative">
+    <div className="md:p-4 p-2 bg-white md:w-[150px] z-50 rounded-md w-fit border relative">
         <div className="w-full bg-slate-100 ">
-            <CloseOutlinedIcon className=" ml-auto absolute -top-3 -right-3 cursor-pointer"
+            <CloseOutlinedIcon className=" ml-auto absolute -top-3 -right-3 cursor-pointer  border rounded-full bg-white shadow-md"
             onClick={toggleShareOptions}
             />
         </div>

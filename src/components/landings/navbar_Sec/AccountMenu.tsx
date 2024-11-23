@@ -13,6 +13,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import useNavigateClicks from "@/hooks/useClicks";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import Cookies from "js-cookie";
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -26,6 +27,14 @@ export default function AccountMenu() {
   const handleCloseAndNavigate = (to: string) => {
     setAnchorEl(null);
     navigate(to);
+  };
+
+  const logout = () => {
+    Cookies.remove("us_b2b_tkn");
+    window.location.reload();
+    Cookies.remove("us_b2b_kyc");
+
+    navigate("/");
   };
 
   return (
@@ -46,27 +55,33 @@ export default function AccountMenu() {
         {/* =====  Notification ====== */}
         <Tooltip title="My Notifications">
           <IconButton
-              onClick={()=>handleCloseAndNavigate('/account/notification')}
+            onClick={() => handleCloseAndNavigate("/account/notification")}
             size="small"
             sx={{ ml: 2 }}
-            
           >
-            <Avatar sx={{ width: 32, height: 32, backgroundColor:"transparent"  }}>
+            <Avatar
+              sx={{ width: 32, height: 32, backgroundColor: "transparent" }}
+            >
               {" "}
-              <Icon icon={`ph:bell-light`} fontSize={25} className="text-black" />
+              <Icon
+                icon={`ph:bell-light`}
+                fontSize={25}
+                className="text-black"
+              />
             </Avatar>
           </IconButton>
         </Tooltip>
 
-           {/* =====  Cart ====== */}
-           <Tooltip title="My Cart">
+        {/* =====  Cart ====== */}
+        <Tooltip title="My Cart">
           <IconButton
-              onClick={()=>handleCloseAndNavigate('/cart')}
+            onClick={() => handleCloseAndNavigate("/cart")}
             size="small"
             sx={{ ml: 2 }}
-            
           >
-            <Avatar sx={{ width: 32, height: 32, backgroundColor:"transparent"  }}>
+            <Avatar
+              sx={{ width: 32, height: 32, backgroundColor: "transparent" }}
+            >
               {" "}
               <Icon icon={`mynaui:cart`} fontSize={25} className="text-black" />
             </Avatar>
@@ -184,7 +199,10 @@ export default function AccountMenu() {
         </MenuItem>
         {/* <Divider sx={{ my: 1 }} /> */}
         <MenuItem
-          onClick={() => handleCloseAndNavigate("/")}
+          onClick={() => {
+            logout();
+            handleCloseAndNavigate("/");
+          }}
           sx={{
             justifyContent: "center",
             fontWeight: "bold",

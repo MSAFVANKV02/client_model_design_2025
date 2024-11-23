@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import PhoneInput, { CountryData } from "react-phone-input-2";
-import { makeToast, makeToastError } from "@/utils/toaster";
+import { makeToast } from "@/utils/toaster";
 import "react-phone-input-2/lib/style.css";
 import {
   Form,
@@ -15,10 +15,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useEffect, useState } from "react";
-import { sendOtpRegisterUser } from "@/utils/urlPath";
+// import { sendOtpRegisterUser } from "@/utils/urlPath";
 
 // Define the Zod schema for phone number validation
 const formSchema = z.object({
@@ -35,7 +35,9 @@ interface FormData {
 
 function Register() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  const [loading, ] = useState(false);
+
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -46,59 +48,67 @@ function Register() {
   });
 
   // Handle form submission
-  const onSubmit = async (data: FormData) => {
-    try {
-      setLoading(true);
-      const response = await axios.post(sendOtpRegisterUser, {
-        mobile: data.mobile,
-      });
+  // const onSubmit = async (data: FormData) => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await axios.post(sendOtpRegisterUser, {
+  //       mobile: data.mobile,
+  //     });
 
-      // console.log(response.data);
+  //     // console.log(response.data);
 
-      if (response.status === 200) {
-        const { user } = response.data; // Destructure user from response
+  //     if (response.status === 200) {
+  //       const { user } = response.data; // Destructure user from response
 
-        if (user) {
-          // Check if user exists
-          if (user.isVerified && user.isRegistered) {
-            // If user is verified and registered
-            if (user.kycApproved) {
-              makeToast(`OTP sent to ${data.mobile4OTP}`);
-              navigate(`/login`);
-            } else if (!user.isKycCompleted) {
-              makeToast(`OTP sent to ${data.mobile4OTP}`);
-              navigate(`/kyc`);
-            }else {
-              makeToast(`OTP sent to ${data.mobile4OTP}`);
-              navigate(`/kyc`);
-            }
-          } else if (user.isVerified) {
-            // If user is verified but not registered
-            makeToastError("Phone number already exists.");
-            navigate(`/register/user-details?auth=${data.mobile}`);
-          } else {
-            // If user is not verified
-            makeToast(`OTP sent to ${data.mobile4OTP}`);
-            navigate(`/register/otp-verification?auth=${data.mobile}`);
-          }
-        } else {
-          // Handle case where user is not found or user object is not returned
-          makeToastError("Unexpected error occurred. Please try again.");
-        }
-      }
-    } catch (error: unknown) {
-      setLoading(false);
-      if (axios.isAxiosError(error)) {
-        if (error.response?.data.success === false) {
-          makeToastError(error.response?.data.message);
-        }
-      } else {
-        console.log("Unexpected error:", error);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+  //       if (user) {
+  //         // Check if user exists
+  //         if (user.isVerified && user.isRegistered) {
+  //           // If user is verified and registered
+  //           if (user.kycApproved) {
+  //             makeToast(`OTP sent to ${data.mobile4OTP}`);
+  //             navigate(`/login`);
+  //           } else if (!user.isKycCompleted) {
+  //             makeToast(`OTP sent to ${data.mobile4OTP}`);
+  //             navigate(`/kyc`);
+  //           }else {
+  //             makeToast(`OTP sent to ${data.mobile4OTP}`);
+  //             navigate(`/kyc`);
+  //           }
+  //         } else if (user.isVerified) {
+  //           // If user is verified but not registered
+  //           makeToastError("Phone number already exists.");
+  //           navigate(`/register/user-details?auth=${data.mobile}`);
+  //         } else {
+  //           // If user is not verified
+  //           makeToast(`OTP sent to ${data.mobile4OTP}`);
+  //           navigate(`/register/otp-verification?auth=${data.mobile}`);
+  //         }
+  //       } else {
+  //         // Handle case where user is not found or user object is not returned
+  //         makeToastError("Unexpected error occurred. Please try again.");
+  //       }
+  //     }
+  //   } catch (error: unknown) {
+  //     setLoading(false);
+  //     if (axios.isAxiosError(error)) {
+  //       if (error.response?.data.success === false) {
+  //         makeToastError(error.response?.data.message);
+  //       }
+  //     } else {
+  //       console.log("Unexpected error:", error);
+  //     }
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+    const dummySubmit = (data:FormData) => {
+    makeToast("Otp Verified Successfully.");
+    navigate(`/register/otp-verification?auth=${data.mobile}`);
+       
+  }
+
+
   useEffect(()=>{
     window.scrollTo({ top: 0, behavior: 'smooth' });
   },[])
@@ -129,7 +139,7 @@ function Register() {
 
           {/* === form starting ======== */}
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(dummySubmit)} className="space-y-8">
               <FormField
                 control={form.control}
                 name="mobile"

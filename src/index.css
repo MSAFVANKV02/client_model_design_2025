@@ -20,10 +20,10 @@ ol {
   margin-left: 20px; /* Optional: Adjust for indentation */
 }
 
-ul {
-  list-style-type: disc; /* Bullets for <ul> */
-  margin-left: 20px; /* Optional: Adds indentation */
-}
+/* ul {
+  list-style-type: disc; 
+  margin-left: 20px; 
+} */
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -181,6 +181,9 @@ label {
 
 .section_container {
   @apply max-w-screen-2xl 2xl:px-24 xl:px-20 md:px-14 sm:px-10 px-5 mx-auto;
+}
+.section_spacing {
+  @apply 2xl:py-20 xl:py-16 md:py-12 sm:py-8 py-4 xl:px-24 md:px-16 sm:px-5 px-2;
 }
 .section_container2 {
   @apply  2xl:px-40 xl:px-20 md:px-14 sm:px-10 px-2 mx-auto;

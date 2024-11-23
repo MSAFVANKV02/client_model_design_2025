@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import PhoneInput, { CountryData } from "react-phone-input-2";
-import { makeToast, makeToastError } from "@/utils/toaster";
+import { makeToast } from "@/utils/toaster";
 import "react-phone-input-2/lib/style.css";
 import {
   Form,
@@ -15,11 +15,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useEffect, useState } from "react";
 import LoginOtpVerifyUser from "./LoginOtpVerifyUser";
-import { userLoginSendOtp } from "@/services/admin_side_api/auth/use-login-api";
+// import { userLoginSendOtp } from "@/services/admin_side_api/auth/use-login-api";
 
 // Define the Zod schema for phone number validation
 const formSchema = z.object({
@@ -36,7 +36,9 @@ interface FormData {
 
 function UserLogin() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
+  
   const [showOtpLogin, setShowOtpLogin] = useState(false);
 
   const queryParams = new URLSearchParams(window.location.search);
@@ -63,31 +65,38 @@ function UserLogin() {
   });
 
   // Handle form submission
-  const onSubmit = async (data: FormData) => {
-    try {
-      setLoading(true);
-      const response = await userLoginSendOtp(data.mobile);
-      // response coming from userLoginSendOtp
-      // console.log(response,'responce in page');
+  // stopped for presentation
+  // const onSubmit = async (data: FormData) => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await userLoginSendOtp(data.mobile);
+  //     // response coming from userLoginSendOtp
+  //     // console.log(response,'responce in page');
       
-      if (response.status === 200) {
-        makeToast(`Otp Sended to ${data.mobile}`);
-        setShowOtpLogin(true);
-        navigate(`/login?page=otp-log&auth=${data.mobile}`);
-      }
-    } catch (error: unknown) {
-      setLoading(false);
-      if (axios.isAxiosError(error)) {
-        if (error.response?.data.success === false) {
-          makeToastError(error.response?.data.message);
-        }
-      } else {
-        console.log("Unexpected error:",error);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     if (response.status === 200) {
+  //       makeToast(`Otp Sended to ${data.mobile}`);
+  //       setShowOtpLogin(true);
+  //       navigate(`/login?page=otp-log&auth=${data.mobile}`);
+  //     }
+  //   } catch (error: unknown) {
+  //     setLoading(false);
+  //     if (axios.isAxiosError(error)) {
+  //       if (error.response?.data.success === false) {
+  //         makeToastError(error.response?.data.message);
+  //       }
+  //     } else {
+  //       console.log("Unexpected error:",error);
+  //     }
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const dummySubmit = (data: FormData) => {
+    makeToast(`Otp Sended to ${data.mobile}`);
+    setShowOtpLogin(true);
+    navigate(`/login?page=otp-log&auth=${data.mobile}`);
+  }
 
   return (
     <div className="h-screen w-screen flex items-center justify-center relative">
@@ -129,7 +138,7 @@ function UserLogin() {
 
             <Form {...form}>
               <form
-                onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={form.handleSubmit(dummySubmit)}
                 className="w-full space-y-6"
               >
                 <FormField

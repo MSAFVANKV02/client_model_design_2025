@@ -43,7 +43,7 @@ export default function CategoryCard() {
   const visibleCards = showAll ? categoryCard : categoryCard.slice(0, 8);
 
   return (
-    <div className="space-y- section_container_dash">
+    <div className="space-y- section_spacing">
       <div className="flex justify-between items-center">
         <h4>Shop by category</h4>
         <small
@@ -62,7 +62,7 @@ export default function CategoryCard() {
         transition={{ duration: 0.1, ease: "easeInOut" }}
         viewport={{ once: false, amount: 0.7 }}
       >
-        <ul className="flex md:grid xl:grid-cols-8 px-2 pt-3 sm:grid-cols-4 grid-cols-3 gap-2 md:gap-4 snap-x snap-mandatory">
+        <ul className="flex md:grid xl:grid-cols-8 pt-3 ml-0 sm:grid-cols-4 grid-cols-3 gap-2 md:gap-4 snap-x snap-mandatory">
           {visibleCards.map((item, index) => (
             <Link
               to={`/category/${item.name.toLowerCase()}`}

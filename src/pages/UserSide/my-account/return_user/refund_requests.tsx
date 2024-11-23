@@ -1,6 +1,4 @@
 import RefundModal from "@/components/landings/return_replace/RefundModal";
-import React from "react";
-import { FaEye } from "react-icons/fa";
 
 const ResponsiveTable = () => {
   const data = [
@@ -91,12 +89,7 @@ const ResponsiveTable = () => {
             <div className="flex p-2 bg-gray-100">
               <span className="font-medium w-1/3">Action:</span>
               <span className="w-2/3">
-                <button
-                  onClick={() => alert(`View details of ${item.returnId}`)}
-                  className="text-blue-600 hover:text-blue-800"
-                >
-                  <FaEye className="inline-block" />
-                </button>
+              <RefundModal />
               </span>
             </div>
           </div>

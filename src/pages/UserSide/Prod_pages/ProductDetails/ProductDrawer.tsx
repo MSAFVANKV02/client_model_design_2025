@@ -186,7 +186,7 @@ export default function ProductDrawer({
                 ))}
               </Slider> */}
               <Box
-                height={!mobileWidth ? 600 : 250}
+                height={!mobileWidth ? 600 : 300}
                 sx={{ width: "100%" }}
                 onClick={(e) => e.preventDefault()}
                 bgcolor={"white"}
@@ -205,11 +205,11 @@ export default function ProductDrawer({
                 >
                   {product?.galleryImages.map((img, index) => (
                     <Banner
-                      className="lg:h-[600px] h-[250px]  flex items-center justify-center "
+                      className="md:h-[600px] h-[250px]  flex items-center justify-center "
                       isLink={false}
                       image={img}
                       key={index}
-                      imgClass="object-cover cursor-pointer z-50 lg:w-[70%] lg:h-[70%] w-[50%] h-[80%]"
+                      imgClass="object-cover cursor-pointer z-50 lg:w-[70%] md:w-[90%] lg:h-[70%] w-[50%] h-[100%]"
                     />
                   ))}
                 </BannerWrapper>

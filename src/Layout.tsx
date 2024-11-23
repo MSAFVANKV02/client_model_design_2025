@@ -6,8 +6,9 @@ import Footer from "./components/landings/footer_Sec/Footer";
 import { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import Navbar from "./components/landings/navbar_Sec/Navbar";
-import { NavigationMenuBar } from "./components/landings/navbar_Sec/NavigationMenuBar";
+// import { NavigationMenuBar } from "./components/landings/navbar_Sec/NavigationMenuBar";
 import useNavbarItems from "./components/landings/navbar_Sec/navbarItems";
+import NavigationMenuBar from "./components/landings/navbar_Sec/NavigationMenuBar";
 function AppLayout() {
   const location = useLocation();
   const { navItems } = useNavbarItems();
@@ -35,6 +36,7 @@ function AppLayout() {
        <Navbar navItems={navItems} />
         {!location.pathname.startsWith("/my-account") && (
           <div className="w-full bg-gray-50 border-b ">
+            {/* <NavigationMenuBar /> */}
             <NavigationMenuBar />
           </div>
         )}

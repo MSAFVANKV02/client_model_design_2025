@@ -16,10 +16,11 @@ import {
 } from "@/components/ui/form";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import { useState } from "react";
 import { makeToast } from "@/utils/toaster";
-import { SubmitUserRegisterDetails } from "@/utils/urlPath";
+// import { SubmitUserRegisterDetails } from "@/utils/urlPath";
+import Cookies from "js-cookie";
 
 // Define the Zod schema for form validation
 const formSchema = z.object({
@@ -32,20 +33,22 @@ const formSchema = z.object({
   isWhatsappApproved: z.boolean().optional(),
 });
 
-type IFormData = {
-  name: string;
-  shopName?: string;
-  pinCode?: string;
-  policyVerified: boolean;
-  isWhatsappApproved: boolean;
-};
+// type IFormData = {
+//   name: string;
+//   shopName?: string;
+//   pinCode?: string;
+//   policyVerified: boolean;
+//   isWhatsappApproved: boolean;
+// };
 
 function UserDetails() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
-  const queryParams = new URLSearchParams(window.location.search)
-  const auth = queryParams.get("auth");
+
+  // const queryParams = new URLSearchParams(window.location.search)
+  // const auth = queryParams.get("auth");
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -59,29 +62,41 @@ function UserDetails() {
   });
 
   // Handle form submission
-  const onSubmit = async (data: IFormData) => {
-    try {
-      setLoading(true);
-      const response = await axios.post(SubmitUserRegisterDetails,{ ...data,mobile:auth});
-      if (response.status === 200) {
-        console.log("Data sent successfully",response.data);
-        localStorage.setItem("userProfile", JSON.stringify(response.data.user));
-        makeToast(`${response.data.message}`)
-        navigate("/kyc");
-      }
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        console.log(
-          "Error sending data:",
-          error.response?.data || error.message
-        );
-      } else {
-        console.log("Unexpected error:", error);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const onSubmit = async (data: IFormData) => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await axios.post(SubmitUserRegisterDetails,{ ...data,mobile:auth});
+  //     if (response.status === 200) {
+  //       console.log("Data sent successfully",response.data);
+  //       localStorage.setItem("userProfile", JSON.stringify(response.data.user));
+  //       makeToast(`${response.data.message}`)
+  //       navigate("/kyc");
+  //     }
+  //   } catch (error: unknown) {
+  //     if (axios.isAxiosError(error)) {
+  //       console.log(
+  //         "Error sending data:",
+  //         error.response?.data || error.message
+  //       );
+  //     } else {
+  //       console.log("Unexpected error:", error);
+  //     }
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const dummySubmit = () => {
+    Cookies.remove('us_b2b_tkn');
+    makeToast("user Registered Successfully.");
+    navigate("/kyc");
+            const token = "b2bdevtokenwithdummy00data"
+            Cookies.set('us_b2b_kyc', token, {
+              expires: 1, // 7 days
+              secure: true, // Use HTTPS
+              sameSite: 'strict', // Prevent cross-site CSRF
+            });
+  }
 
   return (
     <div className="h-screen w-screen flex relative">
@@ -106,7 +121,7 @@ function UserDetails() {
           <Form {...form}>
             <>
               <form
-                onSubmit={form.handleSubmit(onSubmit)}
+                onSubmit={form.handleSubmit(dummySubmit)}
                 className="space-y-2 text-gray-500"
               >
                 {/* Name Input */}

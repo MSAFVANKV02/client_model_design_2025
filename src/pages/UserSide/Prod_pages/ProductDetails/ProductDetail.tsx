@@ -9,9 +9,11 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ShareSocial from "@/components/ui/share-social";
 import { Divider } from "@mui/joy";
+import useNavigateClicks from "@/hooks/useClicks";
 
 function ProductDetail({ product }: { product: IProducts }) {
   const { sizeVariant } = product.variants[0];
+  const {handleClick} = useNavigateClicks()
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [showShareOptions, setShowShareOptions] = useState(false);
@@ -148,6 +150,7 @@ function ProductDetail({ product }: { product: IProducts }) {
         <Button
           className="border px-4 py-2 w-full rounded-xl h-11 border-black"
           variant={"outline"}
+          onClick={()=>handleClick('/my-account/chat?enquiry=proId')}
         >
           <Icon icon={"mage:message-dots"} fontSize={20} className="mr-3" />
           Chat with Us

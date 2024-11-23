@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="bg-black mt-10">
+    <footer className="bg-black">
       {/* Footer container */}
       <div
         className="min-h-[300px] w-full flex flex-col section_container py-14"

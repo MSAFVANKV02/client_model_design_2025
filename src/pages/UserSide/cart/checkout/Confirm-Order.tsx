@@ -27,7 +27,7 @@ export default function ConfirmOrder() {
           clearInterval(timer);
           hasRedirected.current = true; // Mark as redirected
           localStorage.removeItem("countdown"); // Clear countdown from localStorage
-          navigate("/my-orders", { replace: true }); // Redirect to orders page
+          navigate("/my-account/my-orders", { replace: true }); // Redirect to orders page
           return 0;
         }
 

@@ -1,7 +1,9 @@
 import { SidebarNav } from "@/components/landings/manageProfile/SidbarNav";
 import AyButton from "@/components/myUi/AyButton";
+import Cookies from "js-cookie";
 
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const sidebarNavItems = [
   {
@@ -31,10 +33,17 @@ interface SettingsLayoutProps {
 }
 
 export default function SettingsLayout({ children }: SettingsLayoutProps) {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+  const logout = () => {
+    Cookies.remove('us_b2b_tkn');
+    window.location.reload();
+    Cookies.remove('us_b2b_kyc');
+
+    navigate("/"); // Replace with actual logout logic
+  }
   return (
     <>
       <div className=" space-y-6 md:py-5 section_container_dash mx-auto lg:min-h-[90vh]">
@@ -45,6 +54,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
             <div className="mt-4">
               <AyButton
                 title="Sign Out"
+                onClick={logout}
                 outLineColor="black"
                 variant="outlined"
                 sx={{

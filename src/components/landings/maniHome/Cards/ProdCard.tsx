@@ -168,12 +168,13 @@ export default function ProductNav({
 
 
   return (
-    <div  className="max-w-xs sm:border-none border-white border bg-white  shadow-md sm:rounded-lg overflow-hidden transition-transform duration-300 lg:hover:scale-[1.01] cursor-pointer">
+    <div  className="max-w-xs sm:border-none border-white border bg-white  shadow-md sm:rounded-lg
+     overflow-hidden transition-transform duration-300 lg:hover:scale-[1.01] cursor-pointer">
       {/* <Link to={link}> */}
        <div className="relative">
         {/* Image */}
         <img
-          className="md:h-[380px] sm:h-[350px] h-56 w-full object-cover"
+          className="md:h-[380px] sm:h-[350px] h-52 w-full object-cover"
           src={image}
           alt={title}
         />
