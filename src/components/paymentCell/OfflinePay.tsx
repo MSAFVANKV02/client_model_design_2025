@@ -59,8 +59,8 @@ export default function OfflinePay({
   const upiPaymentUrl = `upi://pay?pa=${upiId}&pn=Merchant&am=${totalAmount}&cu=INR&tid=TXN123456`;
 
   return (
-    <div className="h-full flex flex-col overflow-">
-      <div className="h-full w-full ">
+    <div className="h-full flex flex-col overflow- sm:mt-0 mt-10">
+      <div className=" w-full ">
         <h2 className=" text-xl font-semibold my-4 ml-3 ">Make payment</h2>
 
         {/* Tabs */}
