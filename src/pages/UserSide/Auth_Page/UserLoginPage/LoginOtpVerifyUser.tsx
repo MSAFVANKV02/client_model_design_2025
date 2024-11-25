@@ -163,6 +163,7 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
               secure: true, // Use HTTPS
               sameSite: 'strict', // Prevent cross-site CSRF
             });
+            window.location.reload();
   }
 
   const handleResendOtp = async () => {

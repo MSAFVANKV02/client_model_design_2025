@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/drawer";
 import { Link, useLocation } from "react-router-dom";
 import { INavbarItems } from "./Navbar";
+import { Avatar, Box } from "@mui/material";
+import AyButton from "@/components/myUi/AyButton";
 
 type NavItem = {
   href: string;
@@ -27,7 +29,6 @@ type IPropsNavbar = {
   navItems?: INavbarItems[]; // Array of NavItem type
   // footerLinks?: FooterLink[]; // Array of FooterLink type
 };
-
 
 export function Sidebar({ navItems = [] }: IPropsNavbar) {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,43 +50,52 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
       direction="left"
       open={isOpen}
       onOpenChange={(open) => setIsOpen(open)}
-      
     >
       {/* Hamburger Icon for opening the Drawer */}
-      <DrawerTrigger asChild>
-      <Icon icon={"quill:hamburger"} fontSize={30} className="text-textMain"/>
+      <DrawerTrigger asChild className="cursor-pointer">
+        <Icon
+          icon={"quill:hamburger"}
+          fontSize={30}
+          className="text-textMain"
+        />
       </DrawerTrigger>
 
       {/* Drawer Content */}
-      <DrawerContent className="bg-black text-white w-full border-none z-[20001]">
-        <DrawerHeader className="p-4">
-          <img
-            src="img/logo/Logo_white.svg"
-            alt="Logo"
-            className="h-10"
-          />
+      <DrawerContent className="bg-white text-black w-full border-none z-[20001]">
+        <DrawerHeader className="p-4 bg-bg flex justify-between items-center w-full ">
           {/* Close button */}
-          <DrawerClose asChild>
-            <Button
-              variant="noStyle"
-              className="absolute bg-transparent text-white font-bold border-none text-xl  top-4 right-4"
-            >
-              <Icon icon={"mdi:close"} />
-            </Button>
-          </DrawerClose>
+          <Box display="flex" alignItems="center">
+            <DrawerClose asChild>
+              <Button
+                variant="noStyle"
+                className=" bg-transparent text-white font-bold border-none text-xl  px-0 "
+              >
+                <Icon icon={"mdi:close"} />
+              </Button>
+            </DrawerClose>
+            <Avatar sx={{ width: 24, height: 24, mx: "0.70rem" }} />
+            <span className="text-white">Name</span>
+          </Box>
+          <img
+            src="img/logo/white_log.png"
+            alt="Logo"
+            width={100}
+            height={100}
+            className="h-"
+          />
         </DrawerHeader>
 
         {/* Menu Items */}
-        <div className="my-auto">
-          <div className="flex flex-col items-center   space-y-6">
-            {navItems.map((item:  NavItem, index: number) => (
+        <div className="my-aut flex flex-col justify-between h-full mb-4">
+          <div className="flex flex-col   space-y-2 p-2">
+            {navItems.map((item: NavItem, index: number) => (
               <DrawerClose asChild key={index}>
                 <Link
                   to={item.href}
-                  className={`sm:text-lg text-sm text-start w-1/2 ${
+                  className={`sm:text-lg text-sm text-start border p-3 rounded-lg hover:bg-gray-50 duration-300 transition-all ${
                     item.href === location.pathname
                       ? "text-purple-500 underline underline-offset-4 font-semibold"
-                      : "text-white"
+                      : "text-black"
                   }`}
                 >
                   {item.title}
@@ -93,18 +103,21 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
               </DrawerClose>
             ))}
           </div>
-
-          {/* Download App Button */}
-          <div className="px-4 mt-4 flex items-center justify-center">
-            <Button
-              variant="outline"
-              className="w-2/3 flex items-center justify-center bg-transparent gap-2 text-purple-500 border-purple-500"
-            >
-              <Icon icon="material-symbols:download" className="text-lg" />
-              Download App
-            </Button>
+          <div className="px-4 flex items-center justify-center mt-auto">
+            <AyButton
+            title="Sign Out"
+            variant="outlined"
+            outLineColor="gray"
+            sx={{
+              width: "100%",
+              height: "50px",
+            }}
+            />
           </div>
+        
         </div>
+          {/* Sign Out Button */}
+        
 
         {/* Footer Links */}
         <DrawerFooter
@@ -114,6 +127,7 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
             backgroundSize: "contain",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
+            backgroundColor:"black",
           }}
         >
           <div>
