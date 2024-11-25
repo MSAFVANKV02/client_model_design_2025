@@ -77,7 +77,7 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
             <span className="text-white">Name</span>
           </Box>
           <img
-            src="img/logo/white_log.png"
+            src="/img/logo/white_log.png"
             alt="Logo"
             width={100}
             height={100}

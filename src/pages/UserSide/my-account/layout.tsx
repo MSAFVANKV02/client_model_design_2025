@@ -68,7 +68,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
               />
             </div>
           </aside>
-          <div className="md:flex-1   overflow-y-aut ">{children}</div>
+          <div className=" ">{children}</div>
         </div>
       </div>
     </>
