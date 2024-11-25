@@ -9,10 +9,11 @@ import {
   DrawerFooter,
   DrawerClose,
 } from "@/components/ui/drawer";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { INavbarItems } from "./Navbar";
 import { Avatar, Box } from "@mui/material";
 import AyButton from "@/components/myUi/AyButton";
+import Cookies from "js-cookie";
 
 type NavItem = {
   href: string;
@@ -33,6 +34,7 @@ type IPropsNavbar = {
 export function Sidebar({ navItems = [] }: IPropsNavbar) {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation(); // Ensure this is used for active link styling
+  const navigate = useNavigate();
 
   // Define footer links
   const footerLinks = [
@@ -45,6 +47,15 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
     { href: "/terms", label: "Terms of Use" },
     { href: "/privacy", label: "Privacy Policy" },
   ];
+
+  const logout = () => {
+    Cookies.remove('us_b2b_tkn');
+    window.location.reload();
+    Cookies.remove('us_b2b_kyc');
+
+    navigate("/"); // Replace with actual logout logic
+  }
+
   return (
     <Drawer
       direction="left"
@@ -112,6 +123,7 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
               width: "100%",
               height: "50px",
             }}
+            onClick={logout}
             />
           </div>
         

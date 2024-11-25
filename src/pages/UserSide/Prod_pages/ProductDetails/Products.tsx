@@ -8,6 +8,7 @@ import ProdCard from "@/components/landings/maniHome/Cards/ProdCard";
 import "@/assets/css/products.css";
 import ProductReviews from "../../Review/ProductReviews";
 import { useEffect } from "react";
+import "@/assets/css/remover.css";
 
 // import NavbarCheck from "@/components/checkings/page";
 
@@ -25,7 +26,7 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen flex flex-col section_container_dash space-y-10 my-10">
-         {/* <NavbarCheck/> */}
+      {/* <NavbarCheck/> */}
       <div className="flex flex-col lg:flex-row gap-6 w-full   h-full">
         {/* Product Image Section */}
         <div className="lg:w-[45%] lg:sticky lg:top-0 rounded-lg border min-h-[50vh] lg:h-[80vh] bg-white/10 filter backdrop-blur-lg">
@@ -51,7 +52,7 @@ export default function ProductsPage() {
 
       <div className="">
         <h5>Similar Products</h5>
-        <div className="grid sm:gap-2 xl:grid-cols-5 sm:grid-cols-4  grid-cols-1 w-full mt-3">
+        <div className="flex lg:flex-wrap overflow-x-auto gap-4 scrollbar-none w-full mt-3">
           {similarProduct.map((similarProduct) => (
             <ProdCard
               key={product._id}
@@ -61,6 +62,8 @@ export default function ProductsPage() {
               image={product.product_images[0]}
               isFavorite={false}
               sold={34454}
+              className="bg- w-[300px]  my-2"
+              imgClass="md:h-[200px] object-contain"
             />
           ))}
         </div>
@@ -68,7 +71,7 @@ export default function ProductsPage() {
       {/* Recent Viewed Products */}
       <div className="">
         <h5>Recent viewed</h5>
-        <div className="grid sm:gap-2 xl:grid-cols-5 sm:grid-cols-4  grid-cols-1 w-full mt-3">
+        <div className="flex lg:flex-wrap overflow-x-auto gap-4 scrollbar-none w-full mt-3">
           {similarProduct.map((similarProduct) => (
             <ProdCard
               key={product._id}
@@ -78,6 +81,8 @@ export default function ProductsPage() {
               image={product.product_images[0]}
               isFavorite={false}
               sold={34454}
+              className="bg- w-[300px] shadow-md my-2"
+              imgClass="md:h-[200px] object-contain"
             />
           ))}
         </div>
@@ -86,9 +91,8 @@ export default function ProductsPage() {
 
       {/* Reviews and Rating starts ========== */}
       <div className="">
-        <ProductReviews/>
+        <ProductReviews />
       </div>
-   
     </div>
   );
 }

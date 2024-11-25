@@ -132,8 +132,8 @@ export default function MainHome() {
 
       {/* ======= Section 05 : Color Variants ========= starting */}
 
-      <div className="section_container_dash space-y-1">
-        <h5>Shop By Colors</h5>
+      <div className="section_container_dash space-y-1 ">
+        <h5 className=" sm:px-0 px-4">Shop By Colors</h5>
         <ColorGrid />
       </div>
 

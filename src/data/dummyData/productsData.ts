@@ -9,6 +9,7 @@ export const dummyProduct: IProducts = {
       "High-quality oversized T-shirt made of 100% cotton. Perfect for casual wear with excellent durability.",
     product_category: "Apparel",
     product_images: [
+      "https://images.unsplash.com/photo-1730292423405-29ebe8d9257e?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "https://images.unsplash.com/photo-1574180045827-681f8a1a9622",
       "https://images.unsplash.com/photo-1510915228340-29c85a43dcfe",
     ],
@@ -58,8 +59,10 @@ export const dummyProduct: IProducts = {
         colors: ["Red", "Pink", "Orange", "Gray"],
         price: 476.86,
         photos: [
+          "https://images.unsplash.com/photo-1730292423405-29ebe8d9257e?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
           "https://images.unsplash.com/photo-1574180045827-681f8a1a9622",
           "https://images.unsplash.com/photo-1510915228340-29c85a43dcfe",
+          
         ],
         sizeChart: "https://example.com/size-chart.png",
       },

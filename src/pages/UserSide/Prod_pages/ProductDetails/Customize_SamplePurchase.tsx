@@ -12,20 +12,25 @@ const CustomizeSamplePurchase = () => {
     <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-6 lg:space-y-0 space-y-6 rounded-lg min-h-[350px]">
       {/* Customization Section */}
       <div className="  flex flex-col gap-3 col-span-2 h-full">
-        {/* ======= */}
-        <div className="bg-bgGraySoft rounded-lg h-full flex justify-between p-6">
+        {/* ======= •*/}
+        <div className="bg-bgGraySoft rounded-lg h-full flex md:flex-row flex-col gap-3 justify-between p-6">
           <div className="flex flex-col justify-between">
             <h3 className="text-lg font-semibold mb-2">Customization</h3>
-            <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
-              <li>Customized logo • Customized size chart</li>
-              <li>Graphic customization • Customized package</li>
+            <ul className="list-none text-sm text-gray-600 space-y-1 flex flex-col li-custom">
+              <li className="">Customized logo</li>
+              <li className="">Customized size chart</li>
+              <li className="">Graphic customization</li>
+              <li className="">Customized package</li>
             </ul>
           </div>
-          <div className="lg:w-[15%] text-right">
+          <div className="lg:w-[15%] md:text-right">
             <p className="text-sm ">Minimum quantity</p>
             <p className="text-sm f">5000 pieces</p>
 
-            <Button variant={'outline'} className="mt-4 border border-black w-full">
+            <Button
+              variant={"outline"}
+              className="mt-4 border border-black w-full"
+            >
               Get enquiry
             </Button>
           </div>
@@ -79,7 +84,7 @@ const CustomizeSamplePurchase = () => {
           </div>
         </div>
 
-        <Button variant={'outline'}  className="w-full border border-black">
+        <Button variant={"outline"} className="w-full border border-black">
           Get sample
         </Button>
       </div>

@@ -113,14 +113,14 @@
 //           <Typography variant="inherit" color="text.primary">
 //             {priceRange}
 //           </Typography>
-//           <Typography variant="caption" color="text.secondary" 
+//           <Typography variant="caption" color="text.secondary"
 //           sx={{
 //             display: 'flex',
 //             flexWrap: 'wrap',
 //           }}
 //           >
 //             Min. order: 50 pieces
-//             Colour: 4, Size: 5 
+//             Colour: 4, Size: 5
 //             {sold.toLocaleString()} sold
 //           </Typography>
 //         </CardContent>
@@ -142,6 +142,7 @@ import { Button } from "@/components/ui/button";
 // import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import useNavigateClicks from "@/hooks/useClicks";
+import { cn } from "@/lib/utils";
 
 interface ProdCardProps {
   title: string;
@@ -151,6 +152,8 @@ interface ProdCardProps {
   sold: number;
   index?: number;
   link: string;
+  className?: string;
+  imgClass?: string;
 }
 
 export default function ProductNav({
@@ -159,30 +162,34 @@ export default function ProductNav({
   image,
   isFavorite,
   sold,
-  link
+  link,
+  className,
+  imgClass,
 }: ProdCardProps) {
   const [favorite, setFavorite] = React.useState(isFavorite);
 
-  const {handleClick} = useNavigateClicks();
-
-
+  const { handleClick } = useNavigateClicks();
 
   return (
-    <div  className="max-w-xs sm:border-none border-white border bg-white  shadow-md sm:rounded-lg
-     overflow-hidden transition-transform duration-300 lg:hover:scale-[1.01] cursor-pointer">
+    <div
+      className={cn(
+        ` max-w-xs flex-shrink-0 sm:border-none border-white border bg-white  shadow-md sm:rounded-lg
+     overflow-hidden transition-transform duration-300 lg:hover:scale-[1.01] cursor-pointer`,
+        className
+      )}
+    >
       {/* <Link to={link}> */}
-       <div className="relative">
+      <div className="relative">
         {/* Image */}
         <img
-          className="md:h-[380px] sm:h-[350px] h-52 w-full object-cover"
+          className={cn(`md:h-[380px] sm:h-[350px] h-52 w-full object-cover`,imgClass)}
           src={image}
           alt={title}
         />
 
         {/* Rating Badge */}
         <div className="absolute top-2 left-2 bg-green-500 text-white rounded px-2 py-1 text-xs flex items-center">
-          <StarIcon className="text-xs mr-1" />
-          5
+          <StarIcon className="text-xs mr-1" fontSize="small" />5
         </div>
 
         {/* Favorite Icon */}
@@ -197,11 +204,11 @@ export default function ProductNav({
           )}
         </button> */}
         <IconButton
-            sx={{ position: "absolute", top: 10, right: 10 }}
-            onClick={() => setFavorite(!favorite)}
-          >
-            {favorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
-          </IconButton>
+          sx={{ position: "absolute", top: 10, right: 10 }}
+          onClick={() => setFavorite(!favorite)}
+        >
+          {favorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
+        </IconButton>
       </div>
 
       {/* Card Content */}
@@ -217,12 +224,16 @@ export default function ProductNav({
 
       {/* Action Button */}
       <div className="p-2">
-        <Button variant={`b2bStyle`} size="b2b" className="w-full rounded-md text-sm" onClick={()=>handleClick(link)}>
+        <Button
+          variant={`b2bStyle`}
+          size="b2b"
+          className="w-full rounded-md text-sm"
+          onClick={() => handleClick(link)}
+        >
           Make order
         </Button>
       </div>
       {/* </Link> */}
-     
     </div>
   );
 }

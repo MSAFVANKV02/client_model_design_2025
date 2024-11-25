@@ -35,7 +35,7 @@ function AppLayout() {
        <div className="">
        <Navbar navItems={navItems} />
         {!location.pathname.startsWith("/my-account") && (
-          <div className="w-full bg-gray-50 border-b ">
+          <div className="w-full bg-gray-50 border-b select-none">
             {/* <NavigationMenuBar /> */}
             <NavigationMenuBar />
           </div>
