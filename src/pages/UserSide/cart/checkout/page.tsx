@@ -170,7 +170,7 @@ export default function CheckoutPage() {
     isPolicy: boolean
   ) => {
     
-    console.log("Offline Payment Submitted", { upiId, referralDoc, comment });
+    // console.log("Offline Payment Submitted", { upiId, referralDoc, comment });
     handleFormDataChange("transactionDetails", {
       remark: comment,
       referral_docs: referralDoc, 

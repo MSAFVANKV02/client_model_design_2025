@@ -9,11 +9,13 @@ import "@/assets/css/products.css";
 import ProductReviews from "../../Review/ProductReviews";
 import { useEffect } from "react";
 import "@/assets/css/remover.css";
+import { useParams } from "react-router-dom";
 
 // import NavbarCheck from "@/components/checkings/page";
 
 export default function ProductsPage() {
   const product: IProducts = dummyProduct;
+  const {slug} = useParams()
 
   const similarProduct =
     product.variants[0].sizeVariant[0].price_per_Pieces.filter((price) => {
@@ -21,8 +23,10 @@ export default function ProductsPage() {
     });
   // console.log(similarProduct);
   useEffect(() => {
+    // console.log(slug);
+    
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  }, [slug]);
 
   return (
     <div className="min-h-screen flex flex-col section_container_dash space-y-10 my-10">

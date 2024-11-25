@@ -193,7 +193,7 @@ const NavigationMenuBar = () => {
   // Ensure active category is reset to first category by default when mouse leaves
   const handleMouseEnter = (categoryName: string) => {
     setActiveCategory(categoryName);
-    console.log(categoryName);
+    // console.log(categoryName);
     
   };
 
