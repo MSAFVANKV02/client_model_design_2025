@@ -320,7 +320,7 @@ export default function CheckoutPage() {
             onRequestClose={handleCloseModal}
             shouldCloseOnOverlayClick={true}
             overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]"
-            className={`bg-white rounded-lg  ${openOfflinePayModal ? "max-w-lg md:h-auto h-[100vh] min-h-[80vh]" : "max-w-3xl p-4 md:max-h-[80vh] h-full"}  w-full overflow-y-auto relative z-[10001]`}
+            className={`bg-white rounded-lg  ${openOfflinePayModal ? "max-w-lg md:h-auto h-full min-h-[80vh]" : "max-w-3xl p-4 md:max-h-[80vh] h-full"}  w-full overflow-y-auto relative z-[10001]`}
           >
             <IconButton
               sx={{ color: "black", position: "absolute", right: 5, top: 0 }}
