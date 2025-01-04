@@ -68,7 +68,7 @@ export default function SettingsLayout({ children }: SettingsLayoutProps) {
               />
             </div>
           </aside>
-          <div className=" ">{children}</div>
+          <div className="flex-grow ">{children}</div>
         </div>
       </div>
     </>

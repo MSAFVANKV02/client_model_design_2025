@@ -42,21 +42,7 @@ function CategoryProductsPage() {
   };
   const [filter, setFilter] = useState<ProductState>(getInitialFilterState);
 
-  // console.log(filter,'filter');
-  // const updateUrl = () => {
-  //   const params = new URLSearchParams();
-  //   if (filter.color.length > 0) params.set("color", filter.color.join(","));
-  //   if (filter.size.length > 0) params.set("size", filter.size.join(","));
-  //   if (filter.sort !== "none") params.set("sort", filter.sort);
-  //   if (filter.price.isCustom || filter.price.range !== DEFAULT_CUSTOM_PRICE) {
-  //     const [minPrice, maxPrice] = filter.price.range;
-  //     params.set("price", `${minPrice}+${maxPrice}`);
-  //     params.set("isCustom", filter.price.isCustom.toString());
-  //   } else {
-  //     params.delete("price");
-  //     params.delete("isCustom");
-  //   }
-  //   navigate(`?${params}`);
+
   // };
   const updateUrl = () => {
     const params = new URLSearchParams();

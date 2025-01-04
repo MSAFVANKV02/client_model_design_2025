@@ -43,7 +43,7 @@ export default function CategoryCard() {
   const visibleCards = showAll ? categoryCard : categoryCard.slice(0, 8);
 
   return (
-    <div className="space-y- section_spacing">
+    <div className="space-y- section_container_cards">
       <div className="flex justify-between items-center">
         <h4>Shop by category</h4>
         <small

@@ -69,7 +69,7 @@ function ProductImages({ images }: { images: string[] }) {
         </div>
 
         {/* Thumbnail Images */}
-        <div className="flex gap-2 w-full justify-center">
+        <div className="flex gap-2 w-full justify-center ">
           {images.map((image, index) => (
             <img
               key={index}

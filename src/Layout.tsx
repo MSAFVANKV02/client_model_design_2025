@@ -40,8 +40,11 @@ function AppLayout() {
             <NavigationMenuBar />
           </div>
         )}
+        <div className="max-w-screen-2xl mx-auto">
+            <Outlet />
+        </div>
 
-        <Outlet />
+      
        </div>
         <Footer />
         <Toaster position="top-right" reverseOrder={false} />

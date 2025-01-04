@@ -50,7 +50,7 @@ export default function MainHome() {
       {/* ======= Section 01 Banner and Advertise ======= staring */}
 
       <div
-        className="flex m-auto justify-between relative xl:px-24 md:px-16 sm:px-5 px-2 md:gap-5 gap-2 sm:py-5 py-3 bg-center bg-cover bg-no-repeat"
+        className="flex m-auto justify-between relative 2xl:px-4 xl:px-24 md:px-16 sm:px-5 px-2 md:gap-5 gap-2 sm:py-5 py-3 bg-center bg-cover bg-no-repeat"
         style={{
           backgroundImage: "url(/img/banners/bgimage1.png)",
         }}
@@ -78,6 +78,7 @@ export default function MainHome() {
         <div className="flex-grow rounded-md md:h-[360px] sm:h-[200px] h-[100px] overflow-hidden w-[100px]">
           {/* <AdvertiseBanner /> */}
           <img
+          draggable={false}
             src="/img/advertise/adv1.png"
             alt=""
             className="h-full object-cover rounded-xl"
