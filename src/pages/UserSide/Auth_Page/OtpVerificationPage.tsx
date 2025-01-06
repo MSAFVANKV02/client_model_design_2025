@@ -16,10 +16,11 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { makeToast, makeToastError } from "@/utils/toaster";
-import ClipLoader from "react-spinners/ClipLoader";
+// import ClipLoader from "react-spinners/ClipLoader";
+const ClipLoader = React.lazy(() => import("react-spinners/ClipLoader"));
 // import { VerifyOtpRegisterUser } from "@/utils/urlPath";
 import OtpTimer from "@/hooks/otp-timer";
 import Cookies from "js-cookie";

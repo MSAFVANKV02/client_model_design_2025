@@ -1,24 +1,45 @@
-import App from "@/App";
-import ErrorPage from "@/pages/ErrorPage";
-import About from "@/pages/UserSide/About/About";
-
-import OtpVerificationPage from "@/pages/UserSide/Auth_Page/OtpVerificationPage";
-import Register from "@/pages/UserSide/Auth_Page/Register";
-import UserDetails from "@/pages/UserSide/Auth_Page/UserDetails";
-import UserLogin from "@/pages/UserSide/Auth_Page/UserLoginPage/UserLogin";
-import HomePage from "@/pages/UserSide/Home/Home";
-import KycDetails from "@/pages/UserSide/UserKycPage/KycDetails/KycDetails";
-import KycLayout from "@/KycLayout";
 
 import { createBrowserRouter } from "react-router-dom";
+
+// Lazy load components
+import {
+  App,
+  ErrorPage,
+  About,
+  OtpVerificationPage,
+  Register,
+  UserDetails,
+  UserLogin,
+  HomePage,
+  KycDetails,
+  KycLayout,
+  DashboardLayoutBasic,
+  MainHome,
+  AppLayout,
+  AdmLayout,
+} from "./page-routers";
+
+// import App from "@/App";
+// import ErrorPage from "@/pages/ErrorPage";
+// import About from "@/pages/UserSide/About/About";
+
+// import OtpVerificationPage from "@/pages/UserSide/Auth_Page/OtpVerificationPage";
+// import Register from "@/pages/UserSide/Auth_Page/Register";
+// import UserDetails from "@/pages/UserSide/Auth_Page/UserDetails";
+// import UserLogin from "@/pages/UserSide/Auth_Page/UserLoginPage/UserLogin";
+// import HomePage from "@/pages/UserSide/Home/Home";
+// import KycDetails from "@/pages/UserSide/UserKycPage/KycDetails/KycDetails";
+// import KycLayout from "@/KycLayout";
+// import MainHome from "@/pages/UserSide/Home/MainHome";
+// import AppLayout from "@/Layout";
+// import AdmLayout from "@/AdmLayout";
+// import DashboardLayoutBasic from "@/pages/adminSide/Dashboard";
+
 import KycHome from "@/pages/UserSide/UserKycPage/KycHome";
 import { ScrollProvider } from "@/providers/context/ScrollContext";
 import ProtectedRoute from "@/middlewares/ProtectedRoute";
 import { isAuthenticated } from "@/middlewares/IsAuthenticated";
-import MainHome from "@/pages/UserSide/Home/MainHome";
-import AppLayout from "@/Layout";
-import AdmLayout from "@/AdmLayout";
-import DashboardLayoutBasic from "@/pages/adminSide/Dashboard";
+
 import CategoryProductsPage from "@/pages/UserSide/Prod_pages/Category_wise/CategoryProductsPage";
 import FolderStructure from "@/pages/folder-structure/FolderStructure";
 import Products from "@/pages/UserSide/Prod_pages/ProductDetails/Products";
@@ -32,6 +53,7 @@ import ChatPage from "@/pages/UserSide/my-account/chat/Chat-Page";
 import WishlistPage from "@/pages/UserSide/my-account/wishlist/wishlist-page";
 import UseReviewPage from "@/pages/UserSide/my-account/reviews/use-review-page";
 import UseReturnPage from "@/pages/UserSide/my-account/return_user/user-return-page";
+import { Suspense } from "react";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -48,7 +70,11 @@ const rootRouter = createBrowserRouter([
   {
     path: "/",
     element: (
-      <ScrollProvider>{isLogged ? <AppLayout /> : <App />}</ScrollProvider>
+      <Suspense>
+
+         <ScrollProvider>{isLogged ? <AppLayout /> : <App />}</ScrollProvider>
+      </Suspense>
+     
     ),
     children: [
       {
@@ -229,11 +255,14 @@ const rootRouter = createBrowserRouter([
     path: "/kyc",
 
     element: (
-      <ScrollProvider>
+      <Suspense>
+              <ScrollProvider>
         <ProtectedRoute>
           <KycLayout />
         </ProtectedRoute>
       </ScrollProvider>
+      </Suspense>
+
     ),
     children: [
       {
@@ -277,6 +306,7 @@ const rootRouter = createBrowserRouter([
 
     element: <ErrorPage />,
   },
-]);
+  
+], { basename: "/" });
 
 export default rootRouter;

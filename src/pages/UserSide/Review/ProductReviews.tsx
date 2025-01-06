@@ -28,7 +28,7 @@ export default function ProductReviews() {
       date: "1 month ago",
       likes: 1010,
       videos: [
-        "/video/invideo-ai-1080 Adorable Baby in Orange Outfit Crawling! 2024-09-07.mp4",
+        "/video/WhatsApp Video 2024-09-12 at 15.02.13.mp4",
       ],
       images: [
         "https://media.istockphoto.com/id/1009480924/photo/photo-portrait-of-attractive-pretty-cute-lovable-fascinating-delicate-alluring-gorgeous-nice.webp?s=1024x1024&w=is&k=20&c=Sc4UDG1CH-jPocbDQYLL5sl0s6G3egvU7NwbB8IbYhA=",

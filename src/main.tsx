@@ -24,7 +24,7 @@ createRoot(document.getElementById("root")!).render(
     <ContextProvider>
       <AuthProvider>
         <PersistGate persistor={persister}>
-          <RouterProvider router={rootRouter} />
+          <RouterProvider router={rootRouter}/>
         </PersistGate>
       </AuthProvider>
     </ContextProvider>
