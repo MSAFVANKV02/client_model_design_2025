@@ -6,7 +6,7 @@ import CategoryCard from "@/components/landings/maniHome/Shop_By_Cat/CategoryCar
 import { ProductsDetail } from "@/utils/CardDetails";
 import { useWindowSize } from "@react-hook/window-size";
 
-export default function MainHome() {
+function MainHome() {
   const [width] = useWindowSize();
   const BannerDetails = [
     {
@@ -207,3 +207,4 @@ export default function MainHome() {
     </div>
   );
 }
+export default MainHome
