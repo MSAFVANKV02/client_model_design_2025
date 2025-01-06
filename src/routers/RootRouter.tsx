@@ -1,4 +1,3 @@
-
 import { createBrowserRouter } from "react-router-dom";
 
 // Lazy load components
@@ -66,247 +65,249 @@ import { Suspense } from "react";
 
 const isLogged = isAuthenticated();
 
-const rootRouter = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <Suspense>
+const rootRouter = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: (
+        <Suspense>
+          <ScrollProvider>{isLogged ? <AppLayout /> : <App />}</ScrollProvider>
+        </Suspense>
+      ),
+      children: [
+        {
+          index: true,
+          path: "/",
+          element: (
+            <ProtectedRoute isProtected={true} isHomeLogin={true}>
+              {isLogged ? <MainHome /> : <HomePage />}
+            </ProtectedRoute>
+          ),
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: "/register",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              <Register />{" "}
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/login",
+          element: (
+            <ProtectedRoute isProtected={false}>
+              <UserLogin />{" "}
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/about",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <About />{" "}
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/folder",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <FolderStructure />{" "}
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/register/otp-verification",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              <OtpVerificationPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/register/user-details",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <UserDetails />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/category/:slug",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <CategoryProductsPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/products/:slug",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <Products />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/cart",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <ShoppingCart />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/cart/checkout",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <CheckoutPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/cart/checkout/order-confirmation",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <ConfirmOrder />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/my-account",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <SettingsProfilePage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/my-account/my-orders",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <MyOrdersPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/my-account/my-orders/:slug",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <SingleOrderPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/my-account/my-orders/:slug/review/:orderId",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <UseReviewPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/my-account/chat",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <ChatPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/my-account/my-wishlist",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <WishlistPage />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/my-account/return",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <UseReturnPage />
+            </ProtectedRoute>
+          ),
+        },
+      ],
+    },
 
-         <ScrollProvider>{isLogged ? <AppLayout /> : <App />}</ScrollProvider>
-      </Suspense>
-     
-    ),
-    children: [
-      {
-        index: true,
-        path: "/",
-        element: (
-          <ProtectedRoute isProtected={true} isHomeLogin={true}>
-            {isLogged ? <MainHome /> : <HomePage />}
-          </ProtectedRoute>
-        ),
-        errorElement:<ErrorPage />
-      },
-      {
-        path: "/register",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            <Register />{" "}
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/login",
-        element: (
-          <ProtectedRoute isProtected={false}>
-            <UserLogin />{" "}
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/about",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <About />{" "}
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/folder",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <FolderStructure />{" "}
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/register/otp-verification",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            <OtpVerificationPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/register/user-details",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <UserDetails />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/category/:slug",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <CategoryProductsPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/products/:slug",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <Products />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/cart",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <ShoppingCart />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/cart/checkout",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <CheckoutPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/cart/checkout/order-confirmation",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <ConfirmOrder />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/my-account",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <SettingsProfilePage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/my-account/my-orders",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <MyOrdersPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/my-account/my-orders/:slug",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <SingleOrderPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/my-account/my-orders/:slug/review/:orderId",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <UseReviewPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/my-account/chat",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <ChatPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/my-account/my-wishlist",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <WishlistPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/my-account/return",
-        element: (
-          <ProtectedRoute isProtected={true}>
-            {" "}
-            <UseReturnPage />
-          </ProtectedRoute>
-        ),
-      },
-     
-    ],
-  },
+    //   ===== KYC Sections =================================
+    {
+      path: "/kyc",
 
-  //   ===== KYC Sections =================================
-  {
-    path: "/kyc",
+      element: (
+        <Suspense>
+          <ScrollProvider>
+            <ProtectedRoute>
+              <KycLayout />
+            </ProtectedRoute>
+          </ScrollProvider>
+        </Suspense>
+      ),
+      children: [
+        {
+          index: true,
+          path: "/kyc",
+          element: <KycHome />,
+        },
+        {
+          path: "details",
+          element: <KycDetails />,
+        },
+      ],
+    },
+    //   ===== Admin Sections =================================
+    {
+      path: "/admin",
 
-    element: (
-      <Suspense>
-              <ScrollProvider>
-        <ProtectedRoute>
-          <KycLayout />
-        </ProtectedRoute>
-      </ScrollProvider>
-      </Suspense>
+      element: <AdmLayout />,
+      children: [
+        {
+          index: true,
+          path: "/admin",
+          element: <DashboardLayoutBasic />,
+        },
+        {
+          path: "dashboard",
+          element: <DashboardLayoutBasic />, // Loads at "/admin/dashboard"
+        },
+        {
+          path: "orders/pending",
+          element: <UserDetails />, // Loads at "/admin/dashboard"
+        },
+        {
+          path: "orders/completed",
+          element: <UserDetails />, // Loads at "/admin/dashboard"
+        },
+      ],
+    },
+    {
+      path: "*",
 
-    ),
-    children: [
-      {
-        index: true,
-        path: "/kyc",
-        element: <KycHome />,
-      },
-      {
-        path: "details",
-        element: <KycDetails />,
-      },
-    ],
-  },
-  //   ===== Admin Sections =================================
-  {
-    path: "/admin",
-
-    element: <AdmLayout />,
-    children: [
-      {
-        index: true,
-        path: "/admin",
-        element: <DashboardLayoutBasic />,
-      },
-      {
-        path: "dashboard",
-        element: <DashboardLayoutBasic />, // Loads at "/admin/dashboard"
-      },
-      {
-        path: "orders/pending",
-        element: <UserDetails />, // Loads at "/admin/dashboard"
-      },
-      {
-        path: "orders/completed",
-        element: <UserDetails />, // Loads at "/admin/dashboard"
-      },
-    ],
-  },
-  {
-    path: "*",
-
-    element: <ErrorPage />,
-  },
-  
-], { basename: "/" });
+      element: (
+        <Suspense>
+          <ErrorPage />
+        </Suspense>
+      ),
+    },
+  ],
+  { basename: "/" }
+);
 
 export default rootRouter;
