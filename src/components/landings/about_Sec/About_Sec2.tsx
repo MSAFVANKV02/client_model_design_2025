@@ -12,7 +12,7 @@ function AboutSec2() {
       <div className="text-center flex flex-col justify-center items-center">
         <div className=" sm:w-3/4 ">
           <h5>What We Have</h5>
-          <small className="text-gray-400">
+          <small className="text-gray-400 ">
             Ayaboo, proudly operated by Haash India Exports Pvt. Ltd., is a
             dynamic B2B e-commerce platform designed to showcase and distribute
             our exclusive range of branded products. Our platform offers a

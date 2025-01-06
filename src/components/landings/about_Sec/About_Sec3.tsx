@@ -36,7 +36,7 @@ function AboutSec3() {
         <div className="text-white md:w-1/2 w-full space-y-3">
           <div className="">
             <p className="">Mission</p>
-            <small className="text-xs">
+            <small className="">
               At Ayaboo, our mission is to revolutionize the B2B e-commerce
               experience by offering a dedicated platform that provides
               businesses with easy access to our exclusive range of premium
@@ -54,7 +54,7 @@ function AboutSec3() {
           {/* --- */}
           <div className="">
             <p className="">Vision</p>
-            <small className="text-xs">
+            <small className="">
               Our vision at Ayaboo is to be the leading B2B e-commerce platform,
               renowned for connecting businesses with top-tier branded products
               through innovative technology and exceptional service. We aspire

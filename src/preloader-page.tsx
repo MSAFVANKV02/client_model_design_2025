@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "@/assets/css/preloader.css"
 function PreloaderPage() {
   return (
-    <div className="fixed top-0 left-0  bg-white h-screen w-full z-[10003] flex justify-center items-center">
+    <div className="fixed top-0 left-0  bg-white/50 backdrop-blur-sm h-screen w-full z-[10003] flex justify-center items-center">
       <Link className="flex gap-2 group items-center select-none" to={`/`}>
         <div className="h-10 relative w-10 rounded-2xl bg-textMain flex items-center justify-center overflow-hidden">
           {/* Image slides continuously */}
@@ -22,7 +22,7 @@ function PreloaderPage() {
             className="absolute animate-slideIcon"
           />
         </div>
-        <h4 className="font-bold">Ayaboo</h4>
+        {/* <h4 className="font-bold">Ayaboo</h4> */}
       </Link>
     </div>
   );

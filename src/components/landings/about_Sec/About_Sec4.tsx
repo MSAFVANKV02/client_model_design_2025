@@ -24,7 +24,7 @@ function AboutSec4() {
           <div className="md:w-1/2 w-full h-full space-y-11">
             {/* ------- */}
             <div className=" h-full">
-              <h4 className="text-gray-700">Contact Us</h4>
+              <h4 className="text-white">Contact Us</h4>
               <div className="text-white">
                 <h3>We're Here to Help</h3>
                 <h3>Reach Out for Support </h3>
@@ -33,19 +33,45 @@ function AboutSec4() {
             </div>
             {/* ===== */}
             <div className="mt-auto h-full flex flex-col text-white">
-              <a href="tel:974488444" className="flex items-center gap-3"><img src="img/icons/Phone_icon.svg" alt="" /> 974488444</a>
-              <a href="tel:974488444" className="flex items-center gap-3"><img src="img/icons/logos_whatsapp-icon.svg" alt="" /> 974488444</a>
+              <a href="tel:974488444" className="flex items-center gap-3">
+                <img src="img/icons/Phone_icon.svg" alt="" /> 974488444
+              </a>
+              <a href="tel:974488444" className="flex items-center gap-3">
+                <img src="img/icons/logos_whatsapp-icon.svg" alt="" /> 974488444
+              </a>
             </div>
           </div>
           {/* second half */}
           <div className="md:w-1/2 w-full mt-auto">
-          <div className="border-l pl-3">
-            <span className="text-gray-500 flex flex-wrap items-center gap-1">Merchant Legal entity name: <h5 className="text-white">HAASH INDIA EXPORTS PRIVATE LIMITED</h5></span>
-            <span className="text-gray-500 flex flex-wrap items-center gap-1">Registered Address: <h5 className="text-white">Ground Floor, 45/J, Cee Pee's Building, Ambala Mukku, Malayamma Kozhikode KERALA 673601</h5></span>
-            <span className="text-gray-500 flex flex-wrap items-center gap-1">Operational Address: <h5 className="text-white">Ground Floor, 45/J, Cee Pee's Building, Ambala Mukku, Malayamma Kozhikode KERALA 673601</h5></span>
-            <span className="text-gray-500 flex flex-wrap items-center gap-1">Telephone No: <h5 className="text-white">9846012078</h5></span>
-
-          </div>
+            <div className="border-l pl-3">
+              <div className="flex lg:flex-row flex-col justify-between">
+                <span>Merchant Legal entity name:</span>
+                <span className="lg:w-3/4 text-white">
+                  HAASH INDIA EXPORTS PRIVATE LIMITED
+                </span>
+              </div>
+              {/*  */}
+              <div className="flex lg:flex-row flex-col justify-between">
+                <span>Registered Address: </span>
+                <span className="lg:w-3/4 text-white">
+                  Ground Floor, 45/J, Cee Pee's Building, Ambala Mukku,
+                  Malayamma Kozhikode KERALA 673601
+                </span>
+              </div>
+              {/*  */}
+              <div className="flex lg:flex-row flex-col justify-between">
+                <span>Operational Address: </span>
+                <span className="lg:w-3/4 text-white">
+                  Ground Floor, 45/J, Cee Pee's Building, Ambala Mukku,
+                  Malayamma Kozhikode KERALA 673601
+                </span>
+              </div>
+              {/*  */}
+              <div className="flex lg:flex-row flex-col justify-between">
+                <span>Telephone No: </span>
+                <span className="lg:w-3/4 text-white">9846012078</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

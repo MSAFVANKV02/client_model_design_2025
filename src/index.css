@@ -137,6 +137,10 @@ span{
   color: gray ;
 }
 
+small{
+  @apply xl:text-sm 
+}
+
 label {
   margin: 0px 0px 0px 0px !important;
 }
@@ -187,6 +191,10 @@ label {
 }
 .section_container2 {
   @apply  2xl:px-0 xl:px-20 md:px-14 sm:px-10 px-2 mx-auto;
+}
+
+.page-container{
+  @apply w-full max-w-screen-2xl mx-auto;
 }
 
 .bg-combined-gradients {

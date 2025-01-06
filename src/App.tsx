@@ -53,8 +53,11 @@ function App() {
         })}
       >
         <StaticNavbar />
-
-        <Outlet />
+        
+        <div className="">
+           <Outlet />
+        </div>
+       
         <Footer />
         <Toaster position="top-right" reverseOrder={false} />
       </div>
