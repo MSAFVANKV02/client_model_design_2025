@@ -21,9 +21,9 @@ import axios from "axios";
 import { makeToast, makeToastError } from "@/utils/toaster";
 // import ClipLoader from "react-spinners/ClipLoader";
 const ClipLoader = React.lazy(() => import("react-spinners/ClipLoader"));
-// import { VerifyOtpRegisterUser } from "@/utils/urlPath";
 import OtpTimer from "@/hooks/otp-timer";
-import Cookies from "js-cookie";
+
+import { RESEND_OTP_USER, VERIFY_OTP_REGISTER_USER } from "@/utils/urlPath";
 // Define the Zod schema for OTP validation
 const formSchema = z.object({
   otp: z
@@ -64,55 +64,55 @@ function OtpVerificationPage() {
   });
 
   // Handle form submission
-  // const onSubmit = async (data: FormData) => {
-  //   console.log(`OTP entered: ${data.otp}`);
+  const onSubmit = async (data: FormData) => {
+    console.log(`OTP entered: ${data.otp}`);
 
-  //   try {
-  //     const response = await axios.post(VerifyOtpRegisterUser, {
-  //       otp: data.otp,
-  //       mobile: auth,
-  //     });
+    try {
+      const response = await axios.post(VERIFY_OTP_REGISTER_USER, {
+        otp: data.otp,
+        mobile: auth,
+      });
 
-  //     if (response.status === 200) {
-  //       if (response.data.success) {
-  //         makeToast("Otp Verified Successfully.");
-  //         // Navigate to the user details page
-  //         navigate(`/register/user-details?auth=${auth}`);
-  //       }
-  //     }
-  //   } catch (error: unknown) {
-  //     setLoading(false);
-  //     if (axios.isAxiosError(error)) {
-  //       // console.log(
-  //       //   "Error sending OTP:",
-  //       //   error.response?.data || error.message
-  //       // );
-  //       if (error.response?.status === 500) {
-  //         makeToastError("Enter Valid Mobile");
-  //       } else if (error.response?.data.success === false) {
-  //         makeToastError(error.response?.data.message);
-  //       }
-  //     } else {
-  //       // console.log("Unexpected error:", error);
-  //     }
-  //   }
+      if (response.status === 200) {
+        if (response.data.success) {
+          makeToast("Otp Verified Successfully.");
+          // Navigate to the user details page
+          navigate(`/register/user-details?auth=${auth}`);
+        }
+      }
+    } catch (error: unknown) {
+      setLoading(false);
+      if (axios.isAxiosError(error)) {
+        // console.log(
+        //   "Error sending OTP:",
+        //   error.response?.data || error.message
+        // );
+        if (error.response?.status === 500) {
+          makeToastError("Enter Valid Mobile");
+        } else if (error.response?.data.success === false) {
+          makeToastError(error.response?.data.message);
+        }
+      } else {
+        // console.log("Unexpected error:", error);
+      }
+    }
 
-  //   // Here, you can add your logic to send the OTP for verification
-  //   // e.g., making an API call to verify the OTP
-  // };
+    // Here, you can add your logic to send the OTP for verification
+    // e.g., making an API call to verify the OTP
+  };
 
-  const dummySubmit = () => {
-    Cookies.remove('us_b2b_tkn');
-    makeToast("Otp Verified Successfully.");
-    navigate(`/register/user-details?auth=${auth}`);
+  // const dummySubmit = () => {
+  //   Cookies.remove('us_b2b_tkn');
+  //   makeToast("Otp Verified Successfully.");
+  //   navigate(`/register/user-details?auth=${auth}`);
  
-  }
+  // }
 
   // # ====  Resend the OTP =================
   const handleResendOtp = async () => {
     try {
       setLoading(true);
-      const response = await axios.post(`/user/resendOtp`, {
+      const response = await axios.post(RESEND_OTP_USER, {
         mobile: auth,
       });
       if (response.status === 200) {
@@ -163,7 +163,7 @@ function OtpVerificationPage() {
             Enter the 6-digit OTP sent to your mobile number.
           </p>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(dummySubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               {/* OTP Input Field */}
               <FormField
                 control={form.control}

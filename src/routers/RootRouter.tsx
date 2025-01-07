@@ -53,7 +53,7 @@ import WishlistPage from "@/pages/UserSide/my-account/wishlist/wishlist-page";
 import UseReviewPage from "@/pages/UserSide/my-account/reviews/use-review-page";
 import UseReturnPage from "@/pages/UserSide/my-account/return_user/user-return-page";
 import { Suspense } from "react";
-import PreloaderPage from "@/preloader-page";
+// import PreloaderPage from "@/preloader-page";
 
 // import withAuth from "@/middlewares/WithAuth";
 
@@ -71,7 +71,7 @@ const rootRouter = createBrowserRouter(
     {
       path: "/",
       element: (
-        <Suspense fallback={<PreloaderPage/>}>
+        <Suspense >
           <ScrollProvider>{isLogged ? <AppLayout /> : <App />}</ScrollProvider>
         </Suspense>
       ),
@@ -261,7 +261,7 @@ const rootRouter = createBrowserRouter(
       path: "/kyc",
 
       element: (
-        <Suspense fallback={<PreloaderPage/>}>
+        <Suspense >
           <ScrollProvider>
             <ProtectedRoute>
               <KycLayout />
@@ -310,7 +310,7 @@ const rootRouter = createBrowserRouter(
       path: "*",
 
       element: (
-        <Suspense fallback={<PreloaderPage/>}>
+        <Suspense >
           <ErrorPage />
         </Suspense>
       ),
