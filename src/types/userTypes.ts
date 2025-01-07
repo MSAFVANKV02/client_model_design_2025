@@ -1,18 +1,37 @@
-export interface IUserProps {
+// export interface IUserProps {
+//     _id: string;
+//     name: string;
+//     shopName?: string; // Optional field
+//     mobile?: string; // Optional
+//     mobile4OTP?: string; // Optional
+//     pinCode?: string; // Optional
+//     otp?: string; // Optional
+//     isVerified: boolean;
+//     isBlocked?: boolean;
+//     policyVerified: boolean;
+//     kycApproved?: boolean;
+//     createdAt?: Date;
+//     updatedAt?: Date;
+//   }
+
+  export interface IUserProps {
     _id: string;
-    name: string;
-    shopName?: string; // Optional field
-    mobile?: string; // Optional
-    mobile4OTP?: string; // Optional
-    pinCode?: string; // Optional
-    otp?: string; // Optional
+    mobile: string;
     isVerified: boolean;
-    isBlocked?: boolean;
+    isRegistered: boolean;
+    isBlocked: boolean;
     policyVerified: boolean;
-    kycApproved?: boolean;
-    createdAt?: Date;
-    updatedAt?: Date;
+    kycSubmitted: boolean;
+    kycApproved: boolean;
+    isWhatsappApproved: boolean;
+    createdAt: string; // ISO date string
+    updatedAt: string; // ISO date string
+    // __v: number;
+    name: string;
+    pinCode: string;
+    shopName: string;
   }
+  
   
 
 export interface IKycProps {

@@ -8,23 +8,24 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/providers/AuthContext";
 import AccountMenu from "./AccountMenu";
 import Logo from "./Logo";
+import Cookies from "js-cookie";
 
 export type INavbarItems = {
   href: string;
   title: string;
   icon: JSX.Element;
-  current:boolean
+  current: boolean;
   // subItems?: INavbarItems[];
-}
+};
 type NavbarProps = {
   navItems: INavbarItems[];
 };
 
-function Navbar({ navItems }: NavbarProps)  {
+function Navbar({ navItems }: NavbarProps) {
   const location = useLocation();
   // const navigate = useNavigate();
   const isLoggedIn = isAuthenticated_4_Kyc();
-  const {  handleLogout} = useAuth();
+  const { handleLogout } = useAuth();
 
   const [user] = useState(() => {
     const userFromStorage = localStorage.getItem("userProfile");
@@ -37,7 +38,6 @@ function Navbar({ navItems }: NavbarProps)  {
     }
   }, [isLoggedIn, user]);
 
-    
   return (
     <nav
       className={`w-full flex py-5 bg-transparent ${
@@ -46,7 +46,7 @@ function Navbar({ navItems }: NavbarProps)  {
     >
       <div className="flex justify-between w-full">
         {/* Navbar Logo */}
-       <Logo/>
+        <Logo />
 
         <div className="lg:flex hidden items-center gap-16">
           {/* ==== Search Bar  starting------ */}
@@ -74,13 +74,21 @@ function Navbar({ navItems }: NavbarProps)  {
 
                   {/* Modal should appear correctly on hover */}
                   <div className="absolute hidden group-hover:block top-full -right-1/2  z-10  items-center p-4">
-                  <div className=" w-[200px] p-2 rounded-lg flex flex-col  bg-bgSoft shadow-lg">
-                     <span className="text-sm font-semibold text-center text-black">{user.name}</span>
-                    <Button className="mt-2" variant={'b2bStyle'}
-                    onClick={()=>handleLogout('/')}
-                    >Logout</Button>
-                  </div>
-                   
+                    <div className=" w-[200px] p-2 rounded-lg flex flex-col  bg-bgSoft shadow-lg">
+                      <span className="text-sm font-semibold text-center text-black">
+                        {user.name}
+                      </span>
+                      <Button
+                        className="mt-2"
+                        variant={"b2bStyle"}
+                        onClick={() => {
+                          Cookies.remove("us_tkn_kyc");
+                          handleLogout("/");
+                        }}
+                      >
+                        Logout
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </>
@@ -91,7 +99,7 @@ function Navbar({ navItems }: NavbarProps)  {
                   fontSize={25}
                   className=""
                 /> */}
-                <AccountMenu/>
+                <AccountMenu />
               </>
             )}
 

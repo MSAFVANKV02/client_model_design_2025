@@ -30,6 +30,7 @@ function AboutSec2() {
       {/* ``------------------------ */}
       <div className=" overflow-hidden relative my-4 text-white ">
         <div className="grid md:grid-cols-6 grid-cols-2 gap-3  overflow-hidden">
+          {/* card .1 */}
           <div className=" bg-combined-gradients2 rounded-2xl ">
             <div className="border border-white m-1 p-3 rounded-xl  relative hide-cnt">
               <img
@@ -44,7 +45,7 @@ function AboutSec2() {
             </div>
           </div>
 
-          {/* 2 */}
+          {/* card 2 */}
 
           <div className=" bg-combined-gradients2 rounded-2xl md:col-span-2 h-fit mt-auto">
             <div className="border border-white m-1 p-3 rounded-xl  relative hide-cnt  flex">
@@ -60,7 +61,7 @@ function AboutSec2() {
             </div>
           </div>
 
-          {/* 3 */}
+          {/* card 3 */}
           <div className=" bg-combined-gradients2 rounded-2xl md:col-span-2 h-fit mt-auto">
             <div className="border border-white m-1 p-3 rounded-xl  relative hide-cnt  flex">
               <div className="text-white z-50">
@@ -74,7 +75,7 @@ function AboutSec2() {
               />
             </div>
           </div>
-          {/* 4 */}
+          {/* card 4 */}
           <div className=" bg-combined-gradients2 rounded-2xl ">
             <div className="border border-white m-1 p-3 rounded-xl  ">
               <img
@@ -93,7 +94,7 @@ function AboutSec2() {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1400 250"
-          className="absolute bottom-0 md:block hidden  opacity-40 left-0 right-0 rounded-xl"
+          className="absolute bottom-0 md:block hidden  pointer-events-none opacity-40 left-0 right-0 rounded-xl"
         >
           <path
             fill="#8F29E9"

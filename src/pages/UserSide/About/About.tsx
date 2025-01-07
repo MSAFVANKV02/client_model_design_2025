@@ -3,7 +3,7 @@ import AboutSec2 from "@/components/landings/about_Sec/About_Sec2"
 import AboutSec3 from "@/components/landings/about_Sec/About_Sec3"
 import AboutSec4 from "@/components/landings/about_Sec/About_Sec4"
 import usePageTitle from "@/hooks/usePageTitle"
-
+import "@/assets/css/home.css"
 
 function About() {
   usePageTitle('Ayaboo | About page')

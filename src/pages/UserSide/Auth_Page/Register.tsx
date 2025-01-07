@@ -62,6 +62,8 @@ function Register() {
 
       if (response.status === 200) {
         const { user } = response.data; // Destructure user from response
+        console.log(response.data);
+        
 
         if (user) {
           // Check if user exists

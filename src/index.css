@@ -176,7 +176,7 @@ label {
 /* ********   **********  **************/
 
 .section_container_dash {
-  @apply 2xl:px-0 xl:px-20 md:px-14 sm:px-10 px-5 mx-auto;
+  @apply  2xl:px-0 xl:px-20 md:px-14 sm:px-10 px-5 mx-auto;
 }
 
 .section_container_cards {

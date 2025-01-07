@@ -6,7 +6,7 @@ interface KycDetails {
   emailId: string;
   buildingName: string;
   street: string;
-  post: string;
+  // post: string;
   pinCode: string;
   state: string;
   country: string;
@@ -20,7 +20,7 @@ const initialState: KycDetails = {
   emailId: '',
   buildingName: '',
   street: '',
-  post: '',
+  // post: '',
   pinCode: '',
   state: '',
   country: '',
@@ -32,8 +32,11 @@ const kycSlice = createSlice({
   name: "kyc",
   initialState,
   reducers: {
-    saveKycDetails(_, action: PayloadAction<KycDetails>) {
-      return action.payload;
+    // saveKycDetails(_, action: PayloadAction<KycDetails>) {
+    //   return action.payload;
+    // },
+    saveKycDetails(state, action: PayloadAction<KycDetails>) {
+      Object.assign(state, action.payload); // Update state with new values
     },
     clearKycDetails() {
       return initialState;

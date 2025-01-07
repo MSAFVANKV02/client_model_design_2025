@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { clearKycDetails, uploadFile } from "@/redux/userSide/KycSlice";
+import { clearKycDetails, restProofType, uploadFile } from "@/redux/userSide/KycSlice";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@/components/ui/button";
 import { pdfjs } from "react-pdf";
@@ -10,8 +10,9 @@ import { useNavigate } from "react-router-dom";
 import { makeToast, makeToastError } from "@/utils/toaster";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useAuth } from "@/providers/AuthContext";
-// import { UploadUserKycDetails } from "@/utils/urlPath";
-import Cookies from "js-cookie";
+// import { UPLOAD_USER_KYC } from "@/utils/urlPath";
+import axios from "axios";
+import { UPLOAD_USER_KYC } from "@/utils/urlPath";
 
 // pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 //   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -27,14 +28,13 @@ export default function KycUpload() {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const {
-    // businessName,
-    // emailId,
-    // buildingName,
-    // street,
-    // post,
-    // pinCode,
-    // state,
-    // country,
+    businessName,
+    emailId,
+    buildingName,
+    street,
+    pinCode,
+    state,
+    country,
     proofType,
     uploadedFile,
   } = useAppSelector((state) => state.kyc);
@@ -87,53 +87,52 @@ export default function KycUpload() {
       return;
     }
 
-    setLoading(true); // Set loading state to true
-    makeToast("KYC submitted successfully");
-    dispatch(clearKycDetails());
-    handleLogout('/');
-    navigate(`/`);
-    const token = "b2bdevtokenwithdummy00data"
-    Cookies.set('us_b2b_tkn', token, {
-      expires: 1, // 7 days
-      secure: true, // Use HTTPS
-      sameSite: 'strict', // Prevent cross-site CSRF
-    });
+    // setLoading(true); // Set loading state to true
+    // makeToast("KYC submitted successfully");
+    // dispatch(clearKycDetails());
+    // handleLogout('/');
+    // navigate(`/`);
+    // const token = "b2bdevtokenwithdummy00data"
+    // Cookies.set('us_b2b_tkn', token, {
+    //   expires: 1, // 7 days
+    //   secure: true, // Use HTTPS
+    //   sameSite: 'strict', // Prevent cross-site CSRF
+    // });
 
-    // try {
-    //   const formData = new FormData();
+    try {
+      const formData = new FormData();
 
-    //   // Append all KYC details to FormData
-    //   formData.append("businessName", businessName);
-    //   formData.append("emailId", emailId);
-    //   formData.append("buildingName", buildingName);
-    //   formData.append("street", street);
-    //   formData.append("post", post);
-    //   formData.append("pinCode", pinCode);
-    //   formData.append("state", state);
-    //   formData.append("country", country);
-    //   formData.append("proofType", proofType || ""); // Append proofType, ensure it's a string
-    //   formData.append("proof", uploadedFile); // Append the uploaded file
+      // Append all KYC details to FormData
+      formData.append("businessName", businessName);
+      formData.append("emailId", emailId);
+      formData.append("buildingName", buildingName);
+      formData.append("street", street);
+      formData.append("pinCode", pinCode);
+      formData.append("state", state);
+      formData.append("country", country);
+      formData.append("proofType", proofType || ""); // Append proofType, ensure it's a string
+      formData.append("proof", uploadedFile); // Append the uploaded file
 
-    //   const response = await axios.post(UploadUserKycDetails, formData, {
-    //     withCredentials: true,
-    //   }); // Specify the correct endpoint
+      const response = await axios.post(UPLOAD_USER_KYC, formData, {
+        withCredentials: true,
+      }); // Specify the correct endpoint
 
-    //   if (response.status === 200) {
-    //     makeToast("KYC submitted successfully");
-    //     dispatch(clearKycDetails());
-    //     handleLogout('/');
-    //     navigate(`/`);
-    //   }
-    // } catch (error: unknown) {
-    //   console.log("Unexpected error:", error);
-    //   if (axios.isAxiosError(error)) {
-    //     makeToastError(error.response?.data.message || "Failed to submit KYC");
-    //   } else {
-    //     console.log("Unexpected error:", error);
-    //   }
-    // } finally {
-    //   setLoading(false); // Set loading state back to false
-    // }
+      if (response.status === 200) {
+        makeToast("KYC submitted successfully");
+        dispatch(clearKycDetails());
+        handleLogout('/');
+        navigate(`/`);
+      }
+    } catch (error: unknown) {
+      console.log("Unexpected error:", error);
+      if (axios.isAxiosError(error)) {
+        makeToastError(error.response?.data.message || "Failed to submit KYC");
+      } else {
+        console.log("Unexpected error:", error);
+      }
+    } finally {
+      setLoading(false); // Set loading state back to false
+    }
   };
 
   return (
@@ -169,6 +168,12 @@ export default function KycUpload() {
                 Upload
               </Button>
             </div>
+            {/* change proof type  */}
+            <span className="text-xs underline text-blue-500 cursor-pointer"
+            onClick={()=>{
+              dispatch(restProofType())
+            }}
+            >Change Proof Type</span>
           </div>
         </div>
 

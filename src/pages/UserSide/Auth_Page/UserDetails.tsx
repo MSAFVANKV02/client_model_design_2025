@@ -66,6 +66,7 @@ function UserDetails() {
     try {
       setLoading(true);
       const response = await axios.post(SUBMIT_USER_DETAILS_REGISTRATION,{ ...data,mobile:auth});
+      console.log(response.data,'response.data userDetails');
       if (response.status === 200) {
         console.log("Data sent successfully",response.data);
         localStorage.setItem("userProfile", JSON.stringify(response.data.user));

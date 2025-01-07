@@ -23,7 +23,7 @@ const formSchema = z.object({
   emailId: z.string().email({ message: "Invalid email address." }),
   buildingName: z.string().min(1, { message: "Building name is required." }),
   street: z.string().min(1, { message: "Street name is required." }),
-  post: z.string().min(1, { message: "Post is required." }),
+  // post: z.string().min(1, { message: "Post is required." }),
   pinCode: z.string().min(1, { message: "Pincode is required." }),
   state: z.string().min(1, { message: "State is required." }),
   country: z.string().min(1, { message: "Country is required." }),
@@ -35,7 +35,7 @@ interface KycFormData {
   emailId: string;
   buildingName: string;
   street: string;
-  post: string;
+  // post: string;
   pinCode: string;
   state: string;
   country: string;
@@ -45,7 +45,7 @@ export default function KycDetails() {
   const dispatch = useAppDispatch();
   const kycDetails = useAppSelector((state) => state.kyc);
 
-  // console.log(kycDetails);
+  console.log(kycDetails,'kycDetails');
 
   const form = useForm<KycFormData>({
     resolver: zodResolver(formSchema),
@@ -54,7 +54,7 @@ export default function KycDetails() {
       emailId: "",
       buildingName: "",
       street: "",
-      post: "",
+      // post: "",
       pinCode: "",
       state: "",
       country: "",
@@ -71,24 +71,23 @@ export default function KycDetails() {
   const onSubmit = async (data: KycFormData) => {
     setLoading(true);
     try {
-      // fetch("http://localhost:3001/kyc",{
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(data),
-      // })
+      // Save the data to Redux
       dispatch(saveKycDetails(data));
-      // dispatch(clearKycDetails());
-
-      // Handle success (e.g., navigate to another page)
-      navigate(`/kyc/details?proofs=${kycDetails.buildingName}`);
+  
+      // Access the updated Redux state
+      const updatedKycDetails = {
+        ...data, // Ensure data from form submission is consistent
+      };
+  
+      // Navigate using the updated Redux state
+      navigate(`/kyc/details?proofs=${updatedKycDetails.buildingName}`);
     } catch (error) {
       console.error("Error submitting form:", error);
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="section_container_dash  py-10 space-y-4 min-h-screen">
@@ -192,9 +191,9 @@ export default function KycDetails() {
                   )}
                 />
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 gap-3">
                   {/* Post */}
-                  <FormField
+                  {/* <FormField
                     control={form.control}
                     name="post"
                     render={({ field }) => (
@@ -210,7 +209,7 @@ export default function KycDetails() {
                         <FormMessage />
                       </FormItem>
                     )}
-                  />
+                  /> */}
 
                   {/* Pin Code */}
                   <FormField
