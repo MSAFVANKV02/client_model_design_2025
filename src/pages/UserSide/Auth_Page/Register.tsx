@@ -28,8 +28,8 @@ import { setUserData } from "@/redux/userSide/UserAuthSlice";
 const formSchema = z.object({
   mobile: z
     .string()
-    .min(10, { message: "Phone number must be exactly 10 digits." }),
-  mobile4OTP: z.string().min(1, { message: "Mobile number is required." }), // Add validation for mobile4OTP if necessary
+    .min(13, { message: "Phone number must be exactly 10 digits." }),
+  mobile4OTP: z.string().min(10, { message: "Mobile number is required." }), // Add validation for mobile4OTP if necessary
 });
 
 interface FormData {
@@ -128,7 +128,7 @@ function Register() {
         className="absolute object-cover top-0 left-0 bottom-0 right-0 w-full h-full"
       />
 
-      <div className="bg-[#F5E9FF] max-w-[350px] h-fit backdrop-blur-2xl rounded-2xl p-5 flex flex-col gap-3 m-auto">
+      <div className="bg-[#F5E9FF] sm:max-w-[350px] max-w-[90%] h-fit backdrop-blur-2xl rounded-2xl p-5 flex flex-col gap-3 m-auto">
         <ArrowLeft onClick={() => navigate("/")} className="cursor-pointer" />
 
         <div className="flex flex-col w-full justify-center items-center space-y-5">
@@ -146,7 +146,7 @@ function Register() {
 
           {/* === form starting ======== */}
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
               <FormField
                 control={form.control}
                 name="mobile"
@@ -177,6 +177,7 @@ function Register() {
                           form.setValue("mobile", `${dialCode}-${phoneNumber}`);
                           form.setValue("mobile4OTP", phoneNumber);
                         }}
+                        searchClass="w-full"
                         inputClass="w-full p-5 mt-1 rounded-xl border border-gray-300"
                       />
                     </FormControl>
@@ -184,11 +185,12 @@ function Register() {
                   </FormItem>
                 )}
               />
-              <Button
+             <div className="flex items-center justify-center">
+             <Button
                 type="submit"
                 disabled={loading}
                 variant="b2bStyle"
-                className="w-full"
+                className="w-full "
                 size="b2b"
               >
                 {loading ? (
@@ -197,6 +199,7 @@ function Register() {
                   " Get Verification Code"
                 )}
               </Button>
+             </div>
             </form>
           </Form>
         </div>

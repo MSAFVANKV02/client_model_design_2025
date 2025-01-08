@@ -20,6 +20,18 @@ function StaticNavbar() {
       icon: <HomeIcon />,
       current: true,
     },
+    {
+      title: "Register",
+      href: "/register",
+      icon: <HomeIcon />,
+      current: false,
+    },
+    {
+      title: "Login",
+      href: "/login",
+      icon: <HomeIcon />,
+      current: false,
+    },
     // {
     //   title: "Services",
     //   href: "/services",
@@ -39,22 +51,24 @@ function StaticNavbar() {
          <Logo/>
 
         <div className="md:flex hidden items-center gap-10">
-          <ul className="flex justify-around list-none">
-            {navItems.map((item, index) => (
-              <li key={index} className="">
-                <Link
-                  to={item.href}
-                  draggable={false}
-                  className={`p-2 flex items-center gap-3 ${
-                    item.href === location.pathname
-                      ? "text-textMain underline underline-offset-4"
-                      : ""
-                  }`}
-                >
-                  {item.title}
-                </Link>
-              </li>
-            ))}
+        <ul className="flex justify-around list-none">
+            {navItems
+              .filter((nav) => nav.current)
+              .map((item, index) => (
+                <li key={index}>
+                  <Link
+                    to={item.href}
+                    draggable={false}
+                    className={`p-2 flex items-center gap-3 ${
+                      item.href === location.pathname
+                        ? "text-textMain underline underline-offset-4"
+                        : ""
+                    }`}
+                  >
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
           </ul>
           <div className="">
             <Button

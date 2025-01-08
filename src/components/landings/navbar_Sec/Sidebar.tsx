@@ -9,11 +9,10 @@ import {
   DrawerFooter,
   DrawerClose,
 } from "@/components/ui/drawer";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { INavbarItems } from "./Navbar";
 import { Avatar, Box } from "@mui/material";
-import AyButton from "@/components/myUi/AyButton";
-import Cookies from "js-cookie";
+
 
 type NavItem = {
   href: string;
@@ -34,7 +33,7 @@ type IPropsNavbar = {
 export function Sidebar({ navItems = [] }: IPropsNavbar) {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation(); // Ensure this is used for active link styling
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Define footer links
   const footerLinks = [
@@ -48,13 +47,13 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
     { href: "/privacy", label: "Privacy Policy" },
   ];
 
-  const logout = () => {
-    Cookies.remove('us_b2b_tkn');
-    window.location.reload();
-    Cookies.remove('us_b2b_kyc');
+  // const logout = () => {
+  //   Cookies.remove('us_b2b_tkn');
+  //   window.location.reload();
+  //   Cookies.remove('us_b2b_kyc');
 
-    navigate("/"); // Replace with actual logout logic
-  }
+  //   navigate("/"); // Replace with actual logout logic
+  // }
 
   return (
     <Drawer
@@ -114,7 +113,7 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
               </DrawerClose>
             ))}
           </div>
-          <div className="px-4 flex items-center justify-center mt-auto">
+          {/* <div className="px-4 flex items-center justify-center mt-auto">
             <AyButton
             title="Sign Out"
             variant="outlined"
@@ -125,7 +124,7 @@ export function Sidebar({ navItems = [] }: IPropsNavbar) {
             }}
             onClick={logout}
             />
-          </div>
+          </div> */}
         
         </div>
           {/* Sign Out Button */}

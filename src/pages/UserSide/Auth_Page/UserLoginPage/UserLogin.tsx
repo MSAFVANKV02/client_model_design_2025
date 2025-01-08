@@ -27,7 +27,7 @@ import axios from "axios";
 const formSchema = z.object({
   mobile: z
     .string()
-    .min(10, { message: "Phone number must be exactly 10 digits." }),
+    .min(13, { message: "Phone number must be exactly 10 digits." }),
   mobile4OTP: z.string().min(1, { message: "Mobile number is required." }), // Add validation for mobile4OTP if necessary
 });
 
@@ -109,7 +109,7 @@ function UserLogin() {
         draggable={false}
         className="absolute w-full h-full object-cover"
       />
-      <div className="flex flex-col mx-3 lg:flex-row w-full max-w-4xl h-auto bg-white shadow-lg rounded-3xl overflow-hidden">
+      <div className="flex flex-col mx-3 lg:flex-row w-full lg:max-w-4xl sm:max-w-[60%] max-w-[90%] h-auto bg-white shadow-lg rounded-3xl overflow-hidden">
         {/* Image Section */}
         <div className="hidden lg:block lg:w-3/4 relative">
           <img
