@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import KycBanner from "./KycBanner";
 import { saveKycDetails } from "@/redux/userSide/KycSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
@@ -87,6 +87,10 @@ export default function KycDetails() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   
 
   return (

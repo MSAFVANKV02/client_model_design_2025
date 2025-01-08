@@ -40,7 +40,8 @@ function UserLogin() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   // const [loading] = useState(false);
-  
+  const [message, setMessage] = useState("");
+
   const [showOtpLogin, setShowOtpLogin] = useState(false);
 
   const queryParams = new URLSearchParams(window.location.search);
@@ -69,16 +70,18 @@ function UserLogin() {
   // Handle form submission
   // stopped for presentation
   const onSubmit = async (data: FormData) => {
+    // console.log(data.mobile4OTP,'responce in page');
     try {
       setLoading(true);
       const response = await userLoginSendOtp(data.mobile4OTP);
       // response coming from userLoginSendOtp
-      // console.log(response,'responce in page');
-      
+
       if (response.status === 200) {
         makeToast(`Otp Sended to ${data.mobile4OTP}`);
         setShowOtpLogin(true);
         navigate(`/login?page=otp-log&auth=${data.mobile4OTP}`);
+        localStorage.setItem("otp-timer","60");
+        localStorage.removeItem("otp-finished");
       }
     } catch (error: unknown) {
       setLoading(false);
@@ -87,7 +90,7 @@ function UserLogin() {
           makeToastError(error.response?.data.message);
         }
       } else {
-        console.log("Unexpected error:",error);
+        console.log("Unexpected error:", error);
       }
     } finally {
       setLoading(false);
@@ -122,7 +125,11 @@ function UserLogin() {
 
         {/* Form Section */}
         {showOtpLogin ? (
-          <LoginOtpVerifyUser setShowOtpLogin={setShowOtpLogin} />
+          <LoginOtpVerifyUser
+            setShowOtpLogin={setShowOtpLogin}
+            setMessage={setMessage}
+            
+          />
         ) : (
           <div className="w-full lg:w-1/2 p-8 relative bg-[#F5E9FF] flex flex-col justify-center items-center">
             <ArrowLeft
@@ -135,10 +142,21 @@ function UserLogin() {
               className="w-28 h-28 mb-4"
             />
             <p className="font-bold text-xl mb-2">Enter Mobile Number</p>
-            <p className="text-gray-500 text-center mb-6">
+          
+
+            {message ? (
+              <div className="text-xs bg-green-100 p-2 rounded-md w-full my-3">
+                {message}{" "}
+                <Link to={`/`} className="text-blue-500 underline">
+                  Visit Our Home
+                </Link>
+              </div>
+            ):(
+              <p className="text-gray-500 text-center mb-6">
               Enter your 10-digit mobile number to receive the verification
               code.
             </p>
+            )}
 
             <Form {...form}>
               <form

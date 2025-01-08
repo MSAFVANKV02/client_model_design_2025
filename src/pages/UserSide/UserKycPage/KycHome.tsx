@@ -1,10 +1,22 @@
-import { useScrollContext } from "@/providers/context/ScrollContext";
+import AyButton from "@/components/myUi/AyButton";
+import { useNavigate } from "react-router-dom";
 
 export default function KycHome() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // const location = useLocation();
 
-  const { handleKycDetailsClick } = useScrollContext();
+  // const { handleKycDetailsClick } = useScrollContext();
+  const PromoteCards = [
+    { title: "5 Lakh+", subtitle: "of products" },
+    {
+      title: "150 +",
+      subtitle: "Varieties of Categories",
+    },
+    {
+      title: "1000+",
+      subtitle: "of Customers",
+    },
+  ];
 
   const kycCards = [
     {
@@ -34,35 +46,15 @@ export default function KycHome() {
     },
   ];
 
-  // const handleCardClick = () => {
-  //   sessionStorage.setItem("scrollPosition", window.scrollY); // Save scroll position
-  //   navigate("/kyc/details"); // Navigate to details page
-  // };
-
-  // useEffect(() => {
-  //   const savedScrollPosition = sessionStorage.getItem("scrollPosition");
-  //   if (savedScrollPosition) {
-  //     window.scrollTo(0, parseInt(savedScrollPosition, 10)); // Restore scroll position
-  //     sessionStorage.removeItem("scrollPosition"); // Clean up the session storage
-  //   }
-  // }, []);
-  // const handleCardClick = () => {
-  //   const currentScrollPosition = window.scrollY; // Get current scroll position
-  //   navigate("/kyc/details", { state: { scrollPosition: currentScrollPosition } });  // Pass scroll position in navigate state
-  // };
-
-  // // Restore scroll position when the page loads
-  // useEffect(() => {
-  //   if (location.state && location.state.scrollPosition) {
-  //     window.scrollTo(0, location.state.scrollPosition);  // Restore scroll position from history state
-  //   }
-  // }, [location]);
+  const handleKycDetailsClick = () => {
+    navigate("/kyc/details");
+  };
 
   return (
     <div className=" md:space-y-10 space-y-5  select-none pb-10">
       {/*-------- Section 1 ====== */}
 
-      <div className="w-full relative">
+      {/* <div className="w-full relative">
         <img
           src="/img/kyc/banner.webp"
           draggable={false}
@@ -75,7 +67,7 @@ export default function KycHome() {
           alt=""
           className="w-full md:hidden block"
         />
-        {/* =====  Button Image =======  */}
+        =====  Button Image ======= 
         <img
           onClick={handleKycDetailsClick}
           src="/img/kyc/button complete kyc.webp"
@@ -83,11 +75,52 @@ export default function KycHome() {
           className="absolute  md:top-1/2 top-[45%] md:w-[10%] w-[20%] -translate-y-1/2 left-1/2 md:-translate-x-[72%] -translate-x-[35%] active:scale-95 duration-300 transition-all cursor-pointer"
           alt=""
         />
-        {/* =====  Button Image =======  */}
-
-        {/* <Button variant={`b2bStyle`} size={`b2b`} className="absolute top-1/2 flex gap-3 -translate-y-1/2 left-1/2 2xl:-translate-x-[72%] xl:-translate-x-[50%] sm:-translate-x-[32%] lg:px-10 md:h-12 lg:py-5 py-2 px-3 h-2">
-          Complete Kyc <Icon icon="ph:arrow-right-thin" fontSize={20}/>
-        </Button> */}
+       
+      </div> */}
+      <div className="w-full bg-gray-50 lg:py-0 py-5 lg:h-[400px] lg:justify-around h-fit sm:px-14 px-2 lg:gap-16 gap-5 flex lg:flex-row flex-col">
+        <img
+          src="/public/kycPage/kycSec_01.png"
+          alt="cart image"
+          className="lg:h-[400px] lg:w-[400px] h-[150px] w-[150px] lg:mx-0 mx-auto"
+          draggable={false}
+        />
+        <div className="flex flex-col justify-around lg:items-start items-center">
+          <div className="flex flex-col lg:items-start items-center mb-5">
+            {/* ===== */}
+            <h1 className="text-textMain uppercase font-bold text-center">
+              Hello, Shop Owners!
+            </h1>
+            <span className="text-[#4A2E71] text-xl mb-4">
+              We're Glad to Have You Here.
+            </span>
+            <AyButton
+              title="Complete KYC"
+              sx={{
+                bgcolor: "#8817EC",
+                py: "12px",
+                px: "12px",
+                borderRadius: "12px",
+              }}
+              onClick={handleKycDetailsClick}
+            />
+          </div>
+          {/* ======= */}
+          <div className="bg-white w-full p-5 rounded-xl shadow-md">
+            <ul className="grid grid-cols-3">
+              {PromoteCards.map((card, index) => (
+                <li
+                  key={index}
+                  className={`flex flex-col text-center ${index !== PromoteCards.length - 1 ? " border-r" : ""}`}
+                >
+                  <span className="text-2xl font-bold text-textSec">
+                    {card.title}
+                  </span>
+                  <span>{card.subtitle}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
 
       {/*-------- Section 2 ====== */}
@@ -98,13 +131,13 @@ export default function KycHome() {
           draggable={false}
           alt=""
           className="w-full md:block hidden"
-          />
-          <img
-            src="/img/kyc/krc_responsive_banner02.svg"
-            draggable={false}
-            alt=""
-            className="w-full md:hidden block"
-          />
+        />
+        <img
+          src="/img/kyc/krc_responsive_banner02.svg"
+          draggable={false}
+          alt=""
+          className="w-full md:hidden block"
+        />
         {/* =====  Button Image =======  */}
         <img
           onClick={handleKycDetailsClick}
@@ -125,13 +158,13 @@ export default function KycHome() {
           draggable={false}
           alt=""
           className="w-full md:block hidden"
-          />
-          <img
-            src="/img/kyc/krc_responsive_banner03.svg"
-            draggable={false}
-            alt=""
-            className="w-full md:hidden block"
-          />
+        />
+        <img
+          src="/img/kyc/krc_responsive_banner03.svg"
+          draggable={false}
+          alt=""
+          className="w-full md:hidden block"
+        />
         {/* =====  Button Image =======  */}
         <img
           onClick={handleKycDetailsClick}

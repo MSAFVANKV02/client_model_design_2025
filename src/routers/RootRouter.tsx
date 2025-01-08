@@ -263,11 +263,11 @@ const rootRouter = createBrowserRouter(
 
       element: (
         <Suspense fallback={<PreloaderPage/>} >
-          <ScrollProvider>
+          {/* <ScrollProvider> */}
             <ProtectedRoute>
               <KycLayout />
             </ProtectedRoute>
-          </ScrollProvider>
+          {/* </ScrollProvider> */}
         </Suspense>
       ),
       children: [

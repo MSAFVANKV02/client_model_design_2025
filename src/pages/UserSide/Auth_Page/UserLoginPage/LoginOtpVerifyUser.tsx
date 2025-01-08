@@ -5,7 +5,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import axios from "axios";
 import {  useState } from "react";
 import { ArrowLeft } from "lucide-react";
@@ -35,12 +35,13 @@ interface FormData {
 
 type Props = {
   setShowOtpLogin: (value: boolean) => void;
+  setMessage: (value: string) => void;
 };
 
-export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
+export default function LoginOtpVerifyUser({ setShowOtpLogin, setMessage }: Props) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   // const [message] = useState("");
 
   // const [timer, setTimer] = useState<number>(() => {
@@ -108,22 +109,23 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
 
       if (response.status === 200 && response.data.success) {
         if (response.data.user) {
+          localStorage.setItem("otp-timer","0");
           // if(response.data.user.){
 
           // }
           if (
-            response.data.user.isVerified &&
-            response.data.user.isRegistered &&
-            response.data.user.isKycCompleted &&
-            response.data.user.kycApproved
+            // response.data.user.isVerified &&
+            // response.data.user.isRegistered &&
+            response.data.user.kycApproved &&
+            response.data.user.kycsubmitted
           ) {
             makeToast("Otp Verified Successfully.");
-            navigate(`/`);
-            window.location.reload();
+            // navigate(`/`);
+            // window.location.reload();
           } else if (
             response.data.user.isVerified &&
             response.data.user.isRegistered && 
-            !response.data.user.isKycCompleted 
+            !response.data.user.kycsubmitted 
           ) {
             makeToast("Complete Kyc registration..");
             navigate(`/kyc`);
@@ -133,10 +135,11 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
           ) {
             makeToast("Your account is under Processing....");
             navigate(`/register/user-details?auth=${auth}`);
+            setShowOtpLogin(false);
           } else {
             makeToast("Your account is under Processing....");
             setMessage("Your account is under Processing");
-            // navigate(`/register`);
+            navigate(`/kyc`);
           }
         }
 
@@ -217,14 +220,7 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin }: Props) {
         Enter 6 digit verification code sent to{" "}
         <b className="text-black">Mobile Number</b>
       </p>
-      {message && (
-        <p className="text-xs bg-green-100 p-2 rounded-md">
-          {message}{" "}
-          <Link to={`/`} className="text-blue-500 underline">
-            Visit Our Home
-          </Link>
-        </p>
-      )}
+     
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

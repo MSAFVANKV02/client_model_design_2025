@@ -72,7 +72,7 @@ function OtpVerificationPage() {
         otp: data.otp,
         mobile: auth,
       });
-      console.log(response.data,'response.data otp verifying');
+      // console.log(response.data,'response.data otp verifying');
       
 
       if (response.status === 200) {

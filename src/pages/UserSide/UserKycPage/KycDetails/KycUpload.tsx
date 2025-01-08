@@ -118,10 +118,11 @@ export default function KycUpload() {
       }); // Specify the correct endpoint
 
       if (response.status === 200) {
-        makeToast("KYC submitted successfully");
         dispatch(clearKycDetails());
         handleLogout('/');
-        navigate(`/`);
+        navigate(`/`,{replace:true});
+        makeToast("KYC submitted successfully");
+
       }
     } catch (error: unknown) {
       console.log("Unexpected error:", error);
