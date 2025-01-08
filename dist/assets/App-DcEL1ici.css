@@ -1,0 +1,1 @@
+@keyframes slideImage{0%{transform:translate(0)}50%{transform:translate(-150%)}to{transform:translate(0)}}@keyframes slideIcon{0%{transform:translate(150%)}50%{transform:translate(0)}to{transform:translate(150%)}}.animate-slideImage{animation:slideImage 1s ease-in-out infinite}.animate-slideIcon{animation:slideIcon 1s ease-in-out infinite}
