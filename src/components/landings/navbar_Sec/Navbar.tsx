@@ -2,12 +2,13 @@ import { Icon } from "@iconify/react";
 import { useLocation } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { isAuthenticated_4_Kyc } from "@/middlewares/IsAuthenticated";
-import { Button } from "@/components/ui/button";
-import { useAuth } from "@/providers/AuthContext";
+
 import AccountMenu from "./AccountMenu";
 import Logo from "./Logo";
+
+import { useAppSelector } from "@/redux/hook";
 import Cookies from "js-cookie";
 
 export type INavbarItems = {
@@ -22,19 +23,26 @@ type NavbarProps = {
 };
 
 function Navbar({ navItems }: NavbarProps) {
+  const {user} = useAppSelector(state=> state.auth)
   const location = useLocation();
+  // console.log(user,'slice');
+  
   // const navigate = useNavigate();
   const isLoggedIn = isAuthenticated_4_Kyc();
-  const { handleLogout } = useAuth();
+  // const { handleLogout } = useAuth();
 
-  const [user] = useState(() => {
-    const userFromStorage = localStorage.getItem("userProfile");
-    return userFromStorage ? JSON.parse(userFromStorage) : null;
-  });
+  // const [user] = useState(() => {
+  //   const userFromStorage = localStorage.getItem("userProfile");
+  //   return userFromStorage ? JSON.parse(userFromStorage) : null;
+  // });
 
   useEffect(() => {
     if (user && !isLoggedIn) {
       localStorage.removeItem("userProfile");
+    }
+    if(!user){
+      Cookies.remove("us_tkn_kyc");
+    Cookies.remove('us_b2b_tkn');
     }
   }, [isLoggedIn, user]);
 
@@ -48,7 +56,7 @@ function Navbar({ navItems }: NavbarProps) {
         {/* Navbar Logo */}
         <Logo />
 
-        <div className="lg:flex hidden items-center gap-16">
+        <div className="lg:flex hidden items-center ">
           {/* ==== Search Bar  starting------ */}
 
           <div className="flex items-center border rounded-lg h-fit overflow-hidden">
@@ -66,13 +74,13 @@ function Navbar({ navItems }: NavbarProps) {
           {/* ==== Search Bar ending ------ */}
 
           {/*  Icons Starting === */}
-          <div className="flex items-center gap-6">
-            {user ? (
+          <div className="">
+            {/* {user ? (
               <>
                 <div className="bg-bg h-10 w-10 rounded-full cursor-pointer group  text-white flex justify-center items-center relative">
                   {user.name.slice(0, 1)}
 
-                  {/* Modal should appear correctly on hover */}
+                  Modal should appear correctly on hover
                   <div className="absolute hidden group-hover:block top-full -right-1/2  z-10  items-center p-4">
                     <div className=" w-[200px] p-2 rounded-lg flex flex-col  bg-bgSoft shadow-lg">
                       <span className="text-sm font-semibold text-center text-black">
@@ -94,14 +102,15 @@ function Navbar({ navItems }: NavbarProps) {
               </>
             ) : (
               <>
-                {/* <Icon
-                  icon={`iconamoon:profile-circle-fill`}
-                  fontSize={25}
-                  className=""
-                /> */}
+          
                 <AccountMenu />
               </>
-            )}
+            )} */}
+            {
+              user &&(
+                <AccountMenu />
+              )
+            }
 
             {/* <Icon icon={`ph:bell-light`} fontSize={25} className="" /> */}
             {/* <Icon icon={`mynaui:cart`} fontSize={25} className="" /> */}

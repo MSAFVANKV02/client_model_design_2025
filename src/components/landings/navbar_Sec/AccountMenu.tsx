@@ -13,14 +13,21 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import useNavigateClicks from "@/hooks/useClicks";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import Cookies from "js-cookie";
+import { useAuth } from "@/providers/AuthContext";
+import { useAppSelector } from "@/redux/hook";
+import { isAuthenticated_4_Kyc } from "@/middlewares/IsAuthenticated";
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const { handleClick: navigate } = useNavigateClicks();
+  const { handleLogout } = useAuth();
+  const { user } = useAppSelector((state) => state.auth);
+  const isKycUser = isAuthenticated_4_Kyc();
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -29,64 +36,84 @@ export default function AccountMenu() {
     navigate(to);
   };
 
-  const logout = () => {
-    Cookies.remove("us_b2b_tkn");
-    window.location.reload();
-    Cookies.remove("us_b2b_kyc");
+  // const logout = () => {
+  //   Cookies.remove("us_b2b_tkn");
+  //   window.location.reload();
+  //   Cookies.remove("us_b2b_kyc");
 
-    navigate("/");
-  };
+  //   navigate("/");
+  // };
 
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
         <Tooltip title="Account settings">
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={open ? "account-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-          >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-          </IconButton>
+          <div className="">
+            <IconButton
+              onClick={handleClick}
+              size="small"
+              sx={{ ml: 2 }}
+              aria-controls={open ? "account-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+            >
+              <Avatar
+                sx={{
+                  width: 32,
+                  height: 32,
+                  textTransform: "capitalize",
+                  bgcolor: "black",
+                  margin: "auto",
+                }}
+              >
+                {user?.name.slice(0, 1)}
+              </Avatar>
+            </IconButton>
+          </div>
         </Tooltip>
         {/* =====  Notification ====== */}
-        <Tooltip title="My Notifications">
-          <IconButton
-            onClick={() => handleCloseAndNavigate("/account/notification")}
-            size="small"
-            sx={{ ml: 2 }}
-          >
-            <Avatar
-              sx={{ width: 32, height: 32, backgroundColor: "transparent" }}
-            >
-              {" "}
-              <Icon
-                icon={`ph:bell-light`}
-                fontSize={25}
-                className="text-black"
-              />
-            </Avatar>
-          </IconButton>
-        </Tooltip>
+        {!isKycUser && (
+          <>
+            <Tooltip title="My Notifications">
+              <IconButton
+                onClick={() => handleCloseAndNavigate("/account/notification")}
+                size="small"
+                sx={{ ml: 0 }}
+              >
+                <Avatar
+                  sx={{ width: 32, height: 32, backgroundColor: "transparent" }}
+                >
+                  {" "}
+                  <Icon
+                    icon={`ph:bell-light`}
+                    fontSize={25}
+                    className="text-black"
+                  />
+                </Avatar>
+              </IconButton>
+            </Tooltip>
 
-        {/* =====  Cart ====== */}
-        <Tooltip title="My Cart">
-          <IconButton
-            onClick={() => handleCloseAndNavigate("/cart")}
-            size="small"
-            sx={{ ml: 2 }}
-          >
-            <Avatar
-              sx={{ width: 32, height: 32, backgroundColor: "transparent" }}
-            >
-              {" "}
-              <Icon icon={`mynaui:cart`} fontSize={25} className="text-black" />
-            </Avatar>
-          </IconButton>
-        </Tooltip>
+            {/* =====  Cart ====== */}
+            <Tooltip title="My Cart">
+              <IconButton
+                onClick={() => handleCloseAndNavigate("/cart")}
+                size="small"
+                sx={{ ml: 0 }}
+              >
+                <Avatar
+                  sx={{ width: 32, height: 32, backgroundColor: "transparent" }}
+                >
+                  {" "}
+                  <Icon
+                    icon={`mynaui:cart`}
+                    fontSize={25}
+                    className="text-black"
+                  />
+                </Avatar>
+              </IconButton>
+            </Tooltip>
+          </>
+        )}
       </Box>
       <Menu
         anchorEl={anchorEl}
@@ -123,8 +150,8 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "center", vertical: "top" }}
         anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
       >
-        <MenuItem disabled sx={{ fontWeight: "bold", color: "#5F08B1", mb: 1 }}>
-          Hi, Name
+        <MenuItem disabled sx={{ fontWeight: "bold", color: "#5F08B1", mb: 1,userSelect:"none" }}>
+          Hi, {user?.name.toUpperCase()}
         </MenuItem>
         {/* <Divider sx={{ my: 1 }} /> */}
         <MenuItem
@@ -200,7 +227,8 @@ export default function AccountMenu() {
         {/* <Divider sx={{ my: 1 }} /> */}
         <MenuItem
           onClick={() => {
-            logout();
+            // logout();
+            handleLogout("/");
             handleCloseAndNavigate("/");
           }}
           sx={{

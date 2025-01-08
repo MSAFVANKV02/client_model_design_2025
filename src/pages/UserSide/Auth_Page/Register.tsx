@@ -20,6 +20,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { useEffect, useState } from "react";
 import { SEND_OTP_REGISTER_USER } from "@/utils/urlPath";
 import axios from "axios";
+import { useAppDispatch } from "@/redux/hook";
+import { setUserData } from "@/redux/userSide/UserAuthSlice";
 // import { SEND_OTP_REGISTER_USER } from "@/utils/urlPath";
 
 // Define the Zod schema for phone number validation
@@ -37,6 +39,7 @@ interface FormData {
 
 function Register() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   // const [loading, ] = useState(false);
 
@@ -62,7 +65,9 @@ function Register() {
 
       if (response.status === 200) {
         const { user } = response.data; // Destructure user from response
-        console.log(response.data);
+        // console.log(response.data);
+        // console.log(user,'user created');
+
         
 
         if (user) {
@@ -72,17 +77,14 @@ function Register() {
             if (user.kycApproved) {
               makeToast(`OTP sent to ${data.mobile4OTP}`);
               navigate(`/login`);
-            } else if (!user.isKycCompleted) {
+            } else if (!user.kycsubmitted) {
               makeToast(`OTP sent to ${data.mobile4OTP}`);
               navigate(`/kyc`);
+              dispatch(setUserData(user));
             }else {
               makeToast(`OTP sent to ${data.mobile4OTP}`);
               navigate(`/kyc`);
             }
-          } else if (user.isVerified) {
-            // If user is verified but not registered
-            makeToastError("Phone number already exists.");
-            navigate(`/register/user-details?auth=${data.mobile4OTP}`);
           } else {
             // If user is not verified
             makeToast(`OTP sent to ${data.mobile4OTP}`);

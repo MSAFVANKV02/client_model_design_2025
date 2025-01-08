@@ -1,19 +1,20 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store'; // Assuming your store is in ../store
+import { IUserProps } from '@/types/userTypes';
 
 // Define the shape of your state
 interface AuthState {
-  user: User | null;
+  user: IUserProps | null;
   token: string | null;
   isLoading: boolean;
   error: string | null;
 }
 
 // Define the User type
-interface User {
-  id: number;
-  username: string;
-}
+// interface User {
+//   id: number;
+//   username: string;
+// }
 
 // Initial state
 const initialState: AuthState = {
@@ -25,7 +26,7 @@ const initialState: AuthState = {
 
 // Async thunk for login
 export const login = createAsyncThunk<
-  { user: User; token: string }, // Return type (success response)
+  { user: IUserProps; token: string }, // Return type (success response)
   { username: string; password: string }, // Argument type (input to thunk)
   { rejectValue: string } // Rejected action type (in case of error)
 >(
@@ -61,6 +62,11 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
     },
+    setUserData: (state, action: PayloadAction<IUserProps>) => {
+      // console.log(state,'state user slice');
+      
+      state.user = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -68,7 +74,7 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(login.fulfilled, (state, action: PayloadAction<{ user: User; token: string }>) => {
+      .addCase(login.fulfilled, (state, action: PayloadAction<{ user: IUserProps; token: string }>) => {
         state.isLoading = false;
         state.user = action.payload.user;
         state.token = action.payload.token;
@@ -80,7 +86,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, setUserData } = authSlice.actions;
 
 export default authSlice.reducer;
 
