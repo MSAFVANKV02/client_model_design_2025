@@ -162,6 +162,7 @@ function Register() {
                         enableSearch={true}
                         placeholder="Valid mobile"
                         value={field.value}
+                        inputStyle={{ width: "100%" }}
                         buttonStyle={{
                           backgroundColor: "transparent",
                           border: "none",
@@ -177,7 +178,7 @@ function Register() {
                           form.setValue("mobile", `${dialCode}-${phoneNumber}`);
                           form.setValue("mobile4OTP", phoneNumber);
                         }}
-                        searchClass="w-full"
+                       
                         inputClass="w-full p-5 mt-1 rounded-xl border border-gray-300"
                       />
                     </FormControl>
