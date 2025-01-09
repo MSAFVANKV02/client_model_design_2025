@@ -2,7 +2,7 @@ import axios from "axios";
 import { RESEND_OTP_USER, SEND_OTP_REGISTER_USER, SUBMIT_USER_DETAILS_REGISTRATION, UPLOAD_USER_KYC, VERIFY_OTP_REGISTER_USER } from "./urlPath";
 
 const API = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: "https://gateway.ayaboo.com",
   // headers: {
   //     'Authorization': 'Bearer YOUR_API_TOKEN',
   //     'Content-Type': 'application/json',
