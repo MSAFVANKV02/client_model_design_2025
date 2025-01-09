@@ -1,0 +1,1 @@
+const s="/user_api/user/sendOtp",_="/user_api/user/verifyOtp",e="/user_api/user/resendOtp",r="user_api/user/registerUser",E="/user_api/user/sendOtpForLogin",R="/user_api/user/verifyOtpForLogin",S="/user_api/user/submitKyc";export{e as R,E as S,R as U,_ as V,S as a,s as b,r as c};
