@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store'; // Assuming your store is in ../store
-import { IUserProps } from '@/types/userTypes';
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store"; // Assuming your store is in ../store
+import { IUserProps } from "@/types/userTypes";
 
 // Define the shape of your state
 interface AuthState {
@@ -29,33 +29,30 @@ export const login = createAsyncThunk<
   { user: IUserProps; token: string }, // Return type (success response)
   { username: string; password: string }, // Argument type (input to thunk)
   { rejectValue: string } // Rejected action type (in case of error)
->(
-  'auth/login',
-  async ({ username, password }, thunkAPI) => {
-    try {
-      // Simulating an API call (replace with real API logic)
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
+>("auth/login", async ({ username, password }, thunkAPI) => {
+  try {
+    // Simulating an API call (replace with real API logic)
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
 
-      const data = await response.json();
-      if (!response.ok) {
-        return thunkAPI.rejectWithValue(data.message || 'Failed to login');
-      }
-
-      return data; // Assuming data contains { user, token }
-    } catch (error) {
-      console.log(error);
-      
-      return thunkAPI.rejectWithValue('Failed to login');
+    const data = await response.json();
+    if (!response.ok) {
+      return thunkAPI.rejectWithValue(data.message || "Failed to login");
     }
+
+    return data; // Assuming data contains { user, token }
+  } catch (error) {
+    console.log(error);
+
+    return thunkAPI.rejectWithValue("Failed to login");
   }
-);
+});
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     logout: (state) => {
@@ -64,7 +61,7 @@ const authSlice = createSlice({
     },
     setUserData: (state, action: PayloadAction<IUserProps>) => {
       // console.log(state,'state user slice');
-      
+
       state.user = action.payload;
     },
   },
@@ -74,15 +71,21 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(login.fulfilled, (state, action: PayloadAction<{ user: IUserProps; token: string }>) => {
-        state.isLoading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-      })
-      .addCase(login.rejected, (state, action: PayloadAction<string | undefined>) => {
-        state.isLoading = false;
-        state.error = action.payload ?? 'Unknown error';
-      });
+      .addCase(
+        login.fulfilled,
+        (state, action: PayloadAction<{ user: IUserProps; token: string }>) => {
+          state.isLoading = false;
+          state.user = action.payload.user;
+          state.token = action.payload.token;
+        }
+      )
+      .addCase(
+        login.rejected,
+        (state, action: PayloadAction<string | undefined>) => {
+          state.isLoading = false;
+          state.error = action.payload ?? "Unknown error";
+        }
+      );
   },
 });
 

@@ -20,6 +20,12 @@ function StaticNavbar() {
       icon: <HomeIcon />,
       current: true,
     },
+    // {
+    //   title: "Kyc",
+    //   href: "/kyc",
+    //   icon: <HomeIcon />,
+    //   current: true,
+    // },
     {
       title: "Register",
       href: "/register",

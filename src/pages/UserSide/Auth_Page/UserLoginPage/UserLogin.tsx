@@ -62,8 +62,8 @@ function UserLogin() {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      mobile: "",
-      mobile4OTP: "", // Initialize mobile4OTP to an empty string
+      mobile: "+91 7034359330",
+      mobile4OTP: "7034359330", // Initialize mobile4OTP to an empty string
     },
   });
 

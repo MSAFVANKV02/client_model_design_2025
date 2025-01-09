@@ -18,10 +18,10 @@ import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useEffect, useState } from "react";
-import { SEND_OTP_REGISTER_USER } from "@/utils/urlPath";
 import axios from "axios";
 import { useAppDispatch } from "@/redux/hook";
 import { setUserData } from "@/redux/userSide/UserAuthSlice";
+import { SendOtp_Register_Api } from "@/utils/route_url";
 // import { SEND_OTP_REGISTER_USER } from "@/utils/urlPath";
 
 // Define the Zod schema for phone number validation
@@ -43,7 +43,6 @@ function Register() {
   const [loading, setLoading] = useState(false);
   // const [loading, ] = useState(false);
 
-
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -54,26 +53,16 @@ function Register() {
 
   // Handle form submission
   const onSubmit = async (data: FormData) => {
-    console.log(data.mobile4OTP);
-    try {
-      setLoading(true);
-      const response = await axios.post(SEND_OTP_REGISTER_USER, {
-        mobile: data.mobile4OTP,
-      });
+    setLoading(true); // Start loading
 
-   
+    try {
+      const response = await SendOtp_Register_Api({ mobile: data.mobile4OTP });
 
       if (response.status === 200) {
-        const { user } = response.data; // Destructure user from response
-        // console.log(response.data);
-        // console.log(user,'user created');
-
-        
+        const { user } = response.data;
 
         if (user) {
-          // Check if user exists
           if (user.isVerified && user.isRegistered) {
-            // If user is verified and registered
             if (user.kycApproved) {
               makeToast(`OTP sent to ${data.mobile4OTP}`);
               navigate(`/login`);
@@ -81,44 +70,40 @@ function Register() {
               makeToast(`OTP sent to ${data.mobile4OTP}`);
               navigate(`/kyc`);
               dispatch(setUserData(user));
-            }else {
+            } else {
               makeToast(`OTP sent to ${data.mobile4OTP}`);
               navigate(`/kyc`);
             }
           } else {
-            // If user is not verified
             makeToast(`OTP sent to ${data.mobile4OTP}`);
             navigate(`/register/otp-verification?auth=${data.mobile4OTP}`);
           }
         } else {
-          // Handle case where user is not found or user object is not returned
           makeToastError("Unexpected error occurred. Please try again.");
         }
       }
     } catch (error: unknown) {
-      setLoading(false);
       if (axios.isAxiosError(error)) {
         if (error.response?.data.success === false) {
           makeToastError(error.response?.data.message);
         }
       } else {
-        console.log("Unexpected error:", error);
+        console.error("Unexpected error:", error);
       }
     } finally {
-      setLoading(false);
+      setLoading(false); // Stop loading
     }
   };
 
   //   const dummySubmit = (data:FormData) => {
   //   makeToast("Otp Verified Successfully.");
   //   navigate(`/register/otp-verification?auth=${data.mobile}`);
-       
+
   // }
 
-
-  useEffect(()=>{
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  },[])
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <div className="h-screen w-screen flex relative">
@@ -146,7 +131,10 @@ function Register() {
 
           {/* === form starting ======== */}
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-8">
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-full space-y-8"
+            >
               <FormField
                 control={form.control}
                 name="mobile"
@@ -178,7 +166,6 @@ function Register() {
                           form.setValue("mobile", `${dialCode}-${phoneNumber}`);
                           form.setValue("mobile4OTP", phoneNumber);
                         }}
-                       
                         inputClass="w-full p-5 mt-1 rounded-xl border border-gray-300"
                       />
                     </FormControl>
@@ -186,21 +173,21 @@ function Register() {
                   </FormItem>
                 )}
               />
-             <div className="flex items-center justify-center">
-             <Button
-                type="submit"
-                disabled={loading}
-                variant="b2bStyle"
-                className="w-full "
-                size="b2b"
-              >
-                {loading ? (
-                  <ClipLoader color="#ffff" size={20} />
-                ) : (
-                  " Get Verification Code"
-                )}
-              </Button>
-             </div>
+              <div className="flex items-center justify-center">
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  variant="b2bStyle"
+                  className="w-full "
+                  size="b2b"
+                >
+                  {loading ? (
+                    <ClipLoader color="#ffff" size={20} />
+                  ) : (
+                    " Get Verification Code"
+                  )}
+                </Button>
+              </div>
             </form>
           </Form>
         </div>

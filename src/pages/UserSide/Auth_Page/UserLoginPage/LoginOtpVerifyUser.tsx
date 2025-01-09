@@ -105,7 +105,7 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin, setMessage }: Prop
         otp: data.otp,
         mobile: auth,
       });
-      console.log(response.data);
+      // console.log(response.data);
 
       if (response.status === 200 && response.data.success) {
         if (response.data.user) {
@@ -133,7 +133,7 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin, setMessage }: Prop
             response.data.user.isVerified &&
             !response.data.user.isRegistered
           ) {
-            makeToast("Your account is under Processing....");
+            makeToast("Register your account...");
             navigate(`/register/user-details?auth=${auth}`);
             setShowOtpLogin(false);
           } else {

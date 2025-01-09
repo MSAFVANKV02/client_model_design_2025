@@ -16,6 +16,7 @@ import KycBanner from "./KycBanner";
 import { saveKycDetails } from "@/redux/userSide/KycSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import KycProofs from "./KycProofs";
+import { Input } from "@/components/ui/input";
 
 // Define the schema
 const formSchema = z.object({
@@ -44,8 +45,8 @@ interface KycFormData {
 export default function KycDetails() {
   const dispatch = useAppDispatch();
   const kycDetails = useAppSelector((state) => state.kyc);
-
-  console.log(kycDetails,'kycDetails');
+  // const {user} = useAppSelector(state=> state.auth)
+  // console.log(user,'user');
 
   const form = useForm<KycFormData>({
     resolver: zodResolver(formSchema),
@@ -91,6 +92,27 @@ export default function KycDetails() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+
+  useEffect(()=>{
+    console.log(kycDetails,'kycDetails');
+    
+  
+    if(kycDetails){
+
+    form.reset({
+      businessName: kycDetails?.businessName || "",
+      emailId: kycDetails?.emailId || "",
+      buildingName: kycDetails?.buildingName || "",
+      street: kycDetails?.street || "",
+      // post: kycDetails?.post || "",
+      pinCode: kycDetails?.pinCode || "",
+      state: kycDetails?.state || "",
+      country: kycDetails?.country || "",
+    })
+    }
+
+
+  },[kycDetails, form]);
   
 
   return (
@@ -126,7 +148,7 @@ export default function KycDetails() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <input
+                        <Input
                           type="text"
                           {...field}
                           placeholder="Enter your business name"
@@ -145,7 +167,7 @@ export default function KycDetails() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <input
+                        <Input
                           type="email"
                           {...field}
                           placeholder="Enter your email ID"
@@ -164,7 +186,7 @@ export default function KycDetails() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <input
+                        <Input
                           type="text"
                           {...field}
                           placeholder="Enter your building name"
@@ -183,7 +205,7 @@ export default function KycDetails() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <input
+                        <Input
                           type="text"
                           {...field}
                           placeholder="Enter your street"
@@ -203,7 +225,7 @@ export default function KycDetails() {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <input
+                          <Input
                             type="text"
                             {...field}
                             placeholder="Enter your post"
@@ -222,7 +244,7 @@ export default function KycDetails() {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <input
+                          <Input
                             type="text"
                             {...field}
                             placeholder="Enter your pin code"
@@ -243,7 +265,7 @@ export default function KycDetails() {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <input
+                          <Input
                             type="text"
                             {...field}
                             placeholder="Enter your state"
@@ -262,7 +284,7 @@ export default function KycDetails() {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
-                          <input
+                          <Input
                             type="text"
                             {...field}
                             placeholder="Enter your country"

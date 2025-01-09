@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { clearKycDetails, restProofType, uploadFile } from "@/redux/userSide/KycSlice";
+import {  restProofType, uploadFile } from "@/redux/userSide/KycSlice";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@/components/ui/button";
 import { pdfjs } from "react-pdf";
@@ -9,10 +9,9 @@ import PdfFile from "./PdfFile";
 import { useNavigate } from "react-router-dom";
 import { makeToast, makeToastError } from "@/utils/toaster";
 import ClipLoader from "react-spinners/ClipLoader";
-import { useAuth } from "@/providers/AuthContext";
 // import { UPLOAD_USER_KYC } from "@/utils/urlPath";
 import axios from "axios";
-import { UPLOAD_USER_KYC } from "@/utils/urlPath";
+import { Kyc_Submit_Api } from "@/utils/route_url";
 
 // pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 //   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -43,7 +42,7 @@ export default function KycUpload() {
   const [loading, setLoading] = useState(false);
   const [fileError, setFileError] = useState<string | null>(null);
   const [fileURL, setFileURL] = useState<string | null>(null);
-  const {  handleLogout} = useAuth();
+  // const {  handleLogout} = useAuth();
 
 
   const chooseFile = () => {
@@ -86,6 +85,10 @@ export default function KycUpload() {
       makeToastError("Please upload a PDF file");
       return;
     }
+    if (!fileURL) {
+      makeToastError("Please upload a PDF file");
+      return;
+    }
 
     // setLoading(true); // Set loading state to true
     // makeToast("KYC submitted successfully");
@@ -100,6 +103,7 @@ export default function KycUpload() {
     // });
 
     try {
+      setLoading(true);
       const formData = new FormData();
 
       // Append all KYC details to FormData
@@ -113,13 +117,14 @@ export default function KycUpload() {
       formData.append("proofType", proofType || ""); // Append proofType, ensure it's a string
       formData.append("proof", uploadedFile); // Append the uploaded file
 
-      const response = await axios.post(UPLOAD_USER_KYC, formData, {
-        withCredentials: true,
-      }); // Specify the correct endpoint
+      // const response = await axios.post(UPLOAD_USER_KYC, formData, {
+      //   withCredentials: true,
+      // }); // Specify the correct endpoint
+      const response = await Kyc_Submit_Api(formData);
 
       if (response.status === 200) {
-        dispatch(clearKycDetails());
-        handleLogout('/');
+        // dispatch(clearKycDetails());
+        // handleLogout('/');
         navigate(`/`,{replace:true});
         makeToast("KYC submitted successfully");
 

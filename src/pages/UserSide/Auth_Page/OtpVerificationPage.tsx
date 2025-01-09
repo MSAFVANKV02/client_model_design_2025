@@ -22,8 +22,7 @@ import { makeToast, makeToastError } from "@/utils/toaster";
 // import ClipLoader from "react-spinners/ClipLoader";
 const ClipLoader = React.lazy(() => import("react-spinners/ClipLoader"));
 import OtpTimer from "@/hooks/otp-timer";
-
-import { RESEND_OTP_USER, VERIFY_OTP_REGISTER_USER } from "@/utils/urlPath";
+import { Resend_Otp_Api, Verify_Register_Api } from "@/utils/route_url";
 // Define the Zod schema for OTP validation
 const formSchema = z.object({
   otp: z
@@ -66,14 +65,14 @@ function OtpVerificationPage() {
   // Handle form submission
   const onSubmit = async (data: FormData) => {
     console.log(`OTP entered: ${data.otp}`);
+    setLoading(true);
 
     try {
-      const response = await axios.post(VERIFY_OTP_REGISTER_USER, {
+      const response = await Verify_Register_Api({
         otp: data.otp,
         mobile: auth,
       });
       // console.log(response.data,'response.data otp verifying');
-      
 
       if (response.status === 200) {
         if (response.data.success) {
@@ -107,14 +106,14 @@ function OtpVerificationPage() {
   //   Cookies.remove('us_b2b_tkn');
   //   makeToast("Otp Verified Successfully.");
   //   navigate(`/register/user-details?auth=${auth}`);
- 
+
   // }
 
   // # ====  Resend the OTP =================
   const handleResendOtp = async () => {
     try {
       setLoading(true);
-      const response = await axios.post(RESEND_OTP_USER, {
+      const response = await Resend_Otp_Api({
         mobile: auth,
       });
       if (response.status === 200) {

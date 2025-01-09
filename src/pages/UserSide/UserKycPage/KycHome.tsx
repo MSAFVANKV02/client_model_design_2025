@@ -79,7 +79,7 @@ export default function KycHome() {
       </div> */}
       <div className="w-full bg-gray-50 lg:py-0 py-5 lg:h-[400px] lg:justify-around h-fit sm:px-14 px-2 lg:gap-16 gap-5 flex lg:flex-row flex-col">
         <img
-          src="/public/kycPage/kycSec_01.png"
+          src="/kycPage/kycSec_01.png"
           alt="cart image"
           className="lg:h-[400px] lg:w-[400px] h-[150px] w-[150px] lg:mx-0 mx-auto"
           draggable={false}

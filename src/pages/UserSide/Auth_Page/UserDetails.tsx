@@ -19,8 +19,10 @@ import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 import { useState } from "react";
 import { makeToast } from "@/utils/toaster";
-import { SUBMIT_USER_DETAILS_REGISTRATION } from "@/utils/urlPath";
 import axios from "axios";
+import { User_Details_Registration_Api } from "@/utils/route_url";
+import { setUserData } from "@/redux/userSide/UserAuthSlice";
+import { useAppDispatch } from "@/redux/hook";
 
 // Define the Zod schema for form validation
 const formSchema = z.object({
@@ -44,6 +46,7 @@ type IFormData = {
 function UserDetails() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch()
   // const [loading] = useState(false);
 
 
@@ -65,11 +68,13 @@ function UserDetails() {
   const onSubmit = async (data: IFormData) => {
     try {
       setLoading(true);
-      const response = await axios.post(SUBMIT_USER_DETAILS_REGISTRATION,{ ...data,mobile:auth});
-      console.log(response.data,'response.data userDetails');
+      const response = await User_Details_Registration_Api({ ...data, mobile: auth });
+
+      // console.log(response.data,'response.data userDetails');
       if (response.status === 200) {
-        console.log("Data sent successfully",response.data);
-        localStorage.setItem("userProfile", JSON.stringify(response.data.user));
+        // console.log("Data sent successfully",response.data);
+        // localStorage.setItem("userProfile", JSON.stringify(response.data.user));
+        dispatch(setUserData(response.data.user));
         makeToast(`${response.data.message}`)
         navigate("/kyc");
       }
@@ -87,17 +92,7 @@ function UserDetails() {
     }
   };
 
-  // const dummySubmit = () => {
-  //   Cookies.remove('us_b2b_tkn');
-  //   makeToast("user Registered Successfully.");
-  //   navigate("/kyc");
-  //           const token = "b2bdevtokenwithdummy00data"
-  //           Cookies.set('us_b2b_kyc', token, {
-  //             expires: 1, // 7 days
-  //             secure: true, // Use HTTPS
-  //             sameSite: 'strict', // Prevent cross-site CSRF
-  //           });
-  // }
+
 
   return (
     <div className="h-screen w-screen flex relative">
