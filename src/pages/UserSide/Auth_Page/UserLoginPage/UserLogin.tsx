@@ -19,8 +19,8 @@ import { Link, useNavigate } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useEffect, useState } from "react";
 import LoginOtpVerifyUser from "./LoginOtpVerifyUser";
-import { userLoginSendOtp } from "@/services/admin_side_api/auth/use-login-api";
 import axios from "axios";
+import { SendOtp_Login_Api } from "@/services/user_side_api/auth/route_url";
 // import { userLoginSendOtp } from "@/services/admin_side_api/auth/use-login-api";
 
 // Define the Zod schema for phone number validation
@@ -73,11 +73,12 @@ function UserLogin() {
     // console.log(data.mobile4OTP,'responce in page');
     try {
       setLoading(true);
-      const response = await userLoginSendOtp(data.mobile4OTP);
+      // const response = await userLoginSendOtp(data.mobile4OTP);
+      const response = await SendOtp_Login_Api({mobile: data.mobile4OTP})
       // response coming from userLoginSendOtp
 
       if (response.status === 200) {
-        makeToast(`Otp Sended to ${data.mobile4OTP}`);
+        makeToast(`Otp Send to ${data.mobile4OTP}`);
         setShowOtpLogin(true);
         navigate(`/login?page=otp-log&auth=${data.mobile4OTP}`);
         localStorage.setItem("otp-timer","60");

@@ -8,6 +8,7 @@ interface AuthState {
   token: string | null;
   isLoading: boolean;
   error: string | null;
+  isUserLogged: boolean;
 }
 
 // Define the User type
@@ -21,6 +22,7 @@ const initialState: AuthState = {
   user: null,
   token: null,
   isLoading: false,
+  isUserLogged: false,
   error: null,
 };
 
@@ -55,14 +57,14 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: (state) => {
+    logoutUser: (state) => {
       state.user = null;
       state.token = null;
+      state.isUserLogged = false;
     },
     setUserData: (state, action: PayloadAction<IUserProps>) => {
-      // console.log(state,'state user slice');
-
       state.user = action.payload;
+      state.isUserLogged = true;
     },
   },
   extraReducers: (builder) => {
@@ -75,6 +77,7 @@ const authSlice = createSlice({
         login.fulfilled,
         (state, action: PayloadAction<{ user: IUserProps; token: string }>) => {
           state.isLoading = false;
+          state.isUserLogged = true;
           state.user = action.payload.user;
           state.token = action.payload.token;
         }
@@ -83,13 +86,14 @@ const authSlice = createSlice({
         login.rejected,
         (state, action: PayloadAction<string | undefined>) => {
           state.isLoading = false;
+          state.isUserLogged = false;
           state.error = action.payload ?? "Unknown error";
         }
       );
   },
 });
 
-export const { logout, setUserData } = authSlice.actions;
+export const { logoutUser, setUserData } = authSlice.actions;
 
 export default authSlice.reducer;
 

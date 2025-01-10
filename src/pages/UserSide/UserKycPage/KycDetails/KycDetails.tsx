@@ -94,7 +94,7 @@ export default function KycDetails() {
   }, []);
 
   useEffect(()=>{
-    console.log(kycDetails,'kycDetails');
+    // console.log(kycDetails,'kycDetails');
     
   
     if(kycDetails){
@@ -309,7 +309,10 @@ export default function KycDetails() {
                     {loading ? (
                       <ClipLoader color="#ffff" size={20} />
                     ) : (
-                      "Submit"
+                      <>
+                      {kycDetails ? "Edit ":"Submit"}
+                      </>
+                    
                     )}
                   </Button>
                 </div>

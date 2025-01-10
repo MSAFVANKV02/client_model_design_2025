@@ -1,5 +1,6 @@
 import AyButton from "@/components/myUi/AyButton";
 import { useNavigate } from "react-router-dom";
+import AngledDivMUI from "./KycHomeChilds/Angle_Div";
 
 export default function KycHome() {
   const navigate = useNavigate();
@@ -77,6 +78,11 @@ export default function KycHome() {
         />
        
       </div> */}
+
+<div className="section_container">
+  <AngledDivMUI/>
+</div>
+
       <div className="w-full bg-gray-50 lg:py-0 py-5 lg:h-[400px] lg:justify-around h-fit sm:px-14 px-2 lg:gap-16 gap-5 flex lg:flex-row flex-col">
         <img
           src="/kycPage/kycSec_01.png"

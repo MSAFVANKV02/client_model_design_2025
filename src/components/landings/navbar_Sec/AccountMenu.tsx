@@ -13,28 +13,39 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import useNavigateClicks from "@/hooks/useClicks";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { useAuth } from "@/providers/AuthContext";
-import { useAppSelector } from "@/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { isAuthenticated_4_Kyc } from "@/middlewares/IsAuthenticated";
+import { Logout_User_Api } from "@/services/user_side_api/auth/route_url";
+import { makeToast, makeToastError } from "@/utils/toaster";
+import { clearKycDetails } from "@/redux/userSide/KycSlice";
+import { logoutUser } from "@/redux/userSide/UserAuthSlice";
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const { handleClick: navigate } = useNavigateClicks();
-  const { handleLogout } = useAuth();
+  const dispatch = useAppDispatch();
+  // const { handleLogout } = useAuth();
   const { user } = useAppSelector((state) => state.auth);
-  const isKycUser = isAuthenticated_4_Kyc();
+  const isKycUser = React.useMemo(() => isAuthenticated_4_Kyc(), []);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleClick = React.useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorEl(event.currentTarget);
+    },
+    []
+  );
 
-  const handleClose = () => {
+  const handleClose = React.useCallback(() => {
     setAnchorEl(null);
-  };
-  const handleCloseAndNavigate = (to: string) => {
-    setAnchorEl(null);
-    navigate(to);
-  };
+  }, []);
+
+  const handleCloseAndNavigate = React.useCallback(
+    (to: string) => {
+      setAnchorEl(null);
+      navigate(to);
+    },
+    [navigate]
+  );
 
   // const logout = () => {
   //   Cookies.remove("us_b2b_tkn");
@@ -44,6 +55,25 @@ export default function AccountMenu() {
   //   navigate("/");
   // };
 
+  const handleLogout = React.useCallback(async () => {
+    try {
+      const response = await Logout_User_Api();
+
+      if (response.status === 200) {
+        makeToast(response.data.message);
+        dispatch(clearKycDetails());
+        dispatch(logoutUser());
+      }
+    } catch (error: any) {
+      makeToastError("An error occurred while logging out.");
+      console.error(error);
+    }
+  }, [dispatch]);
+
+  const userInitial = React.useMemo(
+    () => (user?.name ? user.name.slice(0, 1).toUpperCase() : ""),
+    [user]
+  );
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -66,7 +96,7 @@ export default function AccountMenu() {
                   margin: "auto",
                 }}
               >
-                {user?.name.slice(0, 1)}
+                {userInitial}
               </Avatar>
             </IconButton>
           </div>
@@ -150,7 +180,15 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "center", vertical: "top" }}
         anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
       >
-        <MenuItem disabled sx={{ fontWeight: "bold", color: "#5F08B1", mb: 1,userSelect:"none" }}>
+        <MenuItem
+          disabled
+          sx={{
+            fontWeight: "bold",
+            color: "#5F08B1",
+            mb: 1,
+            userSelect: "none",
+          }}
+        >
           Hi, {user?.name.toUpperCase()}
         </MenuItem>
         {/* <Divider sx={{ my: 1 }} /> */}
@@ -228,7 +266,7 @@ export default function AccountMenu() {
         <MenuItem
           onClick={() => {
             // logout();
-            handleLogout("/");
+            handleLogout();
             handleCloseAndNavigate("/");
           }}
           sx={{

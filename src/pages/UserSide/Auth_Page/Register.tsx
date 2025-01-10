@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAppDispatch } from "@/redux/hook";
 import { setUserData } from "@/redux/userSide/UserAuthSlice";
-import { SendOtp_Register_Api } from "@/utils/route_url";
+import { SendOtp_Register_Api } from "@/services/user_side_api/auth/route_url";
 // import { SEND_OTP_REGISTER_USER } from "@/utils/urlPath";
 
 // Define the Zod schema for phone number validation

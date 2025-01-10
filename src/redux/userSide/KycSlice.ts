@@ -11,7 +11,7 @@ interface KycDetails {
   state: string;
   country: string;
   proofType?: string; // Optional
-  uploadedFile?: File; // Store only the file metadata
+  proof?: File | string; // Store only the file metadata
 }
 
 // Define the initial state of the KYC details with default values
@@ -25,7 +25,7 @@ const initialState: KycDetails = {
   state: '',
   country: '',
   proofType: '', 
-  uploadedFile: undefined,
+  proof: undefined,
 };
 
 const kycSlice = createSlice({
@@ -45,10 +45,10 @@ const kycSlice = createSlice({
       state.proofType = action.payload;
     },
     // uploadFile(state, action: PayloadAction<{ name: string; size: number }>) {
-    //   state.uploadedFile = action.payload; // Save file metadata, not the file itself
+    //   state.proof = action.payload; // Save file metadata, not the file itself
     // },
     uploadFile(state, action: PayloadAction<File>) {
-      state.uploadedFile = action.payload; // Store the entire file object
+      state.proof = action.payload; // Store the entire file object
     },
     restProofType(state) {
       state.proofType = '';

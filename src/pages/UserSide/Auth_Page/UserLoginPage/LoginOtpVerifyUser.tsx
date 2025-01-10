@@ -5,9 +5,9 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {  useState } from "react";
+import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,7 +23,13 @@ import {
 // import { OtpVerifyLoginUser } from "@/utils/urlPath";
 import OtpTimer from "@/hooks/otp-timer";
 
-import { RESEND_OTP_USER, USER_LOGIN_OTP_VERIFICATION } from "@/utils/urlPath";
+import {
+  Resend_Otp_Api,
+  VerifyOtp_Login_Api,
+} from "@/services/user_side_api/auth/route_url";
+import { useAppDispatch } from "@/redux/hook";
+import { setUserData } from "@/redux/userSide/UserAuthSlice";
+import { saveKycDetails } from "@/redux/userSide/KycSlice";
 
 const formSchema = z.object({
   otp: z.string().min(6, { message: "OTP is required." }),
@@ -38,20 +44,13 @@ type Props = {
   setMessage: (value: string) => void;
 };
 
-export default function LoginOtpVerifyUser({ setShowOtpLogin, setMessage }: Props) {
+export default function LoginOtpVerifyUser({
+  setShowOtpLogin,
+  setMessage,
+}: Props) {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false);
-  // const [message, setMessage] = useState("");
-  // const [message] = useState("");
-
-  // const [timer, setTimer] = useState<number>(() => {
-  //   const savedTimer = localStorage.getItem("otp-timer");
-  //   return savedTimer ? Number(savedTimer) : 60; // Load timer from localStorage or start at 3
-  // });
-  // const [isResendVisible, setIsResendVisible] = useState<boolean>(() => {
-  //   const isFinished = localStorage.getItem("otp-finished") === "true";
-  //   return isFinished; // Show "Resend OTP" if finished
-  // });
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -63,53 +62,22 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin, setMessage }: Prop
   const queryParams = new URLSearchParams(window.location.search);
   const auth = queryParams.get("auth");
 
-  // useEffect(() => {
-  //   // If the timer has finished, do not start the interval again
-  //   if (timer > 0 && !isResendVisible) {
-  //     const interval = setInterval(() => {
-  //       setTimer((prevTimer) => {
-  //         if (prevTimer > 0) {
-  //           const newTimer = prevTimer - 1;
-  //           localStorage.setItem("otp-timer", newTimer.toString()); // Save timer to localStorage
-  //           return newTimer;
-  //         } else {
-  //           clearInterval(interval); // Stop timer
-  //           setIsResendVisible(true); // Show resend button
-  //           localStorage.removeItem("otp-timer"); // Remove timer from localStorage
-  //           localStorage.setItem("otp-finished", "true"); // Set finished state in localStorage
-  //           return 0;
-  //         }
-  //       });
-  //     }, 1000);
-
-  //     // Clear the interval when the component unmounts
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [timer, isResendVisible]);
-
-  // useEffect(() => {
-  //   // Check if the timer has reached 0 and handle visibility of resend button
-  //   if (timer === 0) {
-  //     setIsResendVisible(true);
-  //     localStorage.setItem("otp-finished", "true"); // Ensure finished state is set
-  //   }
-  // }, [timer]);
-
   // ======== enable this after complete server
 
   const onSubmit = async (data: FormData) => {
     // console.log(`OTP entered: ${data.otp}`);
 
     try {
-      const response = await axios.post(USER_LOGIN_OTP_VERIFICATION, {
+      const response = await VerifyOtp_Login_Api({
         otp: data.otp,
-        mobile: auth,
+        mobile: auth ?? "",
       });
-      // console.log(response.data);
+      console.log(response.data);
 
       if (response.status === 200 && response.data.success) {
+
         if (response.data.user) {
-          localStorage.setItem("otp-timer","0");
+          localStorage.setItem("otp-timer", "0");
           // if(response.data.user.){
 
           // }
@@ -124,11 +92,14 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin, setMessage }: Prop
             // window.location.reload();
           } else if (
             response.data.user.isVerified &&
-            response.data.user.isRegistered && 
-            !response.data.user.kycsubmitted 
+            response.data.user.isRegistered &&
+            !response.data.user.kycsubmitted
           ) {
             makeToast("Complete Kyc registration..");
             navigate(`/kyc`);
+            dispatch(setUserData(response.data.user));
+            dispatch(saveKycDetails(response.data.kyc));
+
           } else if (
             response.data.user.isVerified &&
             !response.data.user.isRegistered
@@ -140,6 +111,9 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin, setMessage }: Prop
             makeToast("Your account is under Processing....");
             setMessage("Your account is under Processing");
             navigate(`/kyc`);
+            dispatch(setUserData(response.data.user));
+            dispatch(saveKycDetails(response.data.kyc));
+
           }
         }
 
@@ -148,14 +122,14 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin, setMessage }: Prop
     } catch (error: unknown) {
       setLoading(false);
       console.log(error);
-      
+
       if (axios.isAxiosError(error)) {
         // makeToastError(error.response?.data.message);
         if (error.response?.status === 500) {
           makeToastError(error.response?.data.message);
         } else if (error.response?.data) {
           makeToastError(error.response?.data.message);
-        }else{
+        } else {
           makeToastError("An error occurred.");
         }
       }
@@ -178,7 +152,7 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin, setMessage }: Prop
   const handleResendOtp = async () => {
     try {
       setLoading(true);
-      const response = await axios.post(RESEND_OTP_USER, {
+      const response = await Resend_Otp_Api({
         mobile: auth,
       });
       if (response.status === 200) {
@@ -220,7 +194,6 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin, setMessage }: Prop
         Enter 6 digit verification code sent to{" "}
         <b className="text-black">Mobile Number</b>
       </p>
-     
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -268,13 +241,11 @@ export default function LoginOtpVerifyUser({ setShowOtpLogin, setMessage }: Prop
               Resend in {timer} seconds
             </p>
           )} */}
-           <OtpTimer
-           resendOtp={handleResendOtp}
-          initialTime={60}
-          onTimerFinish={() => makeToast("You can resend OTP now.")}
-          
-        />
-       
+          <OtpTimer
+            resendOtp={handleResendOtp}
+            initialTime={60}
+            onTimerFinish={() => makeToast("You can resend OTP now.")}
+          />
 
           <Button
             type="submit"

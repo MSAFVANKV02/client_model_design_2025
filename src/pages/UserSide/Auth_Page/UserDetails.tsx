@@ -20,9 +20,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { makeToast } from "@/utils/toaster";
 import axios from "axios";
-import { User_Details_Registration_Api } from "@/utils/route_url";
 import { setUserData } from "@/redux/userSide/UserAuthSlice";
 import { useAppDispatch } from "@/redux/hook";
+import { User_Details_Registration_Api } from "@/services/user_side_api/auth/route_url";
 
 // Define the Zod schema for form validation
 const formSchema = z.object({

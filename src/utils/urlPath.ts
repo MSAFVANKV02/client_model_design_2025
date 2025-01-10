@@ -2,6 +2,8 @@
 
 // User Register Routes =================================================
 
+export const USER_LOGOUT = `user_api/user/logoutUser`
+
 export const SEND_OTP_REGISTER_USER = `/user_api/user/sendOtp`;
 export const VERIFY_OTP_REGISTER_USER = `/user_api/user/verifyOtp`;
 export const RESEND_OTP_USER = `/user_api/user/resendOtp`;

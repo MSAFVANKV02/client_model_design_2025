@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import {  restProofType, uploadFile } from "@/redux/userSide/KycSlice";
+import {  restProofType, saveKycDetails, uploadFile } from "@/redux/userSide/KycSlice";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@/components/ui/button";
 import { pdfjs } from "react-pdf";
@@ -11,7 +11,7 @@ import { makeToast, makeToastError } from "@/utils/toaster";
 import ClipLoader from "react-spinners/ClipLoader";
 // import { UPLOAD_USER_KYC } from "@/utils/urlPath";
 import axios from "axios";
-import { Kyc_Submit_Api } from "@/utils/route_url";
+import { Kyc_Submit_Api } from "@/services/user_side_api/auth/route_url";
 
 // pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 //   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -35,14 +35,18 @@ export default function KycUpload() {
     state,
     country,
     proofType,
-    uploadedFile,
+    proof,
   } = useAppSelector((state) => state.kyc);
   // const uploadDetails = useAppSelector((state) => state.kyc);
+  const kycDetails = useAppSelector((state) => state.kyc);
 
   const [loading, setLoading] = useState(false);
   const [fileError, setFileError] = useState<string | null>(null);
-  const [fileURL, setFileURL] = useState<string | null>(null);
+  const [fileURL, setFileURL] = useState<string | null>(kycDetails?.proof || null);
+
   // const {  handleLogout} = useAuth();
+  console.log(kycDetails,'kycDetails?.proof');
+  
 
 
   const chooseFile = () => {
@@ -81,7 +85,7 @@ export default function KycUpload() {
   };
 
   const handleSubmit = async () => {
-    if (!uploadedFile) {
+    if (!proof) {
       makeToastError("Please upload a PDF file");
       return;
     }
@@ -115,7 +119,7 @@ export default function KycUpload() {
       formData.append("state", state);
       formData.append("country", country);
       formData.append("proofType", proofType || ""); // Append proofType, ensure it's a string
-      formData.append("proof", uploadedFile); // Append the uploaded file
+      formData.append("proof", proof); // Append the uploaded file
 
       // const response = await axios.post(UPLOAD_USER_KYC, formData, {
       //   withCredentials: true,
@@ -123,7 +127,7 @@ export default function KycUpload() {
       const response = await Kyc_Submit_Api(formData);
 
       if (response.status === 200) {
-        // dispatch(clearKycDetails());
+        dispatch(saveKycDetails(response.data.kyc));
         // handleLogout('/');
         navigate(`/`,{replace:true});
         makeToast("KYC submitted successfully");
@@ -226,12 +230,12 @@ export default function KycUpload() {
         </div>
 
         {/* Show Uploaded File */}
-        {fileURL && uploadedFile ? (
+        {fileURL && proof ? (
           <div>
             <p>See Sample:</p>
             <div className="mt-4 relative float-right">
               <a href={fileURL} target="_blank" rel="noopener noreferrer">
-                {/* <p>Uploaded File: {uploadedFile.name}</p> */}
+                {/* <p>Uploaded File: {proof.name}</p> */}
 
                 <PdfFile fileURL={fileURL} />
                 <div className="absolute w-16 h-24 bg-black/10 top-0 rounded-md flex items-center justify-center ">
@@ -251,7 +255,7 @@ export default function KycUpload() {
         )}
 
         {/* <div className="mt-4">
-            <p>Uploaded File: {uploadedFile.name}</p>
+            <p>Uploaded File: {proof.name}</p>
             <a
               href={fileURL}
               target="_blank"

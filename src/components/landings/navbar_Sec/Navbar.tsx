@@ -2,14 +2,12 @@ import { Icon } from "@iconify/react";
 import { useLocation } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { Input } from "@/components/ui/input";
-import { useEffect } from "react";
 import { isAuthenticated_4_Kyc } from "@/middlewares/IsAuthenticated";
 
 import AccountMenu from "./AccountMenu";
 import Logo from "./Logo";
 
 import { useAppSelector } from "@/redux/hook";
-import Cookies from "js-cookie";
 
 export type INavbarItems = {
   href: string;
@@ -23,9 +21,9 @@ type NavbarProps = {
 };
 
 function Navbar({ navItems }: NavbarProps) {
-  const {user} = useAppSelector(state=> state.auth)
+  const { isUserLogged} = useAppSelector(state=> state.auth)
   const location = useLocation();
-  // console.log(user,'slice');
+  console.log(isUserLogged,'slice');
   
   // const navigate = useNavigate();
   const isLoggedIn = isAuthenticated_4_Kyc();
@@ -36,15 +34,15 @@ function Navbar({ navItems }: NavbarProps) {
   //   return userFromStorage ? JSON.parse(userFromStorage) : null;
   // });
 
-  useEffect(() => {
-    if (user && !isLoggedIn) {
-      localStorage.removeItem("userProfile");
-    }
-    if(!user){
-      Cookies.remove("us_tkn_kyc");
-    Cookies.remove('us_b2b_tkn');
-    }
-  }, [isLoggedIn, user]);
+  // useEffect(() => {
+  //   if (user && !isLoggedIn) {
+  //     localStorage.removeItem("userProfile");
+  //   }
+  //   if(!user){
+  //     Cookies.remove("us_tkn_kyc");
+  //   Cookies.remove('us_b2b_tkn');
+  //   }
+  // }, [isLoggedIn, user]);
 
   return (
     <nav
@@ -107,7 +105,7 @@ function Navbar({ navItems }: NavbarProps) {
               </>
             )} */}
             {
-              user &&(
+             isLoggedIn && isUserLogged &&(
                 <AccountMenu />
               )
             }

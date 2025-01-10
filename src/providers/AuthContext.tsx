@@ -27,6 +27,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     Cookies.remove('us_b2b_tkn');
   };
 
+  
+
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, handleLogout }}>
       {children}

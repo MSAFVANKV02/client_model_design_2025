@@ -22,7 +22,7 @@ import { makeToast, makeToastError } from "@/utils/toaster";
 // import ClipLoader from "react-spinners/ClipLoader";
 const ClipLoader = React.lazy(() => import("react-spinners/ClipLoader"));
 import OtpTimer from "@/hooks/otp-timer";
-import { Resend_Otp_Api, Verify_Register_Api } from "@/utils/route_url";
+import { Resend_Otp_Api, Verify_Register_Api } from "@/services/user_side_api/auth/route_url";
 // Define the Zod schema for OTP validation
 const formSchema = z.object({
   otp: z
