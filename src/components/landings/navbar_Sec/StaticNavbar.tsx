@@ -7,6 +7,7 @@ import Logo from "./Logo";
 
 function StaticNavbar() {
   const location = useLocation();
+  const {pathname} = location;
   const navItems = [
     {
       title: "Home",
@@ -48,7 +49,7 @@ function StaticNavbar() {
 
   return (
     <nav
-      className={`w-full flex py-5 bg-transparent ${
+      className={`w-full flex py-5  fixed bg-white/10 backdrop-blur-sm   ${
         location.pathname === "/" && " absolute top-0 left-0 right-0"
       } 2xl:px-24 xl:px-20 md:px-14 sm:px-10 px-5 mx-auto z-50`}
     >
@@ -85,9 +86,10 @@ function StaticNavbar() {
             </Button>
           </div>
           <div className="">
-            <Link to={"login"} className="">
-              <Button variant="white" className="text-textMain">
-                login
+            {}
+            <Link to={`${pathname === "/register" ? "/login": pathname === "/login" ?"/register":"/login"}`} className="">
+              <Button variant="b2bStyle" className="text-textMain text-white capitalize">
+               {pathname === "/register" ? "login": pathname === "/login" ? "Register":"login"} 
               </Button>
             </Link>
           </div>

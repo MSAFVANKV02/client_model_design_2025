@@ -75,6 +75,7 @@ function OtpVerificationPage() {
       // console.log(response.data,'response.data otp verifying');
 
       if (response.status === 200) {
+        localStorage.removeItem("mobileNumber");
         if (response.data.success) {
           makeToast("Otp Verified Successfully.");
           // Navigate to the user details page
@@ -160,9 +161,9 @@ function OtpVerificationPage() {
             className="w-28 h-28"
           />
           <h4 className="font-bold">Verify Mobile Number</h4>
-          <p className="text-gray-400 text-center">
-            Enter the 6-digit OTP sent to your mobile number.
-          </p>
+          <div className="text-gray-400 text-center text-sm capitalize">
+            <span>Enter the 6-digit OTP sent to your mobile number</span> - <span className="text-black">{auth}</span> .
+          </div>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               {/* OTP Input Field */}

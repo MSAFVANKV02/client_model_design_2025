@@ -1,6 +1,10 @@
 import React, { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import {  restProofType, saveKycDetails, uploadFile } from "@/redux/userSide/KycSlice";
+import {
+  restProofType,
+  saveKycDetails,
+  uploadFile,
+} from "@/redux/userSide/KycSlice";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@/components/ui/button";
 import { pdfjs } from "react-pdf";
@@ -42,12 +46,17 @@ export default function KycUpload() {
 
   const [loading, setLoading] = useState(false);
   const [fileError, setFileError] = useState<string | null>(null);
-  const [fileURL, setFileURL] = useState<string | null>(kycDetails?.proof || null);
+  // const [fileURL, setFileURL] = useState<string | null>(kycDetails?.proof || null);
+  const [fileURL, setFileURL] = useState<string | null>(
+    kycDetails?.proof
+      ? typeof kycDetails.proof === "string"
+        ? kycDetails.proof
+        : URL.createObjectURL(kycDetails.proof)
+      : null
+  );
 
   // const {  handleLogout} = useAuth();
-  console.log(kycDetails,'kycDetails?.proof');
-  
-
+  // console.log(kycDetails, "kycDetails?.proof");
 
   const chooseFile = () => {
     if (inputRef.current) {
@@ -129,9 +138,8 @@ export default function KycUpload() {
       if (response.status === 200) {
         dispatch(saveKycDetails(response.data.kyc));
         // handleLogout('/');
-        navigate(`/`,{replace:true});
+        navigate(`/`, { replace: true });
         makeToast("KYC submitted successfully");
-
       }
     } catch (error: unknown) {
       console.log("Unexpected error:", error);
@@ -175,15 +183,21 @@ export default function KycUpload() {
                 type="button"
               >
                 <Icon icon="material-symbols-light:upload" fontSize={20} />{" "}
-                Upload
+                {
+                  fileURL ? "Change" :"Upload"
+                }
+                
               </Button>
             </div>
             {/* change proof type  */}
-            <span className="text-xs underline text-blue-500 cursor-pointer"
-            onClick={()=>{
-              dispatch(restProofType())
-            }}
-            >Change Proof Type</span>
+            <span
+              className="text-xs underline text-blue-500 cursor-pointer"
+              onClick={() => {
+                dispatch(restProofType());
+              }}
+            >
+              Change Proof Type
+            </span>
           </div>
         </div>
 

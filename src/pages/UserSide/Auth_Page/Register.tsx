@@ -51,6 +51,9 @@ function Register() {
     },
   });
 
+  
+  
+
   // Handle form submission
   const onSubmit = async (data: FormData) => {
     setLoading(true); // Start loading
@@ -60,6 +63,7 @@ function Register() {
 
       if (response.status === 200) {
         const { user } = response.data;
+        localStorage.setItem("mobileNumber", data.mobile);
 
         if (user) {
           if (user.isVerified && user.isRegistered) {
@@ -83,15 +87,30 @@ function Register() {
         }
       }
     } catch (error: unknown) {
+      // Check if the error is an AxiosError
       if (axios.isAxiosError(error)) {
-        if (error.response?.data.success === false) {
-          makeToastError(error.response?.data.message);
+        const status = error.response?.status;
+        const data = error.response?.data;
+
+        // Handle specific status codes or error cases
+        if (
+          status === 400 &&
+          data?.user?.isVerified &&
+          data?.user?.isRegistered && 
+          data?.user?.kycsubmitted
+        ) {
+          navigate("/login");
+        } else if (data?.success === false) {
+          makeToastError(data.message || "An error occurred");
+        } else {
+          console.error("Unhandled Axios error:", data || error.message);
         }
       } else {
+        // Handle unexpected errors
         console.error("Unexpected error:", error);
       }
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false); // Ensure loading is reset
     }
   };
 
@@ -102,6 +121,16 @@ function Register() {
   // }
 
   useEffect(() => {
+    const savedMobileNumber = localStorage.getItem("mobileNumber");
+    if (savedMobileNumber) {
+      form.setValue("mobile", savedMobileNumber);
+      form.setValue("mobile4OTP", savedMobileNumber.split('-')[1]); // Adjust if format changes
+    }
+  }, [form]);
+  
+
+  useEffect(() => {
+    // console.log(form.getValues(),'mobile4OTP register');
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 

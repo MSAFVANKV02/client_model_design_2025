@@ -23,7 +23,7 @@ type NavbarProps = {
 function Navbar({ navItems }: NavbarProps) {
   const { isUserLogged} = useAppSelector(state=> state.auth)
   const location = useLocation();
-  console.log(isUserLogged,'slice');
+  // console.log(isUserLogged,'slice');
   
   // const navigate = useNavigate();
   const isLoggedIn = isAuthenticated_4_Kyc();
@@ -46,7 +46,7 @@ function Navbar({ navItems }: NavbarProps) {
 
   return (
     <nav
-      className={`w-full flex py-5 bg-transparent ${
+      className={`w-full  flex py-5 bg-transparent ${
         location.pathname === "/" && " "
       } 2xl:px-24 xl:px-20 md:px-14 sm:px-10 px-5 mx-auto z-50`}
     >
