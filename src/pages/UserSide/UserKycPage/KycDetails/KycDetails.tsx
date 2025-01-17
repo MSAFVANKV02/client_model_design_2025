@@ -28,6 +28,7 @@ const formSchema = z.object({
   pinCode: z.string().min(1, { message: "Pincode is required." }),
   state: z.string().min(1, { message: "State is required." }),
   country: z.string().min(1, { message: "Country is required." }),
+  gstNumber: z.string(),
 });
 
 // Define the form data type
@@ -37,6 +38,7 @@ interface KycFormData {
   buildingName: string;
   street: string;
   // post: string;
+  gstNumber: string; // Optional
   pinCode: string;
   state: string;
   country: string;
@@ -45,8 +47,8 @@ interface KycFormData {
 export default function KycDetails() {
   const dispatch = useAppDispatch();
   const kycDetails = useAppSelector((state) => state.kyc);
-  // const {user} = useAppSelector(state=> state.auth)
-  // console.log(user,'user');
+  const { userKyc } = useAppSelector((state) => state.auth);
+  // console.log(userKyc, "userKyc");
 
   const form = useForm<KycFormData>({
     resolver: zodResolver(formSchema),
@@ -55,6 +57,7 @@ export default function KycDetails() {
       emailId: "",
       buildingName: "",
       street: "",
+      gstNumber: "",
       // post: "",
       pinCode: "",
       state: "",
@@ -72,14 +75,16 @@ export default function KycDetails() {
   const onSubmit = async (data: KycFormData) => {
     setLoading(true);
     try {
+      // console.log(data, "kyc details page");
+
       // Save the data to Redux
       dispatch(saveKycDetails(data));
-  
+
       // Access the updated Redux state
       const updatedKycDetails = {
         ...data, // Ensure data from form submission is consistent
       };
-  
+
       // Navigate using the updated Redux state
       navigate(`/kyc/details?proofs=${updatedKycDetails.buildingName}`);
     } catch (error) {
@@ -93,26 +98,20 @@ export default function KycDetails() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  useEffect(()=>{
-    // console.log(kycDetails,'kycDetails');
-    
-  
-    if(kycDetails){
-
-    form.reset({
-      businessName: kycDetails?.businessName || "",
-      emailId: kycDetails?.emailId || "",
-      buildingName: kycDetails?.buildingName || "",
-      street: kycDetails?.street || "",
-      // post: kycDetails?.post || "",
-      pinCode: kycDetails?.pinCode || "",
-      state: kycDetails?.state || "",
-      country: kycDetails?.country || "",
-    })
+  useEffect(() => {
+   if (userKyc) {
+      form.reset({
+        businessName: userKyc.businessName || "",
+        emailId: userKyc.emailId || "",
+        buildingName: userKyc.buildingName || "",
+        street: userKyc.street || "",
+        gstNumber: userKyc.gstNumber || "",
+        pinCode: userKyc.pinCode || "",
+        state: userKyc.state || "",
+        country: userKyc.country || "",
+      });
     }
-
-
-  },[kycDetails, form]);
+  }, [kycDetails, userKyc, form]);
   
 
   return (
@@ -217,25 +216,25 @@ export default function KycDetails() {
                   )}
                 />
 
-                <div className="grid grid-cols-1 gap-3">
+                <div className="grid sm:grid-cols-2 grid-cols-1 gap-3">
                   {/* Post */}
-                  {/* <FormField
+                  <FormField
                     control={form.control}
-                    name="post"
+                    name="gstNumber"
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
                           <Input
                             type="text"
                             {...field}
-                            placeholder="Enter your post"
+                            placeholder="Enter your Gst Number if have one"
                             className="w-full p-2 border border-gray-300 rounded-lg"
                           />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
-                  /> */}
+                  />
 
                   {/* Pin Code */}
                   <FormField
@@ -309,10 +308,7 @@ export default function KycDetails() {
                     {loading ? (
                       <ClipLoader color="#ffff" size={20} />
                     ) : (
-                      <>
-                      {kycDetails ? "Edit ":"Submit"}
-                      </>
-                    
+                      <>{kycDetails ? "Edit " : "Submit"}</>
                     )}
                   </Button>
                 </div>

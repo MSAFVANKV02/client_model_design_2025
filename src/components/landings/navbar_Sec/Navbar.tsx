@@ -2,12 +2,12 @@ import { Icon } from "@iconify/react";
 import { useLocation } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { Input } from "@/components/ui/input";
-import { isAuthenticated_4_Kyc } from "@/middlewares/IsAuthenticated";
-
 import AccountMenu from "./AccountMenu";
 import Logo from "./Logo";
 
-import { useAppSelector } from "@/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { useEffect } from "react";
+import { fetchAdminDetails } from "@/redux/userSide/UserAuthSlice";
 
 export type INavbarItems = {
   href: string;
@@ -21,13 +21,20 @@ type NavbarProps = {
 };
 
 function Navbar({ navItems }: NavbarProps) {
+  const dispatch = useAppDispatch();
   const { isUserLogged} = useAppSelector(state=> state.auth)
   const location = useLocation();
-  // console.log(isUserLogged,'slice');
+  // console.log(user,'slice');
   
   // const navigate = useNavigate();
-  const isLoggedIn = isAuthenticated_4_Kyc();
+  // const isLoggedIn4Kyc = isAuthenticated_4_Kyc();
   // const { handleLogout } = useAuth();
+
+  useEffect(()=>{
+    if(isUserLogged){
+      dispatch(fetchAdminDetails());
+    }
+  },[]);
 
   // const [user] = useState(() => {
   //   const userFromStorage = localStorage.getItem("userProfile");
@@ -35,14 +42,14 @@ function Navbar({ navItems }: NavbarProps) {
   // });
 
   // useEffect(() => {
-  //   if (user && !isLoggedIn) {
+  //   if (user && !isLoggedIn4Kyc) {
   //     localStorage.removeItem("userProfile");
   //   }
   //   if(!user){
   //     Cookies.remove("us_tkn_kyc");
   //   Cookies.remove('us_b2b_tkn');
   //   }
-  // }, [isLoggedIn, user]);
+  // }, [isLoggedIn4Kyc, user]);
 
   return (
     <nav
@@ -105,7 +112,7 @@ function Navbar({ navItems }: NavbarProps) {
               </>
             )} */}
             {
-             isLoggedIn && isUserLogged &&(
+             isUserLogged &&(
                 <AccountMenu />
               )
             }

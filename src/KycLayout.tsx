@@ -5,6 +5,7 @@ import Footer from "@/components/landings/footer_Sec/Footer";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/landings/navbar_Sec/Navbar";
 import useNavbarItems from "./components/landings/navbar_Sec/navbarItems";
+import Loader from "./components/loader/loader";
 
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
           "debug-screens": import.meta.env.MODE === "development",
         })}
       >
+
+        <Loader />
      
         <Navbar navItems={navItemsKyc}/>
         {/* {

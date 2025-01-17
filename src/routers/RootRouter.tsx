@@ -22,10 +22,10 @@ import {
 // import ErrorPage from "@/pages/ErrorPage";
 // import About from "@/pages/UserSide/About/About";
 
-// import OtpVerificationPage from "@/pages/UserSide/Auth_Page/OtpVerificationPage";
-// import Register from "@/pages/UserSide/Auth_Page/Register";
-// import UserDetails from "@/pages/UserSide/Auth_Page/UserDetails";
-// import UserLogin from "@/pages/UserSide/Auth_Page/UserLoginPage/UserLogin";
+// import OtpVerificationPage from "@/pages/UserSide/auth/OtpVerificationPage";
+// import Register from "@/pages/UserSide/auth/Register";
+// import UserDetails from "@/pages/UserSide/auth/UserDetails";
+// import UserLogin from "@/pages/UserSide/auth/UserLoginPage/UserLogin";
 // import HomePage from "@/pages/UserSide/Home/Home";
 // import KycDetails from "@/pages/UserSide/UserKycPage/KycDetails/KycDetails";
 // import KycLayout from "@/KycLayout";

@@ -28,6 +28,7 @@ export interface IUserProps {
   updatedAt: string; // ISO date string
   kycStatus: "pending" | "approved" | "viewed" | "rejected";
   // __v: number;
+  kyc?: IKycProps | string;
   name: string;
   pinCode: string;
   shopName: string;
@@ -43,6 +44,7 @@ export interface IKycProps {
   pinCode: string;
   state: string;
   country: string;
+  gstNumber:string;
   proof?: string; // Optional
   proofType:
     | "Udyam Aadhaar"

@@ -1,12 +1,27 @@
 import AyButton from "@/components/myUi/AyButton";
 import { useNavigate } from "react-router-dom";
 import AngledDivMUI from "./KycHomeChilds/Angle_Div";
+import { useAppSelector } from "@/redux/hook";
+import { getKycStatusContent } from "./KycHomeChilds/Kyc-Status-banner";
+import { useMemo } from "react";
 
 export default function KycHome() {
   const navigate = useNavigate();
-  // const location = useLocation();
+  const { user } = useAppSelector((state) => state.auth);
 
-  // const { handleKycDetailsClick } = useScrollContext();
+  const handleKycDetailsClick = () => {
+    navigate("/kyc/details");
+  };
+
+  const kycBtnShow = useMemo(() => {
+    return !user?.kycsubmitted;
+  }, [user]);
+
+  const kycContent = getKycStatusContent(
+    user?.kycStatus || "unknown",
+    handleKycDetailsClick
+  );
+
   const PromoteCards = [
     { title: "5 Lakh+", subtitle: "of products" },
     {
@@ -47,10 +62,6 @@ export default function KycHome() {
     },
   ];
 
-  const handleKycDetailsClick = () => {
-    navigate("/kyc/details");
-  };
-
   return (
     <div className=" md:space-y-10 space-y-5  select-none pb-10">
       {/*-------- Section 1 ====== */}
@@ -71,6 +82,7 @@ export default function KycHome() {
         =====  Button Image ======= 
         <img
           onClick={handleKycDetailsClick}
+           show={kycBtnShow}
           src="/img/kyc/button complete kyc.webp"
           draggable={false}
           className="absolute  md:top-1/2 top-[45%] md:w-[10%] w-[20%] -translate-y-1/2 left-1/2 md:-translate-x-[72%] -translate-x-[35%] active:scale-95 duration-300 transition-all cursor-pointer"
@@ -78,10 +90,6 @@ export default function KycHome() {
         />
        
       </div> */}
-
-<div className="section_container">
-  <AngledDivMUI/>
-</div>
 
       <div className="w-full bg-gray-50 lg:py-0 py-5 lg:h-[400px] lg:justify-around h-fit sm:px-14 px-2 lg:gap-16 gap-5 flex lg:flex-row flex-col">
         <img
@@ -100,6 +108,7 @@ export default function KycHome() {
               We're Glad to Have You Here.
             </span>
             <AyButton
+          
               title="Complete KYC"
               sx={{
                 bgcolor: "#8817EC",
@@ -107,6 +116,7 @@ export default function KycHome() {
                 px: "12px",
                 borderRadius: "12px",
               }}
+              show={kycBtnShow}
               onClick={handleKycDetailsClick}
             />
           </div>
@@ -129,6 +139,21 @@ export default function KycHome() {
         </div>
       </div>
 
+      <div className="section_container">
+        <AngledDivMUI
+          titleColorOne={kycContent.titleColorOne}
+          titleColorTwo={kycContent.titleColorTwo}
+          title={kycContent.title}
+          description={kycContent.description}
+          subtitle="For any queries, please contact support."
+          btnColor={kycContent.btnColor}
+          bgColor={kycContent.bgColor}
+          onClick={handleKycDetailsClick}
+
+          //  sideImg="/img/kyc/kyc-status.png"
+        />
+      </div>
+
       {/*-------- Section 2 ====== */}
 
       <div className="section_container_dash relative">
@@ -145,14 +170,19 @@ export default function KycHome() {
           className="w-full md:hidden block"
         />
         {/* =====  Button Image =======  */}
-        <img
-          onClick={handleKycDetailsClick}
-          src="/img/kyc/button complete kyc.webp"
-          draggable={false}
-          className="absolute md:block hidden sm:rounded-2xl rounded-lsm lg:bottom-10 sm:bottom-5 bottom-2 w-[15%] xl:translate-x-16 md:translate-x-10 sm:translate-x-6 translate-x-3
-           active:scale-95 duration-300 transition-all cursor-pointer"
-          alt=""
-        />
+        {
+          kycBtnShow && (
+            <img
+            onClick={handleKycDetailsClick}
+            src="/img/kyc/button complete kyc.webp"
+            draggable={false}
+            className="absolute md:block hidden sm:rounded-2xl rounded-lsm lg:bottom-10 sm:bottom-5 bottom-2 w-[15%] xl:translate-x-16 md:translate-x-10 sm:translate-x-6 translate-x-3
+             active:scale-95 duration-300 transition-all cursor-pointer"
+            alt=""
+          />
+          )
+        }
+        
         {/* =====  Button Image =======  */}
       </div>
 
@@ -172,13 +202,18 @@ export default function KycHome() {
           className="w-full md:hidden block"
         />
         {/* =====  Button Image =======  */}
-        <img
+        {
+          kycBtnShow && (
+             <img
           onClick={handleKycDetailsClick}
           src="/img/kyc/button complete kyc.webp"
           draggable={false}
           className="absolute  md:top-3/4 top-[50%] rounded-2xl md:w-[13%] w-[40%]  left-1/2 md:-translate-x-[55%] -translate-x-[10%] active:scale-95 duration-300 transition-all cursor-pointer"
           alt=""
         />
+          )
+        }
+       
         {/* =====  Button Image =======  */}
         {/* =====  Button Image 2 =======  */}
         <img
@@ -193,7 +228,7 @@ export default function KycHome() {
 
       {/*-------- Section 4 ====== */}
 
-      <div className="section_container_dash text-center flex justify-center relative items-center border-b-2 border-[#5F08B1] pb-5">
+      <div className="section_container_dash text-center flex justify-center relative items-center border-b-2  border-[#5F08B1] pb-10">
         <div className=" xl:w-[60%] sm:w-[80%]  space-y-3">
           <div className="">
             <h4>To see wholesale prices & buy products </h4>

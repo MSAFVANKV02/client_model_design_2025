@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  CURRENT_USER_URL,
   RESEND_OTP_USER,
   SEND_OTP_REGISTER_USER,
   SEND_OTP_USER_LOGIN,
@@ -68,3 +69,9 @@ export const VerifyOtp_Login_Api = async (data: { mobile: string, otp:string }) 
 export const Logout_User_Api = async () =>
   await API.post(USER_LOGOUT, {}, { withCredentials: true });
 // ------------------------Logout User----------------------------------------
+
+
+// ==== 4. User Current_User Details --------------------------------
+export const Current_User_Api = async () =>
+  await API.get(CURRENT_USER_URL, { withCredentials: true });
+

@@ -1,21 +1,21 @@
 import React, { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import {
+  clearKycDetails,
   restProofType,
-  saveKycDetails,
   uploadFile,
 } from "@/redux/userSide/KycSlice";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@/components/ui/button";
 import { pdfjs } from "react-pdf";
-import PdfFile from "./PdfFile";
-// import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { makeToast, makeToastError } from "@/utils/toaster";
 import ClipLoader from "react-spinners/ClipLoader";
 // import { UPLOAD_USER_KYC } from "@/utils/urlPath";
 import axios from "axios";
 import { Kyc_Submit_Api } from "@/services/user_side_api/auth/route_url";
+import { setLoadingState } from "@/redux/userSide/loadingSlice";
+import MyPdf from "@/components/myUi/MyPdf";
 
 // pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 //   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -29,6 +29,7 @@ export default function KycUpload() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const { userKyc } = useAppSelector((state) => state.auth);
 
   const {
     businessName,
@@ -40,6 +41,7 @@ export default function KycUpload() {
     country,
     proofType,
     proof,
+    gstNumber,
   } = useAppSelector((state) => state.kyc);
   // const uploadDetails = useAppSelector((state) => state.kyc);
   const kycDetails = useAppSelector((state) => state.kyc);
@@ -47,16 +49,26 @@ export default function KycUpload() {
   const [loading, setLoading] = useState(false);
   const [fileError, setFileError] = useState<string | null>(null);
   // const [fileURL, setFileURL] = useState<string | null>(kycDetails?.proof || null);
-  const [fileURL, setFileURL] = useState<string | null>(
-    kycDetails?.proof
-      ? typeof kycDetails.proof === "string"
-        ? kycDetails.proof
-        : URL.createObjectURL(kycDetails.proof)
-      : null
-  );
+  // const [fileURL, setFileURL] = useState<string | null>(
+  //   kycDetails?.proof
+  //     ? typeof kycDetails.proof === "string"
+  //       ? kycDetails.proof
+  //       : URL.createObjectURL(kycDetails.proof)
+  //     : null
+  // );
+  const [fileURL, setFileURL] = useState<string | null>(() => {
+    if (kycDetails?.proof) {
+      if (typeof kycDetails.proof === "string") {
+        return kycDetails.proof; // If it's already a URL, use it directly.
+      } else if (kycDetails.proof instanceof Blob) {
+        return URL.createObjectURL(kycDetails.proof); // Generate a URL for the Blob/File.
+      }
+    }
+    return userKyc?.proof || null; // Fallback to `userKyc.proof` or `null`.
+  });
 
   // const {  handleLogout} = useAuth();
-  // console.log(kycDetails, "kycDetails?.proof");
+  // console.log(fileURL, "fileURL?.proof");
 
   const chooseFile = () => {
     if (inputRef.current) {
@@ -94,7 +106,7 @@ export default function KycUpload() {
   };
 
   const handleSubmit = async () => {
-    if (!proof) {
+    if (!proof && !userKyc?.proof) {
       makeToastError("Please upload a PDF file");
       return;
     }
@@ -128,21 +140,24 @@ export default function KycUpload() {
       formData.append("state", state);
       formData.append("country", country);
       formData.append("proofType", proofType || ""); // Append proofType, ensure it's a string
-      formData.append("proof", proof); // Append the uploaded file
+      if (proof) {
+        formData.append("proof", proof); // Append the uploaded file
+      }
+      formData.append("gstNumber", gstNumber); // Append the uploaded file
 
-      // const response = await axios.post(UPLOAD_USER_KYC, formData, {
-      //   withCredentials: true,
-      // }); // Specify the correct endpoint
       const response = await Kyc_Submit_Api(formData);
-
+      dispatch(setLoadingState(true));
       if (response.status === 200) {
-        dispatch(saveKycDetails(response.data.kyc));
+        // dispatch(saveKycDetails(response.data.kyc));
+        dispatch(clearKycDetails());
+
         // handleLogout('/');
         navigate(`/`, { replace: true });
         makeToast("KYC submitted successfully");
       }
     } catch (error: unknown) {
       console.log("Unexpected error:", error);
+      dispatch(setLoadingState(false));
       if (axios.isAxiosError(error)) {
         makeToastError(error.response?.data.message || "Failed to submit KYC");
       } else {
@@ -150,6 +165,7 @@ export default function KycUpload() {
       }
     } finally {
       setLoading(false); // Set loading state back to false
+      dispatch(setLoadingState(false));
     }
   };
 
@@ -183,10 +199,7 @@ export default function KycUpload() {
                 type="button"
               >
                 <Icon icon="material-symbols-light:upload" fontSize={20} />{" "}
-                {
-                  fileURL ? "Change" :"Upload"
-                }
-                
+                {fileURL ? "Change" : "Upload"}
               </Button>
             </div>
             {/* change proof type  */}
@@ -244,24 +257,27 @@ export default function KycUpload() {
         </div>
 
         {/* Show Uploaded File */}
-        {fileURL && proof ? (
-          <div>
-            <p>See Sample:</p>
-            <div className="mt-4 relative float-right">
-              <a href={fileURL} target="_blank" rel="noopener noreferrer">
-                {/* <p>Uploaded File: {proof.name}</p> */}
+        {fileURL ? (
+          <>
+            <MyPdf value={`${fileURL}`} />
+            {/* <div>
+             <p>See Sample:</p>
+             <div className="mt-4 relative float-right">
+               <a href={fileURL} target="_blank" rel="noopener noreferrer">
+                
 
-                <PdfFile fileURL={fileURL} />
-                <div className="absolute w-16 h-24 bg-black/10 top-0 rounded-md flex items-center justify-center ">
-                  <Icon
-                    icon="system-uicons:capture"
-                    fontSize={25}
-                    color="#fff"
-                  />
-                </div>
-              </a>
-            </div>
-          </div>
+                 <PdfFile fileURL={fileURL} />
+                 <div className="absolute w-16 h-24 bg-black/10 top-0 rounded-md flex items-center justify-center ">
+                   <Icon
+                     icon="system-uicons:capture"
+                     fontSize={25}
+                     color="#fff"
+                   />
+                 </div>
+               </a>
+             </div>
+           </div> */}
+          </>
         ) : (
           <div className="w-16 h-24 bg-black/20 flex items-center justify-center">
             <Icon icon="system-uicons:capture" />

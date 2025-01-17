@@ -28,7 +28,7 @@ import {
   VerifyOtp_Login_Api,
 } from "@/services/user_side_api/auth/route_url";
 import { useAppDispatch } from "@/redux/hook";
-import { setUserData } from "@/redux/userSide/UserAuthSlice";
+import { fetchAdminDetails, setUserData } from "@/redux/userSide/UserAuthSlice";
 import { saveKycDetails } from "@/redux/userSide/KycSlice";
 
 const formSchema = z.object({
@@ -111,8 +111,10 @@ export default function LoginOtpVerifyUser({
             makeToast("Your account is under Processing....");
             setMessage("Your account is under Processing");
             navigate(`/kyc`);
-            dispatch(setUserData(response.data.user));
-            dispatch(saveKycDetails(response.data.kyc));
+            // dispatch(setUserData(response.data.user));
+            dispatch(fetchAdminDetails());
+
+            // dispatch(saveKycDetails(response.data.kyc));  
 
           }
         }

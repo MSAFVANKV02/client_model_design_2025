@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store"; // Assuming your store is in ../store
-import { IUserProps } from "@/types/userTypes";
+import { IKycProps, IUserProps } from "@/types/userTypes";
+import { Current_User_Api } from "@/services/user_side_api/auth/route_url";
 
 // Define the shape of your state
 interface AuthState {
   user: IUserProps | null;
+  userKyc: IKycProps | null;
   token: string | null;
   isLoading: boolean;
   error: string | null;
@@ -20,6 +22,7 @@ interface AuthState {
 // Initial state
 const initialState: AuthState = {
   user: null,
+  userKyc: null,
   token: null,
   isLoading: false,
   isUserLogged: false,
@@ -27,31 +30,25 @@ const initialState: AuthState = {
 };
 
 // Async thunk for login
-export const login = createAsyncThunk<
-  { user: IUserProps; token: string }, // Return type (success response)
-  { username: string; password: string }, // Argument type (input to thunk)
-  { rejectValue: string } // Rejected action type (in case of error)
->("auth/login", async ({ username, password }, thunkAPI) => {
-  try {
-    // Simulating an API call (replace with real API logic)
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
+export const fetchAdminDetails = createAsyncThunk(
+  "user/fetchAdminDetails",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await Current_User_Api();
+      // console.log(response);
 
-    const data = await response.json();
-    if (!response.ok) {
-      return thunkAPI.rejectWithValue(data.message || "Failed to login");
+      if (response.status == 200 || response.data.success === true) {
+        return response.data;
+      } else {
+        return rejectWithValue("Failed to fetch admin details");
+      }
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response ? error.response.data : "Network error"
+      );
     }
-
-    return data; // Assuming data contains { user, token }
-  } catch (error) {
-    console.log(error);
-
-    return thunkAPI.rejectWithValue("Failed to login");
   }
-});
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -69,27 +66,35 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(login.pending, (state) => {
+      .addCase(fetchAdminDetails.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(
-        login.fulfilled,
-        (state, action: PayloadAction<{ user: IUserProps; token: string }>) => {
+        fetchAdminDetails.fulfilled,
+        (state, action: PayloadAction<{ user: IUserProps; kyc: IKycProps; token: string;}>) => {
           state.isLoading = false;
           state.isUserLogged = true;
           state.user = action.payload.user;
+          state.userKyc = action.payload.kyc;
           state.token = action.payload.token;
         }
       )
-      .addCase(
-        login.rejected,
-        (state, action: PayloadAction<string | undefined>) => {
-          state.isLoading = false;
-          state.isUserLogged = false;
-          state.error = action.payload ?? "Unknown error";
+      .addCase(fetchAdminDetails.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isUserLogged = false;
+
+        // Check if payload is a string or an object and handle accordingly
+        if (typeof action.payload === "string") {
+          state.error = action.payload; // String error message
+        } else if (action.payload && typeof action.payload === "object") {
+          // Cast payload to 'any' to safely access 'data'
+          const errorPayload = action.payload as any;
+          state.error = errorPayload?.data?.message || "Unknown error";
+        } else {
+          state.error = "Unknown error";
         }
-      );
+      });
   },
 });
 

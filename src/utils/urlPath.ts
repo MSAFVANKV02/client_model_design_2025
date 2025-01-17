@@ -2,6 +2,11 @@
 
 // User Register Routes =================================================
 
+// ---- fetch current users --------------------------------
+export const CURRENT_USER_URL = `/user_api/user/getCurrentuser`;
+// ---- fetch current users --------------------------------
+
+
 export const USER_LOGOUT = `user_api/user/logoutUser`
 
 export const SEND_OTP_REGISTER_USER = `/user_api/user/sendOtp`;

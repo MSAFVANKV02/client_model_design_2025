@@ -58,7 +58,7 @@ const CategoryProductNavbar: React.FC<CategoryFilterProps> = ({
         {pathSegments.map((segment, index) => (
           <span key={index} style={{ color: "#999" }}>
             {" / "}
-            {segment.charAt(0).toUpperCase() + segment.slice(1)}
+            {segment.charAt(0) + segment.slice(1)}
           </span>
         ))}
       </Typography>

@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { makeToast } from "@/utils/toaster";
 import axios from "axios";
-import { setUserData } from "@/redux/userSide/UserAuthSlice";
+import { fetchAdminDetails } from "@/redux/userSide/UserAuthSlice";
 import { useAppDispatch } from "@/redux/hook";
 import { User_Details_Registration_Api } from "@/services/user_side_api/auth/route_url";
 
@@ -74,7 +74,8 @@ function UserDetails() {
       if (response.status === 200) {
         // console.log("Data sent successfully",response.data);
         // localStorage.setItem("userProfile", JSON.stringify(response.data.user));
-        dispatch(setUserData(response.data.user));
+        // dispatch(setUserData(response.data.user));
+        dispatch(fetchAdminDetails());
         makeToast(`${response.data.message}`)
         navigate("/kyc");
       }

@@ -12,6 +12,7 @@ interface KycDetails {
   country: string;
   proofType?: string; // Optional
   proof?: File | string; // Store only the file metadata
+  gstNumber: string; //
 }
 
 // Define the initial state of the KYC details with default values
@@ -21,6 +22,7 @@ const initialState: KycDetails = {
   buildingName: '',
   street: '',
   // post: '',
+  gstNumber:'',
   pinCode: '',
   state: '',
   country: '',

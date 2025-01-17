@@ -62,6 +62,7 @@ export default function AccountMenu() {
       if (response.status === 200) {
         makeToast(response.data.message);
         dispatch(clearKycDetails());
+        navigate('/')
         dispatch(logoutUser());
       }
     } catch (error: any) {
@@ -71,7 +72,7 @@ export default function AccountMenu() {
   }, [dispatch]);
 
   const userInitial = React.useMemo(
-    () => (user?.name ? user.name.slice(0, 1).toUpperCase() : ""),
+    () => (user?.name ? user.name.slice(0, 1) : ""),
     [user]
   );
   return (
@@ -189,7 +190,7 @@ export default function AccountMenu() {
             userSelect: "none",
           }}
         >
-          Hi, {user?.name.toUpperCase()}
+          Hi, {user?.name}
         </MenuItem>
         {/* <Divider sx={{ my: 1 }} /> */}
         <MenuItem

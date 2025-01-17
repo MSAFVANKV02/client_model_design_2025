@@ -26,6 +26,10 @@ const sidebarNavItems = [
     title: "Return or Replace",
     href: "/my-account/return",
   },
+  {
+    title: "Credit Request",
+    href: "/my-account/credit-request",
+  },
 ];
 
 interface SettingsLayoutProps {

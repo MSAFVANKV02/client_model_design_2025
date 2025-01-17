@@ -1,7 +1,30 @@
-import React from "react";
+
 import { Box, Button, Typography } from "@mui/material";
 
-const AngledDivMUI = () => {
+type Props = {
+  title: string;
+  titleColorOne: string;
+  subtitle: string;
+  description: string;
+  bgColor: string;
+  onClick?: () => void;
+  btnColor: string;
+  sideImg?: string;
+  titleColorTwo?: string;
+};
+
+const AngledDivMUI = ({
+  title,
+  titleColorOne,
+  titleColorTwo,
+  subtitle,
+  description,
+  bgColor,
+  onClick,
+  btnColor,
+  sideImg,
+}: Props) => {
+  const [firstPart, secondPart] = title.split("-");
   return (
     <Box
       display="flex"
@@ -10,7 +33,7 @@ const AngledDivMUI = () => {
       sx={{
         // maxWidth: "900px",
         margin: "50px auto",
-        height:"330px",
+        height: "330px",
         // border: "1px solid #ddd",
         boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
         borderRadius: "8px",
@@ -23,34 +46,63 @@ const AngledDivMUI = () => {
         sx={{
           width: "60%",
           height: "100%",
-          backgroundColor: "#ffe5e5", // light red
-          maxWidth:"90%",
-          padding: "20px",
-          clipPath: "polygon(0 0, 100% 0, 90% 100%, 0% 100%)", // Custom angle
+          backgroundColor: bgColor, // light red
+
+          // maxWidth:"90%",
+          // padding: "30px 100px 30px 30px",
+          padding: "30px",
+          clipPath: "polygon(0 0, 100% 0, 80% 100%, 0% 100%)", // Custom angle
         }}
       >
-        <Typography variant="h6" sx={{ color: "red", fontWeight: "bold" }}>
-          YOUR KYC IS REJECTED
-        </Typography>
-        <Typography sx={{ fontSize: "14px", marginTop: "10px" }}>
-          We are currently reviewing your submitted documents. This process may
-          take up to [expected time, e.g., 24-48 hours]. Thank you for your
-          patience.
-        </Typography>
-        <Typography sx={{ fontSize: "14px", marginTop: "10px" }}>
-          For any queries, please contact [support email or hotline].
-        </Typography>
-        <Button
-          variant="contained"
+        <Box
           sx={{
-            backgroundColor: "#ff4b4b",
-            color: "white",
-            marginTop: "15px",
-            ":hover": { backgroundColor: "#e33e3e" },
+            width: {
+              sm: "50%",
+              xs: "90%",
+            },
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
           }}
         >
-          REVIEW YOUR KYC
-        </Button>
+          <Box
+          display="flex"
+          gap="5px"
+          >
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", color: titleColorOne }}
+            >
+              {firstPart}
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", color: titleColorTwo }}
+            >
+              {secondPart}
+            </Typography>
+          </Box>
+          <Typography sx={{ fontSize: "14px", marginTop: "10px" }}>
+            {description}
+          </Typography>
+          <Typography sx={{ fontSize: "14px", marginTop: "10px" }}>
+            {subtitle}
+          </Typography>
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: btnColor,
+              width: "fit-content",
+              color: "white",
+              // marginTop: "15px",
+              ":hover": { backgroundColor: btnColor },
+            }}
+            onClick={onClick}
+          >
+            REVIEW YOUR KYC
+          </Button>
+        </Box>
       </Box>
 
       {/* Right Section with Image */}
@@ -60,12 +112,12 @@ const AngledDivMUI = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-        //   padding: "20px",
+          //   padding: "20px",
         }}
       >
         <img
-          src="https://via.placeholder.com/200"
-          alt="Stack of clothes"
+          src={sideImg ? sideImg : "https://via.placeholder.com/200"}
+          alt={title}
           style={{ borderRadius: "8px", maxWidth: "100%" }}
         />
       </Box>
