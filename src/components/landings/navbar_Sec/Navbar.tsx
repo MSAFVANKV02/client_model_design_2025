@@ -7,7 +7,8 @@ import Logo from "./Logo";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { useEffect } from "react";
-import { fetchAdminDetails } from "@/redux/userSide/UserAuthSlice";
+import { fetchAyabooUserDetails } from "@/redux/userSide/UserAuthSlice";
+import { useAuth } from "@/providers/AuthContext";
 
 export type INavbarItems = {
   href: string;
@@ -22,34 +23,32 @@ type NavbarProps = {
 
 function Navbar({ navItems }: NavbarProps) {
   const dispatch = useAppDispatch();
-  const { isUserLogged} = useAppSelector(state=> state.auth)
+  const { isUserLogged, error} = useAppSelector(state=> state.auth)
   const location = useLocation();
-  // console.log(user,'slice');
+  const {handleLogout} = useAuth();
+  // console.log(error,'slice');
   
   // const navigate = useNavigate();
   // const isLoggedIn4Kyc = isAuthenticated_4_Kyc();
   // const { handleLogout } = useAuth();
 
-  useEffect(()=>{
-    if(isUserLogged){
-      dispatch(fetchAdminDetails());
+  useEffect(() => {
+    dispatch(fetchAyabooUserDetails());
+
+    if (isUserLogged) {
+      dispatch(fetchAyabooUserDetails());
+    } else if(error) {
+      handleLogout('/login');
+      // const timeoutId = setTimeout(() => {
+      //   handleLogout('/login');
+      // }, 10000); // 10 seconds delay
+  
+      // return () => clearTimeout(timeoutId); 
     }
-  },[]);
+  }, [isUserLogged, dispatch, handleLogout]);
+  
 
-  // const [user] = useState(() => {
-  //   const userFromStorage = localStorage.getItem("userProfile");
-  //   return userFromStorage ? JSON.parse(userFromStorage) : null;
-  // });
-
-  // useEffect(() => {
-  //   if (user && !isLoggedIn4Kyc) {
-  //     localStorage.removeItem("userProfile");
-  //   }
-  //   if(!user){
-  //     Cookies.remove("us_tkn_kyc");
-  //   Cookies.remove('us_b2b_tkn');
-  //   }
-  // }, [isLoggedIn4Kyc, user]);
+ 
 
   return (
     <nav

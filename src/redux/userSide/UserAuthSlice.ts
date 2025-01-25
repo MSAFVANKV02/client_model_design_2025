@@ -28,27 +28,56 @@ const initialState: AuthState = {
   isUserLogged: false,
   error: null,
 };
-
+// 4 last of cookie
 // Async thunk for login
-export const fetchAdminDetails = createAsyncThunk(
-  "user/fetchAdminDetails",
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await Current_User_Api();
-      // console.log(response);
+// export const fetchAyabooUserDetails = createAsyncThunk(
+//   "user/fetchAyabooUserDetails",
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await Current_User_Api();
+//       // console.log(response);
 
-      if (response.status == 200 || response.data.success === true) {
-        return response.data;
-      } else {
-        return rejectWithValue("Failed to fetch admin details");
-      }
-    } catch (error: any) {
-      return rejectWithValue(
-        error.response ? error.response.data : "Network error"
-      );
+//       if (response.status == 200 || response.data.success === true) {
+//         return response.data;
+//       } else {
+//         return rejectWithValue("Failed to fetch admin details");
+//       }
+//     } catch (error: any) {
+//       console.log(error);
+
+//       return rejectWithValue(
+//         error.response?.data || { message: "Network error" }
+//       );
+//     }
+//   }
+// );
+export const fetchAyabooUserDetails = createAsyncThunk<
+  { user: IUserProps; kyc: IKycProps; token: string }, // Fulfilled return type
+  void, // Thunk argument type
+  { rejectValue: { error: string; message: string; success: boolean } } // Rejected value type
+>("user/fetchAyabooUserDetails", async (_, { rejectWithValue }) => {
+  try {
+    const response = await Current_User_Api();
+
+    if (response.status === 200 || response.data.success === true) {
+      return response.data;
+    } else {
+      return rejectWithValue({
+        error: "Failed",
+        message: response.data?.message || "Failed to fetch user details",
+        success: false,
+      });
     }
+  } catch (error: any) {
+    return rejectWithValue(
+      error.response?.data || {
+        error: "Network error",
+        message: "Unable to fetch data",
+        success: false,
+      }
+    );
   }
-);
+});
 
 const authSlice = createSlice({
   name: "auth",
@@ -66,13 +95,20 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAdminDetails.pending, (state) => {
+      .addCase(fetchAyabooUserDetails.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(
-        fetchAdminDetails.fulfilled,
-        (state, action: PayloadAction<{ user: IUserProps; kyc: IKycProps; token: string;}>) => {
+        fetchAyabooUserDetails.fulfilled,
+        (
+          state,
+          action: PayloadAction<{
+            user: IUserProps;
+            kyc: IKycProps;
+            token: string;
+          }>
+        ) => {
           state.isLoading = false;
           state.isUserLogged = true;
           state.user = action.payload.user;
@@ -80,21 +116,14 @@ const authSlice = createSlice({
           state.token = action.payload.token;
         }
       )
-      .addCase(fetchAdminDetails.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isUserLogged = false;
-
-        // Check if payload is a string or an object and handle accordingly
-        if (typeof action.payload === "string") {
-          state.error = action.payload; // String error message
-        } else if (action.payload && typeof action.payload === "object") {
-          // Cast payload to 'any' to safely access 'data'
-          const errorPayload = action.payload as any;
-          state.error = errorPayload?.data?.message || "Unknown error";
-        } else {
-          state.error = "Unknown error";
+      .addCase(
+        fetchAyabooUserDetails.rejected,
+        (state, action) => {
+          state.isLoading = false;
+          state.isUserLogged = false;
+          state.error = action.payload?.message || "Unknown error";
         }
-      });
+      );
   },
 });
 

@@ -197,6 +197,10 @@ label {
   @apply w-full max-w-screen-2xl mx-auto;
 }
 
+.page-outer{
+  @apply bg-white sm:p-5 rounded-md shadow-sm min-h-[80vh] w-full;
+}
+
 .bg-combined-gradients {
   background: linear-gradient(220.66deg, #f0dfff -11.2%, #ffffff 100.09%),
     linear-gradient(219.36deg, #f5d9ff 16.58%, #ffffff 100.08%);

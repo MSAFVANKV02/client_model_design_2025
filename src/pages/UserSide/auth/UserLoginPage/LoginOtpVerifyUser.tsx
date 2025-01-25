@@ -28,7 +28,7 @@ import {
   VerifyOtp_Login_Api,
 } from "@/services/user_side_api/auth/route_url";
 import { useAppDispatch } from "@/redux/hook";
-import { fetchAdminDetails, setUserData } from "@/redux/userSide/UserAuthSlice";
+import { fetchAyabooUserDetails, setUserData } from "@/redux/userSide/UserAuthSlice";
 import { saveKycDetails } from "@/redux/userSide/KycSlice";
 
 const formSchema = z.object({
@@ -72,7 +72,7 @@ export default function LoginOtpVerifyUser({
         otp: data.otp,
         mobile: auth ?? "",
       });
-      console.log(response.data);
+      // console.log(response.data);
 
       if (response.status === 200 && response.data.success) {
 
@@ -88,8 +88,9 @@ export default function LoginOtpVerifyUser({
             response.data.user.kycsubmitted
           ) {
             makeToast("Otp Verified Successfully.");
-            // navigate(`/`);
-            // window.location.reload();
+            navigate(`/`);
+            window.location.reload();
+            dispatch(fetchAyabooUserDetails());
           } else if (
             response.data.user.isVerified &&
             response.data.user.isRegistered &&
@@ -112,7 +113,7 @@ export default function LoginOtpVerifyUser({
             setMessage("Your account is under Processing");
             navigate(`/kyc`);
             // dispatch(setUserData(response.data.user));
-            dispatch(fetchAdminDetails());
+            dispatch(fetchAyabooUserDetails());
 
             // dispatch(saveKycDetails(response.data.kyc));  
 

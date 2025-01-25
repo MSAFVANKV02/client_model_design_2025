@@ -1,15 +1,28 @@
 import AyButton from "@/components/myUi/AyButton";
 import { useNavigate } from "react-router-dom";
 import AngledDivMUI from "./KycHomeChilds/Angle_Div";
-import { useAppSelector } from "@/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { getKycStatusContent } from "./KycHomeChilds/Kyc-Status-banner";
 import { useMemo } from "react";
+import { makeToast } from "@/utils/toaster";
+import Cookies from "js-cookie";
+import { logoutUser } from "@/redux/userSide/UserAuthSlice";
+import { clearKycDetails } from "@/redux/userSide/KycSlice";
 
 export default function KycHome() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
 
   const handleKycDetailsClick = () => {
+    if(user?.kycStatus==="approved"){
+      navigate("/login");
+      makeToast("Your account has been approved. Please login with credentials")
+      dispatch(logoutUser());
+      dispatch(clearKycDetails());
+      Cookies.remove('us_tkn_kyc')
+      return;
+    }
     navigate("/kyc/details");
   };
 

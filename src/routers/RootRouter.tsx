@@ -40,7 +40,6 @@ import ProtectedRoute from "@/middlewares/ProtectedRoute";
 import { isAuthenticated } from "@/middlewares/IsAuthenticated";
 
 import CategoryProductsPage from "@/pages/UserSide/Prod_pages/Category_wise/CategoryProductsPage";
-import FolderStructure from "@/pages/folder-structure/FolderStructure";
 import Products from "@/pages/UserSide/Prod_pages/ProductDetails/Products";
 import ShoppingCart from "@/pages/UserSide/cart/page";
 import CheckoutPage from "@/pages/UserSide/cart/checkout/page";
@@ -54,6 +53,9 @@ import UseReviewPage from "@/pages/UserSide/my-account/reviews/use-review-page";
 import UseReturnPage from "@/pages/UserSide/my-account/return_user/user-return-page";
 import { Suspense } from "react";
 import PreloaderPage from "@/preloader-page";
+import PageOnBuild from "@/components/myUi/PageOnBuild";
+import { MyAccountLayout } from "@/layouts/Sidbar_Layout";
+import StoreRegisterPage from "@/pages/UserSide/auth/store/store-register-page";
 // import PreloaderPage from "@/preloader-page";
 
 // import withAuth from "@/middlewares/WithAuth";
@@ -72,7 +74,7 @@ const rootRouter = createBrowserRouter(
     {
       path: "/",
       element: (
-        <Suspense fallback={<PreloaderPage/>} >
+        <Suspense fallback={<PreloaderPage />}>
           <ScrollProvider>{isLogged ? <AppLayout /> : <App />}</ScrollProvider>
         </Suspense>
       ),
@@ -120,15 +122,15 @@ const rootRouter = createBrowserRouter(
             </ProtectedRoute>
           ),
         },
-        {
-          path: "/folder",
-          element: (
-            <ProtectedRoute isProtected={true}>
-              {" "}
-              <FolderStructure />{" "}
-            </ProtectedRoute>
-          ),
-        },
+        // {
+        //   path: "/folder",
+        //   element: (
+        //     <ProtectedRoute isProtected={true}>
+        //       {" "}
+        //       <FolderStructure />{" "}
+        //     </ProtectedRoute>
+        //   ),
+        // },
         {
           path: "/register/otp-verification",
           element: (
@@ -193,68 +195,48 @@ const rootRouter = createBrowserRouter(
         },
         {
           path: "/my-account",
-          element: (
-            <ProtectedRoute isProtected={true}>
-              {" "}
-              <SettingsProfilePage />
-            </ProtectedRoute>
-          ),
+          element: <MyAccountLayout />, // Parent layout for Sales
+          children: [
+            { path: "", element: <SettingsProfilePage /> },
+            { path: "my-orders", element: <MyOrdersPage /> },
+            { path: "my-orders/:slug", element: <SingleOrderPage /> },
+            {
+              path: "my-orders/:slug/review/:orderId",
+              element: <UseReviewPage />,
+            },
+            { path: "chat", element: <ChatPage /> },
+            { path: "my-wishlist", element: <WishlistPage /> },
+            { path: "return", element: <UseReturnPage /> },
+            { path: "credit-request", element:  <PageOnBuild /> },
+
+          ],
         },
-        {
-          path: "/my-account/my-orders",
-          element: (
-            <ProtectedRoute isProtected={true}>
-              {" "}
-              <MyOrdersPage />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "/my-account/my-orders/:slug",
-          element: (
-            <ProtectedRoute isProtected={true}>
-              {" "}
-              <SingleOrderPage />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "/my-account/my-orders/:slug/review/:orderId",
-          element: (
-            <ProtectedRoute isProtected={true}>
-              {" "}
-              <UseReviewPage />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "/my-account/chat",
-          element: (
-            <ProtectedRoute isProtected={true}>
-              {" "}
-              <ChatPage />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "/my-account/my-wishlist",
-          element: (
-            <ProtectedRoute isProtected={true}>
-              {" "}
-              <WishlistPage />
-            </ProtectedRoute>
-          ),
-        },
-        {
-          path: "/my-account/return",
-          element: (
-            <ProtectedRoute isProtected={true}>
-              {" "}
-              <UseReturnPage />
-            </ProtectedRoute>
-          ),
-        },
+
+       
       ],
+    },
+    {
+      path:"/become",
+      children: [
+        {
+          path: "seller/register",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <PageOnBuild title="Seller Registration" />{" "}
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "store/register",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <StoreRegisterPage />{" "}
+            </ProtectedRoute>
+          ),
+        },
+      ]
     },
 
     //   ===== KYC Sections =================================
@@ -262,11 +244,11 @@ const rootRouter = createBrowserRouter(
       path: "/kyc",
 
       element: (
-        <Suspense fallback={<PreloaderPage/>} >
+        <Suspense fallback={<PreloaderPage />}>
           {/* <ScrollProvider> */}
-            <ProtectedRoute>
-              <KycLayout />
-            </ProtectedRoute>
+          <ProtectedRoute>
+            <KycLayout />
+          </ProtectedRoute>
           {/* </ScrollProvider> */}
         </Suspense>
       ),
@@ -311,7 +293,7 @@ const rootRouter = createBrowserRouter(
       path: "*",
 
       element: (
-        <Suspense fallback={<PreloaderPage/>} >
+        <Suspense fallback={<PreloaderPage />}>
           <ErrorPage />
         </Suspense>
       ),
