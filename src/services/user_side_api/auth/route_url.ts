@@ -11,7 +11,7 @@ import {
   VERIFY_OTP_REGISTER_USER,
 } from "../../../utils/urlPath";
 
-const API = axios.create({
+export const API = axios.create({
   baseURL: `${
     import.meta.env.MODE == "development"
       ? "http://localhost:4000"

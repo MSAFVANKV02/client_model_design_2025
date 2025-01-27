@@ -139,7 +139,7 @@ export default function AyButton({
         ...sx, // Allow overriding styles via `sx` prop
       }}
     >
-      {!disabled && loading ? (
+      { loading ? (
         <div className="flex items-center">
           <span className="loader mr-2 text-white font-semibold space-x-1 ">
             Processing

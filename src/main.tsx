@@ -11,6 +11,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { AuthProvider } from "./providers/AuthContext.tsx";
 import { ContextProvider } from "./providers/context/context.tsx";
+import { Toaster } from "react-hot-toast";
 
 const persister = persistStore(store);
 
@@ -26,6 +27,18 @@ createRoot(document.getElementById("root")!).render(
       <AuthProvider>
         <PersistGate persistor={persister}>
           <RouterProvider router={rootRouter}/>
+
+          <Toaster
+        position="top-right"
+        reverseOrder={true}
+        toastOptions={{
+          duration: 2000,
+        }}
+        containerStyle={{
+          zIndex: "100009",
+        }}
+        gutter={14}
+      />
         </PersistGate>
       </AuthProvider>
     </ContextProvider>

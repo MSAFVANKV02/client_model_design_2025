@@ -19,7 +19,7 @@ function Footer() {
           <img src="/img/logo/Logo_white.svg" alt="Logo" />
         </div>
         <div className="flex md:flex-row flex-col h-full mt-auto justify-between">
-          <div className="grid md:grid-cols-3 gap-5 sm:text-sm text-xs md:py-0 py-6 grid-cols-1 text-white text-center">
+          <div className="grid md:grid-cols-3 gap-5 sm:text-sm text-xs md:py-0 py-6 grid-cols-1 text-white text-start">
             <div className="flex flex-col mt-auto md:gap-0 gap-2">
               <Link to="/careers" className="hover:text-textMain">
                 Careers

@@ -56,6 +56,7 @@ import PreloaderPage from "@/preloader-page";
 import PageOnBuild from "@/components/myUi/PageOnBuild";
 import { MyAccountLayout } from "@/layouts/Sidbar_Layout";
 import StoreRegisterPage from "@/pages/UserSide/auth/store/store-register-page";
+import StoreRegisterForm from "@/pages/UserSide/auth/store/store_register_form";
 // import PreloaderPage from "@/preloader-page";
 
 // import withAuth from "@/middlewares/WithAuth";
@@ -233,6 +234,15 @@ const rootRouter = createBrowserRouter(
             <ProtectedRoute isProtected={true}>
               {" "}
               <StoreRegisterPage />{" "}
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "store/register/:token",
+          element: (
+            <ProtectedRoute isProtected={true}>
+              {" "}
+              <StoreRegisterForm />{" "}
             </ProtectedRoute>
           ),
         },

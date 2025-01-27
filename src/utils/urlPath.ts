@@ -23,3 +23,11 @@ export const UPLOAD_USER_KYC = `/user_api/user/submitKyc`;
 
 
 
+// ======= store registrations =====
+export const SEND_OTP_STORE_REGISTER = `/user_api/store/sendOtp_Storereg`;
+export const RESEND_OTP_STORE_REGISTER = `/user_api/store/resendOtp_Storereg`;
+export const VERIFY_OTP_STORE_REGISTER = `/user_api/store/verifyOtp_Storereg`;
+
+
+// ======= store kyc =====
+
