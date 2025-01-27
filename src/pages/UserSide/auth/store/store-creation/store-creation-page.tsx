@@ -2,7 +2,7 @@ import PagesLayout, {
   PageLayoutHeader,
   PagesLayoutContent,
 } from "@/layouts/Pages_Layout";
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, useFormikContext } from "formik";
 import {
   Select,
   SelectContent,
@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import LLPForm from "./Registartion_Forms/LLP_Form";
 import PvtLtdForm from "./Registartion_Forms/Pvt_Ltd_Form";
 import SoleProprietorshipForm from "./Registartion_Forms/Sole_Proprietorship_Form";
@@ -31,15 +31,16 @@ import {
   registrationTypes,
   userDetailsFields,
 } from "./store_input_filds";
-import useNavigateClicks from "@/hooks/useClicks";
+
 
 import { useContextPage } from "@/providers/context/context";
 import { FormField } from "@/components/myUi/FormField";
 import { IRegistrationTypes, StoreTypes } from "@/types/storeTypes";
 import { Create_Store_Api } from "@/services/user_side_api/store/route";
+import Logo from "@/components/landings/navbar_Sec/Logo";
 
 export default function StoreCreationPage() {
-  const { handleClick } = useNavigateClicks();
+  // const { handleClick } = useNavigateClicks();
   // const dispatch = useAppDispatch();
 
   const [selectedRegistration, setSelectedRegistration] =
@@ -77,7 +78,7 @@ export default function StoreCreationPage() {
     },
     { id: "state", label: "State", fileType: "text" },
     { id: "country", label: "Country", fileType: "text" },
-    { id: "pinCode", label: "Pincode", fileType: "text" },
+    { id: "pinCode", label: "PinCode", fileType: "text" },
   ];
 
   const renderForms = useCallback(
@@ -114,12 +115,24 @@ export default function StoreCreationPage() {
   //   console.log(error);
 
   // }
+  const FormValuesHandler = () => {
+    const { setFieldValue } = useFormikContext();
+
+    useEffect(() => {
+      const storedRegNum = localStorage.getItem("store_reg_num");
+      if (storedRegNum) {
+        setFieldValue("phoneNumber", storedRegNum);
+      }
+    }, [setFieldValue]);
+
+    return null; // This component doesn't render anything
+  };
 
   return (
     <PagesLayout
       className="h-screen overflow-y-auto"
       style={{
-        backgroundImage: `url('/auth/annie-spratt-hCb3lIB8L8E-unsplash.jpg')`,
+        backgroundImage: `url('/auth/annie-spratt-QckxruozjRg-unsplash.jpg')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -223,7 +236,10 @@ export default function StoreCreationPage() {
 
           try {
             const response = await Create_Store_Api(formData);
+            console.log(response);
+            
             if (response.status === 201) {
+              localStorage.removeItem("store_reg_num");
               makeToast("Store created successfully!");
               resetForm();
             }
@@ -240,16 +256,22 @@ export default function StoreCreationPage() {
       >
         {({ values, setFieldValue, resetForm, isSubmitting }) => (
           <Form>
+             <FormValuesHandler />
             {/* <PageLayoutHeader className="fixed top-14  right-0  shadow-[0px_2px_9px_0px_#00000024] left-0 bg-white z-50"> */}
             <PageLayoutHeader className="f">
-              <div className="flex justify-between w-full  items-center">
-                <h1 className="sm:text-lg text-sm font-bold text-textGray select-none">
-                  Store Creation
+              <div className="flex justify-between w-full fixed top-5 left-0 right-0 px-5 items-center">
+                <div className="ml-">
+                  <Logo logoTextCss={{
+                    color:"white"
+                  }} />
+                </div>
+                <h1 className="sm:text-lg text-sm font-bold text-white select-none">
+                  Register Store
                 </h1>
 
                 {/* {getErrors(errors)} */}
 
-                <AyButton
+                {/* <AyButton
                   title="Got to Store"
                   onClick={() => {
                     handleClick("/store/all");
@@ -261,7 +283,7 @@ export default function StoreCreationPage() {
                     borderRadius: "100px",
                     py: "10px",
                   }}
-                />
+                /> */}
               </div>
             </PageLayoutHeader>
             {/* ======================== */}

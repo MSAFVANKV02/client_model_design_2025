@@ -1,11 +1,14 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 type Props = {
     link?: string
+    logoName?: string
+    logoTextCss?: React.CSSProperties
 }
 
-export default function Logo({link="/"}: Props) {
+export default function Logo({link="/",logoName, logoTextCss}: Props) {
   return (
     <Link className="flex gap-2 group items-center select-none" to={`${link}`}>
     <div className="h-10 relative w-10  rounded-2xl bg-textMain flex items-center justify-center overflow-hidden">
@@ -24,7 +27,9 @@ export default function Logo({link="/"}: Props) {
         className="absolute translate-x-[150%] group-hover:translate-x-0 transition-all duration-500 ease-in-out"
       />
     </div>
-    <h4 className="font-bold">Ayaboo</h4>
+    <h4 className="font-bold"
+    style={logoTextCss}
+    >{logoName ? logoName :"Ayaboo"}</h4>
   </Link>
   )
 }

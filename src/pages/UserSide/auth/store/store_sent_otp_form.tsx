@@ -85,7 +85,6 @@ export default function StoreRegisterSendOtpForm() {
   };
   return (
     <div className="">
-  
       {showOtpLogin ? (
         <StoreVerifyOtpForm />
       ) : (
@@ -94,9 +93,9 @@ export default function StoreRegisterSendOtpForm() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="w-full space-y-6"
           >
-                <CardHeader>
-        <CardTitle>Register as a Stockist</CardTitle>
-      </CardHeader>
+            <CardHeader>
+              <CardTitle>Register as a Stockist</CardTitle>
+            </CardHeader>
             <CardContent className="space-y-2">
               <CardDescription>
                 Sign up for a stockist account to list products, manage your

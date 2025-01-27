@@ -210,10 +210,10 @@ export default function StoreVerifyOtpForm() {
       // response coming from userLoginSendOtp
 
       if (response.status === 200) {
-        makeToast(`Otp Send to ${data.otp}`);
+        makeToast(`${response.data.message}`);
       
         navigate(`/become/store/register/${response.data.token}`);
-        localStorage.setItem("otp-timer", "60");
+        localStorage.setItem("otp-timer", "0");
         localStorage.removeItem("otp-finished");
       }
     } catch (error: unknown) {

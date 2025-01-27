@@ -13,6 +13,7 @@ export  const registrationTypes: { value: IRegistrationTypes; name: string }[] =
   ];
 
   //   ======== initialValues =================================
+ 
   export const initialValues: StoreTypes = {
     registrationType: "Sole Proprietorship",
     aadhaarCard: null,

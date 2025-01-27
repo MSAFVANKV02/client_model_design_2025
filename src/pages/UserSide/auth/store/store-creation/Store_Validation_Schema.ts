@@ -171,7 +171,7 @@ export const LlpAndPvtRegisterValidation = Yup.object({
             /^[A-Z]{5}[0-9]{5}[A-Z]{1}$/,
             "LLP Number must be a 7-character alphanumeric code (eg: ABCDE12345F)"
           )
-          .required("CIN Number is required"),
+          .required("LLP Number is required"),
       otherwise: (schema) => schema.nullable(), // Optional for other types
     }),
 
