@@ -54,7 +54,7 @@ import UseReturnPage from "@/pages/UserSide/my-account/return_user/user-return-p
 import { Suspense } from "react";
 import PreloaderPage from "@/preloader-page";
 import PageOnBuild from "@/components/myUi/PageOnBuild";
-import { MyAccountLayout } from "@/layouts/Sidbar_Layout";
+import { MyAccountLayout, StoreLayout } from "@/layouts/Sidbar_Layout";
 import StoreRegisterPage from "@/pages/UserSide/auth/store/store-register-page";
 import StoreRegisterForm from "@/pages/UserSide/auth/store/store_register_form";
 // import PreloaderPage from "@/preloader-page";
@@ -216,8 +216,12 @@ const rootRouter = createBrowserRouter(
        
       ],
     },
+    // === store ===
     {
       path:"/become",
+      element:(
+        <StoreLayout />
+      ),
       children: [
         {
           path: "seller/register",
@@ -249,7 +253,7 @@ const rootRouter = createBrowserRouter(
       ]
     },
 
-    //   ===== KYC Sections =================================
+    // ===== KYC Sections ============
     {
       path: "/kyc",
 

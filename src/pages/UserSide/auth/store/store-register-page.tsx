@@ -163,7 +163,7 @@ export default function StoreRegisterPage() {
           flexWrap: "wrap",
         }}
       >
-        <h1 className="m-2 text-2xl select-none">Ayaboo.com</h1>
+        {/* <h1 className="m-2 text-2xl select-none">Ayaboo.com</h1> */}
       </div>
       <div className="xl:w-[40%] w-full h-full">
         <div className="flex justify-center items-center p-4 bg-gray-50 h-full">

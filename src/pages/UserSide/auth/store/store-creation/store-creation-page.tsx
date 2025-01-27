@@ -1,7 +1,4 @@
-import PagesLayout, {
-  PageLayoutHeader,
-  PagesLayoutContent,
-} from "@/layouts/Pages_Layout";
+import PagesLayout, { PagesLayoutContent } from "@/layouts/Pages_Layout";
 import { Field, Form, Formik, useFormikContext } from "formik";
 import {
   Select,
@@ -32,12 +29,10 @@ import {
   userDetailsFields,
 } from "./store_input_filds";
 
-
 import { useContextPage } from "@/providers/context/context";
 import { FormField } from "@/components/myUi/FormField";
 import { IRegistrationTypes, StoreTypes } from "@/types/storeTypes";
 import { Create_Store_Api } from "@/services/user_side_api/store/route";
-import Logo from "@/components/landings/navbar_Sec/Logo";
 
 export default function StoreCreationPage() {
   // const { handleClick } = useNavigateClicks();
@@ -237,7 +232,7 @@ export default function StoreCreationPage() {
           try {
             const response = await Create_Store_Api(formData);
             console.log(response);
-            
+
             if (response.status === 201) {
               localStorage.removeItem("store_reg_num");
               makeToast("Store created successfully!");
@@ -256,9 +251,9 @@ export default function StoreCreationPage() {
       >
         {({ values, setFieldValue, resetForm, isSubmitting }) => (
           <Form>
-             <FormValuesHandler />
+            <FormValuesHandler />
             {/* <PageLayoutHeader className="fixed top-14  right-0  shadow-[0px_2px_9px_0px_#00000024] left-0 bg-white z-50"> */}
-            <PageLayoutHeader className="f">
+            {/* <PageLayoutHeader className="f">
               <div className="flex justify-between w-full fixed top-5 left-0 right-0 px-5 items-center">
                 <div className="ml-">
                   <Logo logoTextCss={{
@@ -269,23 +264,9 @@ export default function StoreCreationPage() {
                   Register Store
                 </h1>
 
-                {/* {getErrors(errors)} */}
-
-                {/* <AyButton
-                  title="Got to Store"
-                  onClick={() => {
-                    handleClick("/store/all");
-                  }}
-                  sx={{
-                    ml: {
-                      md: "auto",
-                    },
-                    borderRadius: "100px",
-                    py: "10px",
-                  }}
-                /> */}
+            
               </div>
-            </PageLayoutHeader>
+            </PageLayoutHeader> */}
             {/* ======================== */}
             <PagesLayoutContent className="space-y-4 max-w-screen-md mx-auto md:p-5 p-2 md:border shadow-2xl md:mt-14 mt-16">
               {/* store creation type ======== */}
