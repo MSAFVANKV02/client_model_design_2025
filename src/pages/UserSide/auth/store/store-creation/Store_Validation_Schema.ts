@@ -17,8 +17,8 @@ export const mainValidationSchema = Yup.object({
   state: Yup.string().required("State is required"),
   country: Yup.string().required("Country is required"),
   pinCode: Yup.string()
-    .matches(/^\d{6}$/, "Pincode should be 6 digits")
-    .required("Pincode is required"),
+    .matches(/^\d{6}$/, "Pin code should be 6 digits")
+    .required("Pin code is required"),
 
   manager: Yup.string().required("Store Manager is required"),
   emailId: Yup.string()
@@ -31,16 +31,12 @@ export const mainValidationSchema = Yup.object({
   password: Yup.string()
     .min(6, "Password must be at least 6 characters")
     .required("Password is required"),
-  inHouseProduct: Yup.boolean(),
+  // inHouseProduct: Yup.boolean(),
   bankDetails: Yup.object({
     accountName: Yup.string().required("Account Name is required"),
-    // accountNumber: Yup.string()
-    //   .matches(/^\d+$/, "Account Number must be numeric")
-    //   .required("Account Number is required"),
+
     accountNumber: Yup.string()
       .matches(/^\d{12}$/, "Bank Account Number must be 12 digits")
-      // .matches(/^\d{12}$/, "Private Sector Bank Account Number must be 12 digits")
-      // .matches(/^\d{14}$/, "Private Sector Bank Account Number must be 14 digits")
       .required("Account Number is required"),
 
     ifscCode: Yup.string()
@@ -52,9 +48,6 @@ export const mainValidationSchema = Yup.object({
     shiftCode: Yup.string().required("Shift Code is required"),
     upiId: Yup.string().email("Invalid UPI ID").required("UPI ID is required"),
   }),
-  // capacity: Yup.number()
-  //   .positive("Capacity must be positive")
-  //   .required("Store Capacity is required"),
 });
 
 //   ============
@@ -174,14 +167,6 @@ export const LlpAndPvtRegisterValidation = Yup.object({
           .required("LLP Number is required"),
       otherwise: (schema) => schema.nullable(), // Optional for other types
     }),
-
-  // cinNumber: Yup.number()
-  //   .nullable()
-  //   .when("registrationType", {
-  //     is: "PVT LTD", // Applies validation only if editId is falsy
-  //     then: (schema) => schema.required("CIN Number is required"),
-  //     otherwise: (schema) => schema.nullable(), // Password is optional when editing
-  //   }),
   cinNumber: Yup.string()
     .nullable()
     .when("registrationType", {

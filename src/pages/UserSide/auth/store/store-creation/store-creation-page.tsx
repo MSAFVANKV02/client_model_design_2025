@@ -1,5 +1,5 @@
 import PagesLayout, { PagesLayoutContent } from "@/layouts/Pages_Layout";
-import { Field, Form, Formik, useFormikContext } from "formik";
+import { Form, Formik, useFormikContext } from "formik";
 import {
   Select,
   SelectContent,
@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import LLPForm from "./Registartion_Forms/LLP_Form";
 import PvtLtdForm from "./Registartion_Forms/Pvt_Ltd_Form";
 import SoleProprietorshipForm from "./Registartion_Forms/Sole_Proprietorship_Form";
@@ -33,10 +33,13 @@ import { useContextPage } from "@/providers/context/context";
 import { FormField } from "@/components/myUi/FormField";
 import { IRegistrationTypes, StoreTypes } from "@/types/storeTypes";
 import { Create_Store_Api } from "@/services/user_side_api/store/route";
+import MyBackBtn from "@/components/myUi/myBackBtn";
+import useNavigateClicks from "@/hooks/useClicks";
 
 export default function StoreCreationPage() {
-  // const { handleClick } = useNavigateClicks();
+  const { handleClick } = useNavigateClicks();
   // const dispatch = useAppDispatch();
+  const topRef = useRef<HTMLDivElement | null>(null); 
 
   const [selectedRegistration, setSelectedRegistration] =
     useState<IRegistrationTypes>("Sole Proprietorship");
@@ -127,14 +130,17 @@ export default function StoreCreationPage() {
     <PagesLayout
       className="h-screen overflow-y-auto"
       style={{
-        backgroundImage: `url('/auth/annie-spratt-QckxruozjRg-unsplash.jpg')`,
+        backgroundImage: `url('/auth/store3.jpg')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         margin: "0 auto",
         flexWrap: "wrap",
+        // filter: "blur(8px)",
       }}
     >
+      <div className="" ref={topRef}/>
+    
       <Formik
         initialValues={initialValues}
         validationSchema={getValidationSchema(selectedRegistration)}
@@ -252,25 +258,17 @@ export default function StoreCreationPage() {
         {({ values, setFieldValue, resetForm, isSubmitting }) => (
           <Form>
             <FormValuesHandler />
-            {/* <PageLayoutHeader className="fixed top-14  right-0  shadow-[0px_2px_9px_0px_#00000024] left-0 bg-white z-50"> */}
-            {/* <PageLayoutHeader className="f">
-              <div className="flex justify-between w-full fixed top-5 left-0 right-0 px-5 items-center">
-                <div className="ml-">
-                  <Logo logoTextCss={{
-                    color:"white"
-                  }} />
-                </div>
-                <h1 className="sm:text-lg text-sm font-bold text-white select-none">
-                  Register Store
-                </h1>
 
-            
-              </div>
-            </PageLayoutHeader> */}
             {/* ======================== */}
-            <PagesLayoutContent className="space-y-4 max-w-screen-md mx-auto md:p-5 p-2 md:border shadow-2xl md:mt-14 mt-16">
+            <PagesLayoutContent className="space-y-5  pb-5 max-w-screen-md mx-auto md:p-5 p-2 md:border shadow-2xl md:my-14 mt-16">
               {/* store creation type ======== */}
               {/* store registration type */}
+
+              <MyBackBtn 
+              clickEvent={()=>{
+                handleClick("/become/store/register")
+              }}
+      />
               <div className="flex justify-between items-center lg:flex-row flex-col">
                 <Label
                   htmlFor="registrationType"
@@ -399,19 +397,6 @@ export default function StoreCreationPage() {
                 ))}
               </div>
 
-              {/* 14 . In-House Product ----- */}
-              <div className="flex items-center gap-2">
-                <label htmlFor="inHouseProduct" className="text-xs">
-                  In-House Product
-                </label>
-                <Field
-                  type="checkbox"
-                  id="inHouseProduct"
-                  name="inHouseProduct"
-                  classnamewrapper=""
-                  checked={values.inHouseProduct}
-                />
-              </div>
               {/* Bank Details starts here
                -----------------------------*/}
               <div>
@@ -453,7 +438,7 @@ export default function StoreCreationPage() {
                   }}
                   onClick={() => {
                     resetForm();
-                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    topRef.current?.scrollIntoView({ behavior: "smooth" });
                   }}
                 />
                 <AyButton

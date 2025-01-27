@@ -39,7 +39,7 @@ export  const registrationTypes: { value: IRegistrationTypes; name: string }[] =
     phoneNumber: "",
     userName: "",
     password: "",
-    inHouseProduct: false,
+    // inHouseProduct: false,
     bankDetails: {
       accountName: "",
       accountNumber: "",

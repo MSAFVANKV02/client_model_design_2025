@@ -8,7 +8,7 @@ const useNavigateClicks = () => {
   const router = useNavigate();
 
   const handleClick = useCallback((redirect: string) => {
-    router(redirect);
+    router(redirect,{replace: true});
   }, [router]);
 
   return {

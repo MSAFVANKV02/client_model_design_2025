@@ -42,7 +42,10 @@ export const StoreLayout = () => {
 
         {/* {getErrors(errors)} */}
       </div>
-      <Outlet />
+      <div className="">
+        <Outlet />
+      </div>
+      
 
       <Separator />
 

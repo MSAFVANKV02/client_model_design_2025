@@ -14,7 +14,7 @@ export type StoreTypes = {
   phoneNumber: string | null;
   userName: string | null;
   password: string | null;
-  inHouseProduct: boolean;
+  inHouseProduct?: boolean;
   bankDetails: {
     accountName: string | null;
     accountNumber: string | null;

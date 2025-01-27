@@ -155,12 +155,14 @@ export default function StoreRegisterPage() {
       <div
         className="xl:w-[60%] xl:flex hidden justify-end"
         style={{
-          backgroundImage: `url('/auth/annie-spratt-hCb3lIB8L8E-unsplash.jpg')`,
+          backgroundImage: `url('/auth/store3.jpg')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           margin: "0 auto",
           flexWrap: "wrap",
+        // filter: "blur(1.8px)",
+
         }}
       >
         {/* <h1 className="m-2 text-2xl select-none">Ayaboo.com</h1> */}
