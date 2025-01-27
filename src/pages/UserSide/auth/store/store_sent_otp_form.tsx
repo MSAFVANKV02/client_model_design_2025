@@ -1,79 +1,3 @@
-// import {
-
-//   CardContent,
-//   CardDescription,
-
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui/card";
-// import { ErrorMessage } from "formik";
-// import PhoneInput, { CountryData } from "react-phone-input-2";
-
-// import "react-phone-input-2/lib/style.css";
-
-// type Props = {
-//   setFieldValue: (field: string, value: unknown) => void;
-//   isSubmitting?: boolean;
-// };
-
-// export default function StoreRegisterSendOtpForm({
-//   setFieldValue,
-
-// }: Props) {
-//   return (
-//     <div className="">
-//          <CardHeader>
-//           <CardTitle>Register as a Stockist</CardTitle>
-//         </CardHeader>
-//         <CardContent className="space-y-2">
-//           <CardDescription>
-//             Sign up for a stockist account to list products, manage your
-//             inventory, and earn commission.
-//           </CardDescription>
-//           <div className="flex flex-col gap-3">
-//             {/* <Input
-//                     type="text"
-//                     placeholder="Mobile Number"
-//                     name="mobile"
-//                     className="w-full border p-6"
-//                   /> */}
-//             <PhoneInput
-//               country={"in"}
-//               preferredCountries={["in", "us", "sa", "ae"]}
-//               enableSearch={true}
-//               placeholder="Valid mobile number"
-//               // value={values.mobile}
-//               inputStyle={{ width: "100%" }}
-//               // dropdownStyle={{backgroundColor:"transparent"}}
-//               buttonStyle={{
-//                 backgroundColor: "transparent",
-//                 border: "none",
-//               }}
-//               onChange={(value, data: CountryData) => {
-//                 const dialCode = data?.dialCode || "";
-//                 let phoneNumber = value;
-
-//                 if (phoneNumber.startsWith(dialCode)) {
-//                   phoneNumber = phoneNumber.slice(dialCode.length);
-//                 }
-
-//                 // setFieldValue("mobile", `${dialCode}-${phoneNumber}`);
-//                 setFieldValue("mobile", phoneNumber);
-//               }}
-//               inputClass="w-full p-6 border border-gray-300  rounded"
-//             />
-//             <ErrorMessage
-//               name="mobile"
-//               component={"span"}
-//               className="text-red-500 text-xs"
-//             />
-//           </div>
-//         </CardContent>
-//     </div>
-//   );
-// }
-// =================================================================
-
 import {
   CardContent,
   CardDescription,
@@ -113,15 +37,13 @@ const formSchema = z.object({
 
 interface FormData {
   mobile: string;
-  mobile4OTP: string;
 }
 
 export default function StoreRegisterSendOtpForm() {
   const [showOtpLogin, setShowOtpLogin] = useState(() => {
     const timer = localStorage.getItem("otp-timer");
-    return timer && parseInt(timer) > 0;  // return a boolean based on the timer
+    return timer && parseInt(timer) > 0; // return a boolean based on the timer
   });
-  
 
   const [loading, setLoading] = useState(false);
 
@@ -133,7 +55,7 @@ export default function StoreRegisterSendOtpForm() {
   });
 
   const onSubmit = async (data: FormData) => {
-    console.log(data.mobile, "responce in page");
+    // console.log(data.mobile, "responce in page");
     try {
       setLoading(true);
       // const response = await userLoginSendOtp(data.mobile4OTP);
@@ -163,9 +85,7 @@ export default function StoreRegisterSendOtpForm() {
   };
   return (
     <div className="">
-      <CardHeader>
-        <CardTitle>Register as a Stockist</CardTitle>
-      </CardHeader>
+  
       {showOtpLogin ? (
         <StoreVerifyOtpForm />
       ) : (
@@ -174,6 +94,9 @@ export default function StoreRegisterSendOtpForm() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="w-full space-y-6"
           >
+                <CardHeader>
+        <CardTitle>Register as a Stockist</CardTitle>
+      </CardHeader>
             <CardContent className="space-y-2">
               <CardDescription>
                 Sign up for a stockist account to list products, manage your

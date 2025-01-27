@@ -5,11 +5,12 @@ type Props = {
   children: React.ReactNode;
   className?: string;
   title?: string;
+  style?: React.CSSProperties;
 };
 
-export default function PagesLayout({ children, className }: Props) {
+export default function PagesLayout({ children, className, style }: Props) {
   return (
-    <div className={cn(``, className)}>
+    <div className={cn(``, className)} style={style}>
       {/* <PageLayoutHeader >
         <h1>{title}</h1>
       </PageLayoutHeader> */}

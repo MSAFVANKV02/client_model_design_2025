@@ -28,6 +28,10 @@ export const SEND_OTP_STORE_REGISTER = `/user_api/store/sendOtp_Storereg`;
 export const RESEND_OTP_STORE_REGISTER = `/user_api/store/resendOtp_Storereg`;
 export const VERIFY_OTP_STORE_REGISTER = `/user_api/store/verifyOtp_Storereg`;
 
+// ===== create store ===-================================================
+export const CREATE_STORE_USER = `/user_api/store/registerStore_storereg`;
+
+
 
 // ======= store kyc =====
 

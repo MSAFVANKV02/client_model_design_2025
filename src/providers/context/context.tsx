@@ -9,6 +9,8 @@ interface ToggleContextType {
   addAddress: boolean;
   setAddAddress: (val: boolean) => void;
   handleCloseModal: () => void;
+  closeModal: () => void;
+
 }
 
 const Context = createContext<ToggleContextType | undefined>(undefined);
@@ -21,6 +23,11 @@ export const ContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const handleOpenModal = () => {
     setIsOpenModal((prev) => !prev);
+  };
+
+  const closeModal = () => {
+    setIsOpenModal(false);
+   
   };
 
   const handleCloseModal = () => {
@@ -39,7 +46,8 @@ export const ContextProvider: React.FC<{ children: React.ReactNode }> = ({
         setIsOpenModal,
         addAddress,
         setAddAddress,
-        handleCloseModal
+        handleCloseModal,
+        closeModal
       }}
     >
       {children}

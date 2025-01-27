@@ -212,7 +212,7 @@ export default function StoreVerifyOtpForm() {
       if (response.status === 200) {
         makeToast(`Otp Send to ${data.otp}`);
       
-        navigate(`/become/store/register/form`);
+        navigate(`/become/store/register/${response.data.token}`);
         localStorage.setItem("otp-timer", "60");
         localStorage.removeItem("otp-finished");
       }
@@ -252,7 +252,7 @@ export default function StoreVerifyOtpForm() {
     }
   };
   return (
-    <div className="">
+    <div className="flex flex-col justify-center items-center">
       <CardHeader>
         <CardTitle>Verify One Time Password</CardTitle>
       </CardHeader>
@@ -262,7 +262,7 @@ export default function StoreVerifyOtpForm() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full space-y-6"
         >
-          <CardContent className="space-y-2">
+          <CardContent className="space-y-2 flex flex-col justify-center items-center">
             <CardDescription>
               Sign up for a stockist account to list products, manage your
               inventory, and earn commission.
@@ -323,6 +323,8 @@ export default function StoreVerifyOtpForm() {
               <p className="text-sm">Already a Supplier</p> ?
               <Link
                 to="https://store.ayaboo.com/login"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-blue-600 hover:text-blue-400 hover:underline"
               >
                 Sign In
