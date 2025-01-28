@@ -57,6 +57,8 @@ import PageOnBuild from "@/components/myUi/PageOnBuild";
 import { MyAccountLayout, StoreLayout } from "@/layouts/Sidbar_Layout";
 import StoreRegisterPage from "@/pages/UserSide/auth/store/store-register-page";
 import StoreRegisterForm from "@/pages/UserSide/auth/store/store_register_form";
+import SellerRegisterPage from "@/pages/seller/seller-register-page";
+import SellerRegisterForm from "@/pages/seller/seller_register_form";
 // import PreloaderPage from "@/preloader-page";
 
 // import withAuth from "@/middlewares/WithAuth";
@@ -208,30 +210,35 @@ const rootRouter = createBrowserRouter(
             { path: "chat", element: <ChatPage /> },
             { path: "my-wishlist", element: <WishlistPage /> },
             { path: "return", element: <UseReturnPage /> },
-            { path: "credit-request", element:  <PageOnBuild /> },
-
+            { path: "credit-request", element: <PageOnBuild /> },
           ],
         },
-
-       
       ],
     },
     // === store ===
     {
-      path:"/become",
-      element:(
-        <StoreLayout />
-      ),
+      path: "/become",
+      element: <StoreLayout />,
       children: [
         {
           path: "seller/register",
           element: (
             <ProtectedRoute isProtected={true}>
+              <SellerRegisterPage />{" "}
+            </ProtectedRoute>
+          ),
+        
+        },
+        {
+          path: "seller/register/:token",
+          element: (
+            <ProtectedRoute isProtected={true}>
               {" "}
-              <PageOnBuild title="Seller Registration" />{" "}
+              <SellerRegisterForm />{" "}
             </ProtectedRoute>
           ),
         },
+        // stores===q
         {
           path: "store/register",
           element: (
@@ -250,7 +257,7 @@ const rootRouter = createBrowserRouter(
             </ProtectedRoute>
           ),
         },
-      ]
+      ],
     },
 
     // ===== KYC Sections ============

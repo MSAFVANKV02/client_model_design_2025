@@ -8,7 +8,7 @@ import "@/assets/css/home.css"
 function About() {
   usePageTitle('Ayaboo | About page')
   return (
-    <div className=" space-y-10">
+    <div className=" space-y-10 pt-24">
       <div className="section_container">
            {/* ==== */}
       <AboutSec1/>

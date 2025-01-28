@@ -49,9 +49,9 @@ function StaticNavbar() {
 
   return (
     <nav
-      className={`w-full flex py-5  fixed bg-white/10 backdrop-blur-sm   ${
+      className={`w-full flex py-5 z-[9999] fixed bg-white/10 backdrop-blur-sm   ${
         location.pathname === "/" && " absolute top-0 left-0 right-0"
-      } 2xl:px-24 xl:px-20 md:px-14 sm:px-10 px-5 mx-auto z-50`}
+      } 2xl:px-24 xl:px-20 md:px-14 sm:px-10 px-5 mx-auto `}
     >
       <div className="flex justify-between w-full">
          {/* Navbar Logo */}
