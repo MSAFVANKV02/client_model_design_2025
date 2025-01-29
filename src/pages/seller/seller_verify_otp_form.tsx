@@ -93,6 +93,7 @@ export default function SellerVerifyOtpForm() {
 
       if (response.status === 200) {
         makeToast("OTP Resent Successfully");
+        form.reset();
       }
     } catch (error: unknown) {
       console.log("Unexpected error:", error);

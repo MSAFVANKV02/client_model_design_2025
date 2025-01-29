@@ -211,6 +211,7 @@ export default function StoreVerifyOtpForm() {
 
       if (response.status === 200) {
         makeToast(`${response.data.message}`);
+        form.reset();
       
         navigate(`/become/store/register/${response.data.token}`);
         localStorage.setItem("otp-timer", "0");
@@ -239,6 +240,7 @@ export default function StoreVerifyOtpForm() {
 
       if (response.status === 200) {
         makeToast("OTP Resent Successfully");
+        form.reset();
       }
     } catch (error: unknown) {
       console.log("Unexpected error:", error);

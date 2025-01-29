@@ -22,6 +22,8 @@ export const StoreLayout = () => {
 
   
   const titleName = pathname.includes("seller") ? "Ayaboo | Seller" : "Ayaboo | Store";
+  const headingName = pathname.includes("seller") ? "Register Seller" : "Register Store";
+
   usePageTitle(titleName); 
   
   return (
@@ -39,7 +41,7 @@ export const StoreLayout = () => {
           />
         </div>
         <h1 className="sm:text-lg text-sm font-bold text-white select-none">
-          Register Store
+          {headingName}
         </h1>
 
         {/* {getErrors(errors)} */}

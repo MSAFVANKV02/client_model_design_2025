@@ -69,7 +69,7 @@ export   const userDetailsFields: {
       id: "manager",
       name: "manager",
       fileType: "text",
-      placeholder: "Select store manager",
+      placeholder: "Enter Seller manager",
     },
     {
       id: "emailId",

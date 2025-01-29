@@ -257,7 +257,8 @@ export default function SellerCreationPage() {
               {/* store registration type */}
 
               <MyBackBtn 
-              title="Seller"
+              // title="Seller"
+              tooltipTitle="Seller"
               clickEvent={()=>{
                 handleClick("/become/seller/register")
               }}
