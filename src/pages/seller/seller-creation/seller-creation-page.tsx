@@ -166,9 +166,7 @@ export default function SellerCreationPage() {
           formData.append("country", values.country || "");
           formData.append("pinCode", values.pinCode || "");
 
-          // Append Google Location if available
-          // Append Google Location if available
-          // Append Google Location if available
+  
           if (
             values.googleLocation?.latitude &&
             values.googleLocation?.longitude
@@ -183,12 +181,6 @@ export default function SellerCreationPage() {
             );
           }
 
-          // if (values.googleLocation?.latitude && values.googleLocation?.longitude) {
-          //   formData.append(
-          //     "googleLocation",
-          //     JSON.stringify(values.googleLocation)
-          //   );
-          // }
 
           // Append manager and user details
           formData.append("manager", values.manager || "");
@@ -213,7 +205,7 @@ export default function SellerCreationPage() {
             "localBodyLicense",
             "roomRentAgreement",
             "gstCertificate",
-            "partnershipAgreement",
+            // "partnershipAgreement",
             "companyPanCard",
             "companyIncorporationCertificate",
           ];
@@ -237,7 +229,7 @@ export default function SellerCreationPage() {
 
           try {
             const response = await Create_Seller_Api(formData);
-            console.log(response);
+            // console.log(response);
 
             if (response.status === 201) {
               localStorage.removeItem("store_reg_num");
@@ -265,8 +257,9 @@ export default function SellerCreationPage() {
               {/* store registration type */}
 
               <MyBackBtn 
+              title="Seller"
               clickEvent={()=>{
-                handleClick("/become/store/register")
+                handleClick("/become/seller/register")
               }}
       />
               <div className="flex justify-between items-center lg:flex-row flex-col">

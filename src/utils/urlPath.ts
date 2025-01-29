@@ -34,7 +34,7 @@ export const CREATE_STORE_USER = `/user_api/store/registerStore_storereg`;
 export const SEND_OTP_SELLER_REGISTER = `/user_api/seller/sendOtp_Sellerreg`;
 export const RESEND_OTP_SELLER_REGISTER = `/user_api/seller/resendOtp_Sellerreg`;
 export const VERIFY_OTP_SELLER_REGISTER = `/user_api/seller/verifyOtp_Sellerreg`;
-export const CREATE_SELLER_USER = `/user_api/store/registerSeller_sellerreg`;
+export const CREATE_SELLER_USER = `/user_api/seller/registerSeller_sellerreg`;
 
 
 

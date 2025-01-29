@@ -19,9 +19,11 @@ export const MyAccountLayout = () => {
 
 export const StoreLayout = () => {
   const { pathname } = useLocation();
-  {
-    usePageTitle("Ayaboo | Sore");
-  }
+
+  
+  const titleName = pathname.includes("seller") ? "Ayaboo | Seller" : "Ayaboo | Store";
+  usePageTitle(titleName); 
+  
   return (
     <div className="bg-gray-50 ">
       <div className="flex justify-between w-full fixed top-5 left-0 right-0 px-5 items-center">
