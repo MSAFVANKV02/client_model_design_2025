@@ -6,16 +6,13 @@ import {
   ErrorPage,
   About,
   OtpVerificationPage,
-  Register,
   UserDetails,
   UserLogin,
   HomePage,
   KycDetails,
   KycLayout,
-  DashboardLayoutBasic,
   MainHome,
   AppLayout,
-  AdmLayout,
 } from "./page-routers";
 
 // import App from "@/App";
@@ -92,14 +89,14 @@ const rootRouter = createBrowserRouter(
           ),
           errorElement: <ErrorPage />,
         },
-        {
-          path: "/register",
-          element: (
-            <ProtectedRoute isProtected={true}>
-              <Register />{" "}
-            </ProtectedRoute>
-          ),
-        },
+        // {
+        //   path: "/register",
+        //   element: (
+        //     <ProtectedRoute isProtected={true}>
+        //       <Register />{" "}
+        //     </ProtectedRoute>
+        //   ),
+        // },
         // {
         //   path: "/loader",
         //   element: (
@@ -286,30 +283,26 @@ const rootRouter = createBrowserRouter(
       ],
     },
     //   ===== Admin Sections =================================
-    {
-      path: "/admin",
+    // {
+    //   path: "/admin",
 
-      element: <AdmLayout />,
-      children: [
-        {
-          index: true,
-          path: "/admin",
-          element: <DashboardLayoutBasic />,
-        },
-        {
-          path: "dashboard",
-          element: <DashboardLayoutBasic />, // Loads at "/admin/dashboard"
-        },
-        {
-          path: "orders/pending",
-          element: <UserDetails />, // Loads at "/admin/dashboard"
-        },
-        {
-          path: "orders/completed",
-          element: <UserDetails />, // Loads at "/admin/dashboard"
-        },
-      ],
-    },
+    //   element: <AdmLayout />,
+    //   children: [
+    
+    //     {
+    //       path: "dashboard",
+    //       element: <DashboardLayoutBasic />, // Loads at "/admin/dashboard"
+    //     },
+    //     {
+    //       path: "orders/pending",
+    //       element: <UserDetails />, // Loads at "/admin/dashboard"
+    //     },
+    //     {
+    //       path: "orders/completed",
+    //       element: <UserDetails />, // Loads at "/admin/dashboard"
+    //     },
+    //   ],
+    // },
     {
       path: "*",
 

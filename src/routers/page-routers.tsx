@@ -10,7 +10,7 @@ export const UserLogin = lazy(() => import("@/pages/UserSide/auth/UserLoginPage/
 export const HomePage = lazy(() => import("@/pages/UserSide/Home/Home"));
 export const KycDetails = lazy(() => import("@/pages/UserSide/UserKycPage/KycDetails/KycDetails"));
 export const KycLayout = lazy(() => import("@/KycLayout"));
-export const DashboardLayoutBasic = lazy(() => import("@/pages/adminSide/Dashboard"));
+// export const DashboardLayoutBasic = lazy(() => import("@/pages/adminSide/Dashboard"));
 export const MainHome = lazy(() => import("@/pages/UserSide/Home/MainHome"));
 export const AppLayout = lazy(() => import("@/Layout"));
 export const AdmLayout = lazy(() => import("@/AdmLayout"));

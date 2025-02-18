@@ -219,12 +219,12 @@ function UserLogin() {
                   )}
                 </Button>
 
-                <div className="text-sm text-gray-500 md:block hidden">
+                {/* <div className="text-sm text-gray-500 md:block hidden">
                   If you don't have an account,{" "}
                   <Link to={`/register`} className="text-textMain ">
                     register here
                   </Link>
-                </div>
+                </div> */}
               </form>
             </Form>
           </div>

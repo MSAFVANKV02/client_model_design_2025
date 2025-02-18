@@ -31,7 +31,7 @@ function Navbar({ navItems }: NavbarProps) {
   const isLoggedInKyc = isAuthenticated_4_Kyc();
   const isLogged = isAuthenticated();
   // console.log(isUserLogged,'slice');
-  console.log(user,'user navbar');
+  // console.log(user,'user navbar');
   
   
   // const navigate = useNavigate();

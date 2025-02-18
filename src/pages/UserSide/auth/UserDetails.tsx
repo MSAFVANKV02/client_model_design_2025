@@ -18,7 +18,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 import { useState } from "react";
-import { makeToast } from "@/utils/toaster";
+import { makeToast, makeToastError } from "@/utils/toaster";
 import axios from "axios";
 import { fetchAyabooUserDetails } from "@/redux/userSide/UserAuthSlice";
 import { useAppDispatch } from "@/redux/hook";
@@ -81,12 +81,13 @@ function UserDetails() {
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        console.log(
-          "Error sending data:",
-          error.response?.data || error.message
-        );
+        // console.log(
+        //   "Error sending data:",
+        //   error.response?.data || error.message
+        // );
+        makeToastError(`${error.response?.data.message}`)
       } else {
-        console.log("Unexpected error:", error);
+        console.error("Unexpected error:");
       }
     } finally {
       setLoading(false);
@@ -98,7 +99,7 @@ function UserDetails() {
   return (
     <div className="h-screen w-screen flex relative">
       <img
-        src="/img/Background Images/Group 1109.svg"
+        src="/img/Background Images/userlogin-bg.svg"
         alt=""
         className="absolute object-cover top-0 left-0 bottom-0 right-0 w-full h-full"
       />

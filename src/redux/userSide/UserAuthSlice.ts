@@ -61,7 +61,7 @@ export const fetchAyabooUserDetails = createAsyncThunk<
 >("user/fetchAyabooUserDetails", async (_, { rejectWithValue }) => {
   try {
     const response = await Current_User_Api();
-    console.log(response,'response');
+    // console.log(response,'response');
     
 
     if (response.status === 200 || response.data.success === true) {
