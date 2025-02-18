@@ -56,6 +56,8 @@ const proofSubmits: IProofType[] = [
 
 export default function KycProofs() {
   const { proofType } = useAppSelector((state) => state.kyc);
+  const {  userKyc } = useAppSelector(state=> state.auth)
+
 
   const dispatch = useAppDispatch();
 
@@ -77,7 +79,7 @@ export default function KycProofs() {
         {proofSubmits.map((proof) => (
           <li
             key={proof.id}
-            className="border p-16 bg-gray-100  cursor-pointer rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+            className={`border p-16  ${userKyc?.proofType === proof.proofType ? "bg-gray-200 shadow-lg border-black" :"bg-gray-100"}  cursor-pointer rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300`}
             onClick={() => handleProofClick(proof.proofType)}
           >
             <div className="font-semibold  flex items-center justify-center gap-3">

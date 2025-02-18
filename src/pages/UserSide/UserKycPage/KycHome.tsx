@@ -12,7 +12,9 @@ import { clearKycDetails } from "@/redux/userSide/KycSlice";
 export default function KycHome() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
+  const { user, userKyc } = useAppSelector((state) => state.auth);
+  // console.log(userKyc,'user kyc');
+  
 
   const handleKycDetailsClick = () => {
     if(user?.kycStatus==="approved"){
@@ -158,7 +160,7 @@ export default function KycHome() {
           titleColorTwo={kycContent.titleColorTwo}
           title={kycContent.title}
           description={kycContent.description}
-          subtitle="For any queries, please contact support."
+          subtitle={userKyc?.kycFeedback || "For any queries, please contact support."}
           btnColor={kycContent.btnColor}
           bgColor={kycContent.bgColor}
           onClick={handleKycDetailsClick}

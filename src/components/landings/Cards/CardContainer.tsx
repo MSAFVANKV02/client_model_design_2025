@@ -39,7 +39,7 @@ export function CardContainer({ className, title, image, description, isTrue,ind
         </div>
 
         {/* Arrow */}
-        <button className="w-7 h-7 2xl:px-10 px-8  bg-bg text-white rounded-full flex items-center justify-center group">
+        <button className="w-7 h-7 shadow-lg px-8  bg-bg text-white rounded-full flex items-center justify-center group">
           <Link to={slug} className='group-hover:-rotate-45 duration-500 transition-all'>&#8594;</Link>
         </button>
         </div>

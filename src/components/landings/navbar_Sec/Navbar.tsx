@@ -9,6 +9,8 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { useEffect } from "react";
 import { fetchAyabooUserDetails } from "@/redux/userSide/UserAuthSlice";
 import { useAuth } from "@/providers/AuthContext";
+import { isAuthenticated, isAuthenticated_4_Kyc } from "@/middlewares/IsAuthenticated";
+
 
 export type INavbarItems = {
   href: string;
@@ -23,29 +25,44 @@ type NavbarProps = {
 
 function Navbar({ navItems }: NavbarProps) {
   const dispatch = useAppDispatch();
-  const { isUserLogged, error} = useAppSelector(state=> state.auth)
+  const {  user } = useAppSelector(state=> state.auth)
   const location = useLocation();
   const {handleLogout} = useAuth();
-  // console.log(error,'slice');
+  const isLoggedInKyc = isAuthenticated_4_Kyc();
+  const isLogged = isAuthenticated();
+  // console.log(isUserLogged,'slice');
+  console.log(user,'user navbar');
+  
   
   // const navigate = useNavigate();
   // const isLoggedIn4Kyc = isAuthenticated_4_Kyc();
   // const { handleLogout } = useAuth();
 
   useEffect(() => {
-    dispatch(fetchAyabooUserDetails());
+    // dispatch(fetchAyabooUserDetails());
 
-    if (isUserLogged) {
+    if (isLoggedInKyc || isLogged) {
       dispatch(fetchAyabooUserDetails());
-    } else if(error) {
+    } 
+
+    if(isLoggedInKyc && user?.kycStatus  === "approved"){
       handleLogout('/login');
+      return;
+    }
+
+    if( user?.kycStatus !== "approved" && !user?.isVerified && !user?.isRegistered) {
+
+      // enable this after correct backend current user for kyc also =====
+      handleLogout('/login');
+
+
       // const timeoutId = setTimeout(() => {
       //   handleLogout('/login');
       // }, 10000); // 10 seconds delay
   
       // return () => clearTimeout(timeoutId); 
     }
-  }, [isUserLogged, dispatch, handleLogout]);
+  }, [isLogged, dispatch, handleLogout, isLoggedInKyc]);
   
 
  
@@ -110,11 +127,12 @@ function Navbar({ navItems }: NavbarProps) {
                 <AccountMenu />
               </>
             )} */}
-            {
+            {/* {
              isUserLogged &&(
                 <AccountMenu />
               )
-            }
+            } */}
+              <AccountMenu />
 
             {/* <Icon icon={`ph:bell-light`} fontSize={25} className="" /> */}
             {/* <Icon icon={`mynaui:cart`} fontSize={25} className="" /> */}

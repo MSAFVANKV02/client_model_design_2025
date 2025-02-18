@@ -28,8 +28,7 @@ import {
   VerifyOtp_Login_Api,
 } from "@/services/user_side_api/auth/route_url";
 import { useAppDispatch } from "@/redux/hook";
-import { fetchAyabooUserDetails, setUserData } from "@/redux/userSide/UserAuthSlice";
-import { saveKycDetails } from "@/redux/userSide/KycSlice";
+import { fetchAyabooUserDetails } from "@/redux/userSide/UserAuthSlice";
 
 const formSchema = z.object({
   otp: z.string().min(6, { message: "OTP is required." }),
@@ -98,8 +97,9 @@ export default function LoginOtpVerifyUser({
           ) {
             makeToast("Complete Kyc registration..");
             navigate(`/kyc`);
-            dispatch(setUserData(response.data.user));
-            dispatch(saveKycDetails(response.data.kyc));
+            // dispatch(setUserData(response.data.user));
+            // dispatch(saveKycDetails(response.data.kyc));
+            dispatch(fetchAyabooUserDetails());
 
           } else if (
             response.data.user.isVerified &&

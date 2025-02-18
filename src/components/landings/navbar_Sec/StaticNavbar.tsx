@@ -87,9 +87,15 @@ function StaticNavbar() {
           </div>
           <div className="">
             {}
-            <Link to={`${pathname === "/register" ? "/login": pathname === "/login" ?"/register":"/login"}`} className="">
+            {/* <Link to={`${pathname === "/register" ? "/login": pathname === "/login" ?"/register":"/login"}`} className="">
               <Button variant="b2bStyle" className="text-textMain text-white capitalize">
                {pathname === "/register" ? "login": pathname === "/login" ? "Register":"login"} 
+              </Button>
+            </Link> */}
+              <Link to={`${pathname === "/register" ? "/login": pathname === "/login" ?"/":"/login"}`} className="">
+              <Button variant="b2bStyle" className="text-textMain text-white capitalize">
+               
+                {pathname === "/login" ? "Go back": " Join Now"}
               </Button>
             </Link>
           </div>

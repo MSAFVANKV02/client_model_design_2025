@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Cookies from 'js-cookie';
 
 export const isAuthenticated_4_Kyc = () => {
@@ -15,4 +16,20 @@ export const isAuthenticated = () => {
     // console.log(document.cookie);
   
     return !!token; // Returns true if the token exists, otherwise false
+  };
+
+
+  export const checkAuthKyc = async () => {
+    // const token = Cookies.get("st_b2b_tkn"); 
+    // console.log(token,'token');
+    
+    try {
+      const response = await axios.get("http://localhost:4000/user_api/user/auth/check/kyc", { withCredentials: true });
+      
+      // console.log(response,'response');
+      
+      return response.data.authenticated;
+    } catch {
+      return false;
+    }
   };

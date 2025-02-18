@@ -11,6 +11,8 @@ interface AuthState {
   isLoading: boolean;
   error: string | null;
   isUserLogged: boolean;
+  isUserLoggedKyc: boolean;
+
 }
 
 // Define the User type
@@ -26,6 +28,7 @@ const initialState: AuthState = {
   token: null,
   isLoading: false,
   isUserLogged: false,
+  isUserLoggedKyc: false,
   error: null,
 };
 // 4 last of cookie
@@ -58,6 +61,8 @@ export const fetchAyabooUserDetails = createAsyncThunk<
 >("user/fetchAyabooUserDetails", async (_, { rejectWithValue }) => {
   try {
     const response = await Current_User_Api();
+    console.log(response,'response');
+    
 
     if (response.status === 200 || response.data.success === true) {
       return response.data;
@@ -69,6 +74,7 @@ export const fetchAyabooUserDetails = createAsyncThunk<
       });
     }
   } catch (error: any) {
+    console.log(error,'error get current user details');
     return rejectWithValue(
       error.response?.data || {
         error: "Network error",
@@ -91,6 +97,10 @@ const authSlice = createSlice({
     setUserData: (state, action: PayloadAction<IUserProps>) => {
       state.user = action.payload;
       state.isUserLogged = true;
+    },
+    setLoginKycUser: (state, action: PayloadAction<boolean>) => {
+      state.isUserLoggedKyc = action.payload;
+      // state.isUserLogged = true;
     },
   },
   extraReducers: (builder) => {
@@ -127,7 +137,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { logoutUser, setUserData } = authSlice.actions;
+export const { logoutUser, setUserData, setLoginKycUser } = authSlice.actions;
 
 export default authSlice.reducer;
 

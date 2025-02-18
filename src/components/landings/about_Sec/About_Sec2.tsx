@@ -182,7 +182,7 @@ function AboutSec2() {
                 handleClick("/register")
                }}
                >
-            Register now <ArrowRight />
+            Join Now <ArrowRight />
           </Button>
           </div>
        

@@ -7,7 +7,6 @@ import {
 } from "@/redux/userSide/KycSlice";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@/components/ui/button";
-import { pdfjs } from "react-pdf";
 import { useNavigate } from "react-router-dom";
 import { makeToast, makeToastError } from "@/utils/toaster";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -15,13 +14,13 @@ import ClipLoader from "react-spinners/ClipLoader";
 import axios from "axios";
 import { Kyc_Submit_Api } from "@/services/user_side_api/auth/route_url";
 import { setLoadingState } from "@/redux/userSide/loadingSlice";
-import MyPdf from "@/components/myUi/MyPdf";
+import PdfFile from "@/components/myUi/PdfFile";
+import { fetchAyabooUserDetails } from "@/redux/userSide/UserAuthSlice";
 
 // pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 //   "pdfjs-dist/build/pdf.worker.min.mjs",
 //   import.meta.url
 // ).toString();
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const FILE_SIZE_LIMIT = 11 * 1024 * 1024; // 1 MB
 
@@ -149,6 +148,7 @@ export default function KycUpload() {
       dispatch(setLoadingState(true));
       if (response.status === 200) {
         // dispatch(saveKycDetails(response.data.kyc));
+        dispatch(fetchAyabooUserDetails());
         dispatch(clearKycDetails());
 
         // handleLogout('/');
@@ -259,8 +259,9 @@ export default function KycUpload() {
         {/* Show Uploaded File */}
         {fileURL ? (
           <>
-            <MyPdf value={`${fileURL}`} />
-            {/* <div>
+            {/* <MyPdf value={`${fileURL}`}  isPdfShown  /> */}
+            {/* <PdfFile fileURL={fileURL} /> */}
+            <div>
              <p>See Sample:</p>
              <div className="mt-4 relative float-right">
                <a href={fileURL} target="_blank" rel="noopener noreferrer">
@@ -276,7 +277,7 @@ export default function KycUpload() {
                  </div>
                </a>
              </div>
-           </div> */}
+           </div>
           </>
         ) : (
           <div className="w-16 h-24 bg-black/20 flex items-center justify-center">

@@ -46,7 +46,9 @@ interface KycFormData {
 
 export default function KycDetails() {
   const dispatch = useAppDispatch();
-  const kycDetails = useAppSelector((state) => state.kyc);
+  // const kycDetails = useAppSelector((state) => state.kyc);
+  // console.log(kycDetails);
+  
   const { userKyc } = useAppSelector((state) => state.auth);
   // console.log(userKyc, "userKyc");
 
@@ -111,7 +113,7 @@ export default function KycDetails() {
         country: userKyc.country || "",
       });
     }
-  }, [kycDetails, userKyc, form]);
+  }, [ userKyc, form]);
   
 
   return (
@@ -308,7 +310,7 @@ export default function KycDetails() {
                     {loading ? (
                       <ClipLoader color="#ffff" size={20} />
                     ) : (
-                      <>{kycDetails ? "Edit " : "Submit"}</>
+                      <>{userKyc ? "Edit " : "Submit"}</>
                     )}
                   </Button>
                 </div>

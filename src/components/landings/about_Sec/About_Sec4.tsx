@@ -14,7 +14,7 @@ function AboutSec4() {
       <div
         className=" w-full py-10 "
         style={{
-          backgroundImage: `url('img/Background Images/DoodleBG_image.png')`,
+          backgroundImage: `url('img/Background Images/bg-cloth-particles.svg')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -95,7 +95,7 @@ function AboutSec4() {
         </div>
         <div className="md:block hidden">
           <Button variant="b2bStyle" onClick={handleRegisterClick}>
-            Register now <ArrowRight />
+            Join Now <ArrowRight />
           </Button>
         </div>
       </div>

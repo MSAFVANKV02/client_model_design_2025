@@ -11,12 +11,18 @@ import {
   VERIFY_OTP_REGISTER_USER,
 } from "../../../utils/urlPath";
 
+// const token = Cookies.get("st_b2b_tkn") || Cookies.get("us_b2b_tkn"); 
+// console.log(token,'token');
+
 export const API = axios.create({
   baseURL: `${
     import.meta.env.MODE == "development"
       ? "http://localhost:4000"
       : "https://gateway.ayaboo.com"
   }`,
+  // headers:{
+  //   "Authorization": `Bearer ${token}`,
+  // }
 });
 
 type IFormData = {

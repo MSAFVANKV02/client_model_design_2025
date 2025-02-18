@@ -4,7 +4,7 @@ function AboutSec1() {
   return (
     <div className='bg-black py-10 text-center rounded-2xl'
     style={{
-        backgroundImage: `url('img/Background Images/DoodleBG_image.png')`,
+        backgroundImage: `url('img/Background Images/bg-cloth-particles.svg')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

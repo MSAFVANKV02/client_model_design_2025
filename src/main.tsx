@@ -12,8 +12,11 @@ import { persistStore } from "redux-persist";
 import { AuthProvider } from "./providers/AuthContext.tsx";
 import { ContextProvider } from "./providers/context/context.tsx";
 import { Toaster } from "react-hot-toast";
+import { pdfjs } from "react-pdf";
 
 const persister = persistStore(store);
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+
 
 // import { AuthProvider } from "./providers/AuthContext.tsx";
 

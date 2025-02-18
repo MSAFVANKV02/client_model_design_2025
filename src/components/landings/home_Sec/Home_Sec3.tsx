@@ -56,8 +56,8 @@ function HomeSec3() {
       </ul>
       <div className="flex items-center justify-center">
         <Button variant="b2bStyle" className="f">
-          <Link to={""} className="h-full w-full flex items-center justify-center gap-2 text-sm font-normal">
-            Register Now  <ArrowRight />
+          <Link to={"/login"} className="h-full w-full flex items-center justify-center gap-2 text-sm font-normal">
+            Join Now  <ArrowRight />
           </Link>
         </Button>
       </div>

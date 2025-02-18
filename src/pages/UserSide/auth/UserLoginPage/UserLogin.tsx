@@ -108,7 +108,7 @@ function UserLogin() {
     <div className="h-screen w-screen flex items-center justify-center relative">
       {/* Main Container */}
       <img
-        src="/img/Background Images/Group 1109.svg"
+        src="/img/Background Images/userlogin-bg.svg"
         alt=""
         draggable={false}
         className="absolute w-full h-full object-cover"

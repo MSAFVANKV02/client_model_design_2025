@@ -8,15 +8,29 @@ function HomeSec1() {
   const mobileSize = onlyWidth < 768;
   return (
     <div
-      className="w-full relative 2xl:pl-24 xl:pl-20 md:pl-14 sm:pl-10 sm:px-0 px-5 mx-auto flex lg:flex-row flex-col gap-4"
+      className="w-full section_container  flex lg:flex-row flex-col gap-4"
       // style={{
       //   background: `url("img/Background Images/Main_image.png")`,
       //   backgroundSize: "fill",
       //   backgroundPosition: "right",
       //   backgroundRepeat: "no-repeat",
-      // }}
+      // }}2xl:pl-24 xl:pl-20 md:pl-14 sm:pl-10 sm:px-0 px-5 mx-auto
     >
-      <div className="flex lg:w-[40%]  w-full space-y-6 lg:-translate-y-5  lg:mt-0 sm:mt-24 mt-20 flex-col lg:justify-end justify-center lg:items-start items-center lg:h-screen h-1/2 z-20 text-container font-bold  uppercase">
+          <img
+          src={`${
+            mobileSize
+              ? "img/Background Images/Mobile_Main_image.png"
+              : "img/Background Images/Main_image.png"
+          }`}
+          alt="home|B2b"
+          draggable={false}
+          className="absolute lg:h-screen right-0 "
+        />
+
+        
+      <div className="flex lg:w-[40%]  w-full space-y-6 lg:-translate-y-5  
+      lg:mt-0 2xl:pb-14 sm:mt-24 mt-20 flex-col lg:justify-end justify-center lg:items-start items-center
+       lg:h-screen h-1/2 z-20 text-container font-bold  uppercase">
         <div className="lg:text-start text-center font-semibold ">
           <h2>Offers a platform</h2>
           <h2>for trade,</h2>
@@ -38,7 +52,7 @@ function HomeSec1() {
       </div>
       {/*  */}
       <div className="lg:h-screen relative lg:w-[60%] w-full">
-        <img
+        {/* <img
           src={`${
             mobileSize
               ? "img/Background Images/Mobile_Main_image.png"
@@ -47,17 +61,17 @@ function HomeSec1() {
           alt="home|B2b"
           draggable={false}
           className="lg:float-end lg:h-screen w-full "
-        />
-        <div className="lg:absolute  lg:-translate-y-3/4 lg:top-[60%] 2xl:right-40 right-10 flex flex-col items-center lg:gap-10 gap-5">
+        /> */}
+        <div className="lg:absolute  lg:-translate-y-1/2 lg:top-1/2  right-0 flex flex-col items-center lg:gap-10 gap-5">
           <img
             src="img/Background Images/Curvy_arrow_image.png"
             alt=""
             className="lg:w-auto w-28"
           />
-          <Link to={`/register`} className="bg-textMain text-center rounded-md active:scale-75 duration-500 transition-all">
+          <Link to={`/login`} className="bg-textMain text-center rounded-md active:scale-75 duration-500 transition-all">
             <Button variant="b2bStyle" className="lg:py-6 lg:px-5">
               {" "}
-              Register Now
+              Join Now
             </Button>
           </Link>
           <img

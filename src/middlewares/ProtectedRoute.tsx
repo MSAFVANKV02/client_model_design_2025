@@ -14,6 +14,20 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 }) => {
   const isLoggedInKyc = isAuthenticated_4_Kyc();
   const isLogged = isAuthenticated();
+  // const navigate = useNavigate(); 
+
+
+  // useEffect(() => {
+  //   checkAuthKyc().then((data) => {
+  //     if (data?.authenticated) {
+  //       if (!window.location.pathname.startsWith("/kyc")) {
+  //         navigate("/kyc", { replace: true }); // ✅ Use navigate() instead
+  //       }
+  //     } else {
+  //       navigate("/", { replace: true });
+  //     }
+  //   });
+  // }, [navigate]); 
 
   // If logged in and trying to access a protected route that's not KYC, redirect to KYC
 

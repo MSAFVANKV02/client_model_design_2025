@@ -1,3 +1,4 @@
+
 import { MouseEventHandler } from "react";
 
 // Define the type for KYC statuses
@@ -22,6 +23,7 @@ export interface KycStatusContent {
 // Create the reusable function
 export const getKycStatusContent = (
   status: KycStatus,
+  // userKycDetails: IKycProps,
   defaultClickHandler?: MouseEventHandler<HTMLButtonElement>
 ): KycStatusContent => {
   switch (status) {

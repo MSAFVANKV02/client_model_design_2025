@@ -55,6 +55,7 @@ export interface IKycProps {
     | "Other Shop Documents";
   status: "pending" | "approved" | "rejected";
   rejectionReason?: string; // Optional
+  kycFeedback:string;
   isApproved: boolean;
   userId: string;
   createdAt: Date;
