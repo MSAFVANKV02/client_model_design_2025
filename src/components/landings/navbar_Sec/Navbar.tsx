@@ -9,8 +9,10 @@ import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { useEffect } from "react";
 import { fetchAyabooUserDetails } from "@/redux/userSide/UserAuthSlice";
 import { useAuth } from "@/providers/AuthContext";
-import { isAuthenticated, isAuthenticated_4_Kyc } from "@/middlewares/IsAuthenticated";
-
+import {
+  isAuthenticated,
+  isAuthenticated_4_Kyc,
+} from "@/middlewares/IsAuthenticated";
 
 export type INavbarItems = {
   href: string;
@@ -25,15 +27,14 @@ type NavbarProps = {
 
 function Navbar({ navItems }: NavbarProps) {
   const dispatch = useAppDispatch();
-  const {  user } = useAppSelector(state=> state.auth)
+  const { user, error } = useAppSelector((state) => state.auth);
   const location = useLocation();
-  const {handleLogout} = useAuth();
+  const { handleLogout } = useAuth();
   const isLoggedInKyc = isAuthenticated_4_Kyc();
   const isLogged = isAuthenticated();
   // console.log(isUserLogged,'slice');
-  // console.log(user,'user navbar');
-  
-  
+  // console.log(error,'user navbar');
+
   // const navigate = useNavigate();
   // const isLoggedIn4Kyc = isAuthenticated_4_Kyc();
   // const { handleLogout } = useAuth();
@@ -43,29 +44,29 @@ function Navbar({ navItems }: NavbarProps) {
 
     if (isLoggedInKyc || isLogged) {
       dispatch(fetchAyabooUserDetails());
-    } 
+    }
 
-    if(isLoggedInKyc && user?.kycStatus  === "approved"){
-      handleLogout('/login');
+    if (isLoggedInKyc && user?.kycStatus === "approved") {
+      handleLogout("/login");
       return;
     }
 
-    if( user?.kycStatus !== "approved" && !user?.isVerified && !user?.isRegistered) {
-
+    if (
+      (user?.kycStatus !== "approved" && user?.isVerified === false) ||
+      !user ||
+      user?.isRegistered === false ||
+      error
+    ) {
       // enable this after correct backend current user for kyc also =====
-      handleLogout('/login');
+      handleLogout("/login");
 
+      const timeoutId = setTimeout(() => {
+        // handleLogout('/login');
+      }, 10000); // 10 seconds delay
 
-      // const timeoutId = setTimeout(() => {
-      //   handleLogout('/login');
-      // }, 10000); // 10 seconds delay
-  
-      // return () => clearTimeout(timeoutId); 
+      return () => clearTimeout(timeoutId);
     }
   }, [isLogged, dispatch, handleLogout, isLoggedInKyc]);
-  
-
- 
 
   return (
     <nav
@@ -132,7 +133,7 @@ function Navbar({ navItems }: NavbarProps) {
                 <AccountMenu />
               )
             } */}
-              <AccountMenu />
+            <AccountMenu />
 
             {/* <Icon icon={`ph:bell-light`} fontSize={25} className="" /> */}
             {/* <Icon icon={`mynaui:cart`} fontSize={25} className="" /> */}
