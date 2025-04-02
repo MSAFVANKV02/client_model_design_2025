@@ -36,7 +36,7 @@ import { ScrollProvider } from "@/providers/context/ScrollContext";
 import ProtectedRoute from "@/middlewares/ProtectedRoute";
 import { isAuthenticated } from "@/middlewares/IsAuthenticated";
 
-import CategoryProductsPage from "@/pages/UserSide/Prod_pages/Category_wise/CategoryProductsPage";
+import CategoryProductsPage from "@/pages/UserSide/Prod_pages/Category_wise/Category-Products-Page";
 import Products from "@/pages/UserSide/Prod_pages/ProductDetails/Products";
 import ShoppingCart from "@/pages/UserSide/cart/page";
 import CheckoutPage from "@/pages/UserSide/cart/checkout/page";

@@ -1,23 +1,29 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useAppSelector } from "@/redux/hook";
 
 export default function CategoryCard() {
 //   const [width, height] = useWindowSize();
   const [showAll, setShowAll] = useState(false);
+  const categories = useAppSelector((state) => state.category.categories);
 
-  const categoryCard = [
-    { name: "Shirts", image: "img/cards/image 102.png" },
-    { name: "Pants", image: "img/cards/image 103.png" },
-    { name: "Lingaries", image: "img/cards/image 104.png" },
-    { name: "Toys", image: "img/cards/image 105.png" },
-    { name: "Jeans", image: "img/cards/image 103.png" },
-    { name: "Leggings", image: "img/cards/image 102.png" },
-    { name: "Jeggings", image: "img/cards/image 105.png" },
-    { name: "Featured", image: "img/cards/image 102.png" },
-    { name: "Shorts", image: "img/cards/image 102.png" },
-    // Add more categories as needed...
-  ];
+  // console.log(categories,'categories');
+  
+
+
+  // const categoryCard = [
+  //   { name: "Shirts", image: "img/cards/image 102.png" },
+  //   { name: "Pants", image: "img/cards/image 103.png" },
+  //   { name: "Lingaries", image: "img/cards/image 104.png" },
+  //   { name: "Toys", image: "img/cards/image 105.png" },
+  //   { name: "Jeans", image: "img/cards/image 103.png" },
+  //   { name: "Leggings", image: "img/cards/image 102.png" },
+  //   { name: "Jeggings", image: "img/cards/image 105.png" },
+  //   { name: "Featured", image: "img/cards/image 102.png" },
+  //   { name: "Shorts", image: "img/cards/image 102.png" },
+  //   // Add more categories as needed...
+  // ];
 
   // Corrected fadeIn function
   const fadeIn = (direction:string, delay:number) => {
@@ -40,18 +46,23 @@ export default function CategoryCard() {
     };
   };
 
-  const visibleCards = showAll ? categoryCard : categoryCard.slice(0, 8);
+  const visibleCards = showAll ? categories : categories.slice(0, 8);
 
   return (
     <div className="space-y- section_container_cards">
       <div className="flex justify-between items-center">
         <h4>Shop by category</h4>
-        <small
+        {
+          visibleCards.length > 8 && (
+              <small
           className="text-gray-400 cursor-pointer"
           onClick={() => setShowAll(!showAll)}
         >
           {showAll ? "Show less" : "View all categories"} {">"}
         </small>
+          )
+        }
+      
       </div>
 
       {/* Cards section */}
@@ -73,11 +84,13 @@ export default function CategoryCard() {
                 variants={fadeIn('up', index * 0.1)} // Apply fadeIn animation
                 initial="hidden"
                 animate="show"
-                className="flex justify-center cursor-pointer flex-col rounded-xl shadow-sm hover:scale-105 snap-center duration-300 transition-all h-24 w-40 md:h-48 md:w-auto border items-center p-2 gap-3 min-w-[95px] md:min-w-0"
+                className="flex justify-center cursor-pointer flex-col rounded-xl shadow-sm hover:scale-105 snap-center duration-300 transition-all 
+                h-24 w-40 md:h-40 md:w-auto border items-center p-2 gap-3 "
               >
                 <img
-                  src={item.image}
+                  src={item.iconImage??""}
                   alt={item.name}
+                  loading="lazy"
                   className="w-8 md:h-auto md:w-auto object-cover rounded-md"
                 />
                 <p className="truncate w-full text-center">{item.name}</p>

@@ -33,6 +33,8 @@ const config = {
         textGray: "var(--gray)",
         textHardSoft: "var( --hardSoftColor)",
         textGreen: "var( --green)",
+        borderColor: "#B6B6B6",
+
 
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -68,6 +70,7 @@ const config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -93,6 +96,8 @@ const config = {
         bgPrimaryVariant: "var(--primaryVariant)",
         bgHardSoft: "var( --hardSoftColor)",
         bgGreen: "var( --green)",
+        borderColor: "#B6B6B6",
+
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",

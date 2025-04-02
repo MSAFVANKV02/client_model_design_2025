@@ -1,139 +1,3 @@
-// import * as React from "react";
-// import Card from "@mui/material/Card";
-// import CardActions from "@mui/material/CardActions";
-// import CardContent from "@mui/material/CardContent";
-// import CardMedia from "@mui/material/CardMedia";
-// import Typography from "@mui/material/Typography";
-// import IconButton from "@mui/material/IconButton";
-// import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-// import FavoriteIcon from "@mui/icons-material/Favorite";
-// import StarIcon from "@mui/icons-material/Star";
-// import { Box } from "@mui/material";
-// import { Button } from "@/components/ui/button";
-
-// interface ProdCardProps {
-//   title: string;
-//   priceRange: string;
-//   image: string;
-//   isFavorite: boolean;
-//   sold: number;
-//   CardHeading?: string;
-//   index?: number;
-// }
-
-// // const useStyles = makeStyles({
-
-// // })
-
-// export default function ProductNav({
-//   title,
-//   priceRange,
-//   image,
-//   isFavorite,
-//   sold,
-//   // CardHeading,
-//   // index
-// }: ProdCardProps) {
-//   const [favorite, setFavorite] = React.useState(isFavorite);
-//   // const [width] = useWindowSize();
-//   // const theme = useTheme();
-
-//   return (
-//     <>
-//       {/* <h4>
-//       {index === 0 &&  CardHeading}
-//     </h4> */}
-//       <Card
-//         // sx={{
-//         //   maxWidth: 330,
-//         //   boxShadow:
-//         //     " 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1)",
-//         //     transition: "transform 0.3s ease, background-color 0.3s ease", // Smooth scaling
-//         //     "&:hover": {
-//         //       transform: "scale(1.02)", // Scales the card slightly on hover
-//         //       backgroundColor: theme.palette.grey[100],
-//         //     },
-//         //     cursor: "pointer"
-//         // }}
-//         className="max-w-xs bg-white sm:shadow-md sm:rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105 cursor-pointer"
-//       >
-//         <Box sx={{ position: "relative" }}>
-//           <CardMedia
-//             component="img"
-//             sx={{
-//               // height: width > 768 ? 350 : 200,
-//               height: { xs: 200, sm: 350 },
-//               width: "100%", // Full width
-//               objectFit: "cover",
-//               // borderTopLeftRadius: { xs: 5, sm: 8 } ,
-//               // borderTopRightRadius: { xs: 5, sm: 8 },
-//             }}
-//             className="sm:rounded-lg"
-//             image={image}
-//             alt={title}
-//           />
-//           <Box
-//             sx={{
-//               position: "absolute",
-//               top: 10,
-//               left: 10,
-//               backgroundColor: "green",
-//               color: "white",
-//               borderRadius: "4px",
-//               padding: "2px 6px",
-//             }}
-//           >
-//             <StarIcon sx={{ fontSize: 14, mr: 0.5 }} />
-//             <Typography variant="caption">5</Typography>
-//           </Box>
-//           <IconButton
-//             sx={{ position: "absolute", top: 10, right: 10 }}
-//             onClick={() => setFavorite(!favorite)}
-//           >
-//             {favorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
-//           </IconButton>
-//         </Box>
-//         <CardContent
-//         sx={{
-//           padding:2 ,
-//         }}
-//         >
-//           <Typography
-//             sx={{
-//               whiteSpace: "nowrap",
-//               overflow: "hidden",
-//               textOverflow: "ellipsis",
-//             }}
-//             variant="body1"
-//             component="div"
-//             className="truncate"
-//           >
-//             {title}
-//           </Typography>
-//           <Typography variant="inherit" color="text.primary">
-//             {priceRange}
-//           </Typography>
-//           <Typography variant="caption" color="text.secondary"
-//           sx={{
-//             display: 'flex',
-//             flexWrap: 'wrap',
-//           }}
-//           >
-//             Min. order: 50 pieces
-//             Colour: 4, Size: 5
-//             {sold.toLocaleString()} sold
-//           </Typography>
-//         </CardContent>
-//         <CardActions>
-//           <Button size="b2b" variant="b2bStyle" className="w-full">
-//             Make order
-//           </Button>
-//         </CardActions>
-//       </Card>
-//     </>
-//   );
-// }
-
 import * as React from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -143,57 +7,136 @@ import { Button } from "@/components/ui/button";
 import { IconButton } from "@mui/material";
 import useNavigateClicks from "@/hooks/useClicks";
 import { cn } from "@/lib/utils";
+import { IFinalProductTypes, PricePerPiece, Product } from "@/types/final-product-types";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ProdCardProps {
   title: string;
-  priceRange: string | number;
-  image: string;
+  minQty: string | number;
+  image: string[];
   isFavorite: boolean;
-  sold: number;
+  sold?: number;
   index?: number;
   link: string;
   className?: string;
   imgClass?: string;
+  PricePerPiece?: PricePerPiece[];
+  basePrice: number;
+  products: Product;
+  stockData?:IFinalProductTypes
+  loading: boolean;
+  imageContainer?: string;
+  featured?: boolean;
 }
 
 export default function ProductNav({
   title,
-  priceRange,
+  minQty,
   image,
   isFavorite,
   sold,
   link,
   className,
   imgClass,
+  // PricePerPiece,
+  basePrice,
+  products,
+  loading,
+  imageContainer,
+  featured,
+  stockData
+
 }: ProdCardProps) {
   const [favorite, setFavorite] = React.useState(isFavorite);
 
   const { handleClick } = useNavigateClicks();
 
+  const matchedStore = products.non_featured_stores?.find(
+    (task) => task.store === stockData?.store._id
+  );
+
+  const checking = matchedStore ? false : featured ? true : false;
+
   return (
-    <div
-      className={cn(
-        ` max-w-xs flex-shrink-0 sm:border-none border-white border bg-white  shadow-md sm:rounded-lg
-     overflow-hidden transition-transform duration-300 lg:hover:scale-[1.01] cursor-pointer`,
-        className
-      )}
-    >
-      {/* <Link to={link}> */}
-      <div className="relative">
-        {/* Image */}
-        <img
-          className={cn(`md:h-[380px] sm:h-[350px] h-52 w-full object-cover`,imgClass)}
-          src={image}
-          alt={title}
-        />
-
-        {/* Rating Badge */}
-        <div className="absolute top-2 left-2 bg-green-500 text-white rounded px-2 py-1 text-xs flex items-center">
-          <StarIcon className="text-xs mr-1" fontSize="small" />5
+    <>
+      {loading ? (
+        <div className="flex flex-col space-y-3">
+          <Skeleton className=" h-[280px] rounded-sm" />
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-[250px]" />
+            <Skeleton className="h-4 w-[200px]" />
+            <Skeleton className="h-10 " />
+          </div>
         </div>
+      ) : (
+        <div
+          className={cn(
+            ` max-w-md  flex-shrink-0   border border-borderColor bg-white  shadow-sm sm:rounded-sm
+     overflow-hidden cursor-pointer`,
+            className
+          )}
+        >
+          {/* <Link to={link}> */}
+          <div
+            className={cn(
+              "relative w-full  sm:h-[350px] h-[280px] cursor-pointer flex items-center justify-center overflow-hidden",
+              imageContainer
+            )}
+          >
+            {/* Image */}
+            {image.length > 1 ? (
+              <div className="relative w-full h-full group overflow-hidden">
+                <img
+                  src={image[0] || "/"}
+                  alt="Product Image"
+                  className={cn(
+                    `object-cover aspect-square absolute w-full h-full group-hover:opacity-0 transition-opacity duration-500`,
+                    imgClass
+                  )}
+                />
+                <img
+                  src={image[1] || "/"}
+                  alt="Product Hover Image"
+                  className={cn(
+                    `object-cover absolute w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-500`,
+                    imgClass
+                  )}
+                />
+              </div>
+            ) : (
+              <img
+                // className={cn(
+                //   `md:h-[380px] sm:h-[350px] h-52 w-full transition-transform duration-300 lg:hover:scale-[1.01]  object-cover`,
+                //   imgClass
+                // )}
+                className={cn(
+                  `object-cover w-full h-full hover:scale-105 duration-500 transition-all`,
+                  imgClass
+                )}
+                src={image[0]}
+                alt={title}
+              />
+            )}
 
-        {/* Favorite Icon */}
-        {/* <button
+            {/* featured badge */}
+            {checking && (
+              <div className="absolute bottom-2 h-fit left-2  px-2 bg-bgSoft flex items-center gap-1">
+                {/* <AyabooSvgIcon /> */}
+                <img
+                  src="/img/cards/feayured_logo.svg"
+                  className="object-cover "
+                />
+                <span className="text-xs p-0 text-black">Featured</span>
+              </div>
+            )}
+
+            {/* Rating Badge */}
+            <div className="absolute top-2 left-2 bg-green-500 text-white rounded px-2 py-1 text-xs flex items-center">
+              <StarIcon className="text-xs mr-1" fontSize="small" />5
+            </div>
+
+            {/* Favorite Icon */}
+            {/* <button
           className="absolute top-2 right-2"
           onClick={() => setFavorite(!favorite)}
         >
@@ -203,37 +146,53 @@ export default function ProductNav({
             <FavoriteBorderIcon className="text-white" />
           )}
         </button> */}
-        <IconButton
-          sx={{ position: "absolute", top: 10, right: 10 }}
-          onClick={() => setFavorite(!favorite)}
-        >
-          {favorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
-        </IconButton>
-      </div>
+            <IconButton
+              sx={{ position: "absolute", top: 10, right: 10 }}
+              onClick={() => setFavorite(!favorite)}
+            >
+              {favorite ? (
+                <FavoriteIcon color="error" />
+              ) : (
+                <FavoriteBorderIcon />
+              )}
+            </IconButton>
+          </div>
 
-      {/* Card Content */}
-      <div className="p-4">
-        <h2 className="text-lg font-semibold truncate">{title}</h2>
-        <p className="text-sm text-gray-700">{priceRange}</p>
-        <p className="text-xs text-gray-500 mt-1">
-          Min. order: 50 pieces
-          <br />
-          Colour: 4, Size: 5, {sold.toLocaleString()} sold
-        </p>
-      </div>
+          {/* Card Content */}
+          <div className="p-4">
+            <h2 className="text-sm capitalize truncate">{title}</h2>
+            <div className="flex items-center ">
+              <p className="text-lg font-bold text-gray-700">₹{basePrice}</p>
+              {/* <p className="text-sm text-gray-700">{PricePerPiece?.[0].maxPiece}</p> */}
+            </div>
 
-      {/* Action Button */}
-      <div className="p-2">
-        <Button
-          variant={`b2bStyle`}
-          size="b2b"
-          className="w-full rounded-md text-sm"
-          onClick={() => handleClick(link)}
-        >
-          Make order
-        </Button>
-      </div>
-      {/* </Link> */}
-    </div>
+            <p className="text-sm text-gray-500 ">
+              Min. order: {minQty} pieces
+              <br />
+              Color: {products.variations.length}, Size:{" "}
+              {
+                products.variations.flatMap((variation) => variation.details)
+                  .length
+              }
+              , {sold?.toLocaleString()} sold
+            </p>
+
+            {/* Action Button */}
+            <div className="mt-1">
+              <Button
+                variant={`b2bStyle`}
+                size="b2b"
+                className="w-full rounded-md text-sm  h-10"
+                onClick={() => handleClick(link)}
+              >
+                Make order
+              </Button>
+            </div>
+          </div>
+
+          {/* </Link> */}
+        </div>
+      )}
+    </>
   );
 }

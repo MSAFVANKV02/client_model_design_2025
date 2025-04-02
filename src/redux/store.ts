@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import kycReducer from "@/redux/userSide/KycSlice"
 import authReducer from "@/redux/userSide/UserAuthSlice"
 import loadingReducer from "@/redux/userSide/loadingSlice"
+import categoryReducer from "@/redux/userSide/category_Slice"
 
 import storage from 'redux-persist/lib/storage';
 import {  persistReducer } from "redux-persist";
@@ -19,6 +20,8 @@ const rootReducer = combineReducers({
   kyc: kycReducer, 
   auth: authReducer, 
   loading: loadingReducer,
+  category: categoryReducer, //
+
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

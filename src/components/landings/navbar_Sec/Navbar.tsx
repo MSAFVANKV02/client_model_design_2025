@@ -72,7 +72,7 @@ function Navbar({ navItems }: NavbarProps) {
     <nav
       className={`w-full  flex py-5 bg-transparent ${
         location.pathname === "/" && " "
-      } 2xl:px-24 xl:px-20 md:px-14 sm:px-10 px-5 mx-auto z-50`}
+      } max-w-screen-2xl mx-auto z-50`}
     >
       <div className="flex justify-between w-full">
         {/* Navbar Logo */}

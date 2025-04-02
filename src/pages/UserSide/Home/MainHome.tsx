@@ -1,13 +1,20 @@
+
+import { ProductData } from "@/action/product/productData";
 import Banner from "@/components/landings/maniHome/Banners/Banner";
 import BannerWrapper from "@/components/landings/maniHome/Banners/BannerWrapper";
 import ColorGrid from "@/components/landings/maniHome/Cards/ColorCard";
 import ProdCard from "@/components/landings/maniHome/Cards/ProdCard";
 import CategoryCard from "@/components/landings/maniHome/Shop_By_Cat/CategoryCard";
-import { ProductsDetail } from "@/utils/CardDetails";
+// import { ProductsDetail } from "@/utils/CardDetails";
 import { useWindowSize } from "@react-hook/window-size";
 
 function MainHome() {
   const [width] = useWindowSize();
+
+  const { products, isFetching } = ProductData();
+
+  // console.log(products, "products");
+
   const BannerDetails = [
     {
       id: 1,
@@ -43,7 +50,7 @@ function MainHome() {
   ];
 
   const visibleProducts =
-    width > 1280 ? ProductsDetail.slice(0, 5) : ProductsDetail.slice(0, 4);
+    width > 1280 ? products.slice(0, 5) : products.slice(0, 4);
 
   return (
     <div className="min-h-screen sm:space-y-8 space-y-2 py-3">
@@ -78,7 +85,7 @@ function MainHome() {
         <div className="flex-grow rounded-md md:h-[360px] sm:h-[200px] h-[100px] overflow-hidden w-[100px]">
           {/* <AdvertiseBanner /> */}
           <img
-          draggable={false}
+            draggable={false}
             src="/img/advertise/adv1.png"
             alt=""
             className="h-full object-cover rounded-xl"
@@ -96,10 +103,10 @@ function MainHome() {
 
       {/*  */}
       {/* ======= Section 03 : Banner2 ========= starting */}
-      <BannerWrapper
+      {/* <BannerWrapper
         isActive={true}
         className="w-full section_spacing"
-         nextBtnClass="shadow-md active:scale-90 duration-300 transition-all"
+        nextBtnClass="shadow-md active:scale-90 duration-300 transition-all"
         prevBtnClass="shadow-md active:scale-90 duration-300 transition-all"
         btnClass="sm:left-28 sm:right-28 top-1/2 -translate-y-1/2 left-0  right-0"
       >
@@ -113,24 +120,31 @@ function MainHome() {
             key={banner.id}
           />
         ))}
-      </BannerWrapper>
+      </BannerWrapper> */}
       {/* --------------------- Section 03 : Banner2 ---------------------== ending */}
 
       {/* ======= Section 04 :  Products ========= starting */}
-      <div className="grid sm:gap-2 xl:grid-cols-5 sm:grid-cols-4  grid-cols-2 w-full section_container_cards">
-        {visibleProducts.map((product) => (
-          <ProdCard
-            key={product.id}
-            link="/category/new-jean"
-            title={product.title}
-            priceRange={product.priceRange}
-            image={product.image}
-            isFavorite={product.isFavorite}
-            sold={product.sold}
-          />
-        ))}
-      </div>
+      <div className="section_container_cards space-y-2">
+        <h4>Today's Deals</h4>
 
+        <div className="grid sm:gap-2 xl:grid-cols-5 sm:grid-cols-4  grid-cols-2 w-full section_container_cards">
+          {visibleProducts.map((product) => (
+            <ProdCard
+              basePrice={product.product.basePrice}
+              products={product.product}
+              key={product._id}
+              link="/category/new-jean"
+              title={product.product.product_name}
+              minQty={product.product.minimum_quantity}
+              image={product.product.thumbnails}
+              isFavorite={true}
+              PricePerPiece={product.product.price_per_pieces}
+              loading={isFetching}
+              // sold={product.sold}
+            />
+          ))}
+        </div>
+      </div>
       {/* ======= Section 05 : Color Variants ========= starting */}
 
       <div className="section_container_dash space-y-1 ">
@@ -163,19 +177,22 @@ function MainHome() {
 
       {/* ======= Section 07 : Product Card 2 ========= starting */}
 
-      <div className=" w-full section_container_cards">
-        <h5 className="pb-1">Todays Deal</h5>
-        <div className="grid sm:gap-2  xl:grid-cols-5 sm:grid-cols-4  grid-cols-2">
-          {visibleProducts.map((product, index) => (
+      <div className="section_container_cards space-y-2">
+      <h4>Top Deals</h4>
+        <div className="grid sm:gap-2 xl:grid-cols-5 sm:grid-cols-4  grid-cols-2 w-full section_container_cards">
+          {visibleProducts.map((product) => (
             <ProdCard
-              link=""
-              key={product.id}
-              title={product.title}
-              priceRange={product.priceRange}
-              image={product.image}
-              isFavorite={product.isFavorite}
-              sold={product.sold}
-              index={index}
+              basePrice={product.product.basePrice}
+              products={product.product}
+              key={product._id}
+              link="/category/new-jean"
+              title={product.product.product_name}
+              minQty={product.product.minimum_quantity}
+              image={product.product.thumbnails}
+              isFavorite={true}
+              PricePerPiece={product.product.price_per_pieces}
+              loading={isFetching}
+              // sold={product.sold}
             />
           ))}
         </div>
@@ -207,4 +224,4 @@ function MainHome() {
     </div>
   );
 }
-export default MainHome
+export default MainHome;
